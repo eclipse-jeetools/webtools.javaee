@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,17 +44,21 @@ public class ArchiveInit {
 	private static void preRegisterPackages() {
 		//CommonarchivePackage reg
 		ExtendedEcoreUtil.preRegisterPackage("commonarchive.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+						@Override
 						public EPackage getEPackage() {
 							return CommonarchivePackage.eINSTANCE;
 						}
+						@Override
 						public EFactory getEFactory() {
 							return CommonarchiveFactory.eINSTANCE;
 						}
 					});
 		ExtendedEcoreUtil.preRegisterPackage("commonarchive.looseconfig.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+						@Override
 						public EPackage getEPackage() {
 							return LooseconfigPackage.eINSTANCE;
 						}
+						@Override
 						public EFactory getEFactory() {
 							return LooseconfigFactory.eINSTANCE;
 						}

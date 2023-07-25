@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 /**
  * <copyright>
  * </copyright>
@@ -208,6 +220,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookieNameType getName() {
 		return name;
 	}
@@ -232,6 +245,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(CookieNameType newName) {
 		if (newName != name) {
 			NotificationChain msgs = null;
@@ -251,6 +265,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookieDomainType getDomain() {
 		return domain;
 	}
@@ -275,6 +290,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDomain(CookieDomainType newDomain) {
 		if (newDomain != domain) {
 			NotificationChain msgs = null;
@@ -294,6 +310,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookiePathType getPath() {
 		return path;
 	}
@@ -318,6 +335,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPath(CookiePathType newPath) {
 		if (newPath != path) {
 			NotificationChain msgs = null;
@@ -337,6 +355,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookieCommentType getComment() {
 		return comment;
 	}
@@ -361,6 +380,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setComment(CookieCommentType newComment) {
 		if (newComment != comment) {
 			NotificationChain msgs = null;
@@ -380,6 +400,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isHttpOnly() {
 		return httpOnly;
 	}
@@ -389,6 +410,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHttpOnly(boolean newHttpOnly) {
 		boolean oldHttpOnly = httpOnly;
 		httpOnly = newHttpOnly;
@@ -403,6 +425,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetHttpOnly() {
 		boolean oldHttpOnly = httpOnly;
 		boolean oldHttpOnlyESet = httpOnlyESet;
@@ -417,6 +440,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetHttpOnly() {
 		return httpOnlyESet;
 	}
@@ -426,6 +450,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSecure() {
 		return secure;
 	}
@@ -435,6 +460,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecure(boolean newSecure) {
 		boolean oldSecure = secure;
 		secure = newSecure;
@@ -449,6 +475,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetSecure() {
 		boolean oldSecure = secure;
 		boolean oldSecureESet = secureESet;
@@ -463,6 +490,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSecure() {
 		return secureESet;
 	}
@@ -472,6 +500,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMaxAge() {
 		return maxAge;
 	}
@@ -481,6 +510,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaxAge(BigInteger newMaxAge) {
 		BigInteger oldMaxAge = maxAge;
 		maxAge = newMaxAge;
@@ -493,6 +523,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -502,6 +533,7 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,6 +33,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		return methodsExtendedList[0];
 	}
 	
+	@Override
 	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// A home or component class needs the following classes' extended methods:
 		//    1. bean class
@@ -45,20 +46,24 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		return result;
 	}
 	
+	@Override
 	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a home or component's field is defined on another class
 		// of the bean.
 		return null;
 	}
 	
+	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		//Default
 	}
 	
+	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		validateApplicationExceptionRules(vc, bean, clazz, method);
 	}
 	
+	@Override
 	public final boolean isEJBInterfaceMethod(EnterpriseBean bean, Method method) throws InvalidInputException {
 		long[] superTypes = getSupertypes();
 		for(int i=0; i<superTypes.length; i++) {
@@ -69,6 +74,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		return false;
 	}
 	
+	@Override
 	public final JavaHelpers getOverExposedLocalType(EnterpriseBean bean, JavaClass clazz, Method method) {
 		if((isRemote() & IEJBType.REMOTE) == IEJBType.REMOTE) {
 			// need to check that the method doesn't expose any of the local types of the bean
@@ -106,6 +112,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		}	
 	}
 	
+	@Override
 	public void validateApplicationExceptionRules(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException  {
 		List exceptions = method.getJavaExceptions();
 		if(exceptions.size() == 0) {

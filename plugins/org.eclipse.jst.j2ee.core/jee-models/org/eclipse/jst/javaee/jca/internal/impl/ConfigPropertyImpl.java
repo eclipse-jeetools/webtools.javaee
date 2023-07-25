@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -265,6 +265,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescription() {
 		if (description == null) {
 			description = new EObjectContainmentEList<Description>(Description.class, this, JcaPackage.CONFIG_PROPERTY__DESCRIPTION);
@@ -277,6 +278,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConfigPropertyName() {
 		return configPropertyName;
 	}
@@ -286,6 +288,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConfigPropertyName(String newConfigPropertyName) {
 		String oldConfigPropertyName = configPropertyName;
 		configPropertyName = newConfigPropertyName;
@@ -298,6 +301,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConfigPropertyTypeType getConfigPropertyType() {
 		return configPropertyType;
 	}
@@ -307,6 +311,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConfigPropertyType(ConfigPropertyTypeType newConfigPropertyType) {
 		ConfigPropertyTypeType oldConfigPropertyType = configPropertyType;
 		configPropertyType = newConfigPropertyType == null ? CONFIG_PROPERTY_TYPE_EDEFAULT : newConfigPropertyType;
@@ -321,6 +326,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetConfigPropertyType() {
 		ConfigPropertyTypeType oldConfigPropertyType = configPropertyType;
 		boolean oldConfigPropertyTypeESet = configPropertyTypeESet;
@@ -335,6 +341,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetConfigPropertyType() {
 		return configPropertyTypeESet;
 	}
@@ -344,6 +351,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConfigPropertyValue() {
 		return configPropertyValue;
 	}
@@ -353,6 +361,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConfigPropertyValue(String newConfigPropertyValue) {
 		String oldConfigPropertyValue = configPropertyValue;
 		configPropertyValue = newConfigPropertyValue;
@@ -365,6 +374,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isConfigPropertyIgnore() {
 		return configPropertyIgnore;
 	}
@@ -374,6 +384,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConfigPropertyIgnore(boolean newConfigPropertyIgnore) {
 		boolean oldConfigPropertyIgnore = configPropertyIgnore;
 		configPropertyIgnore = newConfigPropertyIgnore;
@@ -388,6 +399,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetConfigPropertyIgnore() {
 		boolean oldConfigPropertyIgnore = configPropertyIgnore;
 		boolean oldConfigPropertyIgnoreESet = configPropertyIgnoreESet;
@@ -402,6 +414,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetConfigPropertyIgnore() {
 		return configPropertyIgnoreESet;
 	}
@@ -411,6 +424,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isConfigPropertySupportsDynamicUpdates() {
 		return configPropertySupportsDynamicUpdates;
 	}
@@ -420,6 +434,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConfigPropertySupportsDynamicUpdates(boolean newConfigPropertySupportsDynamicUpdates) {
 		boolean oldConfigPropertySupportsDynamicUpdates = configPropertySupportsDynamicUpdates;
 		configPropertySupportsDynamicUpdates = newConfigPropertySupportsDynamicUpdates;
@@ -434,6 +449,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetConfigPropertySupportsDynamicUpdates() {
 		boolean oldConfigPropertySupportsDynamicUpdates = configPropertySupportsDynamicUpdates;
 		boolean oldConfigPropertySupportsDynamicUpdatesESet = configPropertySupportsDynamicUpdatesESet;
@@ -448,6 +464,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetConfigPropertySupportsDynamicUpdates() {
 		return configPropertySupportsDynamicUpdatesESet;
 	}
@@ -457,6 +474,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isConfigPropertyConfidential() {
 		return configPropertyConfidential;
 	}
@@ -466,6 +484,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConfigPropertyConfidential(boolean newConfigPropertyConfidential) {
 		boolean oldConfigPropertyConfidential = configPropertyConfidential;
 		configPropertyConfidential = newConfigPropertyConfidential;
@@ -480,6 +499,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetConfigPropertyConfidential() {
 		boolean oldConfigPropertyConfidential = configPropertyConfidential;
 		boolean oldConfigPropertyConfidentialESet = configPropertyConfidentialESet;
@@ -494,6 +514,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetConfigPropertyConfidential() {
 		return configPropertyConfidentialESet;
 	}
@@ -503,6 +524,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -512,6 +534,7 @@ public class ConfigPropertyImpl extends EObjectImpl implements ConfigProperty {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

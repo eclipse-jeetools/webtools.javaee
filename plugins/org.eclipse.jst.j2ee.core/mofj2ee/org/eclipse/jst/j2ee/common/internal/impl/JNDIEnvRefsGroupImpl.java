@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -143,6 +143,7 @@ public abstract class JNDIEnvRefsGroupImpl extends CompatibilityDescriptionGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getEnvironmentProperties() {
 		if (environmentProperties == null) {
 			environmentProperties = new EObjectContainmentEList(EnvEntry.class, this, CommonPackage.JNDI_ENV_REFS_GROUP__ENVIRONMENT_PROPERTIES);
@@ -155,6 +156,7 @@ public abstract class JNDIEnvRefsGroupImpl extends CompatibilityDescriptionGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getResourceRefs() {
 		if (resourceRefs == null) {
 			resourceRefs = new EObjectContainmentEList(ResourceRef.class, this, CommonPackage.JNDI_ENV_REFS_GROUP__RESOURCE_REFS);
@@ -167,6 +169,7 @@ public abstract class JNDIEnvRefsGroupImpl extends CompatibilityDescriptionGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getEjbRefs() {
 		if (ejbRefs == null) {
 			ejbRefs = new EObjectContainmentEList(EjbRef.class, this, CommonPackage.JNDI_ENV_REFS_GROUP__EJB_REFS);
@@ -179,6 +182,7 @@ public abstract class JNDIEnvRefsGroupImpl extends CompatibilityDescriptionGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
 			resourceEnvRefs = new EObjectContainmentEList(ResourceEnvRef.class, this, CommonPackage.JNDI_ENV_REFS_GROUP__RESOURCE_ENV_REFS);
@@ -191,6 +195,7 @@ public abstract class JNDIEnvRefsGroupImpl extends CompatibilityDescriptionGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
 			ejbLocalRefs = new EObjectContainmentEList(EJBLocalRef.class, this, CommonPackage.JNDI_ENV_REFS_GROUP__EJB_LOCAL_REFS);
@@ -203,6 +208,7 @@ public abstract class JNDIEnvRefsGroupImpl extends CompatibilityDescriptionGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
 			messageDestinationRefs = new EObjectContainmentEList(MessageDestinationRef.class, this, CommonPackage.JNDI_ENV_REFS_GROUP__MESSAGE_DESTINATION_REFS);
@@ -215,6 +221,7 @@ public abstract class JNDIEnvRefsGroupImpl extends CompatibilityDescriptionGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList(ServiceRef.class, this, CommonPackage.JNDI_ENV_REFS_GROUP__SERVICE_REFS);

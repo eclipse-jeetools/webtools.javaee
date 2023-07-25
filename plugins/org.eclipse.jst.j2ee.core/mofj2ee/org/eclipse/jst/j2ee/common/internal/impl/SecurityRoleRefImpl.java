@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -101,6 +101,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -108,6 +109,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -115,6 +117,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SECURITY_ROLE_REF__NAME, oldName, name));
 	}
 
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -127,6 +130,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SECURITY_ROLE_REF__DESCRIPTION, oldDescription, description));
 	}
 
+	@Override
 	public String getDescription() {
 		if (getDescriptions() != null && !getDescriptions().isEmpty()) {
 			Description d = (Description) getDescriptions().get(0);
@@ -140,6 +144,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	 * @generated This field/method will be replaced during code generation 
 	 * The role-link element is used to link a security role reference to a defined security role. The role-link element must contain the name of one of the security roles defined in the security-role elements.
 	 */
+	@Override
 	public String getLink() {
 		return link;
 	}
@@ -147,6 +152,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLink(String newLink) {
 		String oldLink = link;
 		link = newLink;
@@ -159,6 +165,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.SECURITY_ROLE_REF__DESCRIPTIONS);

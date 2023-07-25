@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 IBM Corporation and others.
+ * Copyright (c) 2013, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -197,6 +197,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Description getDescription() {
 		return description;
 	}
@@ -221,6 +222,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(Description newDescription) {
 		if (newDescription != description) {
 			NotificationChain msgs = null;
@@ -240,6 +242,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -249,6 +252,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -261,6 +265,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getInterfaceName() {
 		return interfaceName;
 	}
@@ -270,6 +275,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInterfaceName(String newInterfaceName) {
 		String oldInterfaceName = interfaceName;
 		interfaceName = newInterfaceName;
@@ -282,6 +288,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getClassName() {
 		return className;
 	}
@@ -291,6 +298,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassName(String newClassName) {
 		String oldClassName = className;
 		className = newClassName;
@@ -303,6 +311,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResourceAdapter() {
 		return resourceAdapter;
 	}
@@ -312,6 +321,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceAdapter(String newResourceAdapter) {
 		String oldResourceAdapter = resourceAdapter;
 		resourceAdapter = newResourceAdapter;
@@ -324,6 +334,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PropertyType> getProperty() {
 		if (property == null) {
 			property = new EObjectContainmentEList<PropertyType>(PropertyType.class, this, JavaeePackage.ADMINISTERED_OBJECT_TYPE__PROPERTY);
@@ -336,6 +347,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -345,6 +357,7 @@ public class AdministeredObjectTypeImpl extends EObjectImpl implements Administe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -125,11 +125,13 @@ public class J2EEInit {
 			}
 			initResourceFactories();
 			EjbFactoryImpl.internalRegisterEJBRelationAdapterFactory(new AdapterFactoryDescriptor() {
+				@Override
 				public AdapterFactory createAdapterFactory() {
 					return new EJBAttributeMaintenanceFactoryImpl();
 				}
 			});
 			EjbFactoryImpl.internalRegisterRelationshipsAdapterFactory(new AdapterFactoryDescriptor() {
+				@Override
 				public AdapterFactory createAdapterFactory() {
 					return new EJBAttributeMaintenanceFactoryImpl();
 				}
@@ -153,108 +155,132 @@ public class J2EEInit {
 	private static void preRegisterPackages() {
 		//common
 		ExtendedEcoreUtil.preRegisterPackage("common.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return CommonPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return CommonFactory.eINSTANCE;
 			}
 		});
 		//application
 		ExtendedEcoreUtil.preRegisterPackage("application.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return ApplicationPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return ApplicationFactory.eINSTANCE;
 			}
 		});
 		//client
 		ExtendedEcoreUtil.preRegisterPackage("client.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return ClientPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return ClientFactory.eINSTANCE;
 			}
 		});
 		//webapplication
 		ExtendedEcoreUtil.preRegisterPackage("webapplication.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return WebapplicationPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return WebapplicationFactory.eINSTANCE;
 			}
 		});
 		//ejb
 		ExtendedEcoreUtil.preRegisterPackage("ejb.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return EjbPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return EjbFactory.eINSTANCE;
 			}
 		});
 		//jca
 		ExtendedEcoreUtil.preRegisterPackage("jca.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return JcaPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return JcaFactory.eINSTANCE;
 			}
 		});
 		//webservicesclient
 		ExtendedEcoreUtil.preRegisterPackage("webservice_client.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return Webservice_clientPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return Webservice_clientFactory.eINSTANCE;
 			}
 		});
 		//webservicescommon
 		ExtendedEcoreUtil.preRegisterPackage("wscommon.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return WscommonPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return WscommonFactory.eINSTANCE;
 			}
 		});
 		//webservicesdd
 		ExtendedEcoreUtil.preRegisterPackage("wsdd.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return WsddPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return WsddFactory.eINSTANCE;
 			}
 		});
 		//jaxrpcmap
 		ExtendedEcoreUtil.preRegisterPackage("jaxrpcmap.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return JaxrpcmapPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return JaxrpcmapFactory.eINSTANCE;
 			}
 		});		
 //		jsp
 		ExtendedEcoreUtil.preRegisterPackage("jsp.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return JspPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return JspFactory.eINSTANCE;
 			}
 		});
 		//taglib
 		ExtendedEcoreUtil.preRegisterPackage("taglib.xmi", new EPackage.Descriptor() { //$NON-NLS-1$
+			@Override
 			public EPackage getEPackage() {
 				return TaglibPackage.eINSTANCE;
 			}
+			@Override
 			public EFactory getEFactory() {
 				return TaglibFactory.eINSTANCE;
 			}
@@ -263,46 +289,56 @@ public class J2EEInit {
 	}
 	private static void preregisterJavaEEPackages() {
 		ExtendedEcoreUtil.preRegisterPackage(JavaeePackage.eNS_URI, new EPackage.Descriptor() {
+			@Override
 			public EPackage getEPackage() {
 				return JavaeePackage.eINSTANCE;
 			}
 
+			@Override
 			public EFactory getEFactory() {
 				return JavaeeFactory.eINSTANCE;
 			}
 		});
 		ExtendedEcoreUtil.preRegisterPackage(EjbPackage.eNS_URI, new EPackage.Descriptor() {
+			@Override
 			public EPackage getEPackage() {
 				return EjbPackage.eINSTANCE;
 			}
 
+			@Override
 			public EFactory getEFactory() {
 				return EjbFactory.eINSTANCE;
 			}
 		});
 		ExtendedEcoreUtil.preRegisterPackage(WebPackage.eNS_URI, new EPackage.Descriptor() {
+			@Override
 			public EPackage getEPackage() {
 				return WebPackage.eINSTANCE;
 			}
 
+			@Override
 			public EFactory getEFactory() {
 				return WebFactory.eINSTANCE;
 			}
 		});
 		ExtendedEcoreUtil.preRegisterPackage(ApplicationPackage.eNS_URI, new EPackage.Descriptor() {
+			@Override
 			public EPackage getEPackage() {
 				return ApplicationPackage.eINSTANCE;
 			}
 
+			@Override
 			public EFactory getEFactory() {
 				return ApplicationFactory.eINSTANCE;
 			}
 		});
 		ExtendedEcoreUtil.preRegisterPackage(ApplicationclientPackage.eNS_URI, new EPackage.Descriptor() {
+			@Override
 			public EPackage getEPackage() {
 				return ApplicationclientPackage.eINSTANCE;
 			}
 
+			@Override
 			public EFactory getEFactory() {
 				return ApplicationclientFactory.eINSTANCE;
 			}
@@ -335,6 +371,7 @@ public class J2EEInit {
 			emfModelsInitialized = true;
 			// put the following initialization on its own thread.
 			Thread j2eeEmfInitThread = new Thread(new Runnable(){
+				@Override
 				public void run()
 				{
 					// Obtain or create and register interdependencies
@@ -390,6 +427,7 @@ public class J2EEInit {
 			
 			// put the following initialization on its own thread.
 			Thread javaeeEmfInitThread = new Thread(new Runnable(){
+				@Override
 				public void run()
 				{
 					// Obtain or create and register interdependencies

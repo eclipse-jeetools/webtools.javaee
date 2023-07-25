@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -118,12 +118,14 @@ public interface CMPAttribute extends J2EEEAttribute {
 	 * Return true if a targetAttribute exists.
 	 * @return boolean value
 	 */
+	@Override
 	boolean isDerived();
 	
 	/**
 	 * Sets the attribute as a derived attribute
 	 * @param aBoolean the boolean value
 	 */
+	@Override
 	void setDerived(boolean aBoolean);
 	
 }

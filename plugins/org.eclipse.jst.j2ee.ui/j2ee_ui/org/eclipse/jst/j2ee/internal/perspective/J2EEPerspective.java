@@ -31,9 +31,9 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 	private static String ID_WST_SNIPPETS_VIEW = "org.eclipse.wst.common.snippets.internal.ui.SnippetsView"; //$NON-NLS-1$	
 	private static final String ID_SEARCH_VIEW = "org.eclipse.search.ui.views.SearchView"; //$NON-NLS-1$
 	private static final String ID_DATA_VIEW = "org.eclipse.datatools.connectivity.DataSourceExplorerNavigator"; //$NON-NLS-1$
-	public static final String ID_CONSOLE_VIEW= "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
-	public static final String ID_MARKERS_VIEW= "org.eclipse.ui.views.AllMarkersView"; //$NON-NLS-1$
-	public static final String ID_TASKLIST_VIEW= "org.eclipse.mylyn.tasks.ui.views.tasks"; //$NON-NLS-1$
+	private static final String ID_CONSOLE_VIEW= "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
+	private static final String ID_MARKERS_VIEW= "org.eclipse.ui.views.AllMarkersView"; //$NON-NLS-1$
+	private static final String ID_TASKLIST_VIEW= "org.eclipse.mylyn.tasks.ui.views.tasks"; //$NON-NLS-1$
 	private static final String ID_TERMINAL_VIEW = "org.eclipse.tm.terminal.view.ui.TerminalsView"; //$NON-NLS-1$
 	private static final String ID_GIT_REPO_VIEW = "org.eclipse.egit.ui.RepositoriesView";  //$NON-NLS-1$
 	private static final String ID_GIT_STG_VIEW = "org.eclipse.egit.ui.internal.staging.StagingView";  //$NON-NLS-1$
@@ -62,6 +62,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 	 * 
 	 * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
 	 */
+	@Override
 	public void createInitialLayout(IPageLayout layout) {
 		defineLayout(layout);
 		defineActions(layout);
@@ -74,9 +75,9 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		layout.addActionSet("org.eclipse.jdt.ui.JavaActionSet"); //$NON-NLS-1$
 
 		layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
-		layout.addActionSet(IDebugUIConstants.DEBUG_ACTION_SET);
 
 		layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
+		layout.addActionSet(IDebugUIConstants.DEBUG_ACTION_SET);
 
 		layout.addShowViewShortcut(ID_J2EE_HIERARCHY_VIEW);
 		layout.addShowViewShortcut(ID_SERVERS_VIEW);
@@ -98,6 +99,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		layout.addShowViewShortcut(ID_CONSOLE_VIEW);
 
 		layout.addShowInPart(ID_J2EE_HIERARCHY_VIEW);
+		layout.addShowInPart(JavaUI.ID_PACKAGES_VIEW);
 	}
 
 	public void defineLayout(IPageLayout layout) {
@@ -105,50 +107,50 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		String editorArea = layout.getEditorArea();
 
 		// Top left.
-		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, 0.25f, editorArea);//$NON-NLS-1$
+		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, 0.2f, editorArea);//$NON-NLS-1$
 		topLeft.addView(ID_J2EE_HIERARCHY_VIEW);
+		topLeft.addPlaceholder(JavaUI.ID_PACKAGES_VIEW);
 		topLeft.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER);
 		topLeft.addPlaceholder(JavaUI.ID_TYPE_HIERARCHY);
-		topLeft.addPlaceholder(JavaUI.ID_PACKAGES_VIEW);
+		topLeft.addPlaceholder(IDebugUIConstants.ID_DEBUG_VIEW);
+		topLeft.addPlaceholder(ID_SEARCH_VIEW);
+		topLeft.addPlaceholder(ID_GIT_REPO_VIEW);
 
-		// Bottom right.
-		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.7f, editorArea);//$NON-NLS-1$
-		bottomRight.addView(ID_MARKERS_VIEW);
-		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
+		// Bottom.
+		IFolderLayout bottomRight = layout.createFolder("bottomRight", IPageLayout.BOTTOM, 0.8f, editorArea);//$NON-NLS-1$
+		bottomRight.addView(IPageLayout.ID_PROBLEM_VIEW);
 		bottomRight.addView(ID_SERVERS_VIEW);
-		addDBViewIfPresent(layout, bottomRight);
-		bottomRight.addView(ID_WST_SNIPPETS_VIEW);
-		
 		addViewIfPresent(bottomRight, ID_TERMINAL_VIEW);
-
-		bottomRight.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
+		addViewIfPresent(bottomRight, ID_DATA_VIEW);
+		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
+		bottomRight.addPlaceholder(ID_WST_SNIPPETS_VIEW);
+		bottomRight.addPlaceholder(ID_MARKERS_VIEW);
 		bottomRight.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 		bottomRight.addPlaceholder(IPageLayout.ID_TASK_LIST);
 		bottomRight.addPlaceholder(ID_CONSOLE_VIEW);
 		bottomRight.addPlaceholder(IProgressConstants.PROGRESS_VIEW_ID);
-		bottomRight.addPlaceholder(ID_SEARCH_VIEW);
-		bottomRight.addPlaceholder(ID_GIT_REPO_VIEW);
 		bottomRight.addPlaceholder(ID_GIT_STG_VIEW);
 		bottomRight.addPlaceholder(JavaUI.ID_JAVADOC_VIEW);
 		bottomRight.addPlaceholder(JavaUI.ID_MEMBERS_VIEW);
 		bottomRight.addPlaceholder(JavaUI.ID_SOURCE_VIEW);
 
 		// Top right.
-		IFolderLayout topRight = layout.createFolder("topRight", IPageLayout.RIGHT, 0.7f, editorArea);//$NON-NLS-1$
+		IFolderLayout topRight = layout.createFolder("topRight", IPageLayout.RIGHT, 0.8f, editorArea);//$NON-NLS-1$
 		topRight.addView(IPageLayout.ID_OUTLINE);
 		topRight.addPlaceholder(IPageLayout.ID_MINIMAP_VIEW);
-		
-	}
-	private void addDBViewIfPresent(IPageLayout page, IFolderLayout bottomRight) {
-		IViewDescriptor dbView = PlatformUI.getWorkbench().getViewRegistry().find(ID_DATA_VIEW);
-		if (dbView != null)
-			bottomRight.addView(ID_DATA_VIEW);
+		topLeft.addPlaceholder(IDebugUIConstants.ID_VARIABLE_VIEW);
+		topLeft.addPlaceholder(IDebugUIConstants.ID_EXPRESSION_VIEW);
+		topLeft.addPlaceholder(IDebugUIConstants.ID_BREAKPOINT_VIEW);
+		topLeft.addPlaceholder(IDebugUIConstants.ID_MEMORY_VIEW);
 	}
 
 	private void addViewIfPresent(IFolderLayout layout, String viewID) {
 		IViewDescriptor descriptor = PlatformUI.getWorkbench().getViewRegistry().find(viewID);
 		if (descriptor != null) {
 			layout.addView(viewID);
+		}
+		else {
+			layout.addPlaceholder(viewID);
 		}
 	}
 }

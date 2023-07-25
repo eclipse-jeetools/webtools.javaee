@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 /**
  * <copyright>
  * </copyright>
@@ -113,6 +125,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Group()
 	 * @generated
 	 */
+	@Override
 	FeatureMap getGroup();
 
 
@@ -141,6 +154,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Descriptions()
 	 * @generated
 	 */
+	@Override
 	List<Description> getDescriptions();
 
 
@@ -157,6 +171,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_DisplayNames()
 	 * @generated
 	 */
+	@Override
 	List<DisplayName> getDisplayNames();
 
 
@@ -173,6 +188,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Icons()
 	 * @generated
 	 */
+	@Override
 	List<Icon> getIcons();
 
 
@@ -189,6 +205,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Distributables()
 	 * @generated
 	 */
+	@Override
 	List<EmptyType> getDistributables();
 
 
@@ -211,6 +228,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_ContextParams()
 	 * @generated
 	 */
+	@Override
 	List<ParamValue> getContextParams();
 
 
@@ -227,6 +245,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Filters()
 	 * @generated
 	 */
+	@Override
 	List<Filter> getFilters();
 
 
@@ -243,6 +262,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_FilterMappings()
 	 * @generated
 	 */
+	@Override
 	List<FilterMapping> getFilterMappings();
 
 
@@ -259,6 +279,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Listeners()
 	 * @generated
 	 */
+	@Override
 	List<Listener> getListeners();
 
 
@@ -275,6 +296,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Servlets()
 	 * @generated
 	 */
+	@Override
 	List<Servlet> getServlets();
 
 
@@ -291,6 +313,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_ServletMappings()
 	 * @generated
 	 */
+	@Override
 	List<ServletMapping> getServletMappings();
 
 
@@ -307,6 +330,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_SessionConfigs()
 	 * @generated
 	 */
+	@Override
 	List<SessionConfig> getSessionConfigs();
 
 
@@ -323,6 +347,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_MimeMappings()
 	 * @generated
 	 */
+	@Override
 	List<MimeMapping> getMimeMappings();
 
 
@@ -339,6 +364,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_WelcomeFileLists()
 	 * @generated
 	 */
+	@Override
 	List<WelcomeFileList> getWelcomeFileLists();
 
 
@@ -355,6 +381,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_ErrorPages()
 	 * @generated
 	 */
+	@Override
 	List<ErrorPage> getErrorPages();
 
 
@@ -371,6 +398,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_JspConfigs()
 	 * @generated
 	 */
+	@Override
 	List<JspConfig> getJspConfigs();
 
 
@@ -387,6 +415,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_SecurityConstraints()
 	 * @generated
 	 */
+	@Override
 	List<SecurityConstraint> getSecurityConstraints();
 
 
@@ -403,6 +432,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_LoginConfigs()
 	 * @generated
 	 */
+	@Override
 	List<LoginConfig> getLoginConfigs();
 
 
@@ -419,6 +449,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_SecurityRoles()
 	 * @generated
 	 */
+	@Override
 	List<SecurityRole> getSecurityRoles();
 
 
@@ -435,6 +466,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_EnvEntries()
 	 * @generated
 	 */
+	@Override
 	List<EnvEntry> getEnvEntries();
 
 
@@ -451,6 +483,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_EjbRefs()
 	 * @generated
 	 */
+	@Override
 	List<EjbRef> getEjbRefs();
 
 
@@ -467,6 +500,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_EjbLocalRefs()
 	 * @generated
 	 */
+	@Override
 	List<EjbLocalRef> getEjbLocalRefs();
 
 
@@ -483,6 +517,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_ServiceRefs()
 	 * @generated
 	 */
+	@Override
 	List<ServiceRef> getServiceRefs();
 
 
@@ -499,6 +534,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_ResourceRefs()
 	 * @generated
 	 */
+	@Override
 	List<ResourceRef> getResourceRefs();
 
 
@@ -515,6 +551,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_ResourceEnvRefs()
 	 * @generated
 	 */
+	@Override
 	List<ResourceEnvRef> getResourceEnvRefs();
 
 
@@ -531,6 +568,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_MessageDestinationRefs()
 	 * @generated
 	 */
+	@Override
 	List<MessageDestinationRef> getMessageDestinationRefs();
 
 
@@ -547,6 +585,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_PersistenceContextRefs()
 	 * @generated
 	 */
+	@Override
 	List<PersistenceContextRef> getPersistenceContextRefs();
 
 
@@ -563,6 +602,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_PersistenceUnitRefs()
 	 * @generated
 	 */
+	@Override
 	List<PersistenceUnitRef> getPersistenceUnitRefs();
 
 
@@ -579,6 +619,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_PostConstructs()
 	 * @generated
 	 */
+	@Override
 	List<LifecycleCallback> getPostConstructs();
 
 
@@ -595,6 +636,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_PreDestroys()
 	 * @generated
 	 */
+	@Override
 	List<LifecycleCallback> getPreDestroys();
 
 
@@ -611,6 +653,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_DataSource()
 	 * @generated
 	 */
+	@Override
 	List<DataSourceType> getDataSource();
 
 
@@ -712,6 +755,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_MessageDestinations()
 	 * @generated
 	 */
+	@Override
 	List<MessageDestination> getMessageDestinations();
 
 
@@ -729,6 +773,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_LocalEncodingMappingsLists()
 	 * @generated
 	 */
+	@Override
 	List<LocaleEncodingMappingList> getLocalEncodingMappingsLists();
 
 
@@ -761,6 +806,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Id()
 	 * @generated
 	 */
+	@Override
 	String getId();
 
 
@@ -772,6 +818,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see #getId()
 	 * @generated
 	 */
+	@Override
 	void setId(String value);
 
 
@@ -810,6 +857,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_MetadataComplete()
 	 * @generated
 	 */
+	@Override
 	boolean isMetadataComplete();
 
 
@@ -823,6 +871,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see #isMetadataComplete()
 	 * @generated
 	 */
+	@Override
 	void setMetadataComplete(boolean value);
 
 
@@ -835,6 +884,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see #setMetadataComplete(boolean)
 	 * @generated
 	 */
+	@Override
 	void unsetMetadataComplete();
 
 
@@ -848,6 +898,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see #setMetadataComplete(boolean)
 	 * @generated
 	 */
+	@Override
 	boolean isSetMetadataComplete();
 
 
@@ -868,6 +919,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Version()
 	 * @generated
 	 */
+	@Override
 	WebAppVersionType getVersion();
 
 
@@ -882,6 +934,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see #getVersion()
 	 * @generated
 	 */
+	@Override
 	void setVersion(WebAppVersionType value);
 
 
@@ -894,6 +947,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see #setVersion(WebAppVersionType)
 	 * @generated
 	 */
+	@Override
 	void unsetVersion();
 
 
@@ -907,6 +961,7 @@ public interface WebFragment extends IWebCommon {
 	 * @see #setVersion(WebAppVersionType)
 	 * @generated
 	 */
+	@Override
 	boolean isSetVersion();
 
 } // WebFragment

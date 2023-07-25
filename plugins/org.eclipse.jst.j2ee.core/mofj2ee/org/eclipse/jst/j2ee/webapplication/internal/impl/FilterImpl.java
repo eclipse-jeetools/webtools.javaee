@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -86,6 +86,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * @generated This field/method will be replaced during code generation 
 	 * The logical name of the filter. This name is used to map the filter.
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -93,6 +94,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -106,6 +108,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getInitParams() {
 		if (initParams == null) {
 			initParams = new EObjectContainmentEList(InitParam.class, this, WebapplicationPackage.FILTER__INIT_PARAMS);
@@ -117,6 +120,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * @generated This field/method will be replaced during code generation 
 	 * The fully qualified classname of the filter.
 	 */
+	@Override
 	public JavaClass getFilterClass() {
 		if (filterClass != null && filterClass.eIsProxy()) {
 			InternalEObject oldFilterClass = (InternalEObject)filterClass;
@@ -141,6 +145,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setFilterClass(JavaClass newFilterClass) {
 		JavaClass oldFilterClass = filterClass;
 		filterClass = newFilterClass;
@@ -154,6 +159,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getInitParamValues() {
 		if (initParamValues == null) {
 			initParamValues = new EObjectContainmentEList(ParamValue.class, this, WebapplicationPackage.FILTER__INIT_PARAM_VALUES);
@@ -287,10 +293,12 @@ public JavaClass createClassRef(String targetName) {
 }
 
 
+@Override
 public String getFilterClassName() {
 	getFilterClass();
 	return (filterClass == null) ? null : filterClass.getQualifiedName();
 }
+@Override
 public void setFilterClassName(String filterClassName) {
 	eSet(WebapplicationPackage.eINSTANCE.getFilter_FilterClass(), createClassRef(filterClassName));
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -95,6 +95,7 @@ public class ActivationSpecImpl extends J2EEEObjectImpl implements ActivationSpe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getActivationSpecClass() {
 		return activationSpecClass;
 	}
@@ -104,6 +105,7 @@ public class ActivationSpecImpl extends J2EEEObjectImpl implements ActivationSpe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActivationSpecClass(String newActivationSpecClass) {
 		String oldActivationSpecClass = activationSpecClass;
 		activationSpecClass = newActivationSpecClass;
@@ -116,6 +118,7 @@ public class ActivationSpecImpl extends J2EEEObjectImpl implements ActivationSpe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getRequiredConfigProperties() {
 		if (requiredConfigProperties == null) {
 			requiredConfigProperties = new EObjectContainmentEList(RequiredConfigPropertyType.class, this, JcaPackage.ACTIVATION_SPEC__REQUIRED_CONFIG_PROPERTIES);

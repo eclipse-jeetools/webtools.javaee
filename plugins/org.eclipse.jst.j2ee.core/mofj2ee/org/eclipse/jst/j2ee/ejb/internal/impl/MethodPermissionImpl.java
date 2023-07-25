@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -112,6 +112,7 @@ public class MethodPermissionImpl extends J2EEEObjectImpl implements MethodPermi
 		return EjbPackage.Literals.METHOD_PERMISSION;
 	}
 
+@Override
 public List getMethodElements(EnterpriseBean anEJB) {
 	if (anEJB == null) return Collections.EMPTY_LIST;
 	List result = new ArrayList();
@@ -124,6 +125,7 @@ public List getMethodElements(EnterpriseBean anEJB) {
 	}
 	return result;
 }
+@Override
 public SecurityRole getSecurityRole(String aRoleName) {
 	if (aRoleName == null) return null;
 	List myRoles = getRoles();
@@ -139,6 +141,7 @@ public SecurityRole getSecurityRole(String aRoleName) {
 /**
  * Return true if this permission contains @aSecurityRole
  */
+@Override
 public boolean hasSecurityRole(SecurityRole aSecurityRole) {
 	if (aSecurityRole == null)
 		return false;
@@ -150,6 +153,7 @@ public boolean hasSecurityRole(SecurityRole aSecurityRole) {
 	}
 	return false;
 }
+@Override
 public boolean hasSecurityRole(String aRoleName) {
 	return getSecurityRole(aRoleName) != null;
 }
@@ -157,6 +161,7 @@ public boolean hasSecurityRole(String aRoleName) {
  * Return true if this MethodPermission and @anotherMethodPermission
  * have the same roles.
  */
+@Override
 public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	if (anotherMethodPermission == null) return false;
 	return getRoles().size() == anotherMethodPermission.getRoles().size() &&
@@ -166,6 +171,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	 * @generated This field/method will be replaced during code generation 
 	 * The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -173,6 +179,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -183,6 +190,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public boolean isUnchecked() {
 		return unchecked;
 	}
@@ -190,6 +198,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setUnchecked(boolean newUnchecked) {
 		boolean oldUnchecked = unchecked;
 		unchecked = newUnchecked;
@@ -204,6 +213,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetUnchecked() {
 		boolean oldUnchecked = unchecked;
 		boolean oldUncheckedESet = uncheckedESet;
@@ -218,6 +228,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetUnchecked() {
 		return uncheckedESet;
 	}
@@ -225,6 +236,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public AssemblyDescriptor getAssemblyDescriptor() {
 		if (eContainerFeatureID != EjbPackage.METHOD_PERMISSION__ASSEMBLY_DESCRIPTOR) return null;
 		return (AssemblyDescriptor)eContainer();
@@ -243,6 +255,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setAssemblyDescriptor(AssemblyDescriptor newAssemblyDescriptor) {
 		if (newAssemblyDescriptor != eInternalContainer() || (eContainerFeatureID != EjbPackage.METHOD_PERMISSION__ASSEMBLY_DESCRIPTOR && newAssemblyDescriptor != null)) {
 			if (EcoreUtil.isAncestor(this, newAssemblyDescriptor))
@@ -262,6 +275,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getRoles() {
 		if (roles == null) {
 			roles = new EObjectResolvingEList(SecurityRole.class, this, EjbPackage.METHOD_PERMISSION__ROLES);
@@ -272,6 +286,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getMethodElements() {
 		if (methodElements == null) {
 			methodElements = new EObjectContainmentEList(MethodElement.class, this, EjbPackage.METHOD_PERMISSION__METHOD_ELEMENTS);
@@ -284,6 +299,7 @@ public boolean isEquivalent(MethodPermission anotherMethodPermission) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.METHOD_PERMISSION__DESCRIPTIONS);

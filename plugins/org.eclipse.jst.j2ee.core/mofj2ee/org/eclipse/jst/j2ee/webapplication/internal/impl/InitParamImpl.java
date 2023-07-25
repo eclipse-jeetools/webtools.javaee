@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -87,6 +87,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	 * 
 
 	 */
+	@Override
 	public String getParamName() {
 		return paramName;
 	}
@@ -94,6 +95,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setParamName(String newParamName) {
 		String oldParamName = paramName;
 		paramName = newParamName;
@@ -104,6 +106,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getParamValue() {
 		return paramValue;
 	}
@@ -111,6 +114,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setParamValue(String newParamValue) {
 		String oldParamValue = paramValue;
 		paramValue = newParamValue;
@@ -121,6 +125,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -128,6 +133,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;

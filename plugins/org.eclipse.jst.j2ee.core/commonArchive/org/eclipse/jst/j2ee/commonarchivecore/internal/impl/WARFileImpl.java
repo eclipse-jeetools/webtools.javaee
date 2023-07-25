@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,6 +73,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.WARFile
 	 */
+	@Override
 	public File addCopyClass(File aFile) throws DuplicateObjectException {
 		if (aFile.isReadOnlyDirectory())
 			throw new IllegalArgumentException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.add_copy_class_dir_EXC_, (new Object[]{aFile.getURI()}))); // = "Method addCopyClass not supported for directories :"
@@ -94,6 +95,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.WARFile
 	 */
+	@Override
 	public File addCopyLib(File aFile) throws DuplicateObjectException {
 		if (aFile.isReadOnlyDirectory())
 			throw new IllegalArgumentException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.add_copy_lib_dir_EXC_, (new Object[]{aFile.getURI()}))); // = "Method addCopyLib not supported for directories :"
@@ -130,6 +132,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.WARFile
 	 */
+	@Override
 	public java.util.List getClasses() {
 		return filterFilesByPrefix(ArchiveConstants.WEBAPP_CLASSES_URI);
 	}
@@ -139,6 +142,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 *             is a runtime exception, because we can't override the signature of the generated
 	 *             methods
 	 */
+	@Override
 	public WebApp getDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		WebApp dd = this.getDeploymentDescriptorGen();
 		if (dd == null && canLazyInitialize())
@@ -159,6 +163,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.WARFile
 	 */
+	@Override
 	public java.util.List getLibs() {
 		return filterFilesByPrefix(ArchiveConstants.WEBAPP_LIB_URI);
 	}
@@ -166,6 +171,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.WARFile
 	 */
+	@Override
 	public List getLibArchives() {
 		return filterFiles(ArchiveConstants.WEBAPP_LIB_URI, new String[]{"jar", "zip"}); //$NON-NLS-1$ //$NON-NLS-2$
 	}
@@ -173,6 +179,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.WARFile
 	 */
+	@Override
 	public java.util.List getResources() {
 		String[] prefixes = {J2EEConstants.META_INF, J2EEConstants.WEB_INF};
 		return filterFilesWithoutPrefix(prefixes);
@@ -283,6 +290,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 *            The .class file or other output file to find the source for
 	 * @return String The matching source. Null if there is no matching source found
 	 */
+	@Override
 	public File getSourceFile(File aClassFile) {
 		List sourceFilesList = getSourceCandidateFiles();
 		String classURI = aClassFile.getURI();
@@ -313,6 +321,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * Return the DeployementDescriptor.
 	 */
+	@Override
 	public EObject getStandardDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		return getDeploymentDescriptor();
 	}
@@ -342,6 +351,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 		return webApp;
 	}
 
+	@Override
 	public void setDeploymentDescriptor(WebApp l) {
 		this.setDeploymentDescriptorGen(l);
 		replaceRoot(getMofResourceMakeIfNecessary(getDeploymentDescriptorUri()), l);

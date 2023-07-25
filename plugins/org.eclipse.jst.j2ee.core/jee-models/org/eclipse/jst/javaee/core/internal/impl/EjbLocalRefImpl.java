@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -270,6 +270,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.EJB_LOCAL_REF__DESCRIPTIONS);
@@ -282,6 +283,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbRefName() {
 		return ejbRefName;
 	}
@@ -291,6 +293,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbRefName(String newEjbRefName) {
 		String oldEjbRefName = ejbRefName;
 		ejbRefName = newEjbRefName;
@@ -303,6 +306,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EjbRefType getEjbRefType() {
 		return ejbRefType;
 	}
@@ -312,6 +316,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbRefType(EjbRefType newEjbRefType) {
 		EjbRefType oldEjbRefType = ejbRefType;
 		ejbRefType = newEjbRefType == null ? EJB_REF_TYPE_EDEFAULT : newEjbRefType;
@@ -326,6 +331,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetEjbRefType() {
 		EjbRefType oldEjbRefType = ejbRefType;
 		boolean oldEjbRefTypeESet = ejbRefTypeESet;
@@ -340,6 +346,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetEjbRefType() {
 		return ejbRefTypeESet;
 	}
@@ -349,6 +356,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocalHome() {
 		return localHome;
 	}
@@ -358,6 +366,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocalHome(String newLocalHome) {
 		String oldLocalHome = localHome;
 		localHome = newLocalHome;
@@ -370,6 +379,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocal() {
 		return local;
 	}
@@ -379,6 +389,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocal(String newLocal) {
 		String oldLocal = local;
 		local = newLocal;
@@ -391,6 +402,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbLink() {
 		return ejbLink;
 	}
@@ -400,6 +412,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbLink(String newEjbLink) {
 		String oldEjbLink = ejbLink;
 		ejbLink = newEjbLink;
@@ -412,6 +425,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -421,6 +435,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -433,6 +448,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
 			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.EJB_LOCAL_REF__INJECTION_TARGETS);
@@ -445,6 +461,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLookupName() {
 		return lookupName;
 	}
@@ -454,6 +471,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookupName(String newLookupName) {
 		String oldLookupName = lookupName;
 		lookupName = newLookupName;
@@ -466,6 +484,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -475,6 +494,7 @@ public class EjbLocalRefImpl extends EObjectImpl implements EjbLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

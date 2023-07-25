@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -197,6 +197,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.RESOURCE_ENV_REF__DESCRIPTIONS);
@@ -209,6 +210,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResourceEnvRefName() {
 		return resourceEnvRefName;
 	}
@@ -218,6 +220,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceEnvRefName(String newResourceEnvRefName) {
 		String oldResourceEnvRefName = resourceEnvRefName;
 		resourceEnvRefName = newResourceEnvRefName;
@@ -230,6 +233,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResourceEnvRefType() {
 		return resourceEnvRefType;
 	}
@@ -239,6 +243,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceEnvRefType(String newResourceEnvRefType) {
 		String oldResourceEnvRefType = resourceEnvRefType;
 		resourceEnvRefType = newResourceEnvRefType;
@@ -251,6 +256,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -260,6 +266,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -272,6 +279,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
 			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.RESOURCE_ENV_REF__INJECTION_TARGETS);
@@ -284,6 +292,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLookupName() {
 		return lookupName;
 	}
@@ -293,6 +302,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookupName(String newLookupName) {
 		String oldLookupName = lookupName;
 		lookupName = newLookupName;
@@ -305,6 +315,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -314,6 +325,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

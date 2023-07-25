@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -179,18 +179,22 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 		MESSAGE_IDS.put(CHKJ2908, new String[]{CHKJ2908 + SPEC});
 	}
 	
+	@Override
 	public final Map getMessageIds() {
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final Object[] getDependsOn() {
 		return DEPENDS_ON;
 	}
 	
+	@Override
 	public final Object getId() {
 		return ID;
 	}
 
+	@Override
 	public Object getTarget(Object parent, Object clazz) {
 		// If called as a dependent, parent will be this EnterpriseBean.
 		return parent;
@@ -406,6 +410,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 	 * EJB spec 1.1, section C.4, "Added the requirement for the Bean Provider to specify whether the
 	 * enterprise bean uses a bean-managed or container-managed transaction."
 	 */
+	@Override
 	public void validate(IEJBValidationContext vc, Object targetParent, Object target) {
 		EJBJar ejbJar = null;
 		if(targetParent instanceof EnterpriseBean) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -285,6 +285,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	/**
 	 * @see Listener#handleEvent(Event)
 	 */
+	@Override
 	public void handleEvent(Event event) {
 		
 		ClasspathModelEvent evt = new ClasspathModelEvent(ClasspathModelEvent.CLASS_PATH_CHANGED);
@@ -442,6 +443,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 
 	protected void addCheckStateListener() {
 		availableJARsViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				availableJARCheckStateChanged(event);
 			}
@@ -529,6 +531,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 
 	protected void addSelectionListener() {
 		availableJARsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				tableSelectionChanged();
 			}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -77,7 +77,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getPortName() {
+  @Override
+public String getPortName() {
 		return portName;
 	}
 
@@ -86,7 +87,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setPortName(String newPortName) {
+  @Override
+public void setPortName(String newPortName) {
 		String oldPortName = portName;
 		portName = newPortName;
 		if (eNotificationRequired())

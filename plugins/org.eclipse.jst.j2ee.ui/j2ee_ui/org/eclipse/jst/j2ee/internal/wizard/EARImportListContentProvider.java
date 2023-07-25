@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,10 +47,12 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 	 *            the input element
 	 * @return the array of elements to display in the viewer
 	 */
+	@Override
 	public java.lang.Object[] getElements(Object inputElement) {
 		if (inputElement instanceof TableObjects) {
 			Object[] array = ((TableObjects) inputElement).getTableObjects().toArray();
 			Arrays.sort(array, new Comparator() {
+				@Override
 				public int compare(Object o1, Object o2) {
 					return getColumnText(o1, 0).compareTo(getColumnText(o2, 0));
 				}
@@ -69,6 +71,7 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 	 * @param columnIndex
 	 *            the zero-based index of the column in which the label appears
 	 */
+	@Override
 	public org.eclipse.swt.graphics.Image getColumnImage(Object element, int columnIndex) {
 		return null;
 	}
@@ -82,6 +85,7 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 	 * @param columnIndex
 	 *            the zero-based index of the column in which the label appears
 	 */
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		IDataModel dataModel = (IDataModel) element;
 		if (columnIndex == 0) {
@@ -97,6 +101,7 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 		return ""; //$NON-NLS-1$
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		// do nothing
 	}

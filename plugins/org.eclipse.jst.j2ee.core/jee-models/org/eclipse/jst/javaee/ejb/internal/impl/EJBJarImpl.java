@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -269,6 +269,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.EJB_JAR__DESCRIPTIONS);
@@ -281,6 +282,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, EjbPackage.EJB_JAR__DISPLAY_NAMES);
@@ -293,6 +295,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, EjbPackage.EJB_JAR__ICONS);
@@ -305,6 +308,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getModuleName() {
 		return moduleName;
 	}
@@ -314,6 +318,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModuleName(String newModuleName) {
 		String oldModuleName = moduleName;
 		moduleName = newModuleName;
@@ -326,6 +331,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnterpriseBeans getEnterpriseBeans() {
 		return enterpriseBeans;
 	}
@@ -350,6 +356,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnterpriseBeans(EnterpriseBeans newEnterpriseBeans) {
 		if (newEnterpriseBeans != enterpriseBeans) {
 			NotificationChain msgs = null;
@@ -369,6 +376,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InterceptorsType getInterceptors() {
 		return interceptors;
 	}
@@ -393,6 +401,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInterceptors(InterceptorsType newInterceptors) {
 		if (newInterceptors != interceptors) {
 			NotificationChain msgs = null;
@@ -412,6 +421,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Relationships getRelationships() {
 		return relationships;
 	}
@@ -436,6 +446,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRelationships(Relationships newRelationships) {
 		if (newRelationships != relationships) {
 			NotificationChain msgs = null;
@@ -455,6 +466,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AssemblyDescriptor getAssemblyDescriptor() {
 		return assemblyDescriptor;
 	}
@@ -479,6 +491,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAssemblyDescriptor(AssemblyDescriptor newAssemblyDescriptor) {
 		if (newAssemblyDescriptor != assemblyDescriptor) {
 			NotificationChain msgs = null;
@@ -498,6 +511,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbClientJar() {
 		return ejbClientJar;
 	}
@@ -507,6 +521,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbClientJar(String newEjbClientJar) {
 		String oldEjbClientJar = ejbClientJar;
 		ejbClientJar = newEjbClientJar;
@@ -519,6 +534,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -528,6 +544,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -540,6 +557,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isMetadataComplete() {
 		return metadataComplete;
 	}
@@ -549,6 +567,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMetadataComplete(boolean newMetadataComplete) {
 		boolean oldMetadataComplete = metadataComplete;
 		metadataComplete = newMetadataComplete;
@@ -563,6 +582,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMetadataComplete() {
 		boolean oldMetadataComplete = metadataComplete;
 		boolean oldMetadataCompleteESet = metadataCompleteESet;
@@ -577,6 +597,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMetadataComplete() {
 		return metadataCompleteESet;
 	}
@@ -586,6 +607,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -595,6 +617,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -609,6 +632,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetVersion() {
 		String oldVersion = version;
 		boolean oldVersionESet = versionESet;
@@ -623,6 +647,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetVersion() {
 		return versionESet;
 	}

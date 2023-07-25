@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2008 BEA Systems, Inc.
+ * Copyright (c) 2008, 2023 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -28,7 +28,8 @@ public final class JavaFacetInstallConfigToDataModelAdapter
 {
     private static final Class[] ADAPTER_TYPES = { IDataModel.class };
     
-    public Object getAdapter( final Object adaptable, 
+    @Override
+	public Object getAdapter( final Object adaptable, 
                               final Class adapterType )
     {
         if( adapterType == IDataModel.class )
@@ -42,7 +43,8 @@ public final class JavaFacetInstallConfigToDataModelAdapter
         return null;
     }
 
-    public Class[] getAdapterList()
+    @Override
+	public Class[] getAdapterList()
     {
         return ADAPTER_TYPES;
     }

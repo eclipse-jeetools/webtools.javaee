@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -117,6 +117,7 @@ public static TaglibFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public TagLib createTagLib() {
 		TagLibImpl tagLib = new TagLibImpl();
 		return tagLib;
@@ -125,6 +126,7 @@ public static TaglibFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Validator createValidator() {
 		ValidatorImpl validator = new ValidatorImpl();
 		return validator;
@@ -133,6 +135,7 @@ public static TaglibFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public JSPTag createJSPTag() {
 		JSPTagImpl jspTag = new JSPTagImpl();
 		return jspTag;
@@ -141,6 +144,7 @@ public static TaglibFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public JSPTagAttribute createJSPTagAttribute() {
 		JSPTagAttributeImpl jspTagAttribute = new JSPTagAttributeImpl();
 		return jspTagAttribute;
@@ -149,6 +153,7 @@ public static TaglibFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public JSPVariable createJSPVariable() {
 		JSPVariableImpl jspVariable = new JSPVariableImpl();
 		return jspVariable;
@@ -159,6 +164,7 @@ public static TaglibFactory getActiveFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Function createFunction() {
 		FunctionImpl function = new FunctionImpl();
 		return function;
@@ -169,6 +175,7 @@ public static TaglibFactory getActiveFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TagFile createTagFile() {
 		TagFileImpl tagFile = new TagFileImpl();
 		return tagFile;
@@ -179,6 +186,7 @@ public static TaglibFactory getActiveFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TldExtension createTldExtension() {
 		TldExtensionImpl tldExtension = new TldExtensionImpl();
 		return tldExtension;
@@ -227,6 +235,7 @@ public static TaglibFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public TaglibPackage getTaglibPackage() {
 		return (TaglibPackage)getEPackage();
 	}

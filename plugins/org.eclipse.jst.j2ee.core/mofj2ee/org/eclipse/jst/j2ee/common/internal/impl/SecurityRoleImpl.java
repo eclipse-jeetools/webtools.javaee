@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -122,6 +122,7 @@ public String toString() {
 		return description;
 	}
 
+	@Override
 	public String getDescription() {
 		if (!getDescriptions().isEmpty()) {
 			Description d = (Description) getDescriptions().get(0);
@@ -131,6 +132,7 @@ public String toString() {
 		return getDescriptionGen();
 	}
 
+	@Override
 	public void setDescription(String newDescription) {
 		if (getDescriptions() != null) {
 			if (getDescriptions().isEmpty()) {
@@ -161,6 +163,7 @@ public String toString() {
 	 *            role-name element contains the name of a role. This element
 	 *            must contain a non-empty string.
 	 */
+	@Override
 	public String getRoleName() {
 		return roleName;
 	}
@@ -168,6 +171,7 @@ public String toString() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRoleName(String newRoleName) {
 		String oldRoleName = roleName;
 		roleName = newRoleName;
@@ -180,6 +184,7 @@ public String toString() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.SECURITY_ROLE__DESCRIPTIONS);

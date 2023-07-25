@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,6 +73,7 @@ public class CommandModifyNSURI extends AbstractCommand {
 	 * <code>execute</code> when <code>canExecute</code> returns <code>false</code>, or when
 	 * <code>canExecute</code> hasn't been called, is undefined.
 	 */
+	@Override
 	public void execute() {
 		oldIsSet_ = eObject_.eIsSet(feature_);
 		oldValue_ = eObject_.getNamespaceURI();
@@ -111,6 +112,7 @@ public class CommandModifyNSURI extends AbstractCommand {
 	 * called is undefined. Note that if you implement <code>redo</code> to call
 	 * <code>execute</code> then any derived class will be restricted by that decision also.
 	 */
+	@Override
 	public void redo() {
 		execute();
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -136,6 +136,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationSpec createActivationSpec() {
 		ActivationSpecImpl activationSpec = new ActivationSpecImpl();
 		return activationSpec;
@@ -146,6 +147,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AdminObject createAdminObject() {
 		AdminObjectImpl adminObject = new AdminObjectImpl();
 		return adminObject;
@@ -156,6 +158,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AuthenticationMechanism createAuthenticationMechanism() {
 		AuthenticationMechanismImpl authenticationMechanism = new AuthenticationMechanismImpl();
 		return authenticationMechanism;
@@ -166,6 +169,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConfigProperty createConfigProperty() {
 		ConfigPropertyImpl configProperty = new ConfigPropertyImpl();
 		return configProperty;
@@ -176,6 +180,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionDefinition createConnectionDefinition() {
 		ConnectionDefinitionImpl connectionDefinition = new ConnectionDefinitionImpl();
 		return connectionDefinition;
@@ -186,6 +191,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Connector createConnector() {
 		ConnectorImpl connector = new ConnectorImpl();
 		return connector;
@@ -196,6 +202,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectorDeploymentDescriptor createConnectorDeploymentDescriptor() {
 		ConnectorDeploymentDescriptorImpl connectorDeploymentDescriptor = new ConnectorDeploymentDescriptorImpl();
 		return connectorDeploymentDescriptor;
@@ -206,6 +213,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InboundResourceAdapter createInboundResourceAdapter() {
 		InboundResourceAdapterImpl inboundResourceAdapter = new InboundResourceAdapterImpl();
 		return inboundResourceAdapter;
@@ -216,6 +224,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public License createLicense() {
 		LicenseImpl license = new LicenseImpl();
 		return license;
@@ -226,6 +235,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageAdapter createMessageAdapter() {
 		MessageAdapterImpl messageAdapter = new MessageAdapterImpl();
 		return messageAdapter;
@@ -236,6 +246,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageListener createMessageListener() {
 		MessageListenerImpl messageListener = new MessageListenerImpl();
 		return messageListener;
@@ -246,6 +257,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OutboundResourceAdapter createOutboundResourceAdapter() {
 		OutboundResourceAdapterImpl outboundResourceAdapter = new OutboundResourceAdapterImpl();
 		return outboundResourceAdapter;
@@ -256,6 +268,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RequiredConfigProperty createRequiredConfigProperty() {
 		RequiredConfigPropertyImpl requiredConfigProperty = new RequiredConfigPropertyImpl();
 		return requiredConfigProperty;
@@ -266,6 +279,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceAdapter createResourceAdapter() {
 		ResourceAdapterImpl resourceAdapter = new ResourceAdapterImpl();
 		return resourceAdapter;
@@ -276,6 +290,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityPermission createSecurityPermission() {
 		SecurityPermissionImpl securityPermission = new SecurityPermissionImpl();
 		return securityPermission;
@@ -380,6 +395,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JcaPackage getJcaPackage() {
 		return (JcaPackage)getEPackage();
 	}

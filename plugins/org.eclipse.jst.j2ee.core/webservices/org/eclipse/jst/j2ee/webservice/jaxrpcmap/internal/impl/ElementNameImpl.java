@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,7 +97,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -106,7 +107,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -118,7 +120,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getText() {
+  @Override
+public String getText() {
 		return text;
 	}
 
@@ -127,7 +130,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setText(String newText) {
+  @Override
+public void setText(String newText) {
 		String oldText = text;
 		text = newText;
 		if (eNotificationRequired())

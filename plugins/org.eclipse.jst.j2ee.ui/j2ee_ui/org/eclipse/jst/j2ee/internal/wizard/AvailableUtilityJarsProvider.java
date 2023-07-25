@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,6 +47,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * 
 	 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		/*
 		 * Object[] array = EARImportDataModel.getAllUtilities((EARFile) inputElement).toArray();
@@ -54,6 +55,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 		Object[] array = getJarFilesFromDirectory(inputElement);
 		Arrays.sort(array, new Comparator() {
 
+			@Override
 			public int compare(Object o1, Object o2) {
 				return getColumnText(o1, 0).compareTo(getColumnText(o2, 0));
 			}
@@ -94,6 +96,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * 
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
 	 */
+	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		return AvailableJarsProvider.getUtilImage();
 	}
@@ -103,6 +106,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * 
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 	 */
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		/*
 		 * FileImpl file = (FileImpl) element; if
@@ -118,6 +122,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * 
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
 		//dispose
 	}
@@ -128,6 +133,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
 	 *      java.lang.Object, java.lang.Object)
 	 */
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		//do nothing
 	}
@@ -137,6 +143,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * 
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 		//do nothing
 	}
@@ -147,6 +154,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#isLabelProperty(java.lang.Object,
 	 *      java.lang.String)
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -156,6 +164,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 	 * 
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 		//do nothing
 	}

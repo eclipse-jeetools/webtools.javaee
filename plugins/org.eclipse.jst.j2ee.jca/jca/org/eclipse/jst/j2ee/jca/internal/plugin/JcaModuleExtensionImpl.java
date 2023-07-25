@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,6 +60,7 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
+	@Override
 	public IDataModel createProjectDataModel() {
 		return DataModelFactory.createDataModel(new ConnectorFacetProjectCreationDataModelProvider());
 	}
@@ -69,6 +70,7 @@ public class JcaModuleExtensionImpl extends EarModuleExtensionImpl implements Jc
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
+	@Override
 	public IDataModel createImportDataModel() {
 		return DataModelFactory.createDataModel(new ConnectorComponentImportDataModelProvider());
 	}

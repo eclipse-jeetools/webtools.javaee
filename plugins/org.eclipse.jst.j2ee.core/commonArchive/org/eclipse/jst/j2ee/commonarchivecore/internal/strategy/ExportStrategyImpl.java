@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,6 +37,7 @@ public abstract class ExportStrategyImpl extends ArchiveStrategyImpl implements 
 		return savedFiles;
 	}
 
+	@Override
 	public boolean hasSaved(String uri) {
 		return savedFiles != null && getSavedFiles().contains(uri);
 	}
@@ -46,6 +47,7 @@ public abstract class ExportStrategyImpl extends ArchiveStrategyImpl implements 
 	 * add extra elements to the outgoing archive, using SaveStrategy#save(File,
 	 * java.io.InputStream)
 	 */
+	@Override
 	public void preSave(SaveStrategy aSaveStrategy) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException {
 		//Default
 	}

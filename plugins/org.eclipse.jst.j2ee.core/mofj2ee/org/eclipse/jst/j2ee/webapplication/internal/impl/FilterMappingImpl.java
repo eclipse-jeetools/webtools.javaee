@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -88,6 +88,7 @@ public class FilterMappingImpl extends J2EEEObjectImpl implements FilterMapping 
 /**
  * Returns the name of the servlet that this mapping applies to.
  */
+	@Override
 	public Servlet getServlet(){
 	Servlet lservlet = this.getServletGen();
 	if (lservlet == null && servletName != null){
@@ -103,6 +104,7 @@ public class FilterMappingImpl extends J2EEEObjectImpl implements FilterMapping 
 /**
  * Returns the name of the servlet that this mapping applies to.
  */
+@Override
 public String getServletName(){
 	String ret = null;
 	if (servletName != null)
@@ -116,6 +118,7 @@ public String getServletName(){
 /**
  * Sets the name of the servlet that this mapping applies to.
  */
+@Override
 public void setServletName(String servletName){
 	this.servletName = servletName;
 }
@@ -124,6 +127,7 @@ public void setServletName(String servletName){
 	 * The url-pattern element contains the url pattern of the mapping. Must follow
 	 * the rules specified in Section 10 of the Servlet API Specification.
 	 */
+	@Override
 	public String getUrlPattern() {
 		return urlPattern;
 	}
@@ -131,6 +135,7 @@ public void setServletName(String servletName){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setUrlPattern(String newUrlPattern) {
 		String oldUrlPattern = urlPattern;
 		urlPattern = newUrlPattern;
@@ -143,6 +148,7 @@ public void setServletName(String servletName){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDispatcherType() {
 		if (dispatcherType == null) {
 			dispatcherType = new EDataTypeUniqueEList(DispatcherType.class, this, WebapplicationPackage.FILTER_MAPPING__DISPATCHER_TYPE);
@@ -154,6 +160,7 @@ public void setServletName(String servletName){
 	 * @generated This field/method will be replaced during code generation 
 	 * The filter being mapped
 	 */
+	@Override
 	public Filter getFilter() {
 		if (filter != null && filter.eIsProxy()) {
 			InternalEObject oldFilter = (InternalEObject)filter;
@@ -178,6 +185,7 @@ public void setServletName(String servletName){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setFilter(Filter newFilter) {
 		Filter oldFilter = filter;
 		filter = newFilter;
@@ -185,6 +193,7 @@ public void setServletName(String servletName){
 			eNotify(new ENotificationImpl(this, Notification.SET, WebapplicationPackage.FILTER_MAPPING__FILTER, oldFilter, filter));
 	}
 
+	@Override
 	public void setServlet(Servlet l) {
 		servletName = null;
 		setServletGen(l);

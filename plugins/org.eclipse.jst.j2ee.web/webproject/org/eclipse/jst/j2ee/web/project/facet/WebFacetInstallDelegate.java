@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005, 2021 BEA Systems, Inc. and others
+ * Copyright (c) 2005, 2023 BEA Systems, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -64,6 +64,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
+	@Override
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
 			monitor.beginTask("", 1); //$NON-NLS-1$
@@ -355,7 +356,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		final IModelProvider provider = ModelProviderManager.getModelProvider(project, fv);
 		   Runnable runnable = new Runnable(){
    
-		       public void run() {
+		       @Override
+			public void run() {
 		           WebApp webApp = (WebApp) provider.getModelObject();
 		           
 		           // Add the display-name tag

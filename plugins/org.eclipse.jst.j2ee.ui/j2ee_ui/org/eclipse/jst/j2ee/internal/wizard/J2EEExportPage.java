@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -244,7 +244,8 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
         (
             new IDataModelListener()
             {
-                public void propertyChanged( final DataModelEvent event )
+                @Override
+				public void propertyChanged( final DataModelEvent event )
                 {
                     if( event.getPropertyName().equals( IJ2EEComponentExportDataModelProperties.RUNTIME ) && 
                         event.getFlag() == IDataModel.VALUE_CHG )

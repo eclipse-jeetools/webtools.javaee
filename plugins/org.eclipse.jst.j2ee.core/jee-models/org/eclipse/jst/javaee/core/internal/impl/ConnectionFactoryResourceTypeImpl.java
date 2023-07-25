@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013, 2023 IBM Corporation and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 /**
  */
 package org.eclipse.jst.javaee.core.internal.impl;
@@ -243,6 +255,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Description getDescription() {
 		return description;
 	}
@@ -267,6 +280,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(Description newDescription) {
 		if (newDescription != description) {
 			NotificationChain msgs = null;
@@ -286,6 +300,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -295,6 +310,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -307,6 +323,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getInterfaceName() {
 		return interfaceName;
 	}
@@ -316,6 +333,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInterfaceName(String newInterfaceName) {
 		String oldInterfaceName = interfaceName;
 		interfaceName = newInterfaceName;
@@ -328,6 +346,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResourceAdapter() {
 		return resourceAdapter;
 	}
@@ -337,6 +356,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceAdapter(String newResourceAdapter) {
 		String oldResourceAdapter = resourceAdapter;
 		resourceAdapter = newResourceAdapter;
@@ -349,6 +369,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMaxPoolSize() {
 		return maxPoolSize;
 	}
@@ -358,6 +379,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaxPoolSize(BigInteger newMaxPoolSize) {
 		BigInteger oldMaxPoolSize = maxPoolSize;
 		maxPoolSize = newMaxPoolSize;
@@ -370,6 +392,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMinPoolSize() {
 		return minPoolSize;
 	}
@@ -379,6 +402,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMinPoolSize(BigInteger newMinPoolSize) {
 		BigInteger oldMinPoolSize = minPoolSize;
 		minPoolSize = newMinPoolSize;
@@ -391,6 +415,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransactionSupport getTransactionSupport() {
 		return transactionSupport;
 	}
@@ -400,6 +425,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionSupport(TransactionSupport newTransactionSupport) {
 		TransactionSupport oldTransactionSupport = transactionSupport;
 		transactionSupport = newTransactionSupport == null ? TRANSACTION_SUPPORT_EDEFAULT : newTransactionSupport;
@@ -414,6 +440,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionSupport() {
 		TransactionSupport oldTransactionSupport = transactionSupport;
 		boolean oldTransactionSupportESet = transactionSupportESet;
@@ -428,6 +455,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionSupport() {
 		return transactionSupportESet;
 	}
@@ -437,6 +465,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PropertyType> getProperty() {
 		if (property == null) {
 			property = new EObjectContainmentEList<PropertyType>(PropertyType.class, this, JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__PROPERTY);
@@ -449,6 +478,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -458,6 +488,7 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

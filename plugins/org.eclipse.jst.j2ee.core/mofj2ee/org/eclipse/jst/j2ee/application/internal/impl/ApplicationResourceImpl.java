@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,12 +44,14 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
 	}
 
 
+	@Override
 	public int getType() {
 		return APPLICATION_TYPE;
 	}
 
 
-    public String getDoctype() {
+    @Override
+	public String getDoctype() {
     	switch (getJ2EEVersionID()) {
 			case (J2EE_1_2_ID) :
 			case (J2EE_1_3_ID) :	
@@ -65,7 +67,8 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
 	public int getJ2EEVersionID() {
 		return getModuleVersionID();
 	}
-    public Translator getRootTranslator() {
+    @Override
+	public Translator getRootTranslator() {
 		return ApplicationTranslator.INSTANCE;
     }
     

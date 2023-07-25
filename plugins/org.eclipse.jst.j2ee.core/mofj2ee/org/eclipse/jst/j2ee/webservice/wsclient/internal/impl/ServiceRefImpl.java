@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -173,6 +173,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServiceRefName() {
 		return serviceRefName;
 	}
@@ -182,6 +183,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceRefName(String newServiceRefName) {
 		String oldServiceRefName = serviceRefName;
 		serviceRefName = newServiceRefName;
@@ -194,6 +196,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getWsdlFile() {
 		return wsdlFile;
 	}
@@ -203,6 +206,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWsdlFile(String newWsdlFile) {
 		String oldWsdlFile = wsdlFile;
 		wsdlFile = newWsdlFile;
@@ -215,6 +219,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getJaxrpcMappingFile() {
 		return jaxrpcMappingFile;
 	}
@@ -224,6 +229,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJaxrpcMappingFile(String newJaxrpcMappingFile) {
 		String oldJaxrpcMappingFile = jaxrpcMappingFile;
 		jaxrpcMappingFile = newJaxrpcMappingFile;
@@ -236,6 +242,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaClass getServiceInterface() {
 		if (serviceInterface != null && serviceInterface.eIsProxy()) {
 			InternalEObject oldServiceInterface = (InternalEObject)serviceInterface;
@@ -262,6 +269,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceInterface(JavaClass newServiceInterface) {
 		JavaClass oldServiceInterface = serviceInterface;
 		serviceInterface = newServiceInterface;
@@ -274,6 +282,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getPortComponentRefs() {
 		if (portComponentRefs == null) {
 			portComponentRefs = new EObjectContainmentEList(PortComponentRef.class, this, Webservice_clientPackage.SERVICE_REF__PORT_COMPONENT_REFS);
@@ -286,6 +295,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getHandlers() {
 		if (handlers == null) {
 			handlers = new EObjectContainmentEList(Handler.class, this, Webservice_clientPackage.SERVICE_REF__HANDLERS);
@@ -298,6 +308,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QName getServiceQname() {
 		return serviceQname;
 	}
@@ -322,6 +333,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceQname(QName newServiceQname) {
 		if (newServiceQname != serviceQname) {
 			NotificationChain msgs = null;

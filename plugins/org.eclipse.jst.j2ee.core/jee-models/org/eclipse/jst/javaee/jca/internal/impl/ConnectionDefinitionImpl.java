@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -206,6 +206,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getManagedconnectionfactoryClass() {
 		return managedconnectionfactoryClass;
 	}
@@ -215,6 +216,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setManagedconnectionfactoryClass(String newManagedconnectionfactoryClass) {
 		String oldManagedconnectionfactoryClass = managedconnectionfactoryClass;
 		managedconnectionfactoryClass = newManagedconnectionfactoryClass;
@@ -227,6 +229,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConfigProperty> getConfigProperty() {
 		if (configProperty == null) {
 			configProperty = new EObjectContainmentEList<ConfigProperty>(ConfigProperty.class, this, JcaPackage.CONNECTION_DEFINITION__CONFIG_PROPERTY);
@@ -239,6 +242,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnectionfactoryInterface() {
 		return connectionfactoryInterface;
 	}
@@ -248,6 +252,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionfactoryInterface(String newConnectionfactoryInterface) {
 		String oldConnectionfactoryInterface = connectionfactoryInterface;
 		connectionfactoryInterface = newConnectionfactoryInterface;
@@ -260,6 +265,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnectionfactoryImplClass() {
 		return connectionfactoryImplClass;
 	}
@@ -269,6 +275,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionfactoryImplClass(String newConnectionfactoryImplClass) {
 		String oldConnectionfactoryImplClass = connectionfactoryImplClass;
 		connectionfactoryImplClass = newConnectionfactoryImplClass;
@@ -281,6 +288,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnectionInterface() {
 		return connectionInterface;
 	}
@@ -290,6 +298,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionInterface(String newConnectionInterface) {
 		String oldConnectionInterface = connectionInterface;
 		connectionInterface = newConnectionInterface;
@@ -302,6 +311,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnectionImplClass() {
 		return connectionImplClass;
 	}
@@ -311,6 +321,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionImplClass(String newConnectionImplClass) {
 		String oldConnectionImplClass = connectionImplClass;
 		connectionImplClass = newConnectionImplClass;
@@ -323,6 +334,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -332,6 +344,7 @@ public class ConnectionDefinitionImpl extends EObjectImpl implements ConnectionD
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

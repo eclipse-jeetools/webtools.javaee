@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -78,6 +78,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JSPConfig createJSPConfig() {
 		JSPConfigImpl jspConfig = new JSPConfigImpl();
 		return jspConfig;
@@ -88,6 +89,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JSPPropertyGroup createJSPPropertyGroup() {
 		JSPPropertyGroupImpl jspPropertyGroup = new JSPPropertyGroupImpl();
 		return jspPropertyGroup;
@@ -98,6 +100,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TagLibRefType createTagLibRefType() {
 		TagLibRefTypeImpl tagLibRefType = new TagLibRefTypeImpl();
 		return tagLibRefType;
@@ -108,6 +111,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JspPackage getJspPackage() {
 		return (JspPackage)getEPackage();
 	}

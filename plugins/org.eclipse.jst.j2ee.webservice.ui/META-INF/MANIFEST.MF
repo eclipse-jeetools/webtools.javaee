@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.j2ee.webservice.ui; singleton:=true
-Bundle-Version: 1.1.801.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.internal.webservice.plugin.WebServiceUIPlugin
 Bundle-Vendor: %pluginVendor
 Bundle-Localization: plugin
@@ -23,14 +23,14 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.ecore.xmi;bundle-version="[2.2.0,3.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.wst.common.emf;bundle-version="[1.2.0,2.0.0)",
- org.eclipse.jst.j2ee.webservice;bundle-version="[1.1.0,1.2.0)",
+ org.eclipse.jst.j2ee.webservice;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.jem.util;bundle-version="[2.0.0,3.0.0)",
- org.eclipse.jst.common.frameworks;bundle-version="[1.1.0,1.2.0)",
+ org.eclipse.jst.common.frameworks;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.ui.navigator;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.navigator.resources;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.jst.j2ee.navigator.ui;bundle-version="[1.1.0,1.2.0)",
+ org.eclipse.jst.j2ee.navigator.ui;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.wst.common.project.facet.core;bundle-version="[1.3.0,2.0.0)",
  org.eclipse.core.expressions;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.wst.web;bundle-version="1.1.205"
 Eclipse-LazyStart: true; exceptions="org.eclipse.jst.j2ee.internal.webservice.startup"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

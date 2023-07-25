@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class ArchiveFactoryImpl implements IArchiveFactory {
 
+	@Override
 	public IArchive openArchive(IPath archivePath) throws ArchiveOpenFailureException {
 		java.io.File file = new java.io.File(archivePath.toOSString());
 		ZipFile zipFile;
@@ -49,17 +50,20 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 
 	// TODO add tracing support
 	// info in spec page 154
+	@Override
 	public IArchive openArchive(ArchiveOptions archiveOptions) throws ArchiveOpenFailureException {
 		ArchiveImpl archive = new ArchiveImpl(archiveOptions);
 		archive.setArchiveFactory(this);
 		return archive;
 	}
 
+	@Override
 	public void closeArchive(IArchive archive) {
 		((ArchiveImpl) archive).close();
 		// TODO add tracing support
 	}
 	
+	@Override
 	public void saveArchive(IArchive archive, IPath outputPath, IProgressMonitor monitor) throws ArchiveSaveFailureException {
 		final int SAVE_TICKS = 198;
 		final int CLEANUP_TICKS = 1;
@@ -122,6 +126,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		}
 	}
 
+	@Override
 	public void saveArchive(IArchive archive, ArchiveOptions archiveOptions, IProgressMonitor monitor) throws ArchiveSaveFailureException {
 		final int SAVE_TICKS = 198;
 		final int CLOSE_TICKS = 2;

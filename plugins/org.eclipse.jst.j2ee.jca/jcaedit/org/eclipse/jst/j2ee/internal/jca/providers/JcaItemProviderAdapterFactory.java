@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -374,6 +374,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @return ComposeableAdapterFactory
 	 */
+	@Override
 	public ComposeableAdapterFactory getRootAdapterFactory() {
 		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}// getRootAdapterFactory
@@ -383,6 +384,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @return ComposedAdapterFactory
 	 */
+	@Override
 	public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory) {
 		this.parentAdapterFactory = parentAdapterFactory;
 	}// setParentAdapterFactory
@@ -445,6 +447,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void addListener(INotifyChangedListener notifyChangedListener) {
 		changeNotifier.addListener(notifyChangedListener);
 	}
@@ -454,6 +457,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void removeListener(INotifyChangedListener notifyChangedListener) {
 		changeNotifier.removeListener(notifyChangedListener);
 	}// removeListener
@@ -474,6 +478,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * @param int
 	 *            index - The current index
 	 */
+	@Override
 	public void fireNotifyChanged(Notification msg) {
 		changeNotifier.fireNotifyChanged(msg);
 

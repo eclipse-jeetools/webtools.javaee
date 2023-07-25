@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -90,6 +90,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessageListenerType() {
 		return messageListenerType;
 	}
@@ -99,6 +100,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageListenerType(String newMessageListenerType) {
 		String oldMessageListenerType = messageListenerType;
 		messageListenerType = newMessageListenerType;
@@ -111,6 +113,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationSpec getActivationSpec() {
 		return activationSpec;
 	}
@@ -135,6 +138,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActivationSpec(ActivationSpec newActivationSpec) {
 		if (newActivationSpec != activationSpec) {
 			NotificationChain msgs = null;

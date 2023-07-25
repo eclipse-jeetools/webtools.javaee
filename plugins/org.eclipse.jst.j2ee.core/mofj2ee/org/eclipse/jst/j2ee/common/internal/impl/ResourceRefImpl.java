@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -166,6 +166,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 		return CommonPackage.Literals.RESOURCE_REF;
 	}
 
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -178,6 +179,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SECURITY_ROLE__DESCRIPTION, oldDescription, description));
 	}
 
+	@Override
 	public String getDescription() {
 		if (getDescriptions() != null && !getDescriptions().isEmpty()) {
 			Description d = (Description) getDescriptions().get(0);
@@ -191,6 +193,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * @generated This field/method will be replaced during code generation 
 	 * The res-ref-name element specifies the name of the resource factory reference name. The resource factory reference name is the name of the application client's environment entry whose value contains the JNDI name of the data source.
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -198,6 +201,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -209,6 +213,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * @generated This field/method will be replaced during code generation 
 	 * The res-type element specifies the type of the data source. The type is specified by the Java interface (or class) expected to be implemented by the data source.
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -216,6 +221,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
@@ -229,6 +235,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * <res-auth>Application<//res-auth>
 	 * <res-auth>Container<//res-auth>
 	 */
+	@Override
 	public ResAuthTypeBase getAuth() {
 		return auth;
 	}
@@ -238,6 +245,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAuth(ResAuthTypeBase newAuth) {
 		ResAuthTypeBase oldAuth = auth;
 		auth = newAuth == null ? AUTH_EDEFAULT : newAuth;
@@ -252,6 +260,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetAuth() {
 		ResAuthTypeBase oldAuth = auth;
 		boolean oldAuthESet = authESet;
@@ -266,6 +275,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetAuth() {
 		return authESet;
 	}
@@ -273,6 +283,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getLink() {
 		return link;
 	}
@@ -280,6 +291,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLink(String newLink) {
 		String oldLink = link;
 		link = newLink;
@@ -297,6 +309,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * The default value is Shareable.
 
 	 */
+	@Override
 	public ResSharingScopeType getResSharingScope() {
 		return resSharingScope;
 	}
@@ -306,6 +319,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResSharingScope(ResSharingScopeType newResSharingScope) {
 		ResSharingScopeType oldResSharingScope = resSharingScope;
 		resSharingScope = newResSharingScope == null ? RES_SHARING_SCOPE_EDEFAULT : newResSharingScope;
@@ -320,6 +334,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetResSharingScope() {
 		ResSharingScopeType oldResSharingScope = resSharingScope;
 		boolean oldResSharingScopeESet = resSharingScopeESet;
@@ -334,6 +349,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetResSharingScope() {
 		return resSharingScopeESet;
 	}
@@ -343,6 +359,7 @@ public class ResourceRefImpl extends J2EEEObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.RESOURCE_REF__DESCRIPTIONS);

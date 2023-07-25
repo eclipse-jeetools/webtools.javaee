@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -80,6 +80,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Application createApplication() {
 		ApplicationImpl application = new ApplicationImpl();
 		return application;
@@ -90,6 +91,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ApplicationDeploymentDescriptor createApplicationDeploymentDescriptor() {
 		ApplicationDeploymentDescriptorImpl applicationDeploymentDescriptor = new ApplicationDeploymentDescriptorImpl();
 		return applicationDeploymentDescriptor;
@@ -100,6 +102,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Module createModule() {
 		ModuleImpl module = new ModuleImpl();
 		return module;
@@ -110,6 +113,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Web createWeb() {
 		WebImpl web = new WebImpl();
 		return web;
@@ -120,6 +124,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ApplicationPackage getApplicationPackage() {
 		return (ApplicationPackage)getEPackage();
 	}

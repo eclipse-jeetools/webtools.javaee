@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: org.eclipse.jst.common.annotations.core
 Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.common.annotations.core;singleton:=true
-Bundle-Version: 1.1.300.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.common.internal.annotations.core;x-internal:=true
@@ -11,4 +12,4 @@ Require-Bundle:  org.eclipse.emf.ecore;bundle-version="[2.2.0,3.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jem.util;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.jdt.core;bundle-version="[3.2.0,4.0.0)"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

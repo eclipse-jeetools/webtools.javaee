@@ -70,6 +70,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	public static final String CONNECTOR_XML_TEMPLATE_17		= "rartp17.xml"; //$NON-NLS-1$
 	public static final String CONNECTOR_XML_TEMPLATE_21        = "rartp21.xml"; //$NON-NLS-1$
 	
+	@Override
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
 			monitor.beginTask("", 1); //$NON-NLS-1$
@@ -283,7 +284,8 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		final IModelProvider provider = ModelProviderManager.getModelProvider(project, fv);
 		   Runnable runnable = new Runnable(){
    
-		       public void run() {
+		       @Override
+			public void run() {
 		           Connector connector = (Connector) provider.getModelObject();
 		           
 		           // Add the display-name tag

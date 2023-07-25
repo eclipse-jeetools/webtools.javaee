@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -143,6 +143,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdminobjectInterface() {
 		return adminobjectInterface;
 	}
@@ -152,6 +153,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdminobjectInterface(String newAdminobjectInterface) {
 		String oldAdminobjectInterface = adminobjectInterface;
 		adminobjectInterface = newAdminobjectInterface;
@@ -164,6 +166,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdminobjectClass() {
 		return adminobjectClass;
 	}
@@ -173,6 +176,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdminobjectClass(String newAdminobjectClass) {
 		String oldAdminobjectClass = adminobjectClass;
 		adminobjectClass = newAdminobjectClass;
@@ -185,6 +189,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConfigProperty> getConfigProperty() {
 		if (configProperty == null) {
 			configProperty = new EObjectContainmentEList<ConfigProperty>(ConfigProperty.class, this, JcaPackage.ADMIN_OBJECT__CONFIG_PROPERTY);
@@ -197,6 +202,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -206,6 +212,7 @@ public class AdminObjectImpl extends EObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

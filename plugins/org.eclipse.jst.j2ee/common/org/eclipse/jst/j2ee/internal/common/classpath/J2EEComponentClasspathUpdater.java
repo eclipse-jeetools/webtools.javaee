@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -246,8 +246,13 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		
 		
 		public FindNodeJob(IResourceDelta[] d) {
-			super(FIND_NODE_JOB_NAME); 
-			setRule(ResourcesPlugin.getWorkspace().getRoot());
+			super(FIND_NODE_JOB_NAME);
+			if (d.length > 1) {
+				setRule(ResourcesPlugin.getWorkspace().getRoot());
+			}
+			else {
+				setRule(d[0].getResource());
+			}
 			setSystem(true);
 			setDelta(d);
 		}

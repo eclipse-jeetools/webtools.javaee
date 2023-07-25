@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -106,6 +106,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	 * 
 	 * @cu from the workbench and fix the internal references for this working copy manager.
 	 */
+	@Override
 	public void delete(final ICompilationUnit cu, final IProgressMonitor monitor) {
 		ICompilationUnit localCU = cu;
 		if (localCU.isWorkingCopy())
@@ -141,8 +142,10 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 		}
 	}
 
+	@Override
 	public void dispose() {
 		IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+			@Override
 			public void run(IProgressMonitor aMonitor) {
 				primDispose();
 			}
@@ -158,8 +161,10 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 		}
 	}
 
+	@Override
 	public void revert() {
 		IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+			@Override
 			public void run(IProgressMonitor aMonitor) {
 				primRevert();
 			}
@@ -167,6 +172,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 		runOperation(runnable, null, true);
 	}
 
+	@Override
 	public Set getAffectedFiles() {
 		return Collections.EMPTY_SET;
 	}
@@ -192,6 +198,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	 *         not encode an editor input, or if there is no remembered working copy for this
 	 *         compilation unit
 	 */
+	@Override
 	public org.eclipse.jdt.core.ICompilationUnit getExistingWorkingCopy(ICompilationUnit cu) throws CoreException {
 		ICompilationUnit newCU = getNewCompilationUnitWorkingCopy(cu);
 		if (newCU != null)
@@ -279,6 +286,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	 * @return the working copy of the compilation unit, or <code>null</code> if there is no
 	 *         remembered working copy for this compilation unit
 	 */
+	@Override
 	public ICompilationUnit getWorkingCopy(ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
 		if (cu == null || cu.isWorkingCopy())
 			return cu;
@@ -480,10 +488,12 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	/**
 	 * This will save all of the referenced CompilationUnits to be saved.
 	 */
+	@Override
 	public void saveCompilationUnits(org.eclipse.core.runtime.IProgressMonitor monitor) {
 		getSaveHandler().access();
 		try {
 			IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+				@Override
 				public void run(IProgressMonitor aMonitor) {
 					primSaveCompilationUnits(aMonitor);
 				}
@@ -508,10 +518,12 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	/**
 	 * This will save all of the new CompilationUnits to be saved.
 	 */
+	@Override
 	public void saveOnlyNewCompilationUnits(org.eclipse.core.runtime.IProgressMonitor monitor) {
 		getSaveHandler().access();
 		try {
 			IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+				@Override
 				public void run(IProgressMonitor aMonitor) {
 					primSaveOnlyNewCompilationUnits(aMonitor);
 				}
@@ -538,6 +550,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	/**
 	 * @see com.ibm.etools.j2ee.workbench.IJ2EEWorkingCopyManager#hasWorkingCopies()
 	 */
+	@Override
 	public boolean hasWorkingCopies() {
 		return (deletedCompilationUnits != null && !deletedCompilationUnits.isEmpty()) || (needsSavingCompilationUnits != null && !needsSavingCompilationUnits.isEmpty()) || (newCompilationUnits != null && !newCompilationUnits.isEmpty());
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -214,6 +214,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.SERVICE_REF_HANDLER__DESCRIPTIONS);
@@ -226,6 +227,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JavaeePackage.SERVICE_REF_HANDLER__DISPLAY_NAMES);
@@ -238,6 +240,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JavaeePackage.SERVICE_REF_HANDLER__ICONS);
@@ -250,6 +253,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getHandlerName() {
 		return handlerName;
 	}
@@ -259,6 +263,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHandlerName(String newHandlerName) {
 		String oldHandlerName = handlerName;
 		handlerName = newHandlerName;
@@ -271,6 +276,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getHandlerClass() {
 		return handlerClass;
 	}
@@ -280,6 +286,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHandlerClass(String newHandlerClass) {
 		String oldHandlerClass = handlerClass;
 		handlerClass = newHandlerClass;
@@ -292,6 +299,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ParamValue> getInitParams() {
 		if (initParams == null) {
 			initParams = new EObjectContainmentEList<ParamValue>(ParamValue.class, this, JavaeePackage.SERVICE_REF_HANDLER__INIT_PARAMS);
@@ -304,6 +312,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<QName> getSoapHeaders() {
 		if (soapHeaders == null) {
 			soapHeaders = new EDataTypeEList<QName>(QName.class, this, JavaeePackage.SERVICE_REF_HANDLER__SOAP_HEADERS);
@@ -316,6 +325,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getSoapRoles() {
 		if (soapRoles == null) {
 			soapRoles = new EDataTypeEList<String>(String.class, this, JavaeePackage.SERVICE_REF_HANDLER__SOAP_ROLES);
@@ -328,6 +338,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getPortNames() {
 		if (portNames == null) {
 			portNames = new EDataTypeEList<String>(String.class, this, JavaeePackage.SERVICE_REF_HANDLER__PORT_NAMES);
@@ -340,6 +351,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -349,6 +361,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

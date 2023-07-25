@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -137,6 +137,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -146,6 +147,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -158,6 +160,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPath() {
 		return path;
 	}
@@ -167,6 +170,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPath(String newPath) {
 		String oldPath = path;
 		path = newPath;
@@ -179,6 +183,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getExample() {
 		return example;
 	}
@@ -188,6 +193,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExample(String newExample) {
 		String oldExample = example;
 		example = newExample;
@@ -200,6 +206,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getTagExtensions() {
 		if (tagExtensions == null) {
 			tagExtensions = new EObjectContainmentEList(TldExtension.class, this, TaglibPackage.TAG_FILE__TAG_EXTENSIONS);

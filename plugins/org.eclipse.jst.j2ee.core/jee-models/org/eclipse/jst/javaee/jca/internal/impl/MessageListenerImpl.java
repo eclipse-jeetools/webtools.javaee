@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -114,6 +114,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessagelistenerType() {
 		return messagelistenerType;
 	}
@@ -123,6 +124,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessagelistenerType(String newMessagelistenerType) {
 		String oldMessagelistenerType = messagelistenerType;
 		messagelistenerType = newMessagelistenerType;
@@ -135,6 +137,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationSpec getActivationspec() {
 		return activationspec;
 	}
@@ -159,6 +162,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActivationspec(ActivationSpec newActivationspec) {
 		if (newActivationspec != activationspec) {
 			NotificationChain msgs = null;
@@ -178,6 +182,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -187,6 +192,7 @@ public class MessageListenerImpl extends EObjectImpl implements MessageListener 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

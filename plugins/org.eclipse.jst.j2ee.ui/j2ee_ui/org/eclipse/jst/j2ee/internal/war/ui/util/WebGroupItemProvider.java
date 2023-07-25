@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,8 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 public abstract class WebGroupItemProvider extends J2EEItemProvider {
 
 	class WebGroupComparator implements Comparator {
-        public int compare(Object o1, Object o2) {
+        @Override
+		public int compare(Object o1, Object o2) {
             if (o1 instanceof Servlet) {
                 Servlet s1 = (Servlet)o1;
                 Servlet s2 = (Servlet)o2;

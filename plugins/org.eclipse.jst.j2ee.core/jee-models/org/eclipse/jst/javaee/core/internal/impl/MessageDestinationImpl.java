@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -188,6 +188,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.MESSAGE_DESTINATION__DESCRIPTIONS);
@@ -200,6 +201,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JavaeePackage.MESSAGE_DESTINATION__DISPLAY_NAMES);
@@ -212,6 +214,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JavaeePackage.MESSAGE_DESTINATION__ICONS);
@@ -224,6 +227,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessageDestinationName() {
 		return messageDestinationName;
 	}
@@ -233,6 +237,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageDestinationName(String newMessageDestinationName) {
 		String oldMessageDestinationName = messageDestinationName;
 		messageDestinationName = newMessageDestinationName;
@@ -245,6 +250,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -254,6 +260,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -266,6 +273,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLookupName() {
 		return lookupName;
 	}
@@ -275,6 +283,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookupName(String newLookupName) {
 		String oldLookupName = lookupName;
 		lookupName = newLookupName;
@@ -287,6 +296,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -296,6 +306,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

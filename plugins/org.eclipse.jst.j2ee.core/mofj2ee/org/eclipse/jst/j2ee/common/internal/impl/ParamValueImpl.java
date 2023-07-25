@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -136,6 +136,7 @@ public class ParamValueImpl extends J2EEEObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -145,6 +146,7 @@ public class ParamValueImpl extends J2EEEObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -157,6 +159,7 @@ public class ParamValueImpl extends J2EEEObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}
@@ -166,6 +169,7 @@ public class ParamValueImpl extends J2EEEObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
@@ -178,6 +182,7 @@ public class ParamValueImpl extends J2EEEObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -187,6 +192,7 @@ public class ParamValueImpl extends J2EEEObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -199,6 +205,7 @@ public class ParamValueImpl extends J2EEEObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.PARAM_VALUE__DESCRIPTIONS);

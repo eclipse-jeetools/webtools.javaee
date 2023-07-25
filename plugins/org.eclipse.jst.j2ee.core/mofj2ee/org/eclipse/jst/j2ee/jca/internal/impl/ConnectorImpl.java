@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -117,6 +117,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	* This returns the module version id.  Compare with J2EEVersionConstants to determine module level
 	*/
+	@Override
 	public int getVersionID() throws IllegalStateException {
 		J2EEVersionResource res = (J2EEVersionResource) eResource();
 		if (res == null) throw new IllegalStateException();
@@ -128,6 +129,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * Specifies the name of resource adapter provider vendor.
 	 * Example: Wombat Corp.
 	 */
+	@Override
 	public String getVendorName() {
 		return vendorName;
 	}
@@ -135,6 +137,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setVendorName(String newVendorName) {
 		String oldVendorName = vendorName;
 		vendorName = newVendorName;
@@ -147,6 +150,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * Specifies the version of the connector architecture specification that is supported by this resource adapter. This information enables deployer to configure the resource adapter to support deployment and runtime requirements of the corresponding connector architecture specification.
 
 	 */
+	@Override
 	public String getSpecVersion() {
 		return specVersion;
 	}
@@ -154,6 +158,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSpecVersion(String newSpecVersion) {
 		String oldSpecVersion = specVersion;
 		specVersion = newSpecVersion;
@@ -169,6 +174,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * this resource adapter.
 
 	 */
+	@Override
 	public String getEisType() {
 		return eisType;
 	}
@@ -176,6 +182,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEisType(String newEisType) {
 		String oldEisType = eisType;
 		eisType = newEisType;
@@ -189,6 +196,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * 
 	 * Example: 1.0
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -196,6 +204,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -208,6 +217,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * Specifies licensing requirements for the resource adapter module. This element specifies whether a license is required to deploy and use this resource adapter, and an optional description of the licensing terms (examples: duration of license, number of
 	 * connection restrictions).
 	 */
+	@Override
 	public License getLicense() {
 		return license;
 	}
@@ -230,6 +240,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLicense(License newLicense) {
 		if (newLicense != license) {
 			NotificationChain msgs = null;
@@ -247,6 +258,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public ResourceAdapter getResourceAdapter() {
 		return resourceAdapter;
 	}
@@ -269,6 +281,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setResourceAdapter(ResourceAdapter newResourceAdapter) {
 		if (newResourceAdapter != resourceAdapter) {
 			NotificationChain msgs = null;

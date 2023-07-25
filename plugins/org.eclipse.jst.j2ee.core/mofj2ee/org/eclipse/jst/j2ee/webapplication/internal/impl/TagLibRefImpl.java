@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,6 +76,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * The taglib-uri element describes a URI, relative to the location of the web.xml 
 	 * document, identifying a Tag Library used in the Web Application.
 	 */
+	@Override
 	public String getTaglibURI() {
 		return taglibURI;
 	}
@@ -83,6 +84,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setTaglibURI(String newTaglibURI) {
 		String oldTaglibURI = taglibURI;
 		taglibURI = newTaglibURI;
@@ -96,6 +98,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * the root of the web application) where to find the Tag Libary Description file
 	 * for the tag library.
 	 */
+	@Override
 	public String getTaglibLocation() {
 		return taglibLocation;
 	}
@@ -103,6 +106,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setTaglibLocation(String newTaglibLocation) {
 		String oldTaglibLocation = taglibLocation;
 		taglibLocation = newTaglibLocation;
@@ -115,6 +119,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.TAG_LIB_REF__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -135,6 +140,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.TAG_LIB_REF__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))

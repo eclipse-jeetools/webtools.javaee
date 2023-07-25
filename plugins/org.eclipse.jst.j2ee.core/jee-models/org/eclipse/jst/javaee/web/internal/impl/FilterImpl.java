@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -210,6 +210,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.FILTER__DESCRIPTIONS);
@@ -222,6 +223,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, WebPackage.FILTER__DISPLAY_NAMES);
@@ -234,6 +236,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, WebPackage.FILTER__ICONS);
@@ -246,6 +249,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFilterName() {
 		return filterName;
 	}
@@ -255,6 +259,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFilterName(String newFilterName) {
 		String oldFilterName = filterName;
 		filterName = newFilterName;
@@ -267,6 +272,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFilterClass() {
 		return filterClass;
 	}
@@ -276,6 +282,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFilterClass(String newFilterClass) {
 		String oldFilterClass = filterClass;
 		filterClass = newFilterClass;
@@ -288,6 +295,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isAsyncSupported() {
 		return asyncSupported;
 	}
@@ -297,6 +305,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAsyncSupported(boolean newAsyncSupported) {
 		boolean oldAsyncSupported = asyncSupported;
 		asyncSupported = newAsyncSupported;
@@ -311,6 +320,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetAsyncSupported() {
 		boolean oldAsyncSupported = asyncSupported;
 		boolean oldAsyncSupportedESet = asyncSupportedESet;
@@ -325,6 +335,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetAsyncSupported() {
 		return asyncSupportedESet;
 	}
@@ -334,6 +345,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ParamValue> getInitParams() {
 		if (initParams == null) {
 			initParams = new EObjectContainmentEList<ParamValue>(ParamValue.class, this, WebPackage.FILTER__INIT_PARAMS);
@@ -346,6 +358,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -355,6 +368,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -72,6 +72,7 @@ public static void registerDtD(String systemID, String localID) {
  * @throws SAXException with a nested NotSupportedException if the dtd is not recognized
  * @throws FileNotFoundException if the resolved dtd cannot be loaded from the classpath
  */
+@Override
 public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) throws java.io.IOException, org.xml.sax.SAXException {
 	String localResourceName = null;
 	//boolean isJavaSytemId = false;

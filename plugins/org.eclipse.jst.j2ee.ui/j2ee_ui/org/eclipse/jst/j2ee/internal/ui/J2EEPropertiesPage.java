@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2007 IBM Corporation and others.
+ * Copyright (c) 2006, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,6 +60,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 			contextRootNameField = new Text(c, SWT.BORDER);
 			contextRootNameField.addModifyListener(new ModifyListener() {
 
+				@Override
 				public void modifyText(ModifyEvent e) {
 					dirty = !contextRootNameField.getText().equals(
 							ComponentUtilities.getServerContextRoot(getProject()));

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -136,6 +136,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getApplication() {
 		return applicationEClass;
 	}
@@ -145,6 +146,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplication_ApplicationName() {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(0);
 	}
@@ -154,6 +156,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_Descriptions() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(1);
 	}
@@ -163,6 +166,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_DisplayNames() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(2);
 	}
@@ -172,6 +176,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_Icons() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(3);
 	}
@@ -181,6 +186,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplication_InitializeInOrder() {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(4);
 	}
@@ -190,6 +196,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_Modules() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(5);
 	}
@@ -199,6 +206,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_SecurityRoles() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(6);
 	}
@@ -208,6 +216,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplication_LibraryDirectory() {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(7);
 	}
@@ -217,6 +226,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_EnvEntry() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(8);
 	}
@@ -226,6 +236,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_EjbRef() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(9);
 	}
@@ -235,6 +246,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_EjbLocalRef() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(10);
 	}
@@ -244,6 +256,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_ServiceRefs() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(11);
 	}
@@ -253,6 +266,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_ResourceRef() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(12);
 	}
@@ -262,6 +276,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_ResourceEnvRef() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(13);
 	}
@@ -271,6 +286,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_MessageDestinationRef() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(14);
 	}
@@ -280,6 +296,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_PersistenceContextRef() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(15);
 	}
@@ -289,6 +306,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_PersistenceUnitRef() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(16);
 	}
@@ -298,6 +316,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_MessageDestination() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(17);
 	}
@@ -307,6 +326,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_DataSource() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(18);
 	}
@@ -316,6 +336,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_JmsConnectionFactory() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(19);
 	}
@@ -325,6 +346,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_JmsDestination() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(20);
 	}
@@ -334,6 +356,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_MailSession() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(21);
 	}
@@ -343,6 +366,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_ConnectionFactory() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(22);
 	}
@@ -352,6 +376,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_AdministeredObject() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(23);
 	}
@@ -361,6 +386,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplication_Id() {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(24);
 	}
@@ -370,6 +396,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplication_Version() {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(25);
 	}
@@ -379,6 +406,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getApplicationDeploymentDescriptor() {
 		return applicationDeploymentDescriptorEClass;
 	}
@@ -388,6 +416,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationDeploymentDescriptor_Mixed() {
 		return (EAttribute)applicationDeploymentDescriptorEClass.getEStructuralFeatures().get(0);
 	}
@@ -397,6 +426,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationDeploymentDescriptor_XMLNSPrefixMap() {
 		return (EReference)applicationDeploymentDescriptorEClass.getEStructuralFeatures().get(1);
 	}
@@ -406,6 +436,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationDeploymentDescriptor_XSISchemaLocation() {
 		return (EReference)applicationDeploymentDescriptorEClass.getEStructuralFeatures().get(2);
 	}
@@ -415,6 +446,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationDeploymentDescriptor_Application() {
 		return (EReference)applicationDeploymentDescriptorEClass.getEStructuralFeatures().get(3);
 	}
@@ -424,6 +456,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getModule() {
 		return moduleEClass;
 	}
@@ -433,6 +466,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModule_Connector() {
 		return (EAttribute)moduleEClass.getEStructuralFeatures().get(0);
 	}
@@ -442,6 +476,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModule_Ejb() {
 		return (EAttribute)moduleEClass.getEStructuralFeatures().get(1);
 	}
@@ -451,6 +486,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModule_Java() {
 		return (EAttribute)moduleEClass.getEStructuralFeatures().get(2);
 	}
@@ -460,6 +496,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModule_Web() {
 		return (EReference)moduleEClass.getEStructuralFeatures().get(3);
 	}
@@ -469,6 +506,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModule_AltDd() {
 		return (EAttribute)moduleEClass.getEStructuralFeatures().get(4);
 	}
@@ -478,6 +516,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getModule_Id() {
 		return (EAttribute)moduleEClass.getEStructuralFeatures().get(5);
 	}
@@ -487,6 +526,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWeb() {
 		return webEClass;
 	}
@@ -496,6 +536,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWeb_WebUri() {
 		return (EAttribute)webEClass.getEStructuralFeatures().get(0);
 	}
@@ -505,6 +546,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWeb_ContextRoot() {
 		return (EAttribute)webEClass.getEStructuralFeatures().get(1);
 	}
@@ -514,6 +556,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWeb_Id() {
 		return (EAttribute)webEClass.getEStructuralFeatures().get(2);
 	}
@@ -523,6 +566,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ApplicationFactory getApplicationFactory() {
 		return (ApplicationFactory)getEFactoryInstance();
 	}

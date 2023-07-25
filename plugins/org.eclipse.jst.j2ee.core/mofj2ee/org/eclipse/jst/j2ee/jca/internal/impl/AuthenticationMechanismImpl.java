@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -153,6 +153,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -160,6 +161,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -172,6 +174,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAuthenticationMechanism() {
 		return authenticationMechanism;
 	}
@@ -181,6 +184,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAuthenticationMechanism(String newAuthenticationMechanism) {
 		String oldAuthenticationMechanism = authenticationMechanism;
 		authenticationMechanism = newAuthenticationMechanism;
@@ -200,6 +204,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * Connector architecture specification.
 
 	 */
+	@Override
 	public AuthenticationMechanismType getAuthenticationMechanismType() {
 		return authenticationMechanismType;
 	}
@@ -209,6 +214,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAuthenticationMechanismType(AuthenticationMechanismType newAuthenticationMechanismType) {
 		AuthenticationMechanismType oldAuthenticationMechanismType = authenticationMechanismType;
 		authenticationMechanismType = newAuthenticationMechanismType == null ? AUTHENTICATION_MECHANISM_TYPE_EDEFAULT : newAuthenticationMechanismType;
@@ -223,6 +229,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetAuthenticationMechanismType() {
 		AuthenticationMechanismType oldAuthenticationMechanismType = authenticationMechanismType;
 		boolean oldAuthenticationMechanismTypeESet = authenticationMechanismTypeESet;
@@ -237,6 +244,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetAuthenticationMechanismType() {
 		return authenticationMechanismTypeESet;
 	}
@@ -253,6 +261,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 *    javax.resource.spi.security.GenericCredential
 
 	 */
+	@Override
 	public String getCredentialInterface() {
 		return credentialInterface;
 	}
@@ -260,6 +269,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setCredentialInterface(String newCredentialInterface) {
 		String oldCredentialInterface = credentialInterface;
 		credentialInterface = newCredentialInterface;
@@ -300,6 +310,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * This variable is internal, used only by the reader//writer classes, and can
 	 * change or disappear without notice.  
 	 */
+	@Override
 	public String getCustomAuthMechType() {
 		return customAuthMechType;
 	}
@@ -307,6 +318,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setCustomAuthMechType(String newCustomAuthMechType) {
 		String oldCustomAuthMechType = customAuthMechType;
 		customAuthMechType = newCustomAuthMechType;
@@ -319,6 +331,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS);

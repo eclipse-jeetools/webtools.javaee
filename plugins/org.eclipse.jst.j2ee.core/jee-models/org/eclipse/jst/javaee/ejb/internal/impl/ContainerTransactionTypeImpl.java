@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -145,6 +145,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.CONTAINER_TRANSACTION_TYPE__DESCRIPTIONS);
@@ -157,6 +158,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MethodType> getMethods() {
 		if (methods == null) {
 			methods = new EObjectContainmentEList<MethodType>(MethodType.class, this, EjbPackage.CONTAINER_TRANSACTION_TYPE__METHODS);
@@ -169,6 +171,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransactionAttributeType getTransAttribute() {
 		return transAttribute;
 	}
@@ -178,6 +181,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransAttribute(TransactionAttributeType newTransAttribute) {
 		TransactionAttributeType oldTransAttribute = transAttribute;
 		transAttribute = newTransAttribute == null ? TRANS_ATTRIBUTE_EDEFAULT : newTransAttribute;
@@ -192,6 +196,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransAttribute() {
 		TransactionAttributeType oldTransAttribute = transAttribute;
 		boolean oldTransAttributeESet = transAttributeESet;
@@ -206,6 +211,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransAttribute() {
 		return transAttributeESet;
 	}
@@ -215,6 +221,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -224,6 +231,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

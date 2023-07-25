@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2009 Red Hat, IBM
+ * Copyright (c) 2009, 2019 Red Hat, IBM
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,11 +22,13 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class EarModuleDependencyPageProvider implements IDependencyPageProvider {
 
+	@Override
 	public boolean canHandle(IFacetedProject project) {
 		boolean isEAR = project.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE));
 		return isEAR;
 	}
 
+	@Override
 	public IModuleDependenciesControl[] createPages(IFacetedProject project,
 			ModuleAssemblyRootPage parent) {
 		return new IModuleDependenciesControl[] {
@@ -34,6 +36,7 @@ public class EarModuleDependencyPageProvider implements IDependencyPageProvider 
 		};
 	}
 
+	@Override
 	public Composite createRootControl(IFacetedProject project,IModuleDependenciesControl[] pages,
 			Composite parent) {
 		if( pages.length == 1 && pages[0] != null)
@@ -41,6 +44,7 @@ public class EarModuleDependencyPageProvider implements IDependencyPageProvider 
 		return null;
 	}
 	
+	@Override
 	public String getPageTitle(IProject project) {
 		return Messages.EarModuleDependencyPageProvider_0;
 	}

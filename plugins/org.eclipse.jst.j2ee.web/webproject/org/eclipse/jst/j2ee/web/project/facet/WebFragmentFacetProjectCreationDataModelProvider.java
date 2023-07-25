@@ -1,6 +1,6 @@
 /*******************************************************************************
 
- * Copyright (c) 2010, 2012 IBM Corporation and others.
+ * Copyright (c) 2010, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,6 +60,7 @@ public class WebFragmentFacetProjectCreationDataModelProvider extends J2EEFacetP
 		
 		IDataModel webFragmentFacet = map.getFacetDataModel(WEBFRAGMENT_FACET.getId());
 		webFragmentFacet.addListener(new IDataModelListener() {
+			@Override
 			public void propertyChanged(DataModelEvent event) {
 				if (IWebFragmentFacetInstallDataModelProperties.WAR_PROJECT_NAME.equals(event.getPropertyName())) {
 					if (isPropertySet(WAR_PROJECT_NAME))

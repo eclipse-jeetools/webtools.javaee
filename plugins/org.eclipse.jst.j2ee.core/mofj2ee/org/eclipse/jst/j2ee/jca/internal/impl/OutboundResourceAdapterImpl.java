@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -147,6 +147,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isReauthenticationSupport() {
 		return reauthenticationSupport;
 	}
@@ -156,6 +157,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReauthenticationSupport(boolean newReauthenticationSupport) {
 		boolean oldReauthenticationSupport = reauthenticationSupport;
 		reauthenticationSupport = newReauthenticationSupport;
@@ -170,6 +172,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetReauthenticationSupport() {
 		boolean oldReauthenticationSupport = reauthenticationSupport;
 		boolean oldReauthenticationSupportESet = reauthenticationSupportESet;
@@ -184,6 +187,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetReauthenticationSupport() {
 		return reauthenticationSupportESet;
 	}
@@ -193,6 +197,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransactionSupportKind getTransactionSupport() {
 		return transactionSupport;
 	}
@@ -202,6 +207,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionSupport(TransactionSupportKind newTransactionSupport) {
 		TransactionSupportKind oldTransactionSupport = transactionSupport;
 		transactionSupport = newTransactionSupport == null ? TRANSACTION_SUPPORT_EDEFAULT : newTransactionSupport;
@@ -216,6 +222,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionSupport() {
 		TransactionSupportKind oldTransactionSupport = transactionSupport;
 		boolean oldTransactionSupportESet = transactionSupportESet;
@@ -230,6 +237,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionSupport() {
 		return transactionSupportESet;
 	}
@@ -239,6 +247,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getConnectionDefinitions() {
 		if (connectionDefinitions == null) {
 			connectionDefinitions = new EObjectContainmentEList(ConnectionDefinition.class, this, JcaPackage.OUTBOUND_RESOURCE_ADAPTER__CONNECTION_DEFINITIONS);
@@ -251,6 +260,7 @@ public class OutboundResourceAdapterImpl extends J2EEEObjectImpl implements Outb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getAuthenticationMechanisms() {
 		if (authenticationMechanisms == null) {
 			authenticationMechanisms = new EObjectContainmentEList(AuthenticationMechanism.class, this, JcaPackage.OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS);

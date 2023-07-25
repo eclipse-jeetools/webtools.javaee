@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c)2006 IBM Corporation and others.
+ * Copyright (c)2006, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,10 +31,12 @@ public class ForceClasspathUpdateAction extends Action implements IActionDelegat
 		J2EEComponentClasspathUpdater.getInstance().forceUpdate(projectsList);
 	}
 
+	@Override
 	public void run(IAction action) {
 		J2EEComponentClasspathUpdater.getInstance().forceUpdate(projectsList);
 	}
 
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		action.setEnabled(setSelection(selection));
 	}

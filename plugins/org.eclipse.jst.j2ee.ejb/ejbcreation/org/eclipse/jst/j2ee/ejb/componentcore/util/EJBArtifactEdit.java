@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -559,10 +559,12 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return ((EJBResource) getDeploymentDescriptorResource()).getRootObject();
 	}
 
+	@Override
 	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
 		return getEJBArtifactEditForRead(aComponent);
 	}
 
+	@Override
 	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
 		return getEJBArtifactEditForWrite(aComponent);
 	}

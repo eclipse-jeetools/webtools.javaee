@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -132,6 +132,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getSessionTimeout() {
 		return sessionTimeout;
 	}
@@ -141,6 +142,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSessionTimeout(BigInteger newSessionTimeout) {
 		BigInteger oldSessionTimeout = sessionTimeout;
 		sessionTimeout = newSessionTimeout;
@@ -153,6 +155,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookieConfigType getCookieConfig() {
 		return cookieConfig;
 	}
@@ -177,6 +180,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCookieConfig(CookieConfigType newCookieConfig) {
 		if (newCookieConfig != cookieConfig) {
 			NotificationChain msgs = null;
@@ -196,6 +200,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<TrackingModeType> getTrackingMode() {
 		if (trackingMode == null) {
 			trackingMode = new EDataTypeEList<TrackingModeType>(TrackingModeType.class, this, WebPackage.SESSION_CONFIG__TRACKING_MODE);
@@ -208,6 +213,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -217,6 +223,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

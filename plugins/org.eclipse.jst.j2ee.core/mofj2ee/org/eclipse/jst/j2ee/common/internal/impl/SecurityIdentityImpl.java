@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -79,6 +79,7 @@ public class SecurityIdentityImpl extends J2EEEObjectImpl implements SecurityIde
 		return description;
 	}
 	
+	@Override
 	public String getDescription() {
 		if (!getDescriptions().isEmpty()) {
 			Description d = (Description) getDescriptions().get(0);
@@ -88,6 +89,7 @@ public class SecurityIdentityImpl extends J2EEEObjectImpl implements SecurityIde
 		return getDescriptionGen();
 	}
 
+	@Override
 	public void setDescription(String newDescription) {
 		String descriptionValue = newDescription;
 		if (getDescriptions() != null) {
@@ -127,6 +129,7 @@ public class SecurityIdentityImpl extends J2EEEObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.SECURITY_IDENTITY__DESCRIPTIONS);
@@ -234,6 +237,7 @@ public class SecurityIdentityImpl extends J2EEEObjectImpl implements SecurityIde
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.common.SecurityIdentity#isRunAsSpecifiedIdentity()
 	 */
+	@Override
 	public boolean isRunAsSpecifiedIdentity() {
 		return false;
 	}
@@ -241,6 +245,7 @@ public class SecurityIdentityImpl extends J2EEEObjectImpl implements SecurityIde
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.common.SecurityIdentity#isUseCallerIdentity()
 	 */
+	@Override
 	public boolean isUseCallerIdentity() {
 		return false;
 	}

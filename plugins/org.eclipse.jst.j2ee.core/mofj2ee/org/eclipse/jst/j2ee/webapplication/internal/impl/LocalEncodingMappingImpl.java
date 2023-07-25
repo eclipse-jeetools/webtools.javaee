@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,6 +97,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocale() {
 		return locale;
 	}
@@ -106,6 +107,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocale(String newLocale) {
 		String oldLocale = locale;
 		locale = newLocale;
@@ -118,6 +120,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEncoding() {
 		return encoding;
 	}
@@ -127,6 +130,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEncoding(String newEncoding) {
 		String oldEncoding = encoding;
 		encoding = newEncoding;

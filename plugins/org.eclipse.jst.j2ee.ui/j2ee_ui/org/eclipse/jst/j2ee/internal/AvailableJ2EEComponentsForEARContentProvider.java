@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2009 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -79,6 +79,7 @@ public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
 	 * 
 	 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		if (null != earComponent){
 			isEE5 = J2EEProjectUtilities.isJEEProject(earComponent.getProject());
@@ -229,6 +230,7 @@ public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
 	 * 
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
 	 */
+	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		if (columnIndex < 2){
 			if (element instanceof IVirtualComponent) {
@@ -261,6 +263,7 @@ public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
 	 * 
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 	 */
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		if (element instanceof IVirtualComponent) {
 			IVirtualComponent comp = (IVirtualComponent)element;
@@ -299,6 +302,7 @@ public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
 	public void dispose() {
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 IBM Corporation and others.
+ * Copyright (c) 2011, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -115,6 +115,7 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ui.IJavaEEDeploymentAssemblySectionBuilder#buildSection(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public void buildSection(Composite parent){
 		if (shouldDisplaySection()) { 
 			Composite advancedSectionComposite = createAdvancedSection(parent);		
@@ -125,6 +126,7 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ui.IJavaEEDeploymentAssemblySectionBuilder#loadContents()
 	 */
+	@Override
 	public void loadContents(){
 		if (shouldDisplaySection()){
 			loadDefaultDeploymentDescriptorFolderContents();
@@ -134,6 +136,7 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ui.IJavaEEDeploymentAssemblySectionBuilder#saveContents()
 	 */
+	@Override
 	public boolean saveContents(){		
 		boolean success = true;
 		if (shouldDisplaySection()){
@@ -319,6 +322,7 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 		return result;
 	}
 
+	@Override
 	public void directiveAdded(Object element) {
 		if (shouldDisplaySection()){
 			if (!(element instanceof TaskModel))
@@ -336,6 +340,7 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 		}		
 	}
 
+	@Override
 	public void directiveRemoved(Object element) {
 		if (shouldDisplaySection()){
 			if( element instanceof ComponentResourceProxy){
@@ -354,11 +359,13 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 		}
 	}
 
+	@Override
 	public void widgetDefaultSelected(SelectionEvent event) {
 		// Intentionally left blank
 		
 	}
 
+	@Override
 	public void widgetSelected(SelectionEvent event) {
 		if (event.getSource() == rootSourceMappings){
 			String tmp = rootSourceMappings.getText();
@@ -387,6 +394,7 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 				
 	}
 
+	@Override
 	public IStatus validate(IStatus currentStatus) {	
 		IStatus status = currentStatus!=null?currentStatus:Status.OK_STATUS;
 		if (shouldDisplaySection()){
@@ -417,6 +425,7 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
         return multiStatus;
     }
 
+	@Override
 	public void componentResourceModified(ComponentResourceProxy originalResource, ComponentResourceProxy modifiedResource) {
 		if (shouldDisplaySection()){
 			// We are interested only in two cases:

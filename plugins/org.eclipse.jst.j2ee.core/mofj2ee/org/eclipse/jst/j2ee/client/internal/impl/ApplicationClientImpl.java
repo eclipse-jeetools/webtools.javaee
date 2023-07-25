@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -133,6 +133,7 @@ public class ApplicationClientImpl extends CompatibilityDescriptionGroupImpl imp
 public JavaClass createClassRef(String targetName) {
 	return JavaRefFactory.eINSTANCE.createClassRef(targetName);
 }
+@Override
 public String getCallbackHandlerClassName() {
 	getCallbackHandler();
 	return (callbackHandler == null) ? null : callbackHandler.getQualifiedName();
@@ -142,6 +143,7 @@ public String getCallbackHandlerClassName() {
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion1_2Descriptor() {
 	CommonUtil.checkDDObjectForVersion(this);
 	String systemId = ((XMLResource)eResource()).getSystemId();
@@ -152,6 +154,7 @@ public boolean isVersion1_2Descriptor() {
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion1_3Descriptor() {
 	CommonUtil.checkDDObjectForVersion(this);
 	String systemId = ((XMLResource)eResource()).getSystemId();
@@ -160,15 +163,18 @@ public boolean isVersion1_3Descriptor() {
 /**
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion1_4Descriptor() {
 	return version != null && J2EEConstants.J2EE_1_4_TEXT.equals(version);
 }
+@Override
 public void setCallbackHandlerClassName(String callbackHandlerClassName) {
 	eSet(ClientPackage.eINSTANCE.getApplicationClient_CallbackHandler(), createClassRef(callbackHandlerClassName));
 }
 /**
  *This returns the module version id. Compare with J2EEVersionConstants to determine module level
  */
+@Override
 public int getVersionID() throws IllegalStateException {
 	J2EEVersionResource res = (J2EEVersionResource) eResource();
 	if (res == null) throw new IllegalStateException();
@@ -188,6 +194,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -197,6 +204,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -209,6 +217,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * Contains declarations of the application clients's references to an external
 	 * resources.
 	 */
+	@Override
 	public EList getResourceRefs() {
 		if (resourceRefs == null) {
 			resourceRefs = new EObjectContainmentEList(ResourceRef.class, this, ClientPackage.APPLICATION_CLIENT__RESOURCE_REFS);
@@ -222,6 +231,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * environment entries. Each declaration consists of an optional description, the
 	 * name of the environment entry, and an optional value.
 	 */
+	@Override
 	public EList getEnvironmentProps() {
 		if (environmentProps == null) {
 			environmentProps = new EObjectContainmentEList(EnvEntry.class, this, ClientPackage.APPLICATION_CLIENT__ENVIRONMENT_PROPS);
@@ -235,6 +245,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * an enterprise
 	 * bean's home. 
 	 */
+	@Override
 	public EList getEjbReferences() {
 		if (ejbReferences == null) {
 			ejbReferences = new EObjectContainmentEList(EjbRef.class, this, ClientPackage.APPLICATION_CLIENT__EJB_REFERENCES);
@@ -260,6 +271,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <//resource-env-ref>
 
 	 */
+	@Override
 	public EList getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
 			resourceEnvRefs = new EObjectContainmentEList(ResourceEnvRef.class, this, ClientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS);
@@ -271,6 +283,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * @generated This field/method will be replaced during code generation 
 	 * A class provided by the application.  The class must have a no args constructor and must implement the javax.security.auth.callback.CallbackHandler interface.  The class will be instantiated by the application client container and used by the container to collect authentication information from the user.
 	 */
+	@Override
 	public JavaClass getCallbackHandler() {
 		if (callbackHandler != null && callbackHandler.eIsProxy()) {
 			InternalEObject oldCallbackHandler = (InternalEObject)callbackHandler;
@@ -294,6 +307,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 
 	/**
 	 */
+	@Override
 	public void setCallbackHandler(JavaClass newCallbackHandler) {
 		if ((callbackHandler == null || callbackHandler.getQualifiedName() == null)
 				&& (newCallbackHandler == null || newCallbackHandler.getQualifiedName() == null)) {
@@ -310,6 +324,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList(ServiceRef.class, this, ClientPackage.APPLICATION_CLIENT__SERVICE_REFS);
@@ -322,6 +337,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
 			messageDestinationRefs = new EObjectContainmentEList(MessageDestinationRef.class, this, ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS);
@@ -334,6 +350,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getMessageDestinations() {
 		if (messageDestinations == null) {
 			messageDestinations = new EObjectContainmentEList(MessageDestination.class, this, ClientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS);

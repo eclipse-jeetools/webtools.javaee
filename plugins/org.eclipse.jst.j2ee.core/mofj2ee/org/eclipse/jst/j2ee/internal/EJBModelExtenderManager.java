@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,18 +34,21 @@ public class EJBModelExtenderManager implements IEJBModelExtenderManager {
         return IEJBModelExtenderManager.INSTANCE.getEJBModuleExtension(null);
     }
 
-    public EjbModuleExtensionHelper getEJBModuleExtension(Object context) {
+    @Override
+	public EjbModuleExtensionHelper getEJBModuleExtension(Object context) {
         return provider.getEJBModuleExtension(context);
     }
     
-    public boolean hasEJBModuleExtension(Object context) {
+    @Override
+	public boolean hasEJBModuleExtension(Object context) {
         return getEJBModuleExtension(context) != null;
     } 
     
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.internal.core.moduleextension.helper.IEJBModelExtenderManager#setProvider(org.eclipse.jst.j2ee.internal.core.moduleextension.helper.IEJBModelExtenderProvider)
      */
-    public void setProvider(IEJBModelExtenderProvider provider) {
+    @Override
+	public void setProvider(IEJBModelExtenderProvider provider) {
         this.provider = provider;
     }
     
@@ -53,7 +56,8 @@ public class EJBModelExtenderManager implements IEJBModelExtenderManager {
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.internal.core.moduleextension.helper.IEJBModelExtenderManager#isProviderSet()
      */
-    public boolean isProviderSet() {
+    @Override
+	public boolean isProviderSet() {
         return !(this.provider instanceof DefaultEJBModelExtenderProvider);
     }
 }

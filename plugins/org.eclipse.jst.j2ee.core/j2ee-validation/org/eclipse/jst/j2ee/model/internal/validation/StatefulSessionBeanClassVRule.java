@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -105,6 +105,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		MESSAGE_IDS.put(CHKJ2505_ejbRemove, new String[]{CHKJ2505_ejbRemove+BEXT, CHKJ2505_ejbRemove+MEXT});
 	}
 	
+	@Override
 	public final Map getMessageIds() {
 		return MESSAGE_IDS;
 	}
@@ -114,14 +115,17 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
 
+	@Override
 	public final Object[] getDependsOn() {
 		return DEPENDS_ON;
 	}
 	
+	@Override
 	public final Object getId() {
 		return ID;
 	}
 
+	@Override
 	public final long[] getSupertypes() {
 		return SUPERTYPES;
 	}
@@ -131,6 +135,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return SHOULD_VALIDATE_TRANSIENT_FIELD;
 	}
 	
+	@Override
 	public final long[] getShouldNotBeSupertypes() {
 		return SHOULD_NOT_BE_SUPERTYPES;
 	}
@@ -150,14 +155,17 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return SHOULD_BE_PUBLIC;
 	}
 
+	@Override
 	public final int isRemote() {
 		return NEITHER;
 	}
 
+	@Override
 	public final long[] getMethodsWhichMustExist() {
 		return METHODS_WHICH_MUST_EXIST;
 	}
 	
+	@Override
 	public final long[] getMethodsWhichMustNotExist() {
 		return METHODS_WHICH_MUST_NOT_EXIST;
 	}
@@ -172,10 +180,12 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return ITypeConstants.VOID;
 	}
 
+	@Override
 	public final long[] getKnownMethodTypes() {
 		return KNOWN_METHOD_TYPES;
 	}
 	
+	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		

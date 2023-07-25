@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -196,6 +196,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public void archiveClosed(Archive aClosedArchive) {
 		getOpenArchives().remove(aClosedArchive);
 	}
@@ -203,6 +204,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public void archiveOpened(Archive anOpenArchive) {
 		getOpenArchives().put(anOpenArchive, null);
 	}
@@ -210,10 +212,12 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @deprecated Use {@link #getOpenArchivesDependingOn(Archive)}
 	 */
+	@Override
 	public boolean canClose(Archive anArchive) {
 		return !getOpenArchivesDependingOn(anArchive).isEmpty();
 	}
 
+	@Override
 	public void closeOpenArchives() {
 		if (getOpenArchives().isEmpty())
 			return;
@@ -233,6 +237,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public Archive copy(Archive anArchive) {
 		return new ArchiveCopyUtility().copy(anArchive);
 	}
@@ -240,6 +245,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public ModuleFile copy(ModuleFile aModuleFile) {
 		return new ArchiveCopyUtility().copy(aModuleFile);
 	}
@@ -247,6 +253,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public ApplicationClientFile createApplicationClientFileInitialized(java.lang.String uri) {
 		ApplicationClientFile clientFile = createApplicationClientFile();
 		initializeNewApplicationClientFile(clientFile, uri);
@@ -256,6 +263,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public Archive createArchiveInitialized(java.lang.String uri) {
 		Archive anArchive = createArchive();
 		initializeNewArchive(anArchive, uri);
@@ -266,6 +274,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public Archive createArchiveInitialized(ArchiveOptions options, java.lang.String uri) {
 		Archive anArchive = createArchive();
 		initializeNewArchive(anArchive, uri, options);
@@ -273,6 +282,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 
 	}
 
+	@Override
 	public LoadStrategy createChildLoadStrategy(String uri, LoadStrategy parent) throws java.io.IOException, java.io.FileNotFoundException {
 
 		LoadStrategy childStrategy = null;
@@ -289,6 +299,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EARFile createEARFileInitialized(java.lang.String uri) {
 		EARFile earFile = createEARFile();
 		initializeNewEARFile(earFile, uri);
@@ -298,6 +309,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EARFile createEARFileInitialized(ArchiveOptions options, java.lang.String uri) {
 		EARFile earFile = createEARFile();
 		initializeNewEARFile(earFile, uri, options);
@@ -307,6 +319,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EJBJarFile createEJBJarFileInitialized(java.lang.String uri) {
 		EJBJarFile ejbJarFile = createEJBJarFile();
 		initializeNewEJBJarFile(ejbJarFile, uri);
@@ -317,6 +330,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EJBJarFile createEJBJarFileInitialized(ArchiveOptions options, java.lang.String uri) {
 		EJBJarFile ejbJarFile = createEJBJarFile();
 		initializeNewEJBJarFile(ejbJarFile, uri, options);
@@ -327,6 +341,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * Returns a NullLoadStrategyImpl; used for new archives
 	 */
+	@Override
 	public LoadStrategy createEmptyLoadStrategy() {
 		return new NullLoadStrategyImpl();
 	}
@@ -335,6 +350,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * Helper method to dynamically build a load strategy from the file system. Determines whether
 	 * the uri points to a jar file or directory and returns the appropriate strategy
 	 */
+	@Override
 	public LoadStrategy createLoadStrategy(String uri) throws FileNotFoundException, IOException {
 		String filename = uri.replace('/', java.io.File.separatorChar);
 		java.io.File file = new java.io.File(filename);
@@ -370,6 +386,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public RARFile createRARFileInitialized(java.lang.String uri) {
 		RARFile rarFile = createRARFile();
 		initializeNewRARFile(rarFile, uri);
@@ -397,6 +414,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public WARFile createWARFileInitialized(java.lang.String uri) {
 		WARFile warFile = createWARFile();
 		initializeNewWARFile(warFile, uri);
@@ -419,6 +437,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public java.lang.String[] getManifestClassPathValues(java.lang.String uri) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		String[] result = anArchive.getManifest().getClassPathTokenized();
@@ -440,6 +459,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public Set getOpenArchivesDependingOn(Archive anArchive) {
 		Set dependents = new HashSet();
 		synchronized (getOpenArchives()) {
@@ -523,10 +543,12 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 		initializeNewModuleFile(anArchive, uri);
 	}
 
+	@Override
 	public void initializeNewApplicationClientFile(ApplicationClientFile anArchive, String uri, ArchiveOptions options) {
 		initializeNewModuleFile(anArchive, uri, options);
 	}
 
+	@Override
 	public void initializeNewArchive(Archive anArchive, String uri, ArchiveOptions options) {
 		if (options.getLoadStrategy() == null) {
 			try {
@@ -545,23 +567,28 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 
 	}
 
+	@Override
 	public void initializeNewEARFile(EARFile anArchive, String uri, ArchiveOptions options) {
 		initializeNewModuleFile(anArchive, uri, options);
 	}
 
+	@Override
 	public void initializeNewEJBJarFile(EJBJarFile anArchive, String uri, ArchiveOptions options) {
 		initializeNewModuleFile(anArchive, uri, options);
 	}
 
+	@Override
 	public void initializeNewModuleFile(ModuleFile anArchive, String uri, ArchiveOptions options) {
 		initializeNewArchive(anArchive, uri, options);
 		anArchive.makeDeploymentDescriptorResource();
 	}
 
+	@Override
 	public void initializeNewRARFile(RARFile anArchive, String uri, ArchiveOptions options) {
 		initializeNewModuleFile(anArchive, uri, options);
 	}
 
+	@Override
 	public void initializeNewWARFile(WARFile anArchive, String uri, ArchiveOptions options) {
 		initializeNewModuleFile(anArchive, uri, options);
 	}
@@ -570,6 +597,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public ApplicationClientFile openApplicationClientFile(ArchiveOptions options, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(options, uri);
 		ArchiveTypeDiscriminator disc = AppClient12ImportStrategyImpl.getDiscriminator();
@@ -579,6 +607,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public ApplicationClientFile openApplicationClientFile(LoadStrategy aLoadStrategy, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(aLoadStrategy, uri);
 		ArchiveTypeDiscriminator disc = AppClient12ImportStrategyImpl.getDiscriminator();
@@ -588,6 +617,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public ApplicationClientFile openApplicationClientFile(String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		ArchiveTypeDiscriminator disc = AppClient12ImportStrategyImpl.getDiscriminator();
@@ -598,6 +628,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public Archive openArchive(ArchiveOptions options, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(options, uri);
 		return openSpecificArchive(anArchive, RootArchiveTypeDescriminatorImpl.singleton());
@@ -607,6 +638,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public Archive openArchive(LoadStrategy aLoadStrategy, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(aLoadStrategy, uri);
 		return openSpecificArchive(anArchive, RootArchiveTypeDescriminatorImpl.singleton());
@@ -617,6 +649,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * strategies. Name may be a path to a jar, a zip, or a directory return the appropriate Archive
 	 * type
 	 */
+	@Override
 	public Archive openArchive(java.lang.String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		return openSpecificArchive(anArchive, RootArchiveTypeDescriminatorImpl.singleton());
@@ -625,6 +658,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public Archive openArchive(String uri, String extraClassPath) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		anArchive.setExtraClasspath(extraClassPath);
@@ -635,6 +669,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public EARFile openEARFile(ArchiveOptions options, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(options, uri);
 		ArchiveTypeDiscriminator disc = Ear12ImportStrategyImpl.getDiscriminator();
@@ -644,6 +679,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EARFile openEARFile(LoadStrategy aLoadStrategy, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(aLoadStrategy, uri);
 		ArchiveTypeDiscriminator disc = Ear12ImportStrategyImpl.getDiscriminator();
@@ -653,6 +689,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EARFile openEARFile(String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		ArchiveTypeDiscriminator disc = Ear12ImportStrategyImpl.getDiscriminator();
@@ -663,6 +700,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public EJBJarFile openEJB11JarFile(ArchiveOptions options, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(options, uri);
 		ArchiveTypeDiscriminator disc = EjbJar11ImportStrategyImpl.getDiscriminator();
@@ -672,6 +710,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EJBJarFile openEJB11JarFile(LoadStrategy aLoadStrategy, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(aLoadStrategy, uri);
 		ArchiveTypeDiscriminator disc = EjbJar11ImportStrategyImpl.getDiscriminator();
@@ -681,6 +720,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EJBJarFile openEJB11JarFile(String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		ArchiveTypeDiscriminator disc = EjbJar11ImportStrategyImpl.getDiscriminator();
@@ -691,6 +731,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public EJBJarFile openEJBJarFile(ArchiveOptions options, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(options, uri);
 		RootEJBJarDescriminatorImpl disc = (RootEJBJarDescriminatorImpl) RootEJBJarDescriminatorImpl.singleton();
@@ -700,6 +741,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EJBJarFile openEJBJarFile(LoadStrategy aLoadStrategy, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(aLoadStrategy, uri);
 		RootEJBJarDescriminatorImpl disc = (RootEJBJarDescriminatorImpl) RootEJBJarDescriminatorImpl.singleton();
@@ -709,6 +751,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EJBJarFile openEJBJarFile(LoadStrategy aLoadStrategy, String uri, String extraClassPath) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(aLoadStrategy, uri);
 		anArchive.setExtraClasspath(extraClassPath);
@@ -719,6 +762,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EJBJarFile openEJBJarFile(String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		RootEJBJarDescriminatorImpl disc = (RootEJBJarDescriminatorImpl) RootEJBJarDescriminatorImpl.singleton();
@@ -728,6 +772,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public EJBJarFile openEJBJarFile(String uri, String extraClassPath) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		anArchive.setExtraClasspath(extraClassPath);
@@ -735,6 +780,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 		return (EJBJarFile) openSpecificArchive(anArchive, disc);
 	}
 
+	@Override
 	public Archive openNestedArchive(LooseArchive loose, Archive parent) throws OpenFailureException {
 		String uri = loose.getUri();
 		try {
@@ -753,6 +799,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see CommonarchiveFactory
 	 */
+	@Override
 	public Archive openNestedArchive(String uri, Archive parent) throws OpenFailureException {
 		try {
 			LoadStrategy childStrategy = createChildLoadStrategy(uri, parent.getLoadStrategy());
@@ -769,6 +816,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public RARFile openRARFile(ArchiveOptions options, java.lang.String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(options, uri);
 		ArchiveTypeDiscriminator disc = RarImportStrategyImpl.getDiscriminator();
@@ -778,6 +826,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public RARFile openRARFile(LoadStrategy aLoadStrategy, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(aLoadStrategy, uri);
 		ArchiveTypeDiscriminator disc = RarImportStrategyImpl.getDiscriminator();
@@ -787,6 +836,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public RARFile openRARFile(String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		ArchiveTypeDiscriminator disc = RarImportStrategyImpl.getDiscriminator();
@@ -796,6 +846,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * openReadOnlyDirectory method comment.
 	 */
+	@Override
 	public ReadOnlyDirectory openReadOnlyDirectory(java.lang.String uri) throws java.io.IOException {
 		java.io.File aFile = new java.io.File(uri);
 		if (!aFile.exists())
@@ -842,6 +893,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public WARFile openWARFile(ArchiveOptions options, java.lang.String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(options, uri);
 		ArchiveTypeDiscriminator disc = War22ImportStrategyImpl.getDiscriminator();
@@ -851,6 +903,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public WARFile openWARFile(LoadStrategy aLoadStrategy, String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(aLoadStrategy, uri);
 		ArchiveTypeDiscriminator disc = War22ImportStrategyImpl.getDiscriminator();
@@ -860,6 +913,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public WARFile openWARFile(String uri) throws OpenFailureException {
 		Archive anArchive = primOpenArchive(uri);
 		ArchiveTypeDiscriminator disc = War22ImportStrategyImpl.getDiscriminator();
@@ -870,6 +924,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public Archive primOpenArchive(ArchiveOptions options, String uri) throws OpenFailureException {
 		if (options.getLoadStrategy() == null) {
 			try {
@@ -891,6 +946,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * open the archive, setting up the appropriate strategies, using the loadStrategy passed in;
 	 * URI still necessary so the archive has a name, but it will not be used for io.
 	 */
+	@Override
 	public Archive primOpenArchive(LoadStrategy aLoadStrategy, String uri) throws OpenFailureException {
 		return primOpenArchive(defaultOptions(aLoadStrategy), uri);
 	}
@@ -898,6 +954,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @see com.ibm.etools.commonarchive.CommonarchiveFactory
 	 */
+	@Override
 	public Archive primOpenArchive(String uri) throws OpenFailureException {
 		return primOpenArchive(new ArchiveOptions(), uri);
 	}
@@ -949,6 +1006,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public File createFile() {
 		FileImpl file = new FileImpl();
 		return file;
@@ -957,6 +1015,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ReadOnlyDirectory createReadOnlyDirectory() {
 		ReadOnlyDirectoryImpl readOnlyDirectory = new ReadOnlyDirectoryImpl();
 		return readOnlyDirectory;
@@ -965,6 +1024,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public CommonarchivePackage getCommonarchivePackage() {
 		return (CommonarchivePackage)getEPackage();
 	}
@@ -1010,6 +1070,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 		return connectorModuleRef;
 	}
 
+	@Override
 	public ClientModuleRef createClientModuleRef(ApplicationClientFile clientFile) {
 		ClientModuleRef ref = createClientModuleRef();
 		ref.setModuleFile(clientFile);
@@ -1019,6 +1080,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/*
 	 * @see CommonarchiveFactory#createConnectorModuleRef(RARFile)
 	 */
+	@Override
 	public ConnectorModuleRef createConnectorModuleRef(RARFile rarFile) {
 		ConnectorModuleRef ref = createConnectorModuleRef();
 		ref.setModuleFile(rarFile);
@@ -1029,6 +1091,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/*
 	 * @see CommonarchiveFactory#createEJBModuleRef(EJBJarFile)
 	 */
+	@Override
 	public EJBModuleRef createEJBModuleRef(EJBJarFile ejbJarFile) {
 		EJBModuleRef ref = createEJBModuleRef();
 		ref.setModuleFile(ejbJarFile);
@@ -1038,6 +1101,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/*
 	 * @see CommonarchiveFactory#createWebModuleRef(WARFile)
 	 */
+	@Override
 	public WebModuleRef createWebModuleRef(WARFile warFile) {
 		WebModuleRef ref = createWebModuleRef();
 		ref.setModuleFile(warFile);
@@ -1047,44 +1111,54 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Archive createArchive() {
 		ArchiveImpl archive = new ArchiveImpl();
 		return archive;
 	}
 
+	@Override
 	public ApplicationClientFile createApplicationClientFile() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createApplicationClientFile();
 	}
 
 
+	@Override
 	public ClientModuleRef createClientModuleRef() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createClientModuleRef();
 	}
 
+	@Override
 	public ConnectorModuleRef createConnectorModuleRef() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createConnectorModuleRef();
 	}
 
+	@Override
 	public EARFile createEARFile() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createEARFile();
 	}
 
+	@Override
 	public EJBJarFile createEJBJarFile() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createEJBJarFile();
 	}
 
+	@Override
 	public EJBModuleRef createEJBModuleRef() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createEJBModuleRef();
 	}
 
+	@Override
 	public RARFile createRARFile() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createRARFile();
 	}
 
+	@Override
 	public WARFile createWARFile() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createWARFile();
 	}
 
+	@Override
 	public WebModuleRef createWebModuleRef() {
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory().createWebModuleRef();
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -77,18 +77,21 @@ public class GeneralXmlDocumentReader
         	/* (non-Javadoc)
 			 * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
 			 */
+			@Override
 			public void error(SAXParseException exception) throws SAXException {
 				throw exception;
 			}
 			/* (non-Javadoc)
 			 * @see org.xml.sax.ErrorHandler#fatalError(org.xml.sax.SAXParseException)
 			 */
+			@Override
 			public void fatalError(SAXParseException exception) throws SAXException {
 				throw exception;
 			}
 			/* (non-Javadoc)
 			 * @see org.xml.sax.ErrorHandler#warning(org.xml.sax.SAXParseException)
 			 */
+			@Override
 			public void warning(SAXParseException exception) throws SAXException {
 				Logger.getLogger().logWarning(exception);
 			}

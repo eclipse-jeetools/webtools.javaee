@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,6 +62,7 @@ import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
+	@Override
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 
 		if (monitor != null) {
@@ -273,7 +274,8 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 
         IModelProvider ejbModel = ModelProviderManager.getModelProvider(ejbProj);
         ejbModel.modify(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 String clientProjectName = model.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
                 IVirtualComponent c = ComponentCore.createComponent(ejbProj);
                 Properties props = c.getMetaProperties();

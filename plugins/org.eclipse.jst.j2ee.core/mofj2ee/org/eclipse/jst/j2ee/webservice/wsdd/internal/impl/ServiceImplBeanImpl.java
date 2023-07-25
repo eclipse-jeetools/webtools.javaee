@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -94,7 +94,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EJBLink getEEJBLink() {
+  @Override
+public EJBLink getEEJBLink() {
 		return eEJBLink;
 	}
 
@@ -118,7 +119,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setEEJBLink(EJBLink newEEJBLink) {
+  @Override
+public void setEEJBLink(EJBLink newEEJBLink) {
 		if (newEEJBLink != eEJBLink) {
 			NotificationChain msgs = null;
 			if (eEJBLink != null)
@@ -137,7 +139,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ServletLink getEServletLink() {
+  @Override
+public ServletLink getEServletLink() {
 		return eServletLink;
 	}
 
@@ -161,7 +164,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setEServletLink(ServletLink newEServletLink) {
+  @Override
+public void setEServletLink(ServletLink newEServletLink) {
 		if (newEServletLink != eServletLink) {
 			NotificationChain msgs = null;
 			if (eServletLink != null)
@@ -180,7 +184,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public BeanLink getBeanLink() {
+  @Override
+public BeanLink getBeanLink() {
 		return beanLink;
 	}
 
@@ -204,7 +209,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setBeanLink(BeanLink newBeanLink) {
+  @Override
+public void setBeanLink(BeanLink newBeanLink) {
 		if (newBeanLink != beanLink) {
 			NotificationChain msgs = null;
 			if (beanLink != null)

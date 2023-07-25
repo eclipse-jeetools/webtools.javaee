@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,8 @@ public abstract class AValidationRule implements IValidationRule {
     /*
      * @see IValidationRule#addDependent(IValidationRule)
      */
-    public void addDependent(IValidationRule rule) {
+    @Override
+	public void addDependent(IValidationRule rule) {
         if (rule == null) { return; }
 
         if (_dependents == null) {
@@ -48,7 +49,8 @@ public abstract class AValidationRule implements IValidationRule {
     /*
      * @see IValidationRule#getDependents()
      */
-    public Set getDependents() {
+    @Override
+	public Set getDependents() {
         return _dependents;
     }
 
@@ -100,7 +102,8 @@ public abstract class AValidationRule implements IValidationRule {
     /*
      * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
      */
-    public void preValidate(IEJBValidationContext vc, Object targetParent, Object target)
+    @Override
+	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target)
             throws ValidationCancelledException, ValidationException {
         // By default, allocate nothing.
     }
@@ -108,7 +111,8 @@ public abstract class AValidationRule implements IValidationRule {
     /*
      * @see IValidationRule#postValidate(IEJBValidationContext, Object, Object)
      */
-    public void postValidate(IEJBValidationContext vc, Object targetParent, Object target)
+    @Override
+	public void postValidate(IEJBValidationContext vc, Object targetParent, Object target)
             throws ValidationCancelledException, ValidationException {
         // By default, assume that nothing was allocated in preValidate.
     }
@@ -116,7 +120,8 @@ public abstract class AValidationRule implements IValidationRule {
     /*
      * @see IValidationRule#reset()
      */
-    public void reset() {
+    @Override
+	public void reset() {
         // By default, assume that nothing needs to be reset
     }
 

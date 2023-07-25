@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -127,6 +127,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -134,6 +135,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -156,6 +158,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	 * A resource adapter provider can extend this property set to include properties specific to the resource adapter and its underlying EIS.
 
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -163,6 +166,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -179,6 +183,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	 *    java.lang.Double, java.lang.Byte, java.lang.Short,
 	 *    java.lang.Long, java.lang.Float, java.lang.Character
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -186,6 +191,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
@@ -197,6 +203,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	 * @generated This field/method will be replaced during code generation 
 	 * Contains the value of a configuration entry.
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}
@@ -204,6 +211,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
@@ -216,6 +224,7 @@ public class ConfigPropertyImpl extends J2EEEObjectImpl implements ConfigPropert
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, JcaPackage.CONFIG_PROPERTY__DESCRIPTIONS);

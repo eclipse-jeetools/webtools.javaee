@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -79,6 +79,7 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 	
+	@Override
 	public final Map getMessageIds() {
 		return MESSAGE_IDS;
 	}
@@ -88,10 +89,12 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
 
+	@Override
 	public final Object[] getDependsOn() {
 		return DEPENDS_ON;
 	}
 	
+	@Override
 	public final Object getId() {
 		return ID;
 	}
@@ -101,27 +104,33 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 		return getSupertypes();
 	}
 	
+	@Override
 	public final long[] getSupertypes() {
 		return SUPERTYPES;
 	}
 	
+	@Override
 	public final long[] getShouldNotBeSupertypes() {
 		return SHOULD_NOT_BE_SUPERTYPES;
 	}
 
 	
+	@Override
 	public final int isRemote() {
 		return IS_REMOTE;
 	}
 	
+	@Override
 	public final long[] getMethodsWhichMustExist() {
 		return METHODS_WHICH_MUST_EXIST;
 	}
 	
+	@Override
 	public final long[] getMethodsWhichMustNotExist() {
 		return METHODS_WHICH_MUST_NOT_EXIST;
 	}
 
+	@Override
 	public final long[] getKnownMethodTypes() {
 		return KNOWN_METHOD_TYPES;
 	}

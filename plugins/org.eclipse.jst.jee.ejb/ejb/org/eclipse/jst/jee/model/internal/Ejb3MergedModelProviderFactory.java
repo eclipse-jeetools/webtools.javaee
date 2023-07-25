@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2019 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ public class Ejb3MergedModelProviderFactory implements IModelProviderFactory {
 
 	private HashMap<IProject, IModelProvider> xmlResources = new HashMap<IProject, IModelProvider>();
 
+	@Override
 	public IModelProvider create(IProject project) {
 		IModelProvider result = getResource(project);
 		if(result == null || ((EJB3MergedModelProvider)result).isDisposed()){
@@ -51,6 +52,7 @@ public class Ejb3MergedModelProviderFactory implements IModelProviderFactory {
 		}
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return create(component.getProject());
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006 IBM Corporation and others.
+ * Copyright (c) 2006, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ public class J2EEErrorMessageCustomizer implements IErrorMessageCustomizer {
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.xml.core.internal.validation.errorcustomization.IErrorMessageCustomizer#customizeMessage(org.eclipse.wst.xml.core.internal.validation.errorcustomization.ElementInformation, java.lang.String, java.lang.Object[])
 	 */
+	@Override
 	public String customizeMessage(ElementInformation elementInfo, String errorKey, Object[] arguments) {
 		if ("cvc-complex-type.2.4.a".equals(errorKey) || "cvc-complex-type.2.4.b".equals(errorKey)) { //$NON-NLS-1$ //$NON-NLS-2$
 			if ("application".equals(elementInfo.getLocalname())) { //$NON-NLS-1$

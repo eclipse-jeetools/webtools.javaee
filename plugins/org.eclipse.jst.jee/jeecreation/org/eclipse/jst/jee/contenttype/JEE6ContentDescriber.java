@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2009 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ public final class JEE6ContentDescriber implements IContentDescriber {
 
 	public final static QualifiedName JEEVERSION = new QualifiedName("jee-version", "5.0"); //$NON-NLS-1$ //$NON-NLS-2$
 
+	@Override
 	public int describe(InputStream contents, IContentDescription description) throws IOException {
 
 		JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(contents);
@@ -68,6 +69,7 @@ public final class JEE6ContentDescriber implements IContentDescriber {
 		return INVALID;
 	}
 
+	@Override
 	public QualifiedName[] getSupportedOptions() {
 
 		return new QualifiedName[] { JEEVERSION };

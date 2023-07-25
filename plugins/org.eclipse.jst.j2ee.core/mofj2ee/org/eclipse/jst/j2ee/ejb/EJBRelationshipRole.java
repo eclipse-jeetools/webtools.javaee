@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -55,26 +55,31 @@ EJBRelationshipRole getOpposite() ;
 /**
  * @return java.lang.String the unique name for this role
  * */
+@Override
 public java.lang.String getName();
 /**
  * @return The Source ejb
  * Compute the ContainerManagedEntity which is the source of a role that participates in a relationship. 
  */
+@Override
 public ContainerManagedEntity getSourceEntity();
 /**
 * @return The computed value of the isForward attribute
 * Specifies whether this role should be mapped to a persistent reference, such as a foreign key.
 */
+@Override
 public boolean isForward();
 /**
 * @return The computed value isMany
 * Returns whether the upper limit of our multiplicity is > 1
 */
+@Override
 public boolean isMany();
 /**
 * @return The computed value of the isNavigable attribute
 * Specifies that accessors should be generated for this relationship role.
 */
+@Override
 public boolean isNavigable();
 /**
  * Set this role to be the forward role.
@@ -109,6 +114,7 @@ public void setName(java.lang.String uniqueName);
 	 * relationships can use the same name for a role.
 
 	 */
+	@Override
 	String getRoleName();
 
 	/**
@@ -292,14 +298,17 @@ public void setName(java.lang.String uniqueName);
 	/**
 	 * Return whether this role is part of the key of the source EJB.
 	 */
+	@Override
 	boolean isKey();
 	
 	/**
 	 * This allows you to set the Role as being key so it will
 	 * not traverse it attributes to determine if it is key.
 	 */
+	@Override
 	void setKey(boolean aBoolean) ;
 	
+	@Override
 	void reconcileAttributes() ;
 }
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -179,6 +179,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getManagedConnectionFactoryClass() {
 		return managedConnectionFactoryClass;
 	}
@@ -188,6 +189,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setManagedConnectionFactoryClass(String newManagedConnectionFactoryClass) {
 		String oldManagedConnectionFactoryClass = managedConnectionFactoryClass;
 		managedConnectionFactoryClass = newManagedConnectionFactoryClass;
@@ -200,6 +202,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnectionFactoryInterface() {
 		return connectionFactoryInterface;
 	}
@@ -209,6 +212,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionFactoryInterface(String newConnectionFactoryInterface) {
 		String oldConnectionFactoryInterface = connectionFactoryInterface;
 		connectionFactoryInterface = newConnectionFactoryInterface;
@@ -221,6 +225,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnectionFactoryImplClass() {
 		return connectionFactoryImplClass;
 	}
@@ -230,6 +235,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionFactoryImplClass(String newConnectionFactoryImplClass) {
 		String oldConnectionFactoryImplClass = connectionFactoryImplClass;
 		connectionFactoryImplClass = newConnectionFactoryImplClass;
@@ -242,6 +248,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnectionInterface() {
 		return connectionInterface;
 	}
@@ -251,6 +258,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionInterface(String newConnectionInterface) {
 		String oldConnectionInterface = connectionInterface;
 		connectionInterface = newConnectionInterface;
@@ -263,6 +271,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnectionImplClass() {
 		return connectionImplClass;
 	}
@@ -272,6 +281,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnectionImplClass(String newConnectionImplClass) {
 		String oldConnectionImplClass = connectionImplClass;
 		connectionImplClass = newConnectionImplClass;
@@ -284,6 +294,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getConfigProperties() {
 		if (configProperties == null) {
 			configProperties = new EObjectContainmentEList(ConfigProperty.class, this, JcaPackage.CONNECTION_DEFINITION__CONFIG_PROPERTIES);

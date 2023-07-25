@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,6 +56,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	/**
 	 * The default is to do nothing - subclasses should override as necessary
 	 */
+	@Override
 	public void close() throws java.io.IOException {
 		//Default
 	}
@@ -65,6 +66,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	/**
 	 * The default is to do nothing - subclasses should override as necessary
 	 */
+	@Override
 	public void finish() throws java.io.IOException {
 		//Default
 	}
@@ -74,6 +76,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	 * 
 	 * @return com.ibm.etools.archive.SaveFilter
 	 */
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter getFilter() {
 		if (filter == null)
 			filter = new SaveFilterImpl();
@@ -85,6 +88,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	/**
 	 * @see com.ibm.etools.archive.SaveStrategy
 	 */
+	@Override
 	public boolean isDirectory() {
 		return false;
 	}
@@ -93,6 +97,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 		return getArchive().isMofResourceLoaded(aFile.getURI()) || aFile.getURI().equals(J2EEConstants.MANIFEST_URI);
 	}
 
+	@Override
 	public void save() throws SaveFailureException {
 
 		saveManifest();
@@ -118,6 +123,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	/**
 	 * @see com.ibm.etools.archive.SaveStrategy
 	 */
+	@Override
 	public void save(File aFile, FileIterator iterator) throws SaveFailureException {
 		if (aFile.isArchive() && shouldIterateOver((Archive) aFile))
 			save((Archive) aFile);
@@ -134,6 +140,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 		}
 	}
 
+	@Override
 	public abstract void save(File aFile, InputStream in) throws SaveFailureException;
 
 	protected void saveFiles() throws SaveFailureException {
@@ -161,6 +168,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	/**
 	 * @see com.ibm.etools.archive.SaveStrategy
 	 */
+	@Override
 	public void saveMofResource(org.eclipse.emf.ecore.resource.Resource aResource) throws SaveFailureException {
 		if (!shouldSave(aResource))
 			return;
@@ -231,6 +239,7 @@ public abstract class SaveStrategyImpl extends ArchiveStrategyImpl implements Sa
 	 * @param newFilter
 	 *            com.ibm.etools.archive.SaveFilter
 	 */
+	@Override
 	public void setFilter(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter newFilter) {
 		filter = newFilter;
 	}

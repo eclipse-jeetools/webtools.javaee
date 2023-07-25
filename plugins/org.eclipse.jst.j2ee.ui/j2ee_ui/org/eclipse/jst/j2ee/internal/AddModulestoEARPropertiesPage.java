@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2009 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -174,6 +174,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		libsToUncheck = new HashSet();
 	}
 	
+	@Override
 	public Composite createContents(final Composite parent) { 
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
@@ -206,6 +207,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		createTableComposite(listGroup);
 	}
 
+	@Override
 	public boolean performOk() {
 		NullProgressMonitor monitor = new NullProgressMonitor();
 		if (isVersion5) {
@@ -235,13 +237,16 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		return true;
 	}
 	
+	@Override
 	public void performDefaults() {
 	}
 	
+	@Override
 	public boolean performCancel() {
 		return true;
 	}
 	
+	@Override
 	public void dispose() {
 		Table table = null;
 		if (availableComponentsViewer != null) {
@@ -255,6 +260,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 	}
 
+	@Override
 	public void setVisible(boolean visible) {
 	}
 	
@@ -282,6 +288,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		oldLibDir = app.getLibraryDirectory();
 		if (oldLibDir == null) oldLibDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
 		earModel.modify(new Runnable() {
+			@Override
 			public void run() {			
 			app.setLibraryDirectory(libDir);
 		}}, null);
@@ -377,6 +384,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				if(shouldRun || shouldBndRun){
 					IWorkspaceRunnable runnable = new IWorkspaceRunnable(){
 
+						@Override
 						public void run(IProgressMonitor monitor) throws CoreException{
 							if (shouldRun) {
 								execAddOp(monitor, list, J2EEConstants.EAR_ROOT_DIR);
@@ -498,6 +506,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 	
 	
+	@Override
 	public void handleEvent(Event event) {
 		if (event.widget == selectAllButton)
 			handleSelectAllButtonPressed();
@@ -721,6 +730,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			AvailableJ2EEComponentsForEARContentProvider provider = new AvailableJ2EEComponentsForEARContentProvider(earComponent, j2eeVersion, decorator);
 			decorator.addListener(new ILabelProviderListener(){
 			
+				@Override
 				public void labelProviderChanged(LabelProviderChangedEvent event) {
 					refresh();
 				}
@@ -757,6 +767,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	
 	protected void createLabelListener(final Table table) {
 		labelListener = new Listener () {
+			@Override
 			public void handleEvent (Event event) {
 				Label label = (Label)event.widget;
 				Shell shell = label.getShell ();
@@ -781,6 +792,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		tableListener = new Listener () {
 			Shell tip = null;
 			Label label = null;
+			@Override
 			public void handleEvent (Event event) {
 				switch (event.type) {
 					case SWT.Dispose:
@@ -825,6 +837,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 
 	protected void addCheckStateListener() {
 		availableComponentsViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				CheckboxTableViewer vr = (CheckboxTableViewer)event.getSource();
 				Object element = event.getElement();

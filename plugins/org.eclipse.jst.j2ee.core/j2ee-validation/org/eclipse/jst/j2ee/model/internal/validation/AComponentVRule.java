@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,6 +29,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * @author
  */
 public abstract class AComponentVRule extends AInterfaceTypeVRule {
+	@Override
 	public Object getTarget(Object parent, Object clazz) {
 		if(parent == null) {
 			return null;
@@ -40,6 +41,7 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 		return ((EnterpriseBean)parent).getLocalInterface();
 	}
 	
+	@Override
 	public long getDefaultMethodType() {
 		return BUSINESS;
 	}
@@ -49,6 +51,7 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 		return getSupertypes();
 	}
 	
+	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!followRMI_IIOPInheritanceRules(bean, clazz)) {
 			// IWAD4057 = {0} must follow RMI-IIOP rules for remote interfaces. Read section 7.10.5 of the EJB 2.0 specification.

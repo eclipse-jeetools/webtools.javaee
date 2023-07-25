@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 /**
  * <copyright>
  * </copyright>
@@ -79,6 +91,7 @@ public class OrderingTypeImpl extends EObjectImpl implements OrderingType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OrderingOrderingType getAfter() {
 		return after;
 	}
@@ -103,6 +116,7 @@ public class OrderingTypeImpl extends EObjectImpl implements OrderingType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAfter(OrderingOrderingType newAfter) {
 		if (newAfter != after) {
 			NotificationChain msgs = null;
@@ -122,6 +136,7 @@ public class OrderingTypeImpl extends EObjectImpl implements OrderingType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OrderingOrderingType getBefore() {
 		return before;
 	}
@@ -146,6 +161,7 @@ public class OrderingTypeImpl extends EObjectImpl implements OrderingType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBefore(OrderingOrderingType newBefore) {
 		if (newBefore != before) {
 			NotificationChain msgs = null;

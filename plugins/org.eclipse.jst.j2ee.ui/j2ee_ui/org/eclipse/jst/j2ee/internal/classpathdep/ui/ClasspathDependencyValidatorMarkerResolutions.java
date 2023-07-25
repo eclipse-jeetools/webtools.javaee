@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2007 BEA Systems, Inc.
+ * Copyright (c) 2007, 2019 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,6 +40,7 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IMarkerResolutionGenerator#getResolutions(org.eclipse.core.resources.IMarker)
 	 */
+	@Override
 	public IMarkerResolution[] getResolutions(final IMarker marker) {
 		// generate resolutions based on type of validation problem marker
 		String messageId = null;
@@ -120,14 +121,16 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
             this.cpEntryPath = cpEntryPath;
         }
         
-        public String getLabel() {
+        @Override
+		public String getLabel() {
         	if (add) {
         		return Resources.addClasspathDependencyAttribute;	
         	} 
         	return Resources.removeClasspathDependencyAttribute;
         }
 
-        public void run(final IMarker marker) {
+        @Override
+		public void run(final IMarker marker) {
     	    final IProject proj = marker.getResource().getProject();
 	    	try {
 	    		final IClasspathEntry cpEntry = getClasspathEntryForMarker(marker, cpEntryPath);
@@ -155,11 +158,13 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
             this.cpEntryPath = cpEntryPath;
         }
         
-        public String getLabel() {
+        @Override
+		public String getLabel() {
         	return Resources.addClasspathNonDependencyAttribute;	
         }
 
-        public void run(final IMarker marker) {
+        @Override
+		public void run(final IMarker marker) {
     	    final IProject proj = marker.getResource().getProject();
 	    	try {
 	    		final IClasspathEntry cpEntry = getClasspathEntryForMarker(marker, cpEntryPath);

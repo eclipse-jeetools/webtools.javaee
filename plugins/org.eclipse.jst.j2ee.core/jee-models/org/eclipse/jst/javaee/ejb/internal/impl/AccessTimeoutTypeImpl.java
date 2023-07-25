@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -133,6 +133,7 @@ public class AccessTimeoutTypeImpl extends EObjectImpl implements AccessTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getTimeout() {
 		return timeout;
 	}
@@ -142,6 +143,7 @@ public class AccessTimeoutTypeImpl extends EObjectImpl implements AccessTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimeout(BigInteger newTimeout) {
 		BigInteger oldTimeout = timeout;
 		timeout = newTimeout;
@@ -154,6 +156,7 @@ public class AccessTimeoutTypeImpl extends EObjectImpl implements AccessTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TimeUnitTypeType getUnit() {
 		return unit;
 	}
@@ -163,6 +166,7 @@ public class AccessTimeoutTypeImpl extends EObjectImpl implements AccessTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnit(TimeUnitTypeType newUnit) {
 		TimeUnitTypeType oldUnit = unit;
 		unit = newUnit == null ? UNIT_EDEFAULT : newUnit;
@@ -177,6 +181,7 @@ public class AccessTimeoutTypeImpl extends EObjectImpl implements AccessTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetUnit() {
 		TimeUnitTypeType oldUnit = unit;
 		boolean oldUnitESet = unitESet;
@@ -191,6 +196,7 @@ public class AccessTimeoutTypeImpl extends EObjectImpl implements AccessTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetUnit() {
 		return unitESet;
 	}
@@ -200,6 +206,7 @@ public class AccessTimeoutTypeImpl extends EObjectImpl implements AccessTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -209,6 +216,7 @@ public class AccessTimeoutTypeImpl extends EObjectImpl implements AccessTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

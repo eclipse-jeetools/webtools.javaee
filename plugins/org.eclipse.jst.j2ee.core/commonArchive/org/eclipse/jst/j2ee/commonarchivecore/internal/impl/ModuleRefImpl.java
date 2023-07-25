@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -102,6 +102,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 		return moduleFile;
 	}
 
+	@Override
 	public ModuleFile getModuleFile() {
 		if (moduleFile == null)
 			initModuleFileFromEAR();
@@ -133,6 +134,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setModuleFile(ModuleFile newModuleFile) {
 		ModuleFile oldModuleFile = moduleFile;
 		moduleFile = newModuleFile;
@@ -140,12 +142,14 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonarchivePackage.MODULE_REF__MODULE_FILE, oldModuleFile, moduleFile));
 	}
 
+	@Override
 	public boolean usesAltDD() {
 		if (module == null)
 			return false;
 		return !ArchiveUtil.isNullOrEmpty(module.getAltDD());
 	}
 
+	@Override
 	public EObject getAltDeploymentDescriptor() throws ArchiveWrappedException {
 		if (getEarFile() == null)
 			return null;
@@ -159,6 +163,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/*
 	 * @see ModuleRef#getDeploymentDescriptor()
 	 */
+	@Override
 	public EObject getDeploymentDescriptor() throws ArchiveWrappedException {
 		if (getEarFile() == null)
 			return getStandardDeploymentDescriptor();
@@ -172,6 +177,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/*
 	 * @see ModuleRef#getEARFile()
 	 */
+	@Override
 	public EObject getStandardDeploymentDescriptor() {
 		if (getModuleFile() == null)
 			return null;
@@ -182,6 +188,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/*
 	 * @see ModuleRef#setURI(String)
 	 */
+	@Override
 	public void setURI(String uri) {
 		if (getModuleFile() != null)
 			getModuleFile().setURI(uri);
@@ -193,6 +200,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/*
 	 * @see ModuleRef#isClient()
 	 */
+	@Override
 	public boolean isClient() {
 		return false;
 	}
@@ -200,6 +208,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/*
 	 * @see ModuleRef#isConnector()
 	 */
+	@Override
 	public boolean isConnector() {
 		return false;
 	}
@@ -207,6 +216,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/*
 	 * @see ModuleRef#isEJB()
 	 */
+	@Override
 	public boolean isEJB() {
 		return false;
 	}
@@ -214,6 +224,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/*
 	 * @see ModuleRef#isWeb()
 	 */
+	@Override
 	public boolean isWeb() {
 		return false;
 	}
@@ -221,6 +232,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public EARFile getEarFile() {
 		if (eContainerFeatureID != CommonarchivePackage.MODULE_REF__EAR_FILE) return null;
 		return (EARFile)eContainer();
@@ -239,6 +251,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEarFile(EARFile newEarFile) {
 		if (newEarFile != eInternalContainer() || (eContainerFeatureID != CommonarchivePackage.MODULE_REF__EAR_FILE && newEarFile != null)) {
 			if (EcoreUtil.isAncestor(this, newEarFile))
@@ -255,6 +268,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonarchivePackage.MODULE_REF__EAR_FILE, newEarFile, newEarFile));
 	}
 
+	@Override
 	public Module getModule() {
 		if (module != null && module.eIsProxy()) {
 			Module oldModule = module;
@@ -281,6 +295,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModule(Module newModule) {
 		Module oldModule = module;
 		module = newModule;
@@ -419,17 +434,20 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * 
 	 * @see LoadStrategy#getResourceInputStream(String)
 	 */
+	@Override
 	public InputStream getResourceInputStream(String uri) throws IOException {
 		if (usesAltDD())
 			return getAltResourceInputStream(uri);
 		return getLocalResourceInputStream(uri);
 	}
 
+	@Override
 	public InputStream getLocalResourceInputStream(String uri) throws IOException {
 		checkModuleFile();
 		return moduleFile.getResourceInputStream(uri);
 	}
 
+	@Override
 	public InputStream getAltResourceInputStream(String uri) throws IOException {
 		checkEARFile();
 		return getEarFile().getResourceInputStream(uri);
@@ -438,6 +456,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/*
 	 * @see ModuleRef#getUri()
 	 */
+	@Override
 	public String getUri() {
 		if (module != null)
 			return module.getUri();
@@ -450,6 +469,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @see ModuleRef#getAltMofResource(String)
 	 */
+	@Override
 	public Resource getAltMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
 		checkEARFile();
 		return getEarFile().getMofResource(uri);
@@ -458,6 +478,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @see ModuleRef#getLocalMofResource(String)
 	 */
+	@Override
 	public Resource getLocalMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
 		checkModuleFile();
 		return moduleFile.getMofResource(uri);
@@ -466,6 +487,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @see ModuleRef#getMofResource(String)
 	 */
+	@Override
 	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
 		if (usesAltDD())
 			return getAltMofResource(uri);
@@ -475,6 +497,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @see ModuleRef#makeAltMofResource(String)
 	 */
+	@Override
 	public Resource makeAltMofResource(String uri) throws DuplicateObjectException {
 		checkEARFile();
 		return getEarFile().makeMofResource(uri);
@@ -488,6 +511,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @see ModuleRef#makeLocalMofResource(String)
 	 */
+	@Override
 	public Resource makeLocalMofResource(String uri) throws DuplicateObjectException {
 		checkModuleFile();
 		return moduleFile.makeMofResource(uri);
@@ -537,6 +561,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	/**
 	 * @see ModuleRef#makeMofResource(String)
 	 */
+	@Override
 	public Resource makeMofResource(String uri) throws DuplicateObjectException {
 		if (usesAltDD())
 			return makeAltMofResource(uri);

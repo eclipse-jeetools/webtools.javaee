@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,6 +59,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaClass getValidatorClass() {
 		if (validatorClass != null && validatorClass.eIsProxy()) {
 			InternalEObject oldValidatorClass = (InternalEObject)validatorClass;
@@ -85,6 +86,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setValidatorClass(JavaClass newValidatorClass) {
 		JavaClass oldValidatorClass = validatorClass;
 		validatorClass = newValidatorClass;
@@ -97,6 +99,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getInitParams() {
 		if (initParams == null) {
 			initParams = new EObjectContainmentEList(InitParam.class, this, TaglibPackage.VALIDATOR__INIT_PARAMS);
@@ -109,6 +112,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, TaglibPackage.VALIDATOR__DESCRIPTIONS);

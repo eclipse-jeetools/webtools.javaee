@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -131,7 +131,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -140,7 +141,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -152,7 +154,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getPackageMappings() {
+  @Override
+public EList getPackageMappings() {
 		if (packageMappings == null) {
 			packageMappings = new EObjectContainmentEList(PackageMapping.class, this, JaxrpcmapPackage.JAVA_WSDL_MAPPING__PACKAGE_MAPPINGS);
 		}
@@ -164,7 +167,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getJavaXMLTypeMappings() {
+  @Override
+public EList getJavaXMLTypeMappings() {
 		if (javaXMLTypeMappings == null) {
 			javaXMLTypeMappings = new EObjectContainmentEList(JavaXMLTypeMapping.class, this, JaxrpcmapPackage.JAVA_WSDL_MAPPING__JAVA_XML_TYPE_MAPPINGS);
 		}
@@ -176,7 +180,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getExceptionMappings() {
+  @Override
+public EList getExceptionMappings() {
 		if (exceptionMappings == null) {
 			exceptionMappings = new EObjectContainmentEList(ExceptionMapping.class, this, JaxrpcmapPackage.JAVA_WSDL_MAPPING__EXCEPTION_MAPPINGS);
 		}
@@ -188,7 +193,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getInterfaceMappings() {
+  @Override
+public EList getInterfaceMappings() {
 		if (interfaceMappings == null) {
 			interfaceMappings = new EObjectContainmentEList(InterfaceMapping.class, this, JaxrpcmapPackage.JAVA_WSDL_MAPPING__INTERFACE_MAPPINGS);
 		}

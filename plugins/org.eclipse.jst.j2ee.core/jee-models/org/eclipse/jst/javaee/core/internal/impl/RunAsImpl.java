@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -122,6 +122,7 @@ public class RunAsImpl extends EObjectImpl implements RunAs {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.RUN_AS__DESCRIPTIONS);
@@ -134,6 +135,7 @@ public class RunAsImpl extends EObjectImpl implements RunAs {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getRoleName() {
 		return roleName;
 	}
@@ -143,6 +145,7 @@ public class RunAsImpl extends EObjectImpl implements RunAs {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRoleName(String newRoleName) {
 		String oldRoleName = roleName;
 		roleName = newRoleName;
@@ -155,6 +158,7 @@ public class RunAsImpl extends EObjectImpl implements RunAs {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -164,6 +168,7 @@ public class RunAsImpl extends EObjectImpl implements RunAs {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

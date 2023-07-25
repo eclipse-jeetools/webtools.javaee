@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -142,6 +142,7 @@ public class IconImpl extends EObjectImpl implements Icon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSmallIcon() {
 		return smallIcon;
 	}
@@ -151,6 +152,7 @@ public class IconImpl extends EObjectImpl implements Icon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSmallIcon(String newSmallIcon) {
 		String oldSmallIcon = smallIcon;
 		smallIcon = newSmallIcon;
@@ -163,6 +165,7 @@ public class IconImpl extends EObjectImpl implements Icon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLargeIcon() {
 		return largeIcon;
 	}
@@ -172,6 +175,7 @@ public class IconImpl extends EObjectImpl implements Icon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLargeIcon(String newLargeIcon) {
 		String oldLargeIcon = largeIcon;
 		largeIcon = newLargeIcon;
@@ -184,6 +188,7 @@ public class IconImpl extends EObjectImpl implements Icon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -193,6 +198,7 @@ public class IconImpl extends EObjectImpl implements Icon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -205,6 +211,7 @@ public class IconImpl extends EObjectImpl implements Icon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLang() {
 		return lang;
 	}
@@ -214,6 +221,7 @@ public class IconImpl extends EObjectImpl implements Icon {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLang(String newLang) {
 		String oldLang = lang;
 		lang = newLang;

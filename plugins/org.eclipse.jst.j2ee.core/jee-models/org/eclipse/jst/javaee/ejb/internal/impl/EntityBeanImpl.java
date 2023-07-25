@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -679,6 +679,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.ENTITY_BEAN__DESCRIPTIONS);
@@ -691,6 +692,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, EjbPackage.ENTITY_BEAN__DISPLAY_NAMES);
@@ -703,6 +705,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, EjbPackage.ENTITY_BEAN__ICONS);
@@ -715,6 +718,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbName() {
 		return ejbName;
 	}
@@ -724,6 +728,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbName(String newEjbName) {
 		String oldEjbName = ejbName;
 		ejbName = newEjbName;
@@ -736,6 +741,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -745,6 +751,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -757,6 +764,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getHome() {
 		return home;
 	}
@@ -766,6 +774,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHome(String newHome) {
 		String oldHome = home;
 		home = newHome;
@@ -778,6 +787,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getRemote() {
 		return remote;
 	}
@@ -787,6 +797,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRemote(String newRemote) {
 		String oldRemote = remote;
 		remote = newRemote;
@@ -799,6 +810,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocalHome() {
 		return localHome;
 	}
@@ -808,6 +820,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocalHome(String newLocalHome) {
 		String oldLocalHome = localHome;
 		localHome = newLocalHome;
@@ -820,6 +833,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocal() {
 		return local;
 	}
@@ -829,6 +843,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocal(String newLocal) {
 		String oldLocal = local;
 		local = newLocal;
@@ -841,6 +856,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbClass() {
 		return ejbClass;
 	}
@@ -850,6 +866,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbClass(String newEjbClass) {
 		String oldEjbClass = ejbClass;
 		ejbClass = newEjbClass;
@@ -862,6 +879,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PersistenceType getPersistenceType() {
 		return persistenceType;
 	}
@@ -871,6 +889,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPersistenceType(PersistenceType newPersistenceType) {
 		PersistenceType oldPersistenceType = persistenceType;
 		persistenceType = newPersistenceType == null ? PERSISTENCE_TYPE_EDEFAULT : newPersistenceType;
@@ -885,6 +904,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetPersistenceType() {
 		PersistenceType oldPersistenceType = persistenceType;
 		boolean oldPersistenceTypeESet = persistenceTypeESet;
@@ -899,6 +919,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetPersistenceType() {
 		return persistenceTypeESet;
 	}
@@ -908,6 +929,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPrimKeyClass() {
 		return primKeyClass;
 	}
@@ -917,6 +939,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPrimKeyClass(String newPrimKeyClass) {
 		String oldPrimKeyClass = primKeyClass;
 		primKeyClass = newPrimKeyClass;
@@ -929,6 +952,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isReentrant() {
 		return reentrant;
 	}
@@ -938,6 +962,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReentrant(boolean newReentrant) {
 		boolean oldReentrant = reentrant;
 		reentrant = newReentrant;
@@ -952,6 +977,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetReentrant() {
 		boolean oldReentrant = reentrant;
 		boolean oldReentrantESet = reentrantESet;
@@ -966,6 +992,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetReentrant() {
 		return reentrantESet;
 	}
@@ -975,6 +1002,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CmpVersionType getCmpVersion() {
 		return cmpVersion;
 	}
@@ -984,6 +1012,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCmpVersion(CmpVersionType newCmpVersion) {
 		CmpVersionType oldCmpVersion = cmpVersion;
 		cmpVersion = newCmpVersion == null ? CMP_VERSION_EDEFAULT : newCmpVersion;
@@ -998,6 +1027,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetCmpVersion() {
 		CmpVersionType oldCmpVersion = cmpVersion;
 		boolean oldCmpVersionESet = cmpVersionESet;
@@ -1012,6 +1042,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetCmpVersion() {
 		return cmpVersionESet;
 	}
@@ -1021,6 +1052,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAbstractSchemaName() {
 		return abstractSchemaName;
 	}
@@ -1030,6 +1062,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAbstractSchemaName(String newAbstractSchemaName) {
 		String oldAbstractSchemaName = abstractSchemaName;
 		abstractSchemaName = newAbstractSchemaName;
@@ -1042,6 +1075,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<CMPField> getCmpFields() {
 		if (cmpFields == null) {
 			cmpFields = new EObjectContainmentEList<CMPField>(CMPField.class, this, EjbPackage.ENTITY_BEAN__CMP_FIELDS);
@@ -1054,6 +1088,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPrimkeyField() {
 		return primkeyField;
 	}
@@ -1063,6 +1098,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPrimkeyField(String newPrimkeyField) {
 		String oldPrimkeyField = primkeyField;
 		primkeyField = newPrimkeyField;
@@ -1075,6 +1111,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
 			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.ENTITY_BEAN__ENV_ENTRIES);
@@ -1087,6 +1124,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
 			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, EjbPackage.ENTITY_BEAN__EJB_REFS);
@@ -1099,6 +1137,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbLocalRef> getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
 			ejbLocalRefs = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, EjbPackage.ENTITY_BEAN__EJB_LOCAL_REFS);
@@ -1111,6 +1150,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, EjbPackage.ENTITY_BEAN__SERVICE_REFS);
@@ -1123,6 +1163,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
 			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, EjbPackage.ENTITY_BEAN__RESOURCE_REFS);
@@ -1135,6 +1176,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
 			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, EjbPackage.ENTITY_BEAN__RESOURCE_ENV_REFS);
@@ -1147,6 +1189,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
 			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, EjbPackage.ENTITY_BEAN__MESSAGE_DESTINATION_REFS);
@@ -1159,6 +1202,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		if (persistenceContextRefs == null) {
 			persistenceContextRefs = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, EjbPackage.ENTITY_BEAN__PERSISTENCE_CONTEXT_REFS);
@@ -1171,6 +1215,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
 			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, EjbPackage.ENTITY_BEAN__PERSISTENCE_UNIT_REFS);
@@ -1183,6 +1228,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
 			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.ENTITY_BEAN__POST_CONSTRUCTS);
@@ -1195,6 +1241,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
 			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.ENTITY_BEAN__PRE_DESTROYS);
@@ -1207,6 +1254,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DataSourceType> getDataSource() {
 		if (dataSource == null) {
 			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, EjbPackage.ENTITY_BEAN__DATA_SOURCE);
@@ -1219,6 +1267,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
 		if (jmsConnectionFactory == null) {
 			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, EjbPackage.ENTITY_BEAN__JMS_CONNECTION_FACTORY);
@@ -1231,6 +1280,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsDestinationType> getJmsDestination() {
 		if (jmsDestination == null) {
 			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, EjbPackage.ENTITY_BEAN__JMS_DESTINATION);
@@ -1243,6 +1293,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MailSessionType> getMailSession() {
 		if (mailSession == null) {
 			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, EjbPackage.ENTITY_BEAN__MAIL_SESSION);
@@ -1255,6 +1306,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConnectionFactoryResourceType> getConnectionFactory() {
 		if (connectionFactory == null) {
 			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, EjbPackage.ENTITY_BEAN__CONNECTION_FACTORY);
@@ -1267,6 +1319,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AdministeredObjectType> getAdministeredObject() {
 		if (administeredObject == null) {
 			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, EjbPackage.ENTITY_BEAN__ADMINISTERED_OBJECT);
@@ -1279,6 +1332,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityRoleRef> getSecurityRoleRefs() {
 		if (securityRoleRefs == null) {
 			securityRoleRefs = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, EjbPackage.ENTITY_BEAN__SECURITY_ROLE_REFS);
@@ -1291,6 +1345,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityIdentityType getSecurityIdentity() {
 		return securityIdentity;
 	}
@@ -1315,6 +1370,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecurityIdentity(SecurityIdentityType newSecurityIdentity) {
 		if (newSecurityIdentity != securityIdentity) {
 			NotificationChain msgs = null;
@@ -1334,6 +1390,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Query> getQueries() {
 		if (queries == null) {
 			queries = new EObjectContainmentEList<Query>(Query.class, this, EjbPackage.ENTITY_BEAN__QUERIES);
@@ -1346,6 +1403,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -1355,6 +1413,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

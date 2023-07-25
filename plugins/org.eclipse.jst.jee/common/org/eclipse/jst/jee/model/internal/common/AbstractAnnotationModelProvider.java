@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -123,10 +123,12 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 		return modelObject;
 	}
 
+	@Override
 	public Object getModelObject() {
 		return getConcreteModel();
 	}
 
+	@Override
 	public Object getModelObject(IPath modelPath) {
 		return getConcreteModel();
 	}
@@ -182,9 +184,11 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 			return;
 		for (final IModelProviderListener listener : aListeners) {
 			SafeRunner.run(new ISafeRunnable() {
+				@Override
 				public void handleException(Throwable exception) {
 				}
 
+				@Override
 				public void run() throws Exception {
 					listener.modelsChanged(event);
 				}
@@ -208,6 +212,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 * 
 	 * @param listener
 	 */
+	@Override
 	public void addListener(IModelProviderListener listener) {
 		listenersLock.lock();
 		try {
@@ -225,6 +230,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 * @param listener
 	 *            the listener to be removed.
 	 */
+	@Override
 	public void removeListener(IModelProviderListener listener) {
 		listenersLock.lock();
 		try {
@@ -441,6 +447,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 		}
 	}
 
+	@Override
 	public void elementChanged(final ElementChangedEvent javaEvent) {
 		if (javaEvent.getType() == ElementChangedEvent.POST_RECONCILE)
 			internalPostReconcile(javaEvent);
@@ -569,6 +576,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 		if (root.getKind() != IPackageFragmentRoot.K_SOURCE)
 			return;
 		root.getCorrespondingResource().accept(new IResourceProxyVisitor() {
+			@Override
 			public boolean visit(IResourceProxy proxy) throws CoreException {
 				if (proxy.getType() == IResource.FILE) {
 					if (proxy.getName().endsWith("." + JAVA_EXTENSION)) { //$NON-NLS-1$

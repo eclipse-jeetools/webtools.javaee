@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,6 +49,7 @@ public class MethodsProviderDelegate implements ITreeContentProvider {
 	/**
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
 		if (excludeListContentProvider != null)
 			excludeListContentProvider.dispose();
@@ -79,6 +80,7 @@ public class MethodsProviderDelegate implements ITreeContentProvider {
 	/**
 	 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(Viewer, Object, Object)
 	 */
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		excludeListContentProvider.inputChanged(viewer, oldInput, newInput);
 		methodPermissionsContentProvider.inputChanged(viewer, oldInput, newInput);
@@ -88,6 +90,7 @@ public class MethodsProviderDelegate implements ITreeContentProvider {
 	/**
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(Object)
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		AbstractMethodsContentProvider prov = getContentProvider(parentElement);
 		return prov == null ? null : prov.getChildren(parentElement);
@@ -96,6 +99,7 @@ public class MethodsProviderDelegate implements ITreeContentProvider {
 	/**
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(Object)
 	 */
+	@Override
 	public Object getParent(Object element) {
 		AbstractMethodsContentProvider prov = getContentProvider(element);
 		return prov == null ? null : prov.getParent(element);
@@ -104,6 +108,7 @@ public class MethodsProviderDelegate implements ITreeContentProvider {
 	/**
 	 * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		AbstractMethodsContentProvider prov = getContentProvider(element);
 		return prov != null && prov.hasChildren(element);
@@ -112,6 +117,7 @@ public class MethodsProviderDelegate implements ITreeContentProvider {
 	/**
 	 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		AbstractMethodsContentProvider prov = getContentProvider(inputElement);
 		return prov == null ? null : prov.getElements(inputElement);

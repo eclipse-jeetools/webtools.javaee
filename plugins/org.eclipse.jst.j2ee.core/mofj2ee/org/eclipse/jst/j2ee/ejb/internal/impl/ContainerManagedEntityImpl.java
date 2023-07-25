@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2020 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -154,6 +154,7 @@ public class ContainerManagedEntityImpl extends EntityImpl implements ContainerM
  * @param aName java.lang.String
  * @return CMPAttribute
  */
+@Override
 public CMPAttribute addKeyAttributeName(String aName) {
 	CMPAttribute attribute = getPersistentAttribute(aName);
 	if (attribute != null) {
@@ -171,6 +172,7 @@ public CMPAttribute addKeyAttributeName(String aName) {
 /**
  * Return a List of one of the properties using aFilter.
 */
+@Override
 public List getFilteredFeatures(EJBExtensionFilter aFilter) {
 		return aFilter.filter(this);
 	}
@@ -180,6 +182,7 @@ public List getFilteredFeatures(EJBExtensionFilter aFilter) {
  * @param aField org.eclipse.jem.internal.java.Field
  * @return CMPAttribute
  */
+@Override
 public CMPAttribute addPersistentAttribute(Field aField) {
 	if (aField == null)
 		return null;
@@ -191,6 +194,7 @@ public CMPAttribute addPersistentAttribute(Field aField) {
  * @param aName java.lang.String
  * @return CMPAttribute
  */
+@Override
 public CMPAttribute addPersistentAttributeName(String aName) {
 	CMPAttribute attribute = getPersistentAttribute(aName);
 	if (attribute == null) {
@@ -204,6 +208,7 @@ protected CMPAttribute createPersistentAttribute(String aName) {
 	attribute.setName(aName);
 	return attribute;
 }
+@Override
 public List getAllAvailableQueryMethods() {
 	Set sigs = new HashSet();
 	List javaMethods = getAvailableSelectQueryJavaMethods();
@@ -221,6 +226,7 @@ protected List createQueryMethods(List signatures) {
 	return createMethodElements(QUERY_METHOD_NAME, signatures, enumerator);
 }
 
+@Override
 public List getAvailableSelectQueryMethods() {
 	List methods = getAvailableSelectQueryJavaMethods();
 	List sigs = getMethodElementSignatures(methods);
@@ -233,6 +239,7 @@ protected List getAvailableSelectQueryJavaMethods() {
 	return bean.getOnlySpecificMethods("ejbSelect", Collections.EMPTY_LIST);	 //$NON-NLS-1$
 }
 
+@Override
 public List getAvailableFindQueryMethods() {
 	Set sigs = new HashSet();
 	List javaMethods = getAvailableRemoteQueryJavaMethods();
@@ -250,6 +257,7 @@ protected List getAvailableLocalQueryJavaMethods() {
 * Compare with J2EEVersionConstants to determine CMP level
 * This will help differentiate between 2.0,2.1,...   rather than "2.x"
 */
+@Override
 public int getCMPVersionID() throws IllegalStateException {
 	J2EEVersionResource res = (J2EEVersionResource) eResource();
 	/* If resource is null we will return based on CMP version....*/
@@ -308,6 +316,7 @@ protected EClassifier getGeneratedIdType() {
  * @return EStructuralFeature
  * @param aName java.lang.String
  */
+@Override
 public CMPAttribute getKeyAttribute(String aName) {
 	if (aName != null) {
 		Iterator it = getKeyAttributes().iterator();
@@ -326,6 +335,7 @@ public CMPAttribute getKeyAttribute(String aName) {
  * @return EStructuralFeature
  * @param aName java.lang.String
  */
+@Override
 public CMPAttribute getPersistentAttribute(String aName) {
 	if (aName != null) {
 		Iterator it = getPersistentAttributes().iterator();
@@ -344,6 +354,7 @@ public CMPAttribute getPersistentAttribute(String aName) {
  * key attribute, whose type is the same as the key class
  * @deprecated use getPrimKeyField()
  */
+@Override
 public CMPAttribute getPrimaryKeyAttribute() {
 	return getPrimKeyField();
 }
@@ -356,6 +367,7 @@ public CMPAttribute getPrimaryKeyAttribute() {
 public boolean isContainerManagedEntity() {
 	return true;
 }
+@Override
 public boolean isKeyAttribute(CMPAttribute anAttribute) {
 	java.util.List attributes = getKeyAttributes();
 	for (int i = 0; i < attributes.size(); i++){
@@ -371,6 +383,7 @@ public boolean isKeyAttribute(CMPAttribute anAttribute) {
  * In order to deploy an unknown primary key bean, we must substitute a real key,
  * and add a corresponding field.
  */
+@Override
 public boolean isUnknownPrimaryKey() {
 	String keyName = getPrimaryKeyName();
 	if (keyName == null) return false;
@@ -403,6 +416,7 @@ public boolean isVersion2_X() {
 /* 
  * listPersistentFieldNames - return the names of our CMP fields. derived from persistentFeatures
  */
+@Override
 public String[] listPersistentFieldNames() {
 	java.util.List attributes = getPersistentAttributes();
 	String[] names = new String[attributes.size()];
@@ -417,6 +431,7 @@ public String[] listPersistentFieldNames() {
  * Creation date: (8/3/2000 8:33:01 AM)
  * @param aField org.eclipse.jem.internal.java.Field
  */
+@Override
 public CMPAttribute removePersistentAttribute(Field aField) {
 	if (aField != null)
 		return removePersistentAttribute(aField.getName());
@@ -427,6 +442,7 @@ public CMPAttribute removePersistentAttribute(Field aField) {
  * Creation date: (8/2/2000 8:59:32 PM)
  * @param aName java.lang.String
  */
+@Override
 public CMPAttribute removePersistentAttribute(String aName) {
 	if (aName != null) {
 		Iterator it = getPersistentAttributes().iterator();
@@ -449,6 +465,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * @default 2.x
 	 * Returns "1.x" if in a 1.1 Jar (For compatibility)
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -456,6 +473,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -471,6 +489,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * 
 
 	 */
+	@Override
 	public String getAbstractSchemaName() {
 		return abstractSchemaName;
 	}
@@ -478,6 +497,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setAbstractSchemaName(String newAbstractSchemaName) {
 		String oldAbstractSchemaName = abstractSchemaName;
 		abstractSchemaName = newAbstractSchemaName;
@@ -488,6 +508,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getPersistentAttributes() {
 		if (persistentAttributes == null) {
 			persistentAttributes = new EObjectContainmentEList(CMPAttribute.class, this, EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES);
@@ -521,6 +542,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 		return keyAttributes;
 	}
 
+	@Override
 	public EList getKeyAttributes() {
 	    if(keyAttributes == null) {
 		    CMPKeySynchronizationAdapter syncAdapter = (CMPKeySynchronizationAdapter)  EcoreUtil.getExistingAdapter(this, CMPKeySynchronizationAdapter.ADAPTER_TYPE);
@@ -553,6 +575,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getQueries() {
 		if (queries == null) {
 			queries = new EObjectContainmentWithInverseEList(Query.class, this, EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES, EjbPackage.QUERY__ENTITY);
@@ -565,6 +588,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getCMPAttribute() {
 		if (cmpAttribute == null) {
 			cmpAttribute = new EObjectResolvingEList(CMPAttribute.class, this, EjbPackage.CONTAINER_MANAGED_ENTITY__CMP_ATTRIBUTE);
@@ -577,6 +601,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CMPAttribute getPrimKeyField() {
 		if (primKeyField != null && primKeyField.eIsProxy()) {
 			InternalEObject oldPrimKeyField = (InternalEObject)primKeyField;
@@ -589,6 +614,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 		return primKeyField;
 	}
 
+	@Override
 	public void makePrimKeyFieldProxy() {
 		if (primKeyField == null) return;
 		String fieldName = primKeyField.getName();
@@ -612,6 +638,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPrimKeyField(CMPAttribute newPrimKeyField) {
 		CMPAttribute oldPrimKeyField = primKeyField;
 		primKeyField = newPrimKeyField;
@@ -775,6 +802,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getCMRFields()
 	 */
+	@Override
 	public List getCMRFields() {
 		List myRoles = getRoles();
 		List cmrFields = Collections.EMPTY_LIST;
@@ -802,6 +830,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getRoles()
 	 */
+	@Override
 	public List getRoles() {
 		if (getEjbJar() == null)
 			return Collections.EMPTY_LIST;
@@ -832,6 +861,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ejb.ContainerManagedEntity#getRole(java.lang.String)
 	 */
+	@Override
 	public CommonRelationshipRole getRole(String roleName) {
 		List roles = getRoles();
 		for (int i=0; i<roles.size(); i++) {

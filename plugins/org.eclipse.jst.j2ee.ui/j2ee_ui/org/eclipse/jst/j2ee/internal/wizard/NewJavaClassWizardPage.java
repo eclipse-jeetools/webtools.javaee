@@ -334,10 +334,12 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL_O);
 		folderButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		folderButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleFolderButtonPressed();
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// Do nothing
 			}
@@ -371,10 +373,12 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		packageButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL_W);
 		packageButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		packageButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handlePackageButtonPressed();
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// Do nothing
 			}
@@ -440,10 +444,12 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		superButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL_E);
 		superButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		superButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleSuperButtonPressed();
 			}
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				// Do nothing
 			}
@@ -554,6 +560,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 */
 	protected ISelectionStatusValidator getContainerDialogSelectionValidator() {
 		return new ISelectionStatusValidator() {
+			@Override
 			public IStatus validate(Object[] selection) {
 				if (selection != null && selection[0] != null && !(selection[0] instanceof IProject))
 					return WTPCommonPlugin.OK_STATUS;

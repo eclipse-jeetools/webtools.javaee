@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -383,6 +383,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.INTERCEPTOR_TYPE__DESCRIPTIONS);
@@ -395,6 +396,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getInterceptorClass() {
 		return interceptorClass;
 	}
@@ -404,6 +406,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInterceptorClass(String newInterceptorClass) {
 		String oldInterceptorClass = interceptorClass;
 		interceptorClass = newInterceptorClass;
@@ -416,6 +419,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AroundInvokeType> getAroundInvokes() {
 		if (aroundInvokes == null) {
 			aroundInvokes = new EObjectContainmentEList<AroundInvokeType>(AroundInvokeType.class, this, EjbPackage.INTERCEPTOR_TYPE__AROUND_INVOKES);
@@ -428,6 +432,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AroundTimeoutType> getAroundTimeouts() {
 		if (aroundTimeouts == null) {
 			aroundTimeouts = new EObjectContainmentEList<AroundTimeoutType>(AroundTimeoutType.class, this, EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS);
@@ -440,6 +445,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getAroundConstruct() {
 		if (aroundConstruct == null) {
 			aroundConstruct = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__AROUND_CONSTRUCT);
@@ -452,6 +458,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
 			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES);
@@ -464,6 +471,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
 			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, EjbPackage.INTERCEPTOR_TYPE__EJB_REFS);
@@ -476,6 +484,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbLocalRef> getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
 			ejbLocalRefs = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, EjbPackage.INTERCEPTOR_TYPE__EJB_LOCAL_REFS);
@@ -488,6 +497,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, EjbPackage.INTERCEPTOR_TYPE__SERVICE_REFS);
@@ -500,6 +510,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
 			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, EjbPackage.INTERCEPTOR_TYPE__RESOURCE_REFS);
@@ -512,6 +523,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
 			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, EjbPackage.INTERCEPTOR_TYPE__RESOURCE_ENV_REFS);
@@ -524,6 +536,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
 			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, EjbPackage.INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS);
@@ -536,6 +549,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		if (persistenceContextRefs == null) {
 			persistenceContextRefs = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS);
@@ -548,6 +562,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
 			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS);
@@ -560,6 +575,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
 			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__POST_CONSTRUCTS);
@@ -572,6 +588,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
 			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__PRE_DESTROYS);
@@ -584,6 +601,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DataSourceType> getDataSource() {
 		if (dataSource == null) {
 			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE);
@@ -596,6 +614,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
 		if (jmsConnectionFactory == null) {
 			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, EjbPackage.INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY);
@@ -608,6 +627,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsDestinationType> getJmsDestination() {
 		if (jmsDestination == null) {
 			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, EjbPackage.INTERCEPTOR_TYPE__JMS_DESTINATION);
@@ -620,6 +640,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MailSessionType> getMailSession() {
 		if (mailSession == null) {
 			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, EjbPackage.INTERCEPTOR_TYPE__MAIL_SESSION);
@@ -632,6 +653,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConnectionFactoryResourceType> getConnectionFactory() {
 		if (connectionFactory == null) {
 			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, EjbPackage.INTERCEPTOR_TYPE__CONNECTION_FACTORY);
@@ -644,6 +666,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AdministeredObjectType> getAdministeredObject() {
 		if (administeredObject == null) {
 			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, EjbPackage.INTERCEPTOR_TYPE__ADMINISTERED_OBJECT);
@@ -656,6 +679,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPostActivates() {
 		if (postActivates == null) {
 			postActivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES);
@@ -668,6 +692,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPrePassivates() {
 		if (prePassivates == null) {
 			prePassivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES);
@@ -680,6 +705,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -689,6 +715,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

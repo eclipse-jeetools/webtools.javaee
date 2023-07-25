@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -164,6 +164,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -173,6 +174,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -185,6 +187,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getType() {
 		return type;
 	}
@@ -194,6 +197,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(String newType) {
 		String oldType = type;
 		type = newType;
@@ -206,6 +210,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageDestinationUsageType getUsage() {
 		return usage;
 	}
@@ -215,6 +220,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUsage(MessageDestinationUsageType newUsage) {
 		MessageDestinationUsageType oldUsage = usage;
 		usage = newUsage == null ? USAGE_EDEFAULT : newUsage;
@@ -246,6 +252,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLink() {
 		return link;
 	}
@@ -255,6 +262,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLink(String newLink) {
 		String oldLink = link;
 		link = newLink;
@@ -267,6 +275,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.MESSAGE_DESTINATION_REF__DESCRIPTIONS);

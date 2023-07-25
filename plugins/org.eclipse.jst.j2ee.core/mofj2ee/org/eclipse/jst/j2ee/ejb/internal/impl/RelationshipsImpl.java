@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -85,6 +85,7 @@ public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships 
 	 * 
 	 * The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -92,6 +93,7 @@ public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -102,6 +104,7 @@ public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EJBJar getEjbJar() {
 		if (eContainerFeatureID != EjbPackage.RELATIONSHIPS__EJB_JAR) return null;
 		return (EJBJar)eContainer();
@@ -120,6 +123,7 @@ public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEjbJar(EJBJar newEjbJar) {
 		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.RELATIONSHIPS__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
@@ -141,6 +145,7 @@ public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships 
 	 * A list of ejb-relation elements, which specify the container managed
 	 * relationships.
 	 */
+	@Override
 	public EList getEjbRelations() {
 		if (ejbRelations == null) {
 			ejbRelations = new EObjectContainmentWithInverseEList(EJBRelation.class, this, EjbPackage.RELATIONSHIPS__EJB_RELATIONS, EjbPackage.EJB_RELATION__RELATIONSHIP_LIST);
@@ -153,6 +158,7 @@ public class RelationshipsImpl extends J2EEEObjectImpl implements Relationships 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.RELATIONSHIPS__DESCRIPTIONS);

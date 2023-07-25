@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -146,6 +146,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	 * Describes this version number of the tag library (dewey decimal).
 	 * @regexp [0-9]*{ "."[0-9] }0..3
 	 */
+	@Override
 	public String getTagLibVersion() {
 		return tagLibVersion;
 	}
@@ -153,6 +154,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setTagLibVersion(String newTagLibVersion) {
 		String oldTagLibVersion = tagLibVersion;
 		tagLibVersion = newTagLibVersion;
@@ -166,6 +168,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	 * function (dewey decimal).  Default is 1.2
 	 * @regexp [0-9]*{ "."[0-9] }0..3
 	 */
+	@Override
 	public String getJspVersion() {
 		return jspVersion;
 	}
@@ -173,6 +176,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setJspVersion(String newJspVersion) {
 		String oldJspVersion = jspVersion;
 		jspVersion = newJspVersion;
@@ -187,6 +191,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	 * used as the prefered prefix value in taglib directives. Do not use white space, 
 	 * and do not start with digits or underscore.
 	 */
+	@Override
 	public String getShortName() {
 		return shortName;
 	}
@@ -194,6 +199,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setShortName(String newShortName) {
 		String oldShortName = shortName;
 		shortName = newShortName;
@@ -206,6 +212,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	 * The value of the uri element is a public URI that uniquely identifies the exact 
 	 * semantics of this taglibrary.
 	 */
+	@Override
 	public String getUri() {
 		return uri;
 	}
@@ -213,6 +220,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setUri(String newUri) {
 		String oldUri = uri;
 		uri = newUri;
@@ -231,6 +239,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	/**
 	This returns the module version id. Compare with J2EEVersionConstants to determine module level
 	 */
+	@Override
 	public int getVersionID() throws IllegalStateException {
 		J2EEVersionResource res = (J2EEVersionResource) eResource();
 		if (res == null) throw new IllegalStateException();
@@ -240,6 +249,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getTags() {
 		if (tags == null) {
 			tags = new EObjectContainmentEList(JSPTag.class, this, TaglibPackage.TAG_LIB__TAGS);
@@ -253,6 +263,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	 * used to validate the conformance of a JSP page to using this tag library.
 
 	 */
+	@Override
 	public Validator getValidator() {
 		return validator;
 	}
@@ -275,6 +286,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setValidator(Validator newValidator) {
 		if (newValidator != validator) {
 			NotificationChain msgs = null;
@@ -292,6 +304,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getListeners() {
 		if (listeners == null) {
 			listeners = new EObjectContainmentEList(Listener.class, this, TaglibPackage.TAG_LIB__LISTENERS);
@@ -304,6 +317,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getFunctions() {
 		if (functions == null) {
 			functions = new EObjectContainmentEList(Function.class, this, TaglibPackage.TAG_LIB__FUNCTIONS);
@@ -316,6 +330,7 @@ public class TagLibImpl extends CompatibilityDescriptionGroupImpl implements Tag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getTaglibExtensions() {
 		if (taglibExtensions == null) {
 			taglibExtensions = new EObjectContainmentEList(TldExtension.class, this, TaglibPackage.TAG_LIB__TAGLIB_EXTENSIONS);

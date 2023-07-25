@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -203,6 +203,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getUrlPattern() {
 		if (urlPattern == null) {
 			urlPattern = new EDataTypeUniqueEList(String.class, this, JspPackage.JSP_PROPERTY_GROUP__URL_PATTERN);
@@ -215,6 +216,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isElIgnored() {
 		return elIgnored;
 	}
@@ -224,6 +226,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setElIgnored(boolean newElIgnored) {
 		boolean oldElIgnored = elIgnored;
 		elIgnored = newElIgnored;
@@ -238,6 +241,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetElIgnored() {
 		boolean oldElIgnored = elIgnored;
 		boolean oldElIgnoredESet = elIgnoredESet;
@@ -252,6 +256,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetElIgnored() {
 		return elIgnoredESet;
 	}
@@ -261,6 +266,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPageEncoding() {
 		return pageEncoding;
 	}
@@ -270,6 +276,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPageEncoding(String newPageEncoding) {
 		String oldPageEncoding = pageEncoding;
 		pageEncoding = newPageEncoding;
@@ -282,6 +289,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isScriptingInvalid() {
 		return scriptingInvalid;
 	}
@@ -291,6 +299,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setScriptingInvalid(boolean newScriptingInvalid) {
 		boolean oldScriptingInvalid = scriptingInvalid;
 		scriptingInvalid = newScriptingInvalid;
@@ -305,6 +314,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetScriptingInvalid() {
 		boolean oldScriptingInvalid = scriptingInvalid;
 		boolean oldScriptingInvalidESet = scriptingInvalidESet;
@@ -319,6 +329,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetScriptingInvalid() {
 		return scriptingInvalidESet;
 	}
@@ -328,6 +339,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIsXML() {
 		return isXML;
 	}
@@ -337,6 +349,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIsXML(boolean newIsXML) {
 		boolean oldIsXML = isXML;
 		isXML = newIsXML;
@@ -351,6 +364,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetIsXML() {
 		boolean oldIsXML = isXML;
 		boolean oldIsXMLESet = isXMLESet;
@@ -365,6 +379,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetIsXML() {
 		return isXMLESet;
 	}
@@ -374,6 +389,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getIncludePreludes() {
 		if (includePreludes == null) {
 			includePreludes = new EDataTypeUniqueEList(String.class, this, JspPackage.JSP_PROPERTY_GROUP__INCLUDE_PRELUDES);
@@ -386,6 +402,7 @@ public class JSPPropertyGroupImpl extends CompatibilityDescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getIncludeCodas() {
 		if (includeCodas == null) {
 			includeCodas = new EDataTypeUniqueEList(String.class, this, JspPackage.JSP_PROPERTY_GROUP__INCLUDE_CODAS);

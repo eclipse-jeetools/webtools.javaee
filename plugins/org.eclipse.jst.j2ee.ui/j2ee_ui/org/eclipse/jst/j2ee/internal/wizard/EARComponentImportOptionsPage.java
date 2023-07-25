@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -112,11 +112,13 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		availableJARsViewer.setContentProvider(availableUtilJARsProvider);
 		availableJARsViewer.setLabelProvider(availableUtilJARsProvider);
 		availableJARsViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				availableJARCheckStateChanged(event);
 			}
 		});
 		availableJARsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				updateButtonEnablements();
 			}
@@ -127,6 +129,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		availableJARsViewer.getTable().setLinesVisible(false);
 
 		model.addListener(new IDataModelListener() {
+			@Override
 			public void propertyChanged(DataModelEvent event) {
 				if (event.getPropertyName().equals(IEARComponentImportDataModelProperties.UTILITY_LIST)) {
 					availableJARsViewer.setCheckedElements(((List) model.getProperty(IEARComponentImportDataModelProperties.UTILITY_LIST)).toArray());

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,6 +62,7 @@ public class WebServicesNavigatorSynchronizer extends AdapterFactoryContentProvi
 	 * 
 	 * @see org.eclipse.emf.common.notify.Adapter#getTarget()
 	 */
+	@Override
 	public Notifier getTarget() {
 		return target;
 	}
@@ -71,6 +72,7 @@ public class WebServicesNavigatorSynchronizer extends AdapterFactoryContentProvi
 	 * 
 	 * @see org.eclipse.emf.common.notify.Adapter#isAdapterForType(java.lang.Object)
 	 */
+	@Override
 	public boolean isAdapterForType(Object type) {
 		return true;
 	}
@@ -80,6 +82,7 @@ public class WebServicesNavigatorSynchronizer extends AdapterFactoryContentProvi
 	 * 
 	 * @see org.eclipse.emf.common.notify.Adapter#setTarget(org.eclipse.emf.common.notify.Notifier)
 	 */
+	@Override
 	public void setTarget(Notifier newTarget) {
 		target = newTarget;
 	}

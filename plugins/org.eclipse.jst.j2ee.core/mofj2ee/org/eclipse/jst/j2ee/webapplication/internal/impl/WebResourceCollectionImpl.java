@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -133,6 +133,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 /**
  * addHTTP method comment.
  */
+@Override
 public void addHTTP(java.lang.String ahttpMethod) {
 	HTTPMethodType http = getFactory().createHTTPMethodType();
 	http.setHttpMethod(ahttpMethod);
@@ -141,6 +142,7 @@ public void addHTTP(java.lang.String ahttpMethod) {
 /**
  * addURL method comment.
  */
+@Override
 public void addURL(java.lang.String aurlPattern) {
 	URLPatternType url = getFactory().createURLPatternType();
 	url.setUrlPattern(aurlPattern);
@@ -153,6 +155,7 @@ public WebapplicationFactory getFactory() {
 	 * @generated This field/method will be replaced during code generation 
 	 * The web-resource-name contains the name of this web resource collection
 	 */
+	@Override
 	public String getWebResourceName() {
 		return webResourceName;
 	}
@@ -160,6 +163,7 @@ public WebapplicationFactory getFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebResourceName(String newWebResourceName) {
 		String oldWebResourceName = webResourceName;
 		webResourceName = newWebResourceName;
@@ -170,6 +174,7 @@ public WebapplicationFactory getFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -177,6 +182,7 @@ public WebapplicationFactory getFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -189,6 +195,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getUrlPattern() {
 		if (urlPattern == null) {
 			urlPattern = new EDataTypeEList(String.class, this, WebapplicationPackage.WEB_RESOURCE_COLLECTION__URL_PATTERN);
@@ -201,6 +208,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getHttpMethod() {
 		if (httpMethod == null) {
 			httpMethod = new EDataTypeUniqueEList(HTTPMethodTypeEnum.class, this, WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD);
@@ -211,6 +219,7 @@ public WebapplicationFactory getFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public SecurityConstraint getSecConstraint() {
 		if (eContainerFeatureID != WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT) return null;
 		return (SecurityConstraint)eContainer();
@@ -229,6 +238,7 @@ public WebapplicationFactory getFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSecConstraint(SecurityConstraint newSecConstraint) {
 		if (newSecConstraint != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT && newSecConstraint != null)) {
 			if (EcoreUtil.isAncestor(this, newSecConstraint))
@@ -251,6 +261,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getURLs() {
 		if (urLs == null) {
 			urLs = new EObjectContainmentWithInverseEList(URLPatternType.class, this, WebapplicationPackage.WEB_RESOURCE_COLLECTION__UR_LS, WebapplicationPackage.URL_PATTERN_TYPE__RES_COLLECTION);
@@ -263,6 +274,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, WebapplicationPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS);
@@ -276,6 +288,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getHTTPs() {
 		if (httPs == null) {
 			httPs = new EObjectContainmentEList(HTTPMethodType.class, this, WebapplicationPackage.WEB_RESOURCE_COLLECTION__HTT_PS);

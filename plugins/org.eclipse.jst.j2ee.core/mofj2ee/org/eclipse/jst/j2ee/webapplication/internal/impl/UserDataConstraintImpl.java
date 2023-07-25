@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -102,6 +102,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	 * @generated This field/method will be replaced during code generation 
 	 * A description for the user data constraint.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -109,6 +110,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -128,6 +130,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	 * observing the contents of the transmission. In most cases, the presence of the
 	 * INTEGRAL or CONFIDENTIAL flag will indicate that the use of SSL is required.
 	 */
+	@Override
 	public TransportGuaranteeType getTransportGuarantee() {
 		return transportGuarantee;
 	}
@@ -137,6 +140,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransportGuarantee(TransportGuaranteeType newTransportGuarantee) {
 		TransportGuaranteeType oldTransportGuarantee = transportGuarantee;
 		transportGuarantee = newTransportGuarantee == null ? TRANSPORT_GUARANTEE_EDEFAULT : newTransportGuarantee;
@@ -151,6 +155,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransportGuarantee() {
 		TransportGuaranteeType oldTransportGuarantee = transportGuarantee;
 		boolean oldTransportGuaranteeESet = transportGuaranteeESet;
@@ -165,6 +170,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransportGuarantee() {
 		return transportGuaranteeESet;
 	}
@@ -172,6 +178,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public SecurityConstraint getSecConstraint() {
 		if (eContainerFeatureID != WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT) return null;
 		return (SecurityConstraint)eContainer();
@@ -190,6 +197,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSecConstraint(SecurityConstraint newSecConstraint) {
 		if (newSecConstraint != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.USER_DATA_CONSTRAINT__SEC_CONSTRAINT && newSecConstraint != null)) {
 			if (EcoreUtil.isAncestor(this, newSecConstraint))
@@ -211,6 +219,7 @@ public class UserDataConstraintImpl extends J2EEEObjectImpl implements UserDataC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS);

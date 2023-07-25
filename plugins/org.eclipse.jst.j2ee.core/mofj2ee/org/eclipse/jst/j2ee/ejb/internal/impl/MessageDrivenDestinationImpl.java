@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,6 +97,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	 * 
 	 * The destination-type element must be one of the two following: javax.jms.Queue, javax.jms.Topic
 	 */
+	@Override
 	public DestinationType getType() {
 		return type;
 	}
@@ -106,6 +107,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(DestinationType newType) {
 		DestinationType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -120,6 +122,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		DestinationType oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -134,6 +137,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -145,6 +149,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	 * The subscription-durability element must be one of the two following:  Durable, NonDurable
 
 	 */
+	@Override
 	public SubscriptionDurabilityKind getSubscriptionDurability() {
 		return subscriptionDurability;
 	}
@@ -154,7 +159,8 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
      * <!-- end-user-doc -->
      * @generated NOT
      */
-    public void setSubscriptionDurability(SubscriptionDurabilityKind newSubscriptionDurability) {
+    @Override
+	public void setSubscriptionDurability(SubscriptionDurabilityKind newSubscriptionDurability) {
     	SubscriptionDurabilityKind oldSubscriptionDurability = subscriptionDurability;
     	subscriptionDurability = newSubscriptionDurability == null ? null : newSubscriptionDurability;
     	boolean oldSubscriptionDurabilityESet = subscriptionDurabilityESet;
@@ -168,6 +174,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetSubscriptionDurability() {
 		SubscriptionDurabilityKind oldSubscriptionDurability = subscriptionDurability;
 		boolean oldSubscriptionDurabilityESet = subscriptionDurabilityESet;
@@ -182,6 +189,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSubscriptionDurability() {
 		return subscriptionDurabilityESet;
 	}
@@ -189,6 +197,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public MessageDriven getBean() {
 		if (eContainerFeatureID != EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN) return null;
 		return (MessageDriven)eContainer();
@@ -207,6 +216,7 @@ public class MessageDrivenDestinationImpl extends J2EEEObjectImpl implements Mes
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setBean(MessageDriven newBean) {
 		if (newBean != eInternalContainer() || (eContainerFeatureID != EjbPackage.MESSAGE_DRIVEN_DESTINATION__BEAN && newBean != null)) {
 			if (EcoreUtil.isAncestor(this, newBean))

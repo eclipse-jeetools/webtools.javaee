@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -113,6 +113,7 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<TagLib> getTagLibs() {
 		if (tagLibs == null) {
 			tagLibs = new EObjectContainmentEList<TagLib>(TagLib.class, this, JspPackage.JSP_CONFIG__TAG_LIBS);
@@ -125,6 +126,7 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JspPropertyGroup> getJspPropertyGroups() {
 		if (jspPropertyGroups == null) {
 			jspPropertyGroups = new EObjectContainmentEList<JspPropertyGroup>(JspPropertyGroup.class, this, JspPackage.JSP_CONFIG__JSP_PROPERTY_GROUPS);
@@ -137,6 +139,7 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -146,6 +149,7 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

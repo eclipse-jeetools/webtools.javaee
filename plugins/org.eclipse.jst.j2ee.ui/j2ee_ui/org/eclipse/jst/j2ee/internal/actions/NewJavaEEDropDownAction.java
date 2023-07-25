@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007,2009 SAP AG and others.
+ * Copyright (c) 2007,2019 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -182,6 +182,7 @@ public abstract class NewJavaEEDropDownAction extends Action implements IMenuCre
 			this.menuIndex = menuIndex;
 		}
 
+		@Override
 		public int compareTo(Object o) {
 			NewJavaEEWizardAction action = (NewJavaEEWizardAction) o;
 			return getMenuIndex() - action.getMenuIndex();
@@ -205,6 +206,7 @@ public abstract class NewJavaEEDropDownAction extends Action implements IMenuCre
 		setMenuCreator(this);
 	}
 
+	@Override
 	public void dispose() {
 		if (fMenu != null) {
 			fMenu.dispose();
@@ -212,10 +214,12 @@ public abstract class NewJavaEEDropDownAction extends Action implements IMenuCre
 		}
 	}
 
+	@Override
 	public Menu getMenu(Menu parent) {
 		return null;
 	}
 
+	@Override
 	public Menu getMenu(Control parent) {
 		if (fMenu == null) {
 			fMenu = new Menu(parent);
@@ -289,6 +293,7 @@ public abstract class NewJavaEEDropDownAction extends Action implements IMenuCre
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IWorkbenchWindowActionDelegate#init(org.eclipse.ui.IWorkbenchWindow)
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
 		fWizardShell = window.getShell();
 	}
@@ -296,6 +301,7 @@ public abstract class NewJavaEEDropDownAction extends Action implements IMenuCre
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		run();
 	}
@@ -303,6 +309,7 @@ public abstract class NewJavaEEDropDownAction extends Action implements IMenuCre
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		
 	}

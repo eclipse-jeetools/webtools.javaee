@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -199,7 +199,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -208,7 +209,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -220,7 +222,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getJavaVariableName() {
+  @Override
+public String getJavaVariableName() {
 		return javaVariableName;
 	}
 
@@ -229,7 +232,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setJavaVariableName(String newJavaVariableName) {
+  @Override
+public void setJavaVariableName(String newJavaVariableName) {
 		String oldJavaVariableName = javaVariableName;
 		javaVariableName = newJavaVariableName;
 		if (eNotificationRequired())
@@ -241,7 +245,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getXmlElementName() {
+  @Override
+public String getXmlElementName() {
 		return xmlElementName;
 	}
 
@@ -250,7 +255,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setXmlElementName(String newXmlElementName) {
+  @Override
+public void setXmlElementName(String newXmlElementName) {
 		String oldXmlElementName = xmlElementName;
 		xmlElementName = newXmlElementName;
 		if (eNotificationRequired())
@@ -262,7 +268,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isDataMember() {
+  @Override
+public boolean isDataMember() {
 		return dataMember;
 	}
 
@@ -271,7 +278,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setDataMember(boolean newDataMember) {
+  @Override
+public void setDataMember(boolean newDataMember) {
 		boolean oldDataMember = dataMember;
 		dataMember = newDataMember;
 		boolean oldDataMemberESet = dataMemberESet;
@@ -285,7 +293,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void unsetDataMember() {
+  @Override
+public void unsetDataMember() {
 		boolean oldDataMember = dataMember;
 		boolean oldDataMemberESet = dataMemberESet;
 		dataMember = DATA_MEMBER_EDEFAULT;
@@ -299,7 +308,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSetDataMember() {
+  @Override
+public boolean isSetDataMember() {
 		return dataMemberESet;
 	}
 
@@ -308,7 +318,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getXmlAttributeName() {
+  @Override
+public String getXmlAttributeName() {
 		return xmlAttributeName;
 	}
 
@@ -317,7 +328,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setXmlAttributeName(String newXmlAttributeName) {
+  @Override
+public void setXmlAttributeName(String newXmlAttributeName) {
 		String oldXmlAttributeName = xmlAttributeName;
 		xmlAttributeName = newXmlAttributeName;
 		if (eNotificationRequired())
@@ -329,7 +341,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isXmlWildcard() {
+  @Override
+public boolean isXmlWildcard() {
 		return xmlWildcard;
 	}
 
@@ -338,7 +351,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setXmlWildcard(boolean newXmlWildcard) {
+  @Override
+public void setXmlWildcard(boolean newXmlWildcard) {
 		boolean oldXmlWildcard = xmlWildcard;
 		xmlWildcard = newXmlWildcard;
 		boolean oldXmlWildcardESet = xmlWildcardESet;
@@ -352,7 +366,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void unsetXmlWildcard() {
+  @Override
+public void unsetXmlWildcard() {
 		boolean oldXmlWildcard = xmlWildcard;
 		boolean oldXmlWildcardESet = xmlWildcardESet;
 		xmlWildcard = XML_WILDCARD_EDEFAULT;
@@ -366,7 +381,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSetXmlWildcard() {
+  @Override
+public boolean isSetXmlWildcard() {
 		return xmlWildcardESet;
 	}
 

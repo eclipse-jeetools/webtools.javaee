@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,6 +53,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 	/**
 	 * @see com.ibm.etools.common.command.Command
 	 */
+	@Override
 	public void execute() {
 		List files = archive.getFiles();
 		for (int i = 0; i < files.size(); i++) {
@@ -125,6 +126,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 	/**
 	 * @see com.ibm.etools.common.command.Command
 	 */
+	@Override
 	public void redo() {
 		//Default
 	}

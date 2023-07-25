@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -138,6 +138,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, WebPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES);
@@ -150,6 +151,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<WebResourceCollection> getWebResourceCollections() {
 		if (webResourceCollections == null) {
 			webResourceCollections = new EObjectContainmentEList<WebResourceCollection>(WebResourceCollection.class, this, WebPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS);
@@ -162,6 +164,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AuthConstraint getAuthConstraint() {
 		return authConstraint;
 	}
@@ -186,6 +189,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAuthConstraint(AuthConstraint newAuthConstraint) {
 		if (newAuthConstraint != authConstraint) {
 			NotificationChain msgs = null;
@@ -205,6 +209,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UserDataConstraint getUserDataConstraint() {
 		return userDataConstraint;
 	}
@@ -229,6 +234,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUserDataConstraint(UserDataConstraint newUserDataConstraint) {
 		if (newUserDataConstraint != userDataConstraint) {
 			NotificationChain msgs = null;
@@ -248,6 +254,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -257,6 +264,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

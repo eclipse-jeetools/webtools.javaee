@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -229,7 +229,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWebServices() {
+  @Override
+public EClass getWebServices() {
 		return webServicesEClass;
 	}
 
@@ -238,7 +239,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getWebServices_WebServiceDescriptions() {
+  @Override
+public EReference getWebServices_WebServiceDescriptions() {
 		return (EReference)webServicesEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -247,7 +249,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWebServiceDescription() {
+  @Override
+public EClass getWebServiceDescription() {
 		return webServiceDescriptionEClass;
 	}
 
@@ -256,7 +259,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWebServiceDescription_JaxrpcMappingFile() {
+  @Override
+public EAttribute getWebServiceDescription_JaxrpcMappingFile() {
 		return (EAttribute)webServiceDescriptionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -265,7 +269,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWebServiceDescription_WebServiceDescriptionName() {
+  @Override
+public EAttribute getWebServiceDescription_WebServiceDescriptionName() {
 		return (EAttribute)webServiceDescriptionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -274,7 +279,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWebServiceDescription_WsdlFile() {
+  @Override
+public EAttribute getWebServiceDescription_WsdlFile() {
 		return (EAttribute)webServiceDescriptionEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -283,7 +289,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWebServiceDescription_SmallIcon() {
+  @Override
+public EAttribute getWebServiceDescription_SmallIcon() {
 		return (EAttribute)webServiceDescriptionEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -292,7 +299,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWebServiceDescription_LargeIcon() {
+  @Override
+public EAttribute getWebServiceDescription_LargeIcon() {
 		return (EAttribute)webServiceDescriptionEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -301,7 +309,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWebServiceDescription_Description() {
+  @Override
+public EAttribute getWebServiceDescription_Description() {
 		return (EAttribute)webServiceDescriptionEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -310,7 +319,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWebServiceDescription_DisplayName() {
+  @Override
+public EAttribute getWebServiceDescription_DisplayName() {
 		return (EAttribute)webServiceDescriptionEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -319,7 +329,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getWebServiceDescription_PortComponents() {
+  @Override
+public EReference getWebServiceDescription_PortComponents() {
 		return (EReference)webServiceDescriptionEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -328,7 +339,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getWebServiceDescription_DescriptionType() {
+  @Override
+public EReference getWebServiceDescription_DescriptionType() {
 		return (EReference)webServiceDescriptionEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -337,7 +349,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getWebServiceDescription_DisplayNameType() {
+  @Override
+public EReference getWebServiceDescription_DisplayNameType() {
 		return (EReference)webServiceDescriptionEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -346,7 +359,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getWebServiceDescription_IconType() {
+  @Override
+public EReference getWebServiceDescription_IconType() {
 		return (EReference)webServiceDescriptionEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -355,7 +369,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getPortComponent() {
+  @Override
+public EClass getPortComponent() {
 		return portComponentEClass;
 	}
 
@@ -364,7 +379,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortComponent_PortComponentName() {
+  @Override
+public EAttribute getPortComponent_PortComponentName() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -373,7 +389,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortComponent_ServiceEndpointInterface() {
+  @Override
+public EAttribute getPortComponent_ServiceEndpointInterface() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -382,7 +399,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortComponent_SmallIcon() {
+  @Override
+public EAttribute getPortComponent_SmallIcon() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -391,7 +409,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortComponent_LargeIcon() {
+  @Override
+public EAttribute getPortComponent_LargeIcon() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -400,7 +419,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortComponent_Description() {
+  @Override
+public EAttribute getPortComponent_Description() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -409,7 +429,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortComponent_DisplayName() {
+  @Override
+public EAttribute getPortComponent_DisplayName() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -418,7 +439,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getPortComponent_WsdlPort() {
+  @Override
+public EReference getPortComponent_WsdlPort() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -427,7 +449,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getPortComponent_ServiceImplBean() {
+  @Override
+public EReference getPortComponent_ServiceImplBean() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -436,7 +459,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getPortComponent_Handlers() {
+  @Override
+public EReference getPortComponent_Handlers() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -445,7 +469,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getPortComponent_DescriptionType() {
+  @Override
+public EReference getPortComponent_DescriptionType() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -454,7 +479,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getPortComponent_DisplayNameType() {
+  @Override
+public EReference getPortComponent_DisplayNameType() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -463,7 +489,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getPortComponent_IconType() {
+  @Override
+public EReference getPortComponent_IconType() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -472,6 +499,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPortComponent_WsdlService() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(12);
 	}
@@ -481,6 +509,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponent_EnableMtom() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(13);
 	}
@@ -490,6 +519,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponent_ProtocolBinding() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(14);
 	}
@@ -499,6 +529,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPortComponent_HandlerChains() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(15);
 	}
@@ -508,6 +539,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponent_MtomThreshold() {
 		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(16);
 	}
@@ -517,6 +549,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPortComponent_RespectBinding() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(17);
 	}
@@ -526,6 +559,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPortComponent_Addressing() {
 		return (EReference)portComponentEClass.getEStructuralFeatures().get(18);
 	}
@@ -535,7 +569,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLPort() {
+  @Override
+public EClass getWSDLPort() {
 		return wsdlPortEClass;
 	}
 
@@ -544,7 +579,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getServiceImplBean() {
+  @Override
+public EClass getServiceImplBean() {
 		return serviceImplBeanEClass;
 	}
 
@@ -553,7 +589,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceImplBean_EEJBLink() {
+  @Override
+public EReference getServiceImplBean_EEJBLink() {
 		return (EReference)serviceImplBeanEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -562,7 +599,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceImplBean_EServletLink() {
+  @Override
+public EReference getServiceImplBean_EServletLink() {
 		return (EReference)serviceImplBeanEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -571,7 +609,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceImplBean_BeanLink() {
+  @Override
+public EReference getServiceImplBean_BeanLink() {
 		return (EReference)serviceImplBeanEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -580,7 +619,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getServletLink() {
+  @Override
+public EClass getServletLink() {
 		return servletLinkEClass;
 	}
 
@@ -589,7 +629,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServletLink_ServletLink() {
+  @Override
+public EAttribute getServletLink_ServletLink() {
 		return (EAttribute)servletLinkEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -598,7 +639,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getEJBLink() {
+  @Override
+public EClass getEJBLink() {
 		return ejbLinkEClass;
 	}
 
@@ -607,7 +649,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getEJBLink_EjbLink() {
+  @Override
+public EAttribute getEJBLink_EjbLink() {
 		return (EAttribute)ejbLinkEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -616,7 +659,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getHandler() {
+  @Override
+public EClass getHandler() {
 		return handlerEClass;
 	}
 
@@ -625,7 +669,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getHandler_HandlerName() {
+  @Override
+public EAttribute getHandler_HandlerName() {
 		return (EAttribute)handlerEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -634,7 +679,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getHandler_HandlerClass() {
+  @Override
+public EAttribute getHandler_HandlerClass() {
 		return (EAttribute)handlerEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -643,7 +689,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getHandler_InitParams() {
+  @Override
+public EReference getHandler_InitParams() {
 		return (EReference)handlerEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -652,7 +699,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getHandler_SoapHeaders() {
+  @Override
+public EReference getHandler_SoapHeaders() {
 		return (EReference)handlerEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -661,7 +709,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getHandler_SoapRoles() {
+  @Override
+public EReference getHandler_SoapRoles() {
 		return (EReference)handlerEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -670,7 +719,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getBeanLink() {
+  @Override
+public EClass getBeanLink() {
 		return beanLinkEClass;
 	}
 
@@ -679,6 +729,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWSDLService() {
 		return wsdlServiceEClass;
 	}
@@ -688,6 +739,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHandlerChain() {
 		return handlerChainEClass;
 	}
@@ -697,6 +749,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHandlerChain_ServiceNamePattern() {
 		return (EAttribute)handlerChainEClass.getEStructuralFeatures().get(0);
 	}
@@ -706,6 +759,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHandlerChain_PortNamePattern() {
 		return (EAttribute)handlerChainEClass.getEStructuralFeatures().get(1);
 	}
@@ -715,6 +769,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHandlerChain_ProtocolBindings() {
 		return (EAttribute)handlerChainEClass.getEStructuralFeatures().get(2);
 	}
@@ -724,6 +779,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHandlerChain_Handlers() {
 		return (EReference)handlerChainEClass.getEStructuralFeatures().get(3);
 	}
@@ -733,6 +789,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHandlersChains() {
 		return handlersChainsEClass;
 	}
@@ -742,6 +799,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHandlersChains_HandlerChain() {
 		return (EReference)handlersChainsEClass.getEStructuralFeatures().get(0);
 	}
@@ -751,6 +809,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRespectBindingType() {
 		return respectBindingTypeEClass;
 	}
@@ -760,6 +819,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRespectBindingType_Enabled() {
 		return (EAttribute)respectBindingTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -769,6 +829,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAddressingType() {
 		return addressingTypeEClass;
 	}
@@ -778,6 +839,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAddressingType_Enabled() {
 		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -787,6 +849,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAddressingType_Required() {
 		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -796,6 +859,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAddressingType_Responses() {
 		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -805,6 +869,7 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getAddressingResponsesType() {
 		return addressingResponsesTypeEEnum;
 	}
@@ -814,7 +879,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WsddFactory getWsddFactory() {
+  @Override
+public WsddFactory getWsddFactory() {
 		return (WsddFactory)getEFactoryInstance();
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -116,6 +116,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdminObjectInterface() {
 		return adminObjectInterface;
 	}
@@ -125,6 +126,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdminObjectInterface(String newAdminObjectInterface) {
 		String oldAdminObjectInterface = adminObjectInterface;
 		adminObjectInterface = newAdminObjectInterface;
@@ -137,6 +139,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAdminObjectClass() {
 		return adminObjectClass;
 	}
@@ -146,6 +149,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAdminObjectClass(String newAdminObjectClass) {
 		String oldAdminObjectClass = adminObjectClass;
 		adminObjectClass = newAdminObjectClass;
@@ -158,6 +162,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getConfigProperties() {
 		if (configProperties == null) {
 			configProperties = new EObjectContainmentEList(ConfigProperty.class, this, JcaPackage.ADMIN_OBJECT__CONFIG_PROPERTIES);

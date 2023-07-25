@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -95,6 +95,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -104,6 +105,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -116,6 +118,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE__DESCRIPTIONS);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -134,6 +134,7 @@ public class ActivationSpecImpl extends EObjectImpl implements ActivationSpec {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getActivationspecClass() {
 		return activationspecClass;
 	}
@@ -143,6 +144,7 @@ public class ActivationSpecImpl extends EObjectImpl implements ActivationSpec {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActivationspecClass(String newActivationspecClass) {
 		String oldActivationspecClass = activationspecClass;
 		activationspecClass = newActivationspecClass;
@@ -155,6 +157,7 @@ public class ActivationSpecImpl extends EObjectImpl implements ActivationSpec {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<RequiredConfigProperty> getRequiredConfigProperty() {
 		if (requiredConfigProperty == null) {
 			requiredConfigProperty = new EObjectContainmentEList<RequiredConfigProperty>(RequiredConfigProperty.class, this, JcaPackage.ACTIVATION_SPEC__REQUIRED_CONFIG_PROPERTY);
@@ -167,6 +170,7 @@ public class ActivationSpecImpl extends EObjectImpl implements ActivationSpec {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConfigProperty> getConfigProperty() {
 		if (configProperty == null) {
 			configProperty = new EObjectContainmentEList<ConfigProperty>(ConfigProperty.class, this, JcaPackage.ACTIVATION_SPEC__CONFIG_PROPERTY);
@@ -179,6 +183,7 @@ public class ActivationSpecImpl extends EObjectImpl implements ActivationSpec {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -188,6 +193,7 @@ public class ActivationSpecImpl extends EObjectImpl implements ActivationSpec {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

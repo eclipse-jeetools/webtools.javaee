@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -108,6 +108,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	 * 
 
 	 */
+	@Override
 	public TransactionType getTransactionType() {
 		return transactionType;
 	}
@@ -117,6 +118,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionType(TransactionType newTransactionType) {
 		TransactionType oldTransactionType = transactionType;
 		transactionType = newTransactionType == null ? TRANSACTION_TYPE_EDEFAULT : newTransactionType;
@@ -131,6 +133,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionType() {
 		TransactionType oldTransactionType = transactionType;
 		boolean oldTransactionTypeESet = transactionTypeESet;
@@ -145,6 +148,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionType() {
 		return transactionTypeESet;
 	}
@@ -152,6 +156,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public SessionType getSessionType() {
 		return sessionType;
 	}
@@ -161,6 +166,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSessionType(SessionType newSessionType) {
 		SessionType oldSessionType = sessionType;
 		sessionType = newSessionType == null ? SESSION_TYPE_EDEFAULT : newSessionType;
@@ -175,6 +181,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetSessionType() {
 		SessionType oldSessionType = sessionType;
 		boolean oldSessionTypeESet = sessionTypeESet;
@@ -189,6 +196,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSessionType() {
 		return sessionTypeESet;
 	}
@@ -225,6 +233,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceEndpoint(JavaClass newServiceEndpoint) {
 		JavaClass oldServiceEndpoint = serviceEndpoint;
 		serviceEndpoint = newServiceEndpoint;
@@ -330,15 +339,18 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session {
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.internal.ejb.Session#setServiceEndpointName(java.lang.String)
      */
-    public void setServiceEndpointName(String serviceEndpointName) {
+    @Override
+	public void setServiceEndpointName(String serviceEndpointName) {
         eSet(EjbPackage.eINSTANCE.getSession_ServiceEndpoint(), createClassRef(serviceEndpointName));
     }
 	/*
 	 * @see EnterpriseBean#hasLocalClient()
 	 */
+	@Override
 	public boolean hasServiceEndpoint() {
 		return getServiceEndpoint() != null;
 	}
+	@Override
 	public String getServiceEndpointName() {
 		getServiceEndpoint();
 		return serviceEndpoint == null ? null : serviceEndpoint.getQualifiedName();

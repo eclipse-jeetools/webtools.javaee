@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,6 +73,7 @@ public class WebfragmentFactoryImpl extends EFactoryImpl implements WebfragmentF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebAppDeploymentDescriptor createWebAppDeploymentDescriptor() {
 		WebAppDeploymentDescriptorImpl webAppDeploymentDescriptor = new WebAppDeploymentDescriptorImpl();
 		return webAppDeploymentDescriptor;
@@ -83,6 +84,7 @@ public class WebfragmentFactoryImpl extends EFactoryImpl implements WebfragmentF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebfragmentPackage getWebfragmentPackage() {
 		return (WebfragmentPackage)getEPackage();
 	}

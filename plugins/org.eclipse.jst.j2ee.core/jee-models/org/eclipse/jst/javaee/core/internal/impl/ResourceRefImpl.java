@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -259,6 +259,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.RESOURCE_REF__DESCRIPTIONS);
@@ -271,6 +272,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResRefName() {
 		return resRefName;
 	}
@@ -280,6 +282,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResRefName(String newResRefName) {
 		String oldResRefName = resRefName;
 		resRefName = newResRefName;
@@ -292,6 +295,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResType() {
 		return resType;
 	}
@@ -301,6 +305,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResType(String newResType) {
 		String oldResType = resType;
 		resType = newResType;
@@ -313,6 +318,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResAuthType getResAuth() {
 		return resAuth;
 	}
@@ -322,6 +328,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResAuth(ResAuthType newResAuth) {
 		ResAuthType oldResAuth = resAuth;
 		resAuth = newResAuth == null ? RES_AUTH_EDEFAULT : newResAuth;
@@ -336,6 +343,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetResAuth() {
 		ResAuthType oldResAuth = resAuth;
 		boolean oldResAuthESet = resAuthESet;
@@ -350,6 +358,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetResAuth() {
 		return resAuthESet;
 	}
@@ -359,6 +368,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResSharingScopeType getResSharingScope() {
 		return resSharingScope;
 	}
@@ -368,6 +378,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResSharingScope(ResSharingScopeType newResSharingScope) {
 		ResSharingScopeType oldResSharingScope = resSharingScope;
 		resSharingScope = newResSharingScope == null ? RES_SHARING_SCOPE_EDEFAULT : newResSharingScope;
@@ -382,6 +393,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetResSharingScope() {
 		ResSharingScopeType oldResSharingScope = resSharingScope;
 		boolean oldResSharingScopeESet = resSharingScopeESet;
@@ -396,6 +408,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetResSharingScope() {
 		return resSharingScopeESet;
 	}
@@ -405,6 +418,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -414,6 +428,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -426,6 +441,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
 			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.RESOURCE_REF__INJECTION_TARGETS);
@@ -438,6 +454,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLookupName() {
 		return lookupName;
 	}
@@ -447,6 +464,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookupName(String newLookupName) {
 		String oldLookupName = lookupName;
 		lookupName = newLookupName;
@@ -459,6 +477,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -468,6 +487,7 @@ public class ResourceRefImpl extends EObjectImpl implements ResourceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

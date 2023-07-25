@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,6 +38,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 	private long _methodList = NO_METHODS;
 	private long _fieldList = NO_FIELDS;
 
+	@Override
 	public final void validate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationException {
 		vc.subtask(IEJBValidatorConstants.STATUS_VALIDATING, new String[]{((JavaClass) target).getJavaName()});
 
@@ -250,6 +251,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 
 	}
 
+	@Override
 	public final void register(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedList) throws InvalidInputException, ValidationCancelledException, ValidationException {
 		_fieldList = (_fieldList | getFieldType(bean, clazz, field));
 	}
@@ -376,6 +378,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		return id;
 	}
 
+	@Override
 	public final void register(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException, ValidationCancelledException, ValidationException {
 		_methodList = (_methodList | MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedList, this));
 	}

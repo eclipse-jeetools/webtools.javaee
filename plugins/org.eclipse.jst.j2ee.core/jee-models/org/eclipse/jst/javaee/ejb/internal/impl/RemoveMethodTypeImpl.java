@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -123,6 +123,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getBeanMethod() {
 		return beanMethod;
 	}
@@ -147,6 +148,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBeanMethod(NamedMethodType newBeanMethod) {
 		if (newBeanMethod != beanMethod) {
 			NotificationChain msgs = null;
@@ -166,6 +168,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isRetainIfException() {
 		return retainIfException;
 	}
@@ -175,6 +178,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRetainIfException(boolean newRetainIfException) {
 		boolean oldRetainIfException = retainIfException;
 		retainIfException = newRetainIfException;
@@ -189,6 +193,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetRetainIfException() {
 		boolean oldRetainIfException = retainIfException;
 		boolean oldRetainIfExceptionESet = retainIfExceptionESet;
@@ -203,6 +208,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRetainIfException() {
 		return retainIfExceptionESet;
 	}
@@ -212,6 +218,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -221,6 +228,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

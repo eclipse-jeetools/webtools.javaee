@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,6 +40,7 @@ public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 			return new EjbJar11ImportStrategyImpl();
 		}
 
+		@Override
 		public String getUnableToOpenMessage() {
 			return getXmlDDMessage(CommonArchiveResourceHandler.EJB_Jar_File, J2EEConstants.EJBJAR_DD_URI); // = "EJB Jar File"
 		}
@@ -62,6 +63,7 @@ public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.ImportStrategy
 	 */
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 		return getDiscriminator().createImportStrategy(old, newArchive);
 	}
@@ -80,6 +82,7 @@ public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.ImportStrategy
 	 */
+	@Override
 	public void importMetaData() throws Exception {
 		loadDeploymentDescriptor();
 	}

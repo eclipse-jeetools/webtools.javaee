@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@ public class JaxrpcmapResourceImpl extends XMLResourceImpl implements JaxrpcmapR
 	/**
 	 * Return the first element in the EList.
 	 */
+	@Override
 	public JavaWSDLMapping getJavaWSDLMapping() {
 		return (JavaWSDLMapping) getRootObject();
 	}
@@ -41,6 +42,7 @@ public class JaxrpcmapResourceImpl extends XMLResourceImpl implements JaxrpcmapR
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#getRootTranslator()
 	 */
+	@Override
 	public Translator getRootTranslator() {
 		return JaxrpcmapTranslator.INSTANCE;
 	}
@@ -48,6 +50,7 @@ public class JaxrpcmapResourceImpl extends XMLResourceImpl implements JaxrpcmapR
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.common.XMLResource#getType()
 	 */
+	@Override
 	public int getType() {
 		return JAXRPC_MAP_TYPE;
 	}
@@ -55,6 +58,7 @@ public class JaxrpcmapResourceImpl extends XMLResourceImpl implements JaxrpcmapR
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#getDoctype()
 	 */
+	@Override
 	public String getDoctype() 
 	{
 	  switch (getJ2EEVersionID()) 
@@ -68,12 +72,14 @@ public class JaxrpcmapResourceImpl extends XMLResourceImpl implements JaxrpcmapR
 	}
 
 
-   public boolean isJaxrpcmap1_0()
+   @Override
+public boolean isJaxrpcmap1_0()
    {
       return (getModuleVersionID()==WebServiceConstants.WEBSERVICE_1_0_ID);
    }
 
-   public boolean isJaxrpcmap1_1()
+   @Override
+public boolean isJaxrpcmap1_1()
    {
       return (getModuleVersionID()==WebServiceConstants.WEBSERVICE_1_1_ID) ;   
    }

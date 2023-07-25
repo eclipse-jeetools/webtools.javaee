@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -158,6 +158,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Description getDescription() {
 		return description;
 	}
@@ -182,6 +183,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(Description newDescription) {
 		if (newDescription != description) {
 			NotificationChain msgs = null;
@@ -201,6 +203,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QueryMethod getQueryMethod() {
 		return queryMethod;
 	}
@@ -225,6 +228,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setQueryMethod(QueryMethod newQueryMethod) {
 		if (newQueryMethod != queryMethod) {
 			NotificationChain msgs = null;
@@ -244,6 +248,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResultTypeMappingType getResultTypeMapping() {
 		return resultTypeMapping;
 	}
@@ -253,6 +258,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResultTypeMapping(ResultTypeMappingType newResultTypeMapping) {
 		ResultTypeMappingType oldResultTypeMapping = resultTypeMapping;
 		resultTypeMapping = newResultTypeMapping == null ? RESULT_TYPE_MAPPING_EDEFAULT : newResultTypeMapping;
@@ -267,6 +273,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetResultTypeMapping() {
 		ResultTypeMappingType oldResultTypeMapping = resultTypeMapping;
 		boolean oldResultTypeMappingESet = resultTypeMappingESet;
@@ -281,6 +288,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetResultTypeMapping() {
 		return resultTypeMappingESet;
 	}
@@ -290,6 +298,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbQl() {
 		return ejbQl;
 	}
@@ -299,6 +308,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbQl(String newEjbQl) {
 		String oldEjbQl = ejbQl;
 		ejbQl = newEjbQl;
@@ -311,6 +321,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -320,6 +331,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,6 +58,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 		return getImportStrategy() != null;
 	}
 
+	@Override
 	public Resource getDeploymentDescriptorResource() throws java.io.FileNotFoundException, ResourceLoadException {
 		return getMofResource(getDeploymentDescriptorUri());
 	}
@@ -65,6 +66,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	/**
 	 * Subclasses must override
 	 */
+	@Override
 	public abstract String getDeploymentDescriptorUri();
 
 	/**
@@ -84,6 +86,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 * 
 	 * @return com.ibm.etools.archive.ExportStrategy
 	 */
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ExportStrategy getExportStrategy() {
 		return exportStrategy;
 	}
@@ -93,6 +96,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 * 
 	 * @return com.ibm.etools.archive.ImportStrategy
 	 */
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy getImportStrategy() {
 		return importStrategy;
 	}
@@ -103,6 +107,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 * 
 	 * @deprecated, Use getDeploymentDescriptorResource().getModuleVersionID();
 	 */
+	@Override
 	public String getSpecVersion() {
 		float ver = getSpecVersionID();
 		Float specVersion = new Float(ver / 10);
@@ -114,6 +119,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 * 
 	 * @return int
 	 */
+	@Override
 	public int getSpecVersionID() {
 		try {
 			return ((XMLResource) getDeploymentDescriptorResource()).getModuleVersionID();
@@ -125,6 +131,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.ModuleFile
 	 */
+	@Override
 	public abstract boolean isDeploymentDescriptorSet();
 
 	/**
@@ -142,6 +149,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 */
 	public abstract EObject makeDeploymentDescriptor(XMLResource resource);
 
+	@Override
 	public Resource makeDeploymentDescriptorResource() {
 		XMLResource resource = null;
 		try {
@@ -171,6 +179,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 * @param newExportStrategy
 	 *            com.ibm.etools.archive.ExportStrategy
 	 */
+	@Override
 	public void setExportStrategy(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ExportStrategy newExportStrategy) {
 		exportStrategy = newExportStrategy;
 		if (newExportStrategy != null) {
@@ -184,6 +193,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 * @param newImportStrategy
 	 *            com.ibm.etools.archive.ImportStrategy
 	 */
+	@Override
 	public void setImportStrategy(org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy newImportStrategy) {
 		importStrategy = newImportStrategy;
 		if (newImportStrategy != null) {
@@ -196,6 +206,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 * 
 	 * @see com.ibm.etools.commonarchive.ModuleFile#setJ2EEVersion(int)
 	 */
+	@Override
 	public void setJ2EEVersion(int versionID) {
 		try {
 			((XMLResource) getDeploymentDescriptorResource()).setVersionID(versionID);

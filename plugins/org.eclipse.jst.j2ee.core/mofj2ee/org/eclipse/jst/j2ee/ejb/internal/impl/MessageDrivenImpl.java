@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -172,6 +172,7 @@ public boolean isMessageDriven() {
 	 * 
 	 * The transaction-type element must be one of the two following: Bean, Container
 	 */
+	@Override
 	public TransactionType getTransactionType() {
 		return transactionType;
 	}
@@ -181,6 +182,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionType(TransactionType newTransactionType) {
 		TransactionType oldTransactionType = transactionType;
 		transactionType = newTransactionType == null ? TRANSACTION_TYPE_EDEFAULT : newTransactionType;
@@ -195,6 +197,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionType() {
 		TransactionType oldTransactionType = transactionType;
 		boolean oldTransactionTypeESet = transactionTypeESet;
@@ -209,6 +212,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionType() {
 		return transactionTypeESet;
 	}
@@ -223,6 +227,7 @@ public boolean isMessageDriven() {
 	 * JMSType = `car' AND color = `blue' AND weight > 2500
 
 	 */
+	@Override
 	public String getMessageSelector() {
 		return messageSelector;
 	}
@@ -230,6 +235,7 @@ public boolean isMessageDriven() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setMessageSelector(String newMessageSelector) {
 		String oldMessageSelector = messageSelector;
 		messageSelector = newMessageSelector;
@@ -246,6 +252,7 @@ public boolean isMessageDriven() {
 	 * The acknowledge-mode must be one of the two following:  Auto-acknowledge, Dups-ok-acknowledge
 
 	 */
+	@Override
 	public AcknowledgeMode getAcknowledgeMode() {
 		return acknowledgeMode;
 	}
@@ -255,6 +262,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAcknowledgeMode(AcknowledgeMode newAcknowledgeMode) {
 		AcknowledgeMode oldAcknowledgeMode = acknowledgeMode;
 		acknowledgeMode = newAcknowledgeMode == null ? ACKNOWLEDGE_MODE_EDEFAULT : newAcknowledgeMode;
@@ -269,6 +277,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetAcknowledgeMode() {
 		AcknowledgeMode oldAcknowledgeMode = acknowledgeMode;
 		boolean oldAcknowledgeModeESet = acknowledgeModeESet;
@@ -283,6 +292,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetAcknowledgeMode() {
 		return acknowledgeModeESet;
 	}
@@ -291,6 +301,7 @@ public boolean isMessageDriven() {
 	 * @generated This field/method will be replaced during code generation 
 	 * An optional declaration of the intended destination type of the message-driven bean
 	 */
+	@Override
 	public MessageDrivenDestination getDestination() {
 		return destination;
 	}
@@ -313,6 +324,7 @@ public boolean isMessageDriven() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDestination(MessageDrivenDestination newDestination) {
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
@@ -332,6 +344,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationConfig getActivationConfig() {
 		return activationConfig;
 	}
@@ -356,6 +369,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActivationConfig(ActivationConfig newActivationConfig) {
 		if (newActivationConfig != activationConfig) {
 			NotificationChain msgs = null;
@@ -375,6 +389,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaClass getMessageDestination() {
 		if (messageDestination != null && messageDestination.eIsProxy()) {
 			InternalEObject oldMessageDestination = (InternalEObject)messageDestination;
@@ -401,6 +416,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageDestination(JavaClass newMessageDestination) {
 		JavaClass oldMessageDestination = messageDestination;
 		messageDestination = newMessageDestination;
@@ -413,6 +429,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLink() {
 		return link;
 	}
@@ -422,6 +439,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLink(String newLink) {
 		String oldLink = link;
 		link = newLink;
@@ -434,6 +452,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaClass getMessagingType() {
 		if (messagingType != null && messagingType.eIsProxy()) {
 			InternalEObject oldMessagingType = (InternalEObject)messagingType;
@@ -460,6 +479,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessagingType(JavaClass newMessagingType) {
 		JavaClass oldMessagingType = messagingType;
 		messagingType = newMessagingType;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,6 +37,7 @@ public class EJBValidationContext implements IEJBValidationContext {
 		setReporter(r);
 	}
 	
+	@Override
 	public IValidator getValidator() {
 		return _validator;
 	}
@@ -45,6 +46,7 @@ public class EJBValidationContext implements IEJBValidationContext {
 		_validator = v;
 	}
 	
+	@Override
 	public IValidationContext getHelper() {
 		return _helper;
 	}
@@ -53,6 +55,7 @@ public class EJBValidationContext implements IEJBValidationContext {
 		_helper = h;
 	}
 	
+	@Override
 	public IReporter getReporter() {
 		return _reporter;
 	}
@@ -64,7 +67,8 @@ public class EJBValidationContext implements IEJBValidationContext {
  	/*
  	 * Returns an empty Message which can be reused.
  	 */
- 	public IMessage getMessage() {
+ 	@Override
+	public IMessage getMessage() {
  		IMessage message = new Message();
  		message.setBundleName(IEJBValidatorConstants.BUNDLE_NAME);
  		return message;
@@ -101,36 +105,44 @@ public class EJBValidationContext implements IEJBValidationContext {
 	
 	
 	
+	@Override
 	public Logger getMsgLogger() {
 		return Logger.getLogger(IEJBValidatorConstants.J2EE_CORE_PLUGIN);
 	}
 	
+	@Override
 	public LogEntry getLogEntry() {
 	    if(logEntry == null)
 	        logEntry = new LogEntry(IEJBValidatorConstants.BUNDLE_NAME);
 		return logEntry;
 	}
 
+	@Override
 	public Object loadModel(String symbolicName) {
 		return getHelper().loadModel(symbolicName);
 	}
 	
+	@Override
 	public Object loadModel(String symbolicName, Object[] parms) {
 		return getHelper().loadModel(symbolicName, parms);
 	}
 	
+	@Override
 	public void removeAllMessages() {
 		getReporter().removeAllMessages(getValidator());
 	}
 	
+	@Override
 	public void removeMessages(Object target) {
 		getReporter().removeAllMessages(getValidator(), target);
 	}
 	
+	@Override
 	public void removeMessages(Object target, String groupIdentifier) {
 		getReporter().removeMessageSubset(getValidator(), target, groupIdentifier);
 	}
 	
+	@Override
 	public void addMessage(IMessage message) {
 		if(message == null) {
 			return;
@@ -138,26 +150,31 @@ public class EJBValidationContext implements IEJBValidationContext {
 		getReporter().addMessage(getValidator(), message);
 	}
 	
+	@Override
 	public void addMessage(int severity, String messageId) {
 		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
+	@Override
 	public void addMessage(int severity, String messageId, String[] parms) {
 		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
+	@Override
 	public void addMessage(int severity, String messageId, Object target) {
 		IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,null,target);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
+	@Override
 	public void addMessage(int severity, String messageId, String[] parms, Object target) {
 		IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms,target);
 		getReporter().addMessage(getValidator(), message);
 	}
 	
+	@Override
 	public void addMessage(int severity, String messageId, Object target, String groupName) {
 		/**
 		 * 11/28/05 Commenting the following line to get rid of Warning message
@@ -168,21 +185,25 @@ public class EJBValidationContext implements IEJBValidationContext {
 		//IMessage message =  new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,null,target,groupName);
 	}
 	
+	@Override
 	public void addMessage(int severity, String messageId, String[] parms, Object target, String groupName) {
 		IMessage message = new Message(IEJBValidatorConstants.BUNDLE_NAME,severity,messageId,parms,target,groupName);
 		getReporter().addMessage(getValidator(), message);
 	}
 
+	@Override
 	public void terminateIfCancelled() throws ValidationCancelledException {
 		if(getReporter().isCancelled()) {
 			throw new ValidationCancelledException();
 		}
 	}
 
+	@Override
 	public void subtask(String messageId) {
 		subtask(messageId, null);
 	}
 	
+	@Override
 	public void subtask(String messageId, String[] parms) {
 		if((messageId == null) || (messageId.equals(""))) { //$NON-NLS-1$
 			return;
@@ -193,6 +214,7 @@ public class EJBValidationContext implements IEJBValidationContext {
 		getReporter().displaySubtask(getValidator(), message);
 	}
 
+	@Override
 	public String[] getURIs() {
 		return null;
 	}

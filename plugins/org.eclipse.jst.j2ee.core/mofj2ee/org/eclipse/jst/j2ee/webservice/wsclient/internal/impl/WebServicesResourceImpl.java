@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,11 +47,13 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 		/**
 	 * Return the first element in the EList.
 	 */
+	@Override
 	public WebServicesClient getWebServicesClient() {
 		return (WebServicesClient) getRootObject();
 	}
     
-    public int getType() {
+    @Override
+	public int getType() {
         return WEB_SERVICES_CLIENT_TYPE;
     }
 
@@ -73,6 +75,7 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 		return J2EEConstants.WEB_SERVICES_CLIENT_PUBLICID_1_0;
 	}
 
+	@Override
 	public String getDoctype() {
 		switch (getJ2EEVersionID()) {
 			case (J2EE_1_2_ID) :
@@ -134,6 +137,7 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 	/**
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#getRootTranslator()
 	 */
+	@Override
 	public Translator getRootTranslator() {
 		return WebServicesTranslator.INSTANCE;
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -139,6 +139,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 		return CommonPackage.Literals.COMPATIBILITY_DESCRIPTION_GROUP;
 	}
 
+	@Override
 	public String getSmallIcon() {
 		if(eResource() == null) 
 			return getSmallIconGen();
@@ -155,6 +156,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 		return null;
 	}
 	
+	@Override
 	public void setSmallIcon(String newSmallIcon) {
 		if(eResource() == null) {
 			setSmallIconGen(newSmallIcon);
@@ -203,6 +205,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSmallIconGen(String newSmallIcon) {
 		String oldSmallIcon = smallIcon;
 		smallIcon = newSmallIcon;
@@ -210,6 +213,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__SMALL_ICON, oldSmallIcon, smallIcon));
 	}
 
+	@Override
 	public String getLargeIcon() {
 		if(eResource() == null) 
 			return getLargeIconGen();
@@ -226,6 +230,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 		return null;
 	}
 	
+	@Override
 	public void setLargeIcon(String newLargeIcon) {
 		if(eResource() == null) {
 			setLargeIconGen(newLargeIcon);
@@ -276,6 +281,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLargeIconGen(String newLargeIcon) {
 		String oldLargeIcon = largeIcon;
 		largeIcon = newLargeIcon;
@@ -283,6 +289,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__LARGE_ICON, oldLargeIcon, largeIcon));
 	}
 
+	@Override
 	public String getDescription() {
 		if(eResource() == null) 
 			return getDescriptionGen();
@@ -299,6 +306,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 		return null;
 	}
 	
+	@Override
 	public void setDescription(String newDescription) {
 		if(eResource() == null) {
 			setDescriptionGen(newDescription);
@@ -349,6 +357,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescriptionGen(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -356,6 +365,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__DESCRIPTION, oldDescription, description));
 	}
 
+	@Override
 	public String getDisplayName() {
 		if(eResource() == null) 
 			return getDisplayNameGen();
@@ -377,6 +387,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.common.DescriptionGroup#setDisplayName(java.lang.String)
 	 */
+	@Override
 	public void setDisplayName(String newDisplayName) {
 		if(eResource() == null) {
 			setDisplayNameGen(newDisplayName);
@@ -427,6 +438,7 @@ public class CompatibilityDescriptionGroupImpl extends DescriptionGroupImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDisplayNameGen(String newDisplayName) {
 		String oldDisplayName = displayName;
 		displayName = newDisplayName;

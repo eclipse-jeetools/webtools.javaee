@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -43,18 +43,22 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 		MESSAGE_IDS.put(CHKJ2852, new String[]{CHKJ2852});
 	}
 	
+	@Override
 	public Object[] getDependsOn() {
 		return DEPENDS_ON;
 	}
 	
+	@Override
 	public Object getId() {
 		return IValidationRuleList.EJB20_EJBEXT;
 	}
 	
+	@Override
 	public Map getMessageIds() {
 		return MESSAGE_IDS;
 	}
 
+	@Override
 	public Object getTarget(Object parent, Object clazz) {
 		return null;
 	}
@@ -130,6 +134,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 		return true;
 	}
 
+	@Override
 	public void validate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		Logger logger = vc.getMsgLogger();
 		if(logger != null && logger.isLoggingLevel(Level.FINEST)) {

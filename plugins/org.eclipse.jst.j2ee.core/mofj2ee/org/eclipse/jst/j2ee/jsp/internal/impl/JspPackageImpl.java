@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -140,6 +140,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getJSPConfig() {
 		return jspConfigEClass;
 	}
@@ -149,6 +150,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJSPConfig_TagLibs() {
 		return (EReference)jspConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -158,6 +160,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJSPConfig_PropertyGroups() {
 		return (EReference)jspConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -167,6 +170,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getJSPPropertyGroup() {
 		return jspPropertyGroupEClass;
 	}
@@ -176,6 +180,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPPropertyGroup_UrlPattern() {
 		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(0);
 	}
@@ -185,6 +190,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPPropertyGroup_ElIgnored() {
 		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(1);
 	}
@@ -194,6 +200,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPPropertyGroup_PageEncoding() {
 		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(2);
 	}
@@ -203,6 +210,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPPropertyGroup_ScriptingInvalid() {
 		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(3);
 	}
@@ -212,6 +220,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPPropertyGroup_IsXML() {
 		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(4);
 	}
@@ -221,6 +230,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPPropertyGroup_IncludePreludes() {
 		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(5);
 	}
@@ -230,6 +240,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPPropertyGroup_IncludeCodas() {
 		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(6);
 	}
@@ -239,6 +250,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTagLibRefType() {
 		return tagLibRefTypeEClass;
 	}
@@ -248,6 +260,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTagLibRefType_TaglibURI() {
 		return (EAttribute)tagLibRefTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -257,6 +270,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTagLibRefType_TaglibLocation() {
 		return (EAttribute)tagLibRefTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -266,6 +280,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JspFactory getJspFactory() {
 		return (JspFactory)getEFactoryInstance();
 	}

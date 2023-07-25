@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -106,6 +106,7 @@ public class WebAppDeploymentDescriptorImpl extends EObjectImpl implements WebAp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getMixed() {
 		if (mixed == null) {
 			mixed = new BasicFeatureMap(this, WebfragmentPackage.WEB_APP_DEPLOYMENT_DESCRIPTOR__MIXED);
@@ -118,6 +119,7 @@ public class WebAppDeploymentDescriptorImpl extends EObjectImpl implements WebAp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, String> getXMLNSPrefixMap() {
 		if (xMLNSPrefixMap == null) {
 			xMLNSPrefixMap = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, WebfragmentPackage.WEB_APP_DEPLOYMENT_DESCRIPTOR__XMLNS_PREFIX_MAP);
@@ -130,6 +132,7 @@ public class WebAppDeploymentDescriptorImpl extends EObjectImpl implements WebAp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, String> getXSISchemaLocation() {
 		if (xSISchemaLocation == null) {
 			xSISchemaLocation = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, WebfragmentPackage.WEB_APP_DEPLOYMENT_DESCRIPTOR__XSI_SCHEMA_LOCATION);
@@ -142,6 +145,7 @@ public class WebAppDeploymentDescriptorImpl extends EObjectImpl implements WebAp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebFragment getWebFragment() {
 		return (WebFragment)getMixed().get(WebfragmentPackage.Literals.WEB_APP_DEPLOYMENT_DESCRIPTOR__WEB_FRAGMENT, true);
 	}
@@ -160,6 +164,7 @@ public class WebAppDeploymentDescriptorImpl extends EObjectImpl implements WebAp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWebFragment(WebFragment newWebFragment) {
 		((FeatureMap.Internal)getMixed()).set(WebfragmentPackage.Literals.WEB_APP_DEPLOYMENT_DESCRIPTOR__WEB_FRAGMENT, newWebFragment);
 	}

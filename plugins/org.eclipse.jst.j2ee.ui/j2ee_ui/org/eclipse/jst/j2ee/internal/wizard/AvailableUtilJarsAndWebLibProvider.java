@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,6 +46,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 * 
 	 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		if(inputElement instanceof ArchiveWrapper){
 			ArchiveWrapper wrapper = (ArchiveWrapper)inputElement;
@@ -54,6 +55,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 				filterEJBClientJars(utilities, wrapper);
 				Object [] array = utilities.toArray();
 				Arrays.sort(array, new Comparator() {
+					@Override
 					public int compare(Object o1, Object o2) {
 						return getColumnText(o1, 0).compareTo(getColumnText(o2, 0));
 					}
@@ -91,6 +93,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 * 
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
 	 */
+	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		return AvailableJarsProvider.getUtilImage();
 	}
@@ -100,6 +103,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 * 
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
 	 */
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		ArchiveWrapper wrapper = (ArchiveWrapper)element;
 		IPath path = wrapper.getPath();
@@ -114,6 +118,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 * 
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
 		//Auto-generated method stub
 	}
@@ -124,6 +129,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
 	 *      java.lang.Object, java.lang.Object)
 	 */
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		//Auto-generated method stub
 	}
@@ -133,6 +139,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 * 
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 		//Auto-generated method stub
 	}
@@ -143,6 +150,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#isLabelProperty(java.lang.Object,
 	 *      java.lang.String)
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -152,6 +160,7 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 	 * 
 	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 		//Auto-generated method stub
 	}

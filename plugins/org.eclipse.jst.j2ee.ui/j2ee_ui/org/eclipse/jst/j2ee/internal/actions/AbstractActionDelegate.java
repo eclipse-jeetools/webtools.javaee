@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -129,6 +129,7 @@ public abstract class AbstractActionDelegate implements org.eclipse.ui.IActionDe
 	 * @param action
 	 *            the action proxy that handles the presentation portion of the action
 	 */
+	@Override
 	public void run(org.eclipse.jface.action.IAction action) {
 
 		Shell shell = getWorkbenchWindow().getShell();
@@ -158,6 +159,7 @@ public abstract class AbstractActionDelegate implements org.eclipse.ui.IActionDe
 	 * @param aSelection
 	 *            the current selection in the workbench
 	 */
+	@Override
 	public void selectionChanged(org.eclipse.jface.action.IAction action, org.eclipse.jface.viewers.ISelection aSelection) {
 		this.selection = aSelection;
 		setActionState(action);

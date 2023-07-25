@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -351,6 +351,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getWebApp() {
 		return webAppEClass;
 	}
@@ -358,6 +359,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getWebApp_Distributable() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(0);
 	}
@@ -367,6 +369,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebApp_Version() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(1);
 	}
@@ -374,6 +377,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_Contexts() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(2);
 	}
@@ -381,6 +385,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_ErrorPages() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(3);
 	}
@@ -388,6 +393,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_FileList() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(4);
 	}
@@ -395,6 +401,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_TagLibs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(5);
 	}
@@ -402,6 +409,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_Constraints() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(6);
 	}
@@ -409,6 +417,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_LoginConfig() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(7);
 	}
@@ -416,6 +425,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_MimeMappings() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(8);
 	}
@@ -423,6 +433,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_SessionConfig() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(9);
 	}
@@ -430,6 +441,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_ServletMappings() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(10);
 	}
@@ -437,6 +449,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_Servlets() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(11);
 	}
@@ -444,6 +457,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_SecurityRoles() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(12);
 	}
@@ -451,6 +465,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_Filters() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(13);
 	}
@@ -458,6 +473,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_FilterMappings() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(14);
 	}
@@ -465,6 +481,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebApp_Listeners() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(15);
 	}
@@ -474,6 +491,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_ContextParams() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(16);
 	}
@@ -483,6 +501,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_JspConfig() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(17);
 	}
@@ -492,6 +511,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_MessageDestinations() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(18);
 	}
@@ -501,6 +521,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_LocalEncodingMappingList() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(19);
 	}
@@ -508,6 +529,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getContextParam() {
 		return contextParamEClass;
 	}
@@ -515,6 +537,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getContextParam_ParamName() {
 		return (EAttribute)contextParamEClass.getEStructuralFeatures().get(0);
 	}
@@ -522,6 +545,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getContextParam_ParamValue() {
 		return (EAttribute)contextParamEClass.getEStructuralFeatures().get(1);
 	}
@@ -529,6 +553,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getContextParam_Description() {
 		return (EAttribute)contextParamEClass.getEStructuralFeatures().get(2);
 	}
@@ -536,6 +561,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getContextParam_WebApp() {
 		return (EReference)contextParamEClass.getEStructuralFeatures().get(3);
 	}
@@ -543,6 +569,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getErrorPage() {
 		return errorPageEClass;
 	}
@@ -550,6 +577,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getErrorPage_Location() {
 		return (EAttribute)errorPageEClass.getEStructuralFeatures().get(0);
 	}
@@ -557,6 +585,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getErrorPage_WebApp() {
 		return (EReference)errorPageEClass.getEStructuralFeatures().get(1);
 	}
@@ -564,6 +593,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getExceptionTypeErrorPage() {
 		return exceptionTypeErrorPageEClass;
 	}
@@ -571,6 +601,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getExceptionTypeErrorPage_ExceptionType() {
 		return (EReference)exceptionTypeErrorPageEClass.getEStructuralFeatures().get(0);
 	}
@@ -578,6 +609,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getErrorCodeErrorPage() {
 		return errorCodeErrorPageEClass;
 	}
@@ -585,6 +617,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getErrorCodeErrorPage_ErrorCode() {
 		return (EAttribute)errorCodeErrorPageEClass.getEStructuralFeatures().get(0);
 	}
@@ -592,6 +625,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getWelcomeFileList() {
 		return welcomeFileListEClass;
 	}
@@ -599,6 +633,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWelcomeFileList_WebApp() {
 		return (EReference)welcomeFileListEClass.getEStructuralFeatures().get(0);
 	}
@@ -606,6 +641,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWelcomeFileList_File() {
 		return (EReference)welcomeFileListEClass.getEStructuralFeatures().get(1);
 	}
@@ -613,6 +649,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getWelcomeFile() {
 		return welcomeFileEClass;
 	}
@@ -620,6 +657,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getWelcomeFile_WelcomeFile() {
 		return (EAttribute)welcomeFileEClass.getEStructuralFeatures().get(0);
 	}
@@ -627,6 +665,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWelcomeFile_FileList() {
 		return (EReference)welcomeFileEClass.getEStructuralFeatures().get(1);
 	}
@@ -634,6 +673,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getTagLibRef() {
 		return tagLibRefEClass;
 	}
@@ -641,6 +681,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getTagLibRef_TaglibURI() {
 		return (EAttribute)tagLibRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -648,6 +689,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getTagLibRef_TaglibLocation() {
 		return (EAttribute)tagLibRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -657,6 +699,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTagLibRef_WebApp() {
 		return (EReference)tagLibRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -664,6 +707,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getSecurityConstraint() {
 		return securityConstraintEClass;
 	}
@@ -673,6 +717,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSecurityConstraint_DisplayName() {
 		return (EAttribute)securityConstraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -680,6 +725,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getSecurityConstraint_WebApp() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(1);
 	}
@@ -687,6 +733,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getSecurityConstraint_WebResourceCollections() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(2);
 	}
@@ -694,6 +741,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getSecurityConstraint_AuthConstraint() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(3);
 	}
@@ -701,6 +749,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getSecurityConstraint_UserDataConstraint() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(4);
 	}
@@ -710,6 +759,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityConstraint_DisplayNames() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(5);
 	}
@@ -717,6 +767,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getWebResourceCollection() {
 		return webResourceCollectionEClass;
 	}
@@ -724,6 +775,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getWebResourceCollection_WebResourceName() {
 		return (EAttribute)webResourceCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -731,6 +783,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getWebResourceCollection_Description() {
 		return (EAttribute)webResourceCollectionEClass.getEStructuralFeatures().get(1);
 	}
@@ -740,6 +793,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebResourceCollection_UrlPattern() {
 		return (EAttribute)webResourceCollectionEClass.getEStructuralFeatures().get(2);
 	}
@@ -749,6 +803,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebResourceCollection_HttpMethod() {
 		return (EAttribute)webResourceCollectionEClass.getEStructuralFeatures().get(3);
 	}
@@ -756,6 +811,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebResourceCollection_SecConstraint() {
 		return (EReference)webResourceCollectionEClass.getEStructuralFeatures().get(4);
 	}
@@ -763,6 +819,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWebResourceCollection_URLs() {
 		return (EReference)webResourceCollectionEClass.getEStructuralFeatures().get(5);
 	}
@@ -772,6 +829,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebResourceCollection_Descriptions() {
 		return (EReference)webResourceCollectionEClass.getEStructuralFeatures().get(6);
 	}
@@ -781,6 +839,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebResourceCollection_HTTPs() {
 		return (EReference)webResourceCollectionEClass.getEStructuralFeatures().get(7);
 	}
@@ -788,6 +847,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getURLPatternType() {
 		return urlPatternTypeEClass;
 	}
@@ -795,6 +855,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getURLPatternType_UrlPattern() {
 		return (EAttribute)urlPatternTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -802,6 +863,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getURLPatternType_ResCollection() {
 		return (EReference)urlPatternTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -809,6 +871,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getHTTPMethodType() {
 		return httpMethodTypeEClass;
 	}
@@ -818,6 +881,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHTTPMethodType_HttpMethod() {
 		return (EAttribute)httpMethodTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -825,6 +889,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getAuthConstraint() {
 		return authConstraintEClass;
 	}
@@ -832,6 +897,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getAuthConstraint_Description() {
 		return (EAttribute)authConstraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -839,6 +905,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getAuthConstraint_Roles() {
 		return (EAttribute)authConstraintEClass.getEStructuralFeatures().get(1);
 	}
@@ -846,6 +913,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getAuthConstraint_SecConstraint() {
 		return (EReference)authConstraintEClass.getEStructuralFeatures().get(2);
 	}
@@ -855,6 +923,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAuthConstraint_Descriptions() {
 		return (EReference)authConstraintEClass.getEStructuralFeatures().get(3);
 	}
@@ -862,6 +931,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getUserDataConstraint() {
 		return userDataConstraintEClass;
 	}
@@ -869,6 +939,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getUserDataConstraint_Description() {
 		return (EAttribute)userDataConstraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -876,6 +947,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getUserDataConstraint_TransportGuarantee() {
 		return (EAttribute)userDataConstraintEClass.getEStructuralFeatures().get(1);
 	}
@@ -883,6 +955,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getUserDataConstraint_SecConstraint() {
 		return (EReference)userDataConstraintEClass.getEStructuralFeatures().get(2);
 	}
@@ -892,6 +965,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getUserDataConstraint_Descriptions() {
 		return (EReference)userDataConstraintEClass.getEStructuralFeatures().get(3);
 	}
@@ -899,6 +973,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getLoginConfig() {
 		return loginConfigEClass;
 	}
@@ -906,6 +981,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getLoginConfig_AuthMethod() {
 		return (EAttribute)loginConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -913,6 +989,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getLoginConfig_RealmName() {
 		return (EAttribute)loginConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -922,6 +999,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLoginConfig_AuthorizationMethod() {
 		return (EAttribute)loginConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -929,6 +1007,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getLoginConfig_WebApp() {
 		return (EReference)loginConfigEClass.getEStructuralFeatures().get(3);
 	}
@@ -936,6 +1015,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getLoginConfig_FormLoginConfig() {
 		return (EReference)loginConfigEClass.getEStructuralFeatures().get(4);
 	}
@@ -943,6 +1023,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getFormLoginConfig() {
 		return formLoginConfigEClass;
 	}
@@ -950,6 +1031,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getFormLoginConfig_FormLoginPage() {
 		return (EAttribute)formLoginConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -957,6 +1039,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getFormLoginConfig_FormErrorPage() {
 		return (EAttribute)formLoginConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -964,6 +1047,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getFormLoginConfig_LoginConfig() {
 		return (EReference)formLoginConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -971,6 +1055,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getMimeMapping() {
 		return mimeMappingEClass;
 	}
@@ -978,6 +1063,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMimeMapping_Extension() {
 		return (EAttribute)mimeMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -985,6 +1071,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMimeMapping_MimeType() {
 		return (EAttribute)mimeMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -992,6 +1079,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMimeMapping_WebApp() {
 		return (EReference)mimeMappingEClass.getEStructuralFeatures().get(2);
 	}
@@ -999,6 +1087,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getSessionConfig() {
 		return sessionConfigEClass;
 	}
@@ -1006,6 +1095,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSessionConfig_SessionTimeout() {
 		return (EAttribute)sessionConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -1013,6 +1103,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getSessionConfig_WebApp() {
 		return (EReference)sessionConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -1020,6 +1111,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getServletMapping() {
 		return servletMappingEClass;
 	}
@@ -1027,6 +1119,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getServletMapping_UrlPattern() {
 		return (EAttribute)servletMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -1036,6 +1129,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServletMapping_Name() {
 		return (EAttribute)servletMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -1043,6 +1137,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getServletMapping_WebApp() {
 		return (EReference)servletMappingEClass.getEStructuralFeatures().get(2);
 	}
@@ -1050,6 +1145,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getServletMapping_Servlet() {
 		return (EReference)servletMappingEClass.getEStructuralFeatures().get(3);
 	}
@@ -1057,6 +1153,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getServlet() {
 		return servletEClass;
 	}
@@ -1064,6 +1161,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getServlet_ServletName() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(0);
 	}
@@ -1071,6 +1169,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getServlet_LoadOnStartup() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(1);
 	}
@@ -1078,6 +1177,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getServlet_WebApp() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(2);
 	}
@@ -1085,6 +1185,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getServlet_WebType() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(3);
 	}
@@ -1092,6 +1193,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getServlet_Params() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(4);
 	}
@@ -1099,6 +1201,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getServlet_SecurityRoleRefs() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(5);
 	}
@@ -1106,6 +1209,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getServlet_RunAs() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(6);
 	}
@@ -1115,6 +1219,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServlet_InitParams() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(7);
 	}
@@ -1122,6 +1227,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getWebType() {
 		return webTypeEClass;
 	}
@@ -1129,6 +1235,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getServletType() {
 		return servletTypeEClass;
 	}
@@ -1136,6 +1243,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getServletType_ClassName() {
 		return (EAttribute)servletTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1143,6 +1251,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getJSPType() {
 		return jspTypeEClass;
 	}
@@ -1150,6 +1259,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPType_JspFile() {
 		return (EAttribute)jspTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1157,6 +1267,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getInitParam() {
 		return initParamEClass;
 	}
@@ -1164,6 +1275,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getInitParam_ParamName() {
 		return (EAttribute)initParamEClass.getEStructuralFeatures().get(0);
 	}
@@ -1171,6 +1283,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getInitParam_ParamValue() {
 		return (EAttribute)initParamEClass.getEStructuralFeatures().get(1);
 	}
@@ -1178,6 +1291,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getInitParam_Description() {
 		return (EAttribute)initParamEClass.getEStructuralFeatures().get(2);
 	}
@@ -1185,6 +1299,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getFilter() {
 		return filterEClass;
 	}
@@ -1192,6 +1307,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getFilter_Name() {
 		return (EAttribute)filterEClass.getEStructuralFeatures().get(0);
 	}
@@ -1199,6 +1315,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getFilter_InitParams() {
 		return (EReference)filterEClass.getEStructuralFeatures().get(1);
 	}
@@ -1206,6 +1323,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getFilter_FilterClass() {
 		return (EReference)filterEClass.getEStructuralFeatures().get(2);
 	}
@@ -1215,6 +1333,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFilter_InitParamValues() {
 		return (EReference)filterEClass.getEStructuralFeatures().get(3);
 	}
@@ -1222,6 +1341,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getFilterMapping() {
 		return filterMappingEClass;
 	}
@@ -1229,6 +1349,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getFilterMapping_UrlPattern() {
 		return (EAttribute)filterMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -1238,6 +1359,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilterMapping_DispatcherType() {
 		return (EAttribute)filterMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -1245,6 +1367,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getFilterMapping_Filter() {
 		return (EReference)filterMappingEClass.getEStructuralFeatures().get(2);
 	}
@@ -1252,6 +1375,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getFilterMapping_Servlet() {
 		return (EReference)filterMappingEClass.getEStructuralFeatures().get(3);
 	}
@@ -1261,6 +1385,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLocalEncodingMappingList() {
 		return localEncodingMappingListEClass;
 	}
@@ -1270,6 +1395,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLocalEncodingMappingList_LocalEncodingMappings() {
 		return (EReference)localEncodingMappingListEClass.getEStructuralFeatures().get(0);
 	}
@@ -1279,6 +1405,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLocalEncodingMapping() {
 		return localEncodingMappingEClass;
 	}
@@ -1288,6 +1415,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocalEncodingMapping_Locale() {
 		return (EAttribute)localEncodingMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -1297,6 +1425,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocalEncodingMapping_Encoding() {
 		return (EAttribute)localEncodingMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -1306,6 +1435,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getResAuthServletType() {
 		return resAuthServletTypeEEnum;
 	}
@@ -1315,6 +1445,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getHTTPMethodTypeEnum() {
 		return httpMethodTypeEnumEEnum;
 	}
@@ -1322,6 +1453,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getRoleNameType() {
 		return roleNameTypeEClass;
 	}
@@ -1329,6 +1461,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getRoleNameType_RoleName() {
 		return (EAttribute)roleNameTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1336,6 +1469,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getTransportGuaranteeType() {
 		return transportGuaranteeTypeEEnum;
 	}
@@ -1345,6 +1479,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getDispatcherType() {
 		return dispatcherTypeEEnum;
 	}
@@ -1354,6 +1489,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getAuthMethodKind() {
 		return authMethodKindEEnum;
 	}
@@ -1361,6 +1497,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public WebapplicationFactory getWebapplicationFactory() {
 		return (WebapplicationFactory)getEFactoryInstance();
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,6 +50,7 @@ public class RunAsSpecifiedIdentityImpl extends SecurityIdentityImpl implements 
 	 * @generated This field/method will be replaced during code generation 
 	 * Optional specifies the run-as identity to be used for the execution of the methods of an enterprise bean. It contains an optional description, and the name of a security role.
 	 */
+	@Override
 	public Identity getIdentity() {
 		return identity;
 	}
@@ -72,6 +73,7 @@ public class RunAsSpecifiedIdentityImpl extends SecurityIdentityImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setIdentity(Identity newIdentity) {
 		if (newIdentity != identity) {
 			NotificationChain msgs = null;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -141,7 +141,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getHandlerName() {
+  @Override
+public String getHandlerName() {
 		return handlerName;
 	}
 
@@ -150,7 +151,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setHandlerName(String newHandlerName) {
+  @Override
+public void setHandlerName(String newHandlerName) {
 		String oldHandlerName = handlerName;
 		handlerName = newHandlerName;
 		if (eNotificationRequired())
@@ -162,7 +164,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getHandlerClass() {
+  @Override
+public String getHandlerClass() {
 		return handlerClass;
 	}
 
@@ -171,7 +174,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setHandlerClass(String newHandlerClass) {
+  @Override
+public void setHandlerClass(String newHandlerClass) {
 		String oldHandlerClass = handlerClass;
 		handlerClass = newHandlerClass;
 		if (eNotificationRequired())
@@ -183,7 +187,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getInitParams() {
+  @Override
+public EList getInitParams() {
 		if (initParams == null) {
 			initParams = new EObjectContainmentEList(InitParam.class, this, WsddPackage.HANDLER__INIT_PARAMS);
 		}
@@ -195,7 +200,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getSoapHeaders() {
+  @Override
+public EList getSoapHeaders() {
 		if (soapHeaders == null) {
 			soapHeaders = new EObjectContainmentEList(SOAPHeader.class, this, WsddPackage.HANDLER__SOAP_HEADERS);
 		}
@@ -207,7 +213,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getSoapRoles() {
+  @Override
+public EList getSoapRoles() {
 		if (soapRoles == null) {
 			soapRoles = new EObjectContainmentEList(SOAPRole.class, this, WsddPackage.HANDLER__SOAP_ROLES);
 		}

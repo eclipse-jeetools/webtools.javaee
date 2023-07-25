@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,6 +97,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getMethodParams() {
 		if (methodParams == null) {
 			methodParams = new EDataTypeEList<String>(String.class, this, EjbPackage.METHOD_PARAMS__METHOD_PARAMS);
@@ -109,6 +110,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -118,6 +120,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

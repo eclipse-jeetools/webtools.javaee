@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -156,6 +156,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getServiceRef() {
 		return serviceRefEClass;
 	}
@@ -165,6 +166,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_ServiceRefName() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -174,6 +176,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_WsdlFile() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -183,6 +186,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_JaxrpcMappingFile() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -192,6 +196,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_ServiceInterface() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -201,6 +206,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_PortComponentRefs() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -210,6 +216,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_Handlers() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -219,6 +226,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_ServiceQname() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -228,6 +236,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPortComponentRef() {
 		return portComponentRefEClass;
 	}
@@ -237,6 +246,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponentRef_PortComponentLink() {
 		return (EAttribute)portComponentRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -246,6 +256,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPortComponentRef_ServiceEndpointInterface() {
 		return (EReference)portComponentRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -255,6 +266,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHandler() {
 		return handlerEClass;
 	}
@@ -264,6 +276,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHandler_HandlerName() {
 		return (EAttribute)handlerEClass.getEStructuralFeatures().get(0);
 	}
@@ -273,6 +286,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHandler_SoapHeaders() {
 		return (EReference)handlerEClass.getEStructuralFeatures().get(5);
 	}
@@ -282,6 +296,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHandler_SoapRoles() {
 		return (EAttribute)handlerEClass.getEStructuralFeatures().get(1);
 	}
@@ -291,6 +306,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHandler_PortNames() {
 		return (EAttribute)handlerEClass.getEStructuralFeatures().get(2);
 	}
@@ -300,6 +316,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHandler_HandlerClass() {
 		return (EReference)handlerEClass.getEStructuralFeatures().get(3);
 	}
@@ -309,6 +326,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHandler_InitParams() {
 		return (EReference)handlerEClass.getEStructuralFeatures().get(4);
 	}
@@ -318,7 +336,8 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EClass getWebServicesClient() {
+    @Override
+	public EClass getWebServicesClient() {
 		return webServicesClientEClass;
 	}
 
@@ -327,7 +346,8 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EReference getWebServicesClient_ComponentScopedRefs() {
+    @Override
+	public EReference getWebServicesClient_ComponentScopedRefs() {
 		return (EReference)webServicesClientEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -336,7 +356,8 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EReference getWebServicesClient_ServiceRefs() {
+    @Override
+	public EReference getWebServicesClient_ServiceRefs() {
 		return (EReference)webServicesClientEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -345,7 +366,8 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EClass getComponentScopedRefs() {
+    @Override
+	public EClass getComponentScopedRefs() {
 		return componentScopedRefsEClass;
 	}
 
@@ -354,7 +376,8 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EAttribute getComponentScopedRefs_ComponentName() {
+    @Override
+	public EAttribute getComponentScopedRefs_ComponentName() {
 		return (EAttribute)componentScopedRefsEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -363,7 +386,8 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EReference getComponentScopedRefs_ServiceRefs() {
+    @Override
+	public EReference getComponentScopedRefs_ServiceRefs() {
 		return (EReference)componentScopedRefsEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -372,6 +396,7 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Webservice_clientFactory getWebservice_clientFactory() {
 		return (Webservice_clientFactory)getEFactoryInstance();
 	}

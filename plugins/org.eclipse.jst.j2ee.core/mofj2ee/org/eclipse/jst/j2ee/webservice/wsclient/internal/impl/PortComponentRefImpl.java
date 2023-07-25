@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -90,6 +90,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPortComponentLink() {
 		return portComponentLink;
 	}
@@ -99,6 +100,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPortComponentLink(String newPortComponentLink) {
 		String oldPortComponentLink = portComponentLink;
 		portComponentLink = newPortComponentLink;
@@ -123,6 +125,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 		return serviceEndpointInterface;
 	}
 	
+	@Override
 	public JavaClass getServiceEndpointInterface() {
 		serviceEndpointInterface = getServiceEndpointInterfaceGen();
 		if (serviceEndpointInterface!=null) {
@@ -148,6 +151,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceEndpointInterface(JavaClass newServiceEndpointInterface) {
 		JavaClass oldServiceEndpointInterface = serviceEndpointInterface;
 		serviceEndpointInterface = newServiceEndpointInterface;

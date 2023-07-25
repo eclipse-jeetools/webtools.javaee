@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -199,6 +199,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServiceEndpointInterface() {
 		return serviceEndpointInterface;
 	}
@@ -208,6 +209,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceEndpointInterface(String newServiceEndpointInterface) {
 		String oldServiceEndpointInterface = serviceEndpointInterface;
 		serviceEndpointInterface = newServiceEndpointInterface;
@@ -220,6 +222,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnableMtom() {
 		return enableMtom;
 	}
@@ -229,6 +232,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnableMtom(boolean newEnableMtom) {
 		boolean oldEnableMtom = enableMtom;
 		enableMtom = newEnableMtom;
@@ -243,6 +247,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetEnableMtom() {
 		boolean oldEnableMtom = enableMtom;
 		boolean oldEnableMtomESet = enableMtomESet;
@@ -257,6 +262,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetEnableMtom() {
 		return enableMtomESet;
 	}
@@ -266,6 +272,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMtomThreshold() {
 		return mtomThreshold;
 	}
@@ -275,6 +282,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMtomThreshold(BigInteger newMtomThreshold) {
 		BigInteger oldMtomThreshold = mtomThreshold;
 		mtomThreshold = newMtomThreshold;
@@ -287,6 +295,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AddressingType getAddressing() {
 		return addressing;
 	}
@@ -311,6 +320,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAddressing(AddressingType newAddressing) {
 		if (newAddressing != addressing) {
 			NotificationChain msgs = null;
@@ -330,6 +340,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RespectBindingType getRespectBinding() {
 		return respectBinding;
 	}
@@ -354,6 +365,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRespectBinding(RespectBindingType newRespectBinding) {
 		if (newRespectBinding != respectBinding) {
 			NotificationChain msgs = null;
@@ -373,6 +385,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPortComponentLink() {
 		return portComponentLink;
 	}
@@ -382,6 +395,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPortComponentLink(String newPortComponentLink) {
 		String oldPortComponentLink = portComponentLink;
 		portComponentLink = newPortComponentLink;
@@ -394,6 +408,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -403,6 +418,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

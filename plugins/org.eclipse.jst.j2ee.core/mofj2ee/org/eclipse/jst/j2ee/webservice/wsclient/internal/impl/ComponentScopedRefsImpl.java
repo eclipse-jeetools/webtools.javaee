@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -95,7 +95,8 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public String getComponentName() {
+    @Override
+	public String getComponentName() {
 		return componentName;
 	}
 
@@ -104,7 +105,8 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public void setComponentName(String newComponentName) {
+    @Override
+	public void setComponentName(String newComponentName) {
 		String oldComponentName = componentName;
 		componentName = newComponentName;
 		if (eNotificationRequired())
@@ -116,7 +118,8 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public EList getServiceRefs() {
+    @Override
+	public EList getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList(ServiceRef.class, this, Webservice_clientPackage.COMPONENT_SCOPED_REFS__SERVICE_REFS);
 		}

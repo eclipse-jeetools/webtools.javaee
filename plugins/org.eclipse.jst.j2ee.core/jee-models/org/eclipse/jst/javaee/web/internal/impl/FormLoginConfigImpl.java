@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -121,6 +121,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFormLoginPage() {
 		return formLoginPage;
 	}
@@ -130,6 +131,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFormLoginPage(String newFormLoginPage) {
 		String oldFormLoginPage = formLoginPage;
 		formLoginPage = newFormLoginPage;
@@ -142,6 +144,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFormErrorPage() {
 		return formErrorPage;
 	}
@@ -151,6 +154,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFormErrorPage(String newFormErrorPage) {
 		String oldFormErrorPage = formErrorPage;
 		formErrorPage = newFormErrorPage;
@@ -163,6 +167,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -172,6 +177,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

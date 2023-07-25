@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -249,6 +249,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.MESSAGE_DESTINATION_REF__DESCRIPTIONS);
@@ -261,6 +262,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessageDestinationRefName() {
 		return messageDestinationRefName;
 	}
@@ -270,6 +272,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageDestinationRefName(String newMessageDestinationRefName) {
 		String oldMessageDestinationRefName = messageDestinationRefName;
 		messageDestinationRefName = newMessageDestinationRefName;
@@ -282,6 +285,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessageDestinationType() {
 		return messageDestinationType;
 	}
@@ -291,6 +295,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageDestinationType(String newMessageDestinationType) {
 		String oldMessageDestinationType = messageDestinationType;
 		messageDestinationType = newMessageDestinationType;
@@ -303,6 +308,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageDestinationUsageType getMessageDestinationUsage() {
 		return messageDestinationUsage;
 	}
@@ -312,6 +318,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageDestinationUsage(MessageDestinationUsageType newMessageDestinationUsage) {
 		MessageDestinationUsageType oldMessageDestinationUsage = messageDestinationUsage;
 		messageDestinationUsage = newMessageDestinationUsage == null ? MESSAGE_DESTINATION_USAGE_EDEFAULT : newMessageDestinationUsage;
@@ -326,6 +333,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMessageDestinationUsage() {
 		MessageDestinationUsageType oldMessageDestinationUsage = messageDestinationUsage;
 		boolean oldMessageDestinationUsageESet = messageDestinationUsageESet;
@@ -340,6 +348,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMessageDestinationUsage() {
 		return messageDestinationUsageESet;
 	}
@@ -349,6 +358,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessageDestinationLink() {
 		return messageDestinationLink;
 	}
@@ -358,6 +368,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageDestinationLink(String newMessageDestinationLink) {
 		String oldMessageDestinationLink = messageDestinationLink;
 		messageDestinationLink = newMessageDestinationLink;
@@ -370,6 +381,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -379,6 +391,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -391,6 +404,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
 			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.MESSAGE_DESTINATION_REF__INJECTION_TARGETS);
@@ -403,6 +417,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLookupName() {
 		return lookupName;
 	}
@@ -412,6 +427,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookupName(String newLookupName) {
 		String oldLookupName = lookupName;
 		lookupName = newLookupName;
@@ -424,6 +440,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -433,6 +450,7 @@ public class MessageDestinationRefImpl extends EObjectImpl implements MessageDes
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

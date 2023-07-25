@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -99,6 +99,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 * @see org.eclipse.jdt.ui.text.java.IJavadocCompletionProcessor#computeContextInformation(org.eclipse.jdt.core.ICompilationUnit,
 	 *      int)
 	 */
+	@Override
 	public IContextInformation[] computeContextInformation(ICompilationUnit cu, int offset) {
 		return null;
 	}
@@ -109,6 +110,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 * @see org.eclipse.jdt.ui.text.java.IJavadocCompletionProcessor#computeCompletionProposals(org.eclipse.jdt.core.ICompilationUnit,
 	 *      int, int, int)
 	 */
+	@Override
 	public IJavaCompletionProposal[] computeCompletionProposals(ICompilationUnit cu, int offset, int length, int flags) {
 		if (cu == null)  //bug 262362
 			return null;
@@ -407,6 +409,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 * 
 	 * @see com.ibm.ws.rd.annotations.TagParseEventHandler#annotationTag(com.ibm.ws.rd.annotations.Token)
 	 */
+	@Override
 	public void annotationTag(Token tag) {
 		m_tagName = tag;
 	}
@@ -416,6 +419,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 * 
 	 * @see com.ibm.ws.rd.annotations.TagParseEventHandler#endOfTag(int)
 	 */
+	@Override
 	public void endOfTag(int pos) {
 		// Do nothing
 	}
@@ -426,6 +430,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 * @see com.ibm.ws.rd.annotations.TagParseEventHandler#attribute(com.ibm.ws.rd.annotations.Token,
 	 *      int, com.ibm.ws.rd.annotations.Token)
 	 */
+	@Override
 	public void attribute(Token name, int equalsPosition, Token value) {
 		m_attributes.add(new Attribute(name, equalsPosition, value));
 		m_attSet.add(name.getText());
@@ -506,6 +511,7 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 * 
 	 * @see org.eclipse.jdt.ui.text.java.IJavadocCompletionProcessor#getErrorMessage()
 	 */
+	@Override
 	public String getErrorMessage() {
 		return null;
 	}

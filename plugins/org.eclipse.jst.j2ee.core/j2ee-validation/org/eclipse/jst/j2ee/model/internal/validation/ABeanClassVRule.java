@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,6 +36,7 @@ public abstract class ABeanClassVRule extends ATypeVRule {
 		return BASE_TYPES;
 	}
 	
+	@Override
 	public Object getTarget(Object parent, Object clazz) {
 		if(parent == null) {
 			return null;
@@ -44,10 +45,12 @@ public abstract class ABeanClassVRule extends ATypeVRule {
 		return ((EnterpriseBean)parent).getEjbClass();
 	}
 	
+	@Override
 	public long getDefaultMethodType() {
 		return HELPER;
 	}
 	
+	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!followAbstractRules(clazz)) {
 			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2014, IEJBValidationContext.WARNING, bean, clazz, this);
@@ -87,6 +90,7 @@ public abstract class ABeanClassVRule extends ATypeVRule {
 		return methodsExtendedList[4];
 	}
 	
+	@Override
 	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// A bean class needs the following classes' extended methods:
 		//    1. remote home
@@ -140,6 +144,7 @@ public abstract class ABeanClassVRule extends ATypeVRule {
 		return result;
 	}
 	
+	@Override
 	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a bean class' field is defined on another class
 		// of the bean.
@@ -400,6 +405,7 @@ public abstract class ABeanClassVRule extends ATypeVRule {
 	/*
 	 * @see IClassVRule#validate(IEJBValidationContext, JavaClass, Field)
 	 */
+	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// IWAD4024 = A transient field should not be the {0} type. Read section 7.4.1 of the EJB 2.0 specification.
 		// IWAD4025 = Transient fields are discouraged. Read section 7.4.1 of the EJB 2.0 specification.

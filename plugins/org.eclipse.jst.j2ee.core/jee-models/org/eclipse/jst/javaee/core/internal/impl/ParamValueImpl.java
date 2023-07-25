@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -143,6 +143,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.PARAM_VALUE__DESCRIPTIONS);
@@ -155,6 +156,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getParamName() {
 		return paramName;
 	}
@@ -164,6 +166,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParamName(String newParamName) {
 		String oldParamName = paramName;
 		paramName = newParamName;
@@ -176,6 +179,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getParamValue() {
 		return paramValue;
 	}
@@ -185,6 +189,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setParamValue(String newParamValue) {
 		String oldParamValue = paramValue;
 		paramValue = newParamValue;
@@ -197,6 +202,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -206,6 +212,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,6 +60,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getWelcomeFile() {
 		return welcomeFile;
 	}
@@ -67,6 +68,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWelcomeFile(String newWelcomeFile) {
 		String oldWelcomeFile = welcomeFile;
 		welcomeFile = newWelcomeFile;
@@ -77,6 +79,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WelcomeFileList getFileList() {
 		if (eContainerFeatureID != WebapplicationPackage.WELCOME_FILE__FILE_LIST) return null;
 		return (WelcomeFileList)eContainer();
@@ -95,6 +98,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setFileList(WelcomeFileList newFileList) {
 		if (newFileList != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.WELCOME_FILE__FILE_LIST && newFileList != null)) {
 			if (EcoreUtil.isAncestor(this, newFileList))

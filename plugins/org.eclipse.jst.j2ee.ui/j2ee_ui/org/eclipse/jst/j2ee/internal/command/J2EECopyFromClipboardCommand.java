@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,6 +40,7 @@ public class J2EECopyFromClipboardCommand extends AbstractCommand {
 	 * This will perform the command activity required for the effect. The effect of calling execute
 	 * when canExecute returns false, or when canExecute hasn't been called, is undefined.
 	 */
+	@Override
 	public void execute() {
 		if (copyUtil != null)
 			return;
@@ -89,6 +90,7 @@ public class J2EECopyFromClipboardCommand extends AbstractCommand {
 	 * you implement redo to call execute then any derived class will be restricted to by that
 	 * decision also.
 	 */
+	@Override
 	public void redo() {
 		execute();
 	}

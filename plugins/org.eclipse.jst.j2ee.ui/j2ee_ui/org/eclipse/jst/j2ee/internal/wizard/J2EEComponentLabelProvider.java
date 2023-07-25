@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2009 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ public class J2EEComponentLabelProvider extends LabelProvider {
 		this.tableLableProvider = tableLableProvider;
 		instance = this;
 		tableLableProvider.addListener(new ILabelProviderListener(){
+			@Override
 			public void labelProviderChanged(LabelProviderChangedEvent event) {
 				LabelProviderChangedEvent newEvent = new LabelProviderChangedEvent(instance);
 				fireLabelProviderChanged(newEvent);

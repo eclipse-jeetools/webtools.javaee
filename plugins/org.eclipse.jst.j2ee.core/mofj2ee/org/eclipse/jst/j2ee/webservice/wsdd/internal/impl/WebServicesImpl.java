@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -81,7 +81,8 @@ public void setDisplayName(String newDisplayName) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getWebServiceDescriptions() {
+  @Override
+public EList getWebServiceDescriptions() {
 		if (webServiceDescriptions == null) {
 			webServiceDescriptions = new EObjectContainmentEList(WebServiceDescription.class, this, WsddPackage.WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS);
 		}

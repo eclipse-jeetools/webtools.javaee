@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,6 +35,7 @@ public class CMPHelper {
 		/**
 		 * @see Comparator#compare(Object, Object)
 		 */
+		@Override
 		public int compare(Object o1, Object o2) {
 			Method m1 = (Method) o1;
 			Method m2 = (Method) o2;

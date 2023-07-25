@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -176,6 +176,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.PERSISTENCE_UNIT_REF__DESCRIPTIONS);
@@ -188,6 +189,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPersistenceUnitRefName() {
 		return persistenceUnitRefName;
 	}
@@ -197,6 +199,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPersistenceUnitRefName(String newPersistenceUnitRefName) {
 		String oldPersistenceUnitRefName = persistenceUnitRefName;
 		persistenceUnitRefName = newPersistenceUnitRefName;
@@ -209,6 +212,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPersistenceUnitName() {
 		return persistenceUnitName;
 	}
@@ -218,6 +222,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPersistenceUnitName(String newPersistenceUnitName) {
 		String oldPersistenceUnitName = persistenceUnitName;
 		persistenceUnitName = newPersistenceUnitName;
@@ -230,6 +235,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -239,6 +245,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -251,6 +258,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
 			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.PERSISTENCE_UNIT_REF__INJECTION_TARGETS);
@@ -263,6 +271,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -272,6 +281,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

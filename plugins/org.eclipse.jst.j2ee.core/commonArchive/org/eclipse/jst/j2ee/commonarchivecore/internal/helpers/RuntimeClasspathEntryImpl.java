@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2004 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,6 +37,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	 * 
 	 * @return Returns a String
 	 */
+	@Override
 	public String getAbsolutePath() {
 		return absolutePath;
 	}
@@ -47,6 +48,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	 * @param absolutePath
 	 *            The absolutePath to set
 	 */
+	@Override
 	public void setAbsolutePath(String absolutePath) {
 		this.absolutePath = absolutePath;
 	}
@@ -56,6 +58,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	 * 
 	 * @return Returns a String
 	 */
+	@Override
 	public String getManifestValue() {
 		return manifestValue;
 	}
@@ -66,6 +69,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	 * @param manifestValue
 	 *            The manifestValue to set
 	 */
+	@Override
 	public void setManifestValue(String manifestValue) {
 		this.manifestValue = manifestValue;
 	}
@@ -77,6 +81,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	 * 
 	 * @return Returns a WARFile
 	 */
+	@Override
 	public WARFile getWarFile() {
 		return warFile;
 	}
@@ -87,6 +92,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	 * @param warFile
 	 *            The warFile to set
 	 */
+	@Override
 	public void setWarFile(WARFile warFile) {
 		this.warFile = warFile;
 	}
@@ -112,6 +118,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	/**
 	 * @see RuntimeClasspathEntry#isWebLib()
 	 */
+	@Override
 	public boolean isWebLib() {
 		return warFile != null;
 	}
@@ -121,6 +128,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	 * 
 	 * @return Returns a Archive
 	 */
+	@Override
 	public Archive getReferencedArchive() {
 		return referencedArchive;
 	}
@@ -131,6 +139,7 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 	 * @param referencedArchive
 	 *            The referencedArchive to set
 	 */
+	@Override
 	public void setReferencedArchive(Archive referencedArchive) {
 		this.referencedArchive = referencedArchive;
 	}

@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -77,6 +77,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	protected IModelProvider annotationModelProvider;
 
 	private class AnnotationModelListener implements IModelProviderListener {
+		@Override
 		public void modelsChanged(IModelProviderEvent event) {
 			if (disposeIfNeeded(event))
 				return;
@@ -85,6 +86,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	}
 
 	private class XmlModelListener implements IModelProviderListener {
+		@Override
 		public void modelsChanged(IModelProviderEvent event) {
 			if (disposeIfNeeded(event))
 				return;
@@ -125,6 +127,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 		this.project = project;
 	}
 
+	@Override
 	public void addListener(IModelProviderListener listener) {
 		getListeners().add(listener);
 	}
@@ -135,6 +138,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	 * 
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject()
 	 */
+	@Override
 	public Object getModelObject() {
 		return getMergedModel();
 	}
@@ -145,9 +149,11 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#modify(java.lang.Runnable,
 	 * org.eclipse.core.runtime.IPath)
 	 */
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 	}
 
+	@Override
 	public void removeListener(IModelProviderListener listener) {
 		getListeners().remove(listener);
 	}
@@ -159,6 +165,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	 * org.eclipse.jst.j2ee.model.IModelProvider#validateEdit(org.eclipse.core
 	 * .runtime.IPath, java.lang.Object)
 	 */
+	@Override
 	public IStatus validateEdit(IPath modelPath, Object context) {
 		if (ddProvider == null)
 			getModelObject();
@@ -274,6 +281,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	}
 
 	private class LoadModelsWorkspaceRunnable implements IWorkspaceRunnable {
+		@Override
 		public void run(IProgressMonitor monitor) throws CoreException {
 			loadProviders();
 		}
@@ -329,9 +337,11 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 		IModelProviderListener[] backup = listeners.toArray(new IModelProviderListener[listeners.size()]);
 		for (final IModelProviderListener listener : backup) {
 			SafeRunner.run(new ISafeRunnable() {
+				@Override
 				public void handleException(Throwable exception) {
 				}
 
+				@Override
 				public void run() throws Exception {
 					listener.modelsChanged(event);
 				}

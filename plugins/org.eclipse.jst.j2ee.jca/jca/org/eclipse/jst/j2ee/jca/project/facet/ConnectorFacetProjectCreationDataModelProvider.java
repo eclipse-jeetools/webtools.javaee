@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,6 +49,7 @@ public class ConnectorFacetProjectCreationDataModelProvider extends J2EEFacetPro
 				J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.JCA_OUTPUT_FOLDER) );
 		
 		jcaFacet.addListener(new IDataModelListener() {
+			@Override
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
 					if (isPropertySet(EAR_PROJECT_NAME))

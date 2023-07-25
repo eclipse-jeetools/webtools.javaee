@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -190,6 +190,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS);
@@ -202,6 +203,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbRelationshipRoleName() {
 		return ejbRelationshipRoleName;
 	}
@@ -211,6 +213,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbRelationshipRoleName(String newEjbRelationshipRoleName) {
 		String oldEjbRelationshipRoleName = ejbRelationshipRoleName;
 		ejbRelationshipRoleName = newEjbRelationshipRoleName;
@@ -223,6 +226,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MultiplicityType getMultiplicity() {
 		return multiplicity;
 	}
@@ -232,6 +236,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMultiplicity(MultiplicityType newMultiplicity) {
 		MultiplicityType oldMultiplicity = multiplicity;
 		multiplicity = newMultiplicity == null ? MULTIPLICITY_EDEFAULT : newMultiplicity;
@@ -246,6 +251,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMultiplicity() {
 		MultiplicityType oldMultiplicity = multiplicity;
 		boolean oldMultiplicityESet = multiplicityESet;
@@ -260,6 +266,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMultiplicity() {
 		return multiplicityESet;
 	}
@@ -269,6 +276,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EmptyType getCascadeDelete() {
 		return cascadeDelete;
 	}
@@ -293,6 +301,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCascadeDelete(EmptyType newCascadeDelete) {
 		if (newCascadeDelete != cascadeDelete) {
 			NotificationChain msgs = null;
@@ -312,6 +321,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RelationshipRoleSourceType getRelationshipRoleSource() {
 		return relationshipRoleSource;
 	}
@@ -336,6 +346,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRelationshipRoleSource(RelationshipRoleSourceType newRelationshipRoleSource) {
 		if (newRelationshipRoleSource != relationshipRoleSource) {
 			NotificationChain msgs = null;
@@ -355,6 +366,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CMRField getCmrField() {
 		return cmrField;
 	}
@@ -379,6 +391,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCmrField(CMRField newCmrField) {
 		if (newCmrField != cmrField) {
 			NotificationChain msgs = null;
@@ -398,6 +411,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -407,6 +421,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

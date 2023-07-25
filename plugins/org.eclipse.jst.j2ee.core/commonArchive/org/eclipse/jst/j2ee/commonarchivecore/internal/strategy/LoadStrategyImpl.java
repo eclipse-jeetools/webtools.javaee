@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -84,6 +84,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @see Archive
 	 */
+	@Override
 	public void addOrReplaceMofResource(Resource aResource) {
 		Resource existingResource = getResourceSet().getResource(aResource.getURI(), false);
 		if (existingResource != null)
@@ -103,6 +104,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * Release any resources being held by this object and set the state to closed. Subclasses
 	 * should override as necessary
 	 */
+	@Override
 	public void close() {
 		setIsOpen(false);
         if(resourceSet != null && resourceSet.eAdapters().contains(this))
@@ -115,6 +117,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @see LoadStrategy
 	 */
+	@Override
 	public boolean contains(String uri) {
 		if (containsUsingLooseArchive(uri))
 			return true;
@@ -173,10 +176,12 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @see LoadStrategy
 	 */
+	@Override
 	public java.lang.String getAbsolutePath() throws FileNotFoundException {
 		throw new FileNotFoundException(CommonArchiveResourceHandler.Absolute_path_unknown_EXC_); // = "Absolute path unknown"
 	}
 
+	@Override
 	public String getResourcesPath() throws FileNotFoundException {
 		return getLooseArchive() == null ? getAbsolutePath() : getLooseArchive().getResourcesPath();
 	}
@@ -185,6 +190,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 		return getLooseArchive() == null ? null : getLooseArchive().getResourcesPath();
 	}
 
+	@Override
 	public String getBinariesPath() throws FileNotFoundException {
 		return getLooseArchive() == null ? getAbsolutePath() : getLooseArchive().getBinariesPath();
 	}
@@ -193,10 +199,12 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 		return CommonArchiveFactoryRegistry.INSTANCE.getCommonArchiveFactory();
 	}
 
+	@Override
 	public Container getContainer() {
 		return container;
 	}
 
+	@Override
 	public ResourceSet primGetResourceSet() {
 		return resourceSet;
 	}
@@ -212,6 +220,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * 
 	 * @see com.ibm.etools.archive.LoadStrategy#requiresIterationOnSave()
 	 */
+	@Override
 	public boolean requiresIterationOnSave() {
 		if (!getContainer().isArchive() || isDirectory())
 			return true;
@@ -243,6 +252,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 			return true;
 	}
 
+	@Override
 	public ResourceSet getResourceSet() {
 		if (resourceSet == null) {
 			initializeResourceSet();
@@ -271,6 +281,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * Used internally; clients should not need to call
 	 */
+	@Override
 	public FileIterator getFileIterator() throws IOException {
 		return new FileIteratorImpl(getContainer().getFiles());
 	}
@@ -280,6 +291,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 */
 	public abstract List getFiles();
 
+	@Override
 	public List collectFiles() {
 		//The loose archives need to be read first
 		collectFilesFromLooseArchives();
@@ -314,8 +326,10 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public abstract InputStream getInputStream(String uri) throws IOException, FileNotFoundException;
 
+	@Override
 	public InputStream getResourceInputStream(String uri) throws IOException {
 		return getResourceSet().getURIConverter().createInputStream(URI.createURI(uri));
 	}
@@ -324,6 +338,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * @see com.ibm.etools.commonarchive.Archive returns an immutable collection of the loaded
 	 *      resources in the resource set
 	 */
+	@Override
 	public Collection getLoadedMofResources() {
 		Collection resources = getResourceSet().getResources();
 		if (resources.isEmpty())
@@ -344,6 +359,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
 		try {
 			return getResourceSet().getResource(URI.createURI(uri), true);
@@ -416,6 +432,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @return
 	 */
+	@Override
 	public int getRendererType() {
 		return rendererType;
 	}
@@ -430,6 +447,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * necessary, or could even cause breakage; this test gives the strategy the chance to "opt out"
 	 * of the class loading game
 	 */
+	@Override
 	public boolean isClassLoaderNeeded() {
 		return true;
 	}
@@ -437,6 +455,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy The default is false
 	 */
+	@Override
 	public boolean isDirectory() {
 		return false;
 	}
@@ -444,15 +463,18 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy#getExistingMofResource(String)
 	 */
+	@Override
 	public Resource getExistingMofResource(String uri) {
 		return getResourceSet().getResource(URI.createURI(uri), false);
 	}
 
+	@Override
 	public boolean isMofResourceLoaded(java.lang.String uri) {
 		Resource res = getExistingMofResource(uri);
 		return res != null && res.isLoaded();
 	}
 
+	@Override
 	public boolean isOpen() {
 		return isOpen;
 	}
@@ -461,10 +483,12 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * @see com.ibm.etools.archive.LoadStrategy return false by default; subclasses should override
 	 *      if necessary
 	 */
+	@Override
 	public boolean isUsing(java.io.File aSystemFile) {
 		return false;
 	}
 
+	@Override
 	public Resource makeMofResource(String uri, EList extent) {
 		Resource existing = getExistingMofResource(uri);
 		if (existing != null)
@@ -496,10 +520,12 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 
 	}
 
+	@Override
 	public void setContainer(Container newContainer) {
 		container = newContainer;
 	}
 
+	@Override
 	public void setResourceSet(org.eclipse.emf.ecore.resource.ResourceSet newResourceSet) {
 		// fixes problem in reopen
 		if (resourceSet != newResourceSet) {
@@ -529,6 +555,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * 
 	 * @return Returns a LooseArchive
 	 */
+	@Override
 	public LooseArchive getLooseArchive() {
 		return looseArchive;
 	}
@@ -539,6 +566,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * @param looseArchive
 	 *            The looseArchive to set
 	 */
+	@Override
 	public void setLooseArchive(LooseArchive looseArchive) {
 		this.looseArchive = looseArchive;
 		checkLoosePathsValid();
@@ -570,10 +598,12 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 		return container.isEARFile() || container.isWARFile();
 	}
 
+	@Override
 	public boolean isReadOnly() {
 		return readOnly;
 	}
 
+	@Override
 	public void setReadOnly(boolean readOnly) {
 		this.readOnly = readOnly;
 	}
@@ -582,10 +612,12 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * @param rendererType
 	 *            The rendererType to set.
 	 */
+	@Override
 	public void setRendererType(int rendererType) {
 		this.rendererType = rendererType;
 	}
 	
+	@Override
 	public java.util.List getFiles(String subfolderPath) {
 		List subset = new ArrayList();
 		List theFiles = getFiles();

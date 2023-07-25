@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 IBM Corporation and others.
+ * Copyright (c) 2013, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -334,6 +334,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Description getDescription() {
 		return description;
 	}
@@ -358,6 +359,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(Description newDescription) {
 		if (newDescription != description) {
 			NotificationChain msgs = null;
@@ -377,6 +379,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -386,6 +389,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -398,6 +402,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getInterfaceName() {
 		return interfaceName;
 	}
@@ -407,6 +412,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInterfaceName(String newInterfaceName) {
 		String oldInterfaceName = interfaceName;
 		interfaceName = newInterfaceName;
@@ -419,6 +425,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getClassName() {
 		return className;
 	}
@@ -428,6 +435,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassName(String newClassName) {
 		String oldClassName = className;
 		className = newClassName;
@@ -440,6 +448,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResourceAdapter() {
 		return resourceAdapter;
 	}
@@ -449,6 +458,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceAdapter(String newResourceAdapter) {
 		String oldResourceAdapter = resourceAdapter;
 		resourceAdapter = newResourceAdapter;
@@ -461,6 +471,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getUser() {
 		return user;
 	}
@@ -470,6 +481,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUser(String newUser) {
 		String oldUser = user;
 		user = newUser;
@@ -482,6 +494,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -491,6 +504,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPassword(String newPassword) {
 		String oldPassword = password;
 		password = newPassword;
@@ -503,6 +517,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getClientId() {
 		return clientId;
 	}
@@ -512,6 +527,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClientId(String newClientId) {
 		String oldClientId = clientId;
 		clientId = newClientId;
@@ -524,6 +540,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PropertyType> getProperty() {
 		if (property == null) {
 			property = new EObjectContainmentEList<PropertyType>(PropertyType.class, this, JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__PROPERTY);
@@ -536,6 +553,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isTransactional() {
 		return transactional;
 	}
@@ -545,6 +563,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactional(boolean newTransactional) {
 		boolean oldTransactional = transactional;
 		transactional = newTransactional;
@@ -559,6 +578,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactional() {
 		boolean oldTransactional = transactional;
 		boolean oldTransactionalESet = transactionalESet;
@@ -573,6 +593,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactional() {
 		return transactionalESet;
 	}
@@ -582,6 +603,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMaxPoolSize() {
 		return maxPoolSize;
 	}
@@ -591,6 +613,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaxPoolSize(BigInteger newMaxPoolSize) {
 		BigInteger oldMaxPoolSize = maxPoolSize;
 		maxPoolSize = newMaxPoolSize;
@@ -603,6 +626,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMinPoolSize() {
 		return minPoolSize;
 	}
@@ -612,6 +636,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMinPoolSize(BigInteger newMinPoolSize) {
 		BigInteger oldMinPoolSize = minPoolSize;
 		minPoolSize = newMinPoolSize;
@@ -624,6 +649,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -633,6 +659,7 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

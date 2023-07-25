@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -219,6 +219,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.INTERCEPTOR_BINDING_TYPE__DESCRIPTIONS);
@@ -231,6 +232,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbName() {
 		return ejbName;
 	}
@@ -240,6 +242,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbName(String newEjbName) {
 		String oldEjbName = ejbName;
 		ejbName = newEjbName;
@@ -252,6 +255,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getInterceptorClasses() {
 		if (interceptorClasses == null) {
 			interceptorClasses = new EDataTypeEList<String>(String.class, this, EjbPackage.INTERCEPTOR_BINDING_TYPE__INTERCEPTOR_CLASSES);
@@ -264,6 +268,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InterceptorOrderType getInterceptorOrder() {
 		return interceptorOrder;
 	}
@@ -288,6 +293,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInterceptorOrder(InterceptorOrderType newInterceptorOrder) {
 		if (newInterceptorOrder != interceptorOrder) {
 			NotificationChain msgs = null;
@@ -307,6 +313,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isExcludeDefaultInterceptors() {
 		return excludeDefaultInterceptors;
 	}
@@ -316,6 +323,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExcludeDefaultInterceptors(boolean newExcludeDefaultInterceptors) {
 		boolean oldExcludeDefaultInterceptors = excludeDefaultInterceptors;
 		excludeDefaultInterceptors = newExcludeDefaultInterceptors;
@@ -330,6 +338,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetExcludeDefaultInterceptors() {
 		boolean oldExcludeDefaultInterceptors = excludeDefaultInterceptors;
 		boolean oldExcludeDefaultInterceptorsESet = excludeDefaultInterceptorsESet;
@@ -344,6 +353,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetExcludeDefaultInterceptors() {
 		return excludeDefaultInterceptorsESet;
 	}
@@ -353,6 +363,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isExcludeClassInterceptors() {
 		return excludeClassInterceptors;
 	}
@@ -362,6 +373,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExcludeClassInterceptors(boolean newExcludeClassInterceptors) {
 		boolean oldExcludeClassInterceptors = excludeClassInterceptors;
 		excludeClassInterceptors = newExcludeClassInterceptors;
@@ -376,6 +388,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetExcludeClassInterceptors() {
 		boolean oldExcludeClassInterceptors = excludeClassInterceptors;
 		boolean oldExcludeClassInterceptorsESet = excludeClassInterceptorsESet;
@@ -390,6 +403,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetExcludeClassInterceptors() {
 		return excludeClassInterceptorsESet;
 	}
@@ -399,6 +413,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getMethod() {
 		return method;
 	}
@@ -423,6 +438,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMethod(NamedMethodType newMethod) {
 		if (newMethod != method) {
 			NotificationChain msgs = null;
@@ -442,6 +458,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -451,6 +468,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

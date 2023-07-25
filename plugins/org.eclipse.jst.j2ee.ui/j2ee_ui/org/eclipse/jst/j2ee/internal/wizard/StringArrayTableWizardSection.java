@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,21 +62,25 @@ public class StringArrayTableWizardSection extends Composite {
 		public boolean isDeleted(Object element) {
 			return false;
 		}
+		@Override
 		public Object[] getElements(Object element) {
 			if (element instanceof List) {
 				return ((List) element).toArray();
 			}
 			return new Object[0];
 		}
+		@Override
 		public void inputChanged(Viewer aViewer, Object oldInput, Object newInput) {
 			//Default nothing
 		}
+		@Override
 		public void dispose() {
 			//Default nothing
 		}
 	}
 	
 	protected class StringArrayListLabelProvider extends LabelProvider implements ITableLabelProvider {
+		@Override
 		public Image getColumnImage(Object element, int columnIndex) {
 		    if (columnIndex == 0) {
 		        return labelProviderImage;       
@@ -84,6 +88,7 @@ public class StringArrayTableWizardSection extends Composite {
 			return null;
 		}
 		
+		@Override
 		public String getColumnText(Object element, int columnIndex) {
 			String[] array = (String[]) element;
 			return array[columnIndex];
@@ -176,6 +181,7 @@ public class StringArrayTableWizardSection extends Composite {
 			return stringArray;
 		}
 		
+		@Override
 		public void modifyText(ModifyEvent e) {
 			updateOKButton();
 		}
@@ -253,6 +259,7 @@ public class StringArrayTableWizardSection extends Composite {
 		/**
 		 * Returns always <code>true</code>. 
 		 */
+		@Override
 		public boolean validate(Text[] texts) {
 			return true;
 		}
@@ -261,6 +268,7 @@ public class StringArrayTableWizardSection extends Composite {
 		 * Just retreives the unmodified values of the text fields as a 
 		 * string array. 
 		 */
+		@Override
 		public String[] retrieveResultStrings(Text[] texts) {
 			int n = texts.length;
 			String[] result = new String[n];
@@ -330,9 +338,11 @@ public class StringArrayTableWizardSection extends Composite {
 		addButton.setText(addButtonLabel);
 		addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		addButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				handleAddButtonSelected();
 			}
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				//Do nothing
 			}
@@ -343,9 +353,11 @@ public class StringArrayTableWizardSection extends Composite {
 			editButton.setText(editButtonLabel);
 			editButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 			editButton.addSelectionListener(new SelectionListener() {
+				@Override
 				public void widgetSelected(SelectionEvent event) {
 					handleEditButtonSelected();
 				}
+				@Override
 				public void widgetDefaultSelected(SelectionEvent event) {
 					//Do nothing
 				}
@@ -357,9 +369,11 @@ public class StringArrayTableWizardSection extends Composite {
 		removeButton.setText(removeButtonLabel);
 		removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		removeButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				handleRemoveButtonSelected();
 			}
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				//Do nothing
 			}
@@ -367,6 +381,7 @@ public class StringArrayTableWizardSection extends Composite {
 		removeButton.setEnabled(false);
 
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				ISelection selection = event.getSelection();
 				if (editButton != null) {
@@ -379,6 +394,7 @@ public class StringArrayTableWizardSection extends Composite {
 		
 		if (editButton != null) {
 			viewer.addDoubleClickListener(new IDoubleClickListener() {
+				@Override
 				public void doubleClick(DoubleClickEvent event) {
 					handleEditButtonSelected();
 				}

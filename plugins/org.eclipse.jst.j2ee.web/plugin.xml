@@ -387,7 +387,7 @@
     <project-facet id="jst.web">
       <label>%WEB_FACET_LABEL</label>
       <description>%WEB_FACET_DESCRIPTION</description>
-      <default-version version="4.0"/>
+      <default-version version="5.0"/>
     </project-facet>
 
     <project-facet-version facet="jst.web" version="2.2">

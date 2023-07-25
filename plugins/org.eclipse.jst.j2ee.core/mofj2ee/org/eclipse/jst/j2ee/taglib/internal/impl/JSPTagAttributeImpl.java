@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -147,6 +147,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * @generated This field/method will be replaced during code generation 
 	 * Defines the canonical name of a tag or attribute being defined (required).
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -154,6 +155,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -165,6 +167,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * @generated This field/method will be replaced during code generation 
 	 * Defines if the nesting attribute is required or optional.
 	 */
+	@Override
 	public boolean isRequired() {
 		return required;
 	}
@@ -172,6 +175,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRequired(boolean newRequired) {
 		boolean oldRequired = required;
 		required = newRequired;
@@ -186,6 +190,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetRequired() {
 		boolean oldRequired = required;
 		boolean oldRequiredESet = requiredESet;
@@ -200,6 +205,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRequired() {
 		return requiredESet;
 	}
@@ -211,6 +217,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * opposed to a static value determined at translationtime. (optional)
 	 * Default = false
 	 */
+	@Override
 	public boolean isRtExprValue() {
 		return rtExprValue;
 	}
@@ -218,6 +225,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRtExprValue(boolean newRtExprValue) {
 		boolean oldRtExprValue = rtExprValue;
 		rtExprValue = newRtExprValue;
@@ -232,6 +240,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetRtExprValue() {
 		boolean oldRtExprValue = rtExprValue;
 		boolean oldRtExprValueESet = rtExprValueESet;
@@ -246,6 +255,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRtExprValue() {
 		return rtExprValueESet;
 	}
@@ -255,6 +265,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isFragment() {
 		return fragment;
 	}
@@ -264,6 +275,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFragment(boolean newFragment) {
 		boolean oldFragment = fragment;
 		fragment = newFragment;
@@ -277,6 +289,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * For static values (those determined at translation time) the type is always
 	 * java.lang.String.
 	 */
+	@Override
 	public JavaClass getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
@@ -301,6 +314,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setType(JavaClass newType) {
 		JavaClass oldType = type;
 		type = newType;
@@ -313,6 +327,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, TaglibPackage.JSP_TAG_ATTRIBUTE__DESCRIPTIONS);

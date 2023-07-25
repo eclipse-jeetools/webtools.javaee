@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -104,6 +104,7 @@ public class InitMethodTypeImpl extends EObjectImpl implements InitMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getCreateMethod() {
 		return createMethod;
 	}
@@ -128,6 +129,7 @@ public class InitMethodTypeImpl extends EObjectImpl implements InitMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCreateMethod(NamedMethodType newCreateMethod) {
 		if (newCreateMethod != createMethod) {
 			NotificationChain msgs = null;
@@ -147,6 +149,7 @@ public class InitMethodTypeImpl extends EObjectImpl implements InitMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getBeanMethod() {
 		return beanMethod;
 	}
@@ -171,6 +174,7 @@ public class InitMethodTypeImpl extends EObjectImpl implements InitMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBeanMethod(NamedMethodType newBeanMethod) {
 		if (newBeanMethod != beanMethod) {
 			NotificationChain msgs = null;
@@ -190,6 +194,7 @@ public class InitMethodTypeImpl extends EObjectImpl implements InitMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -199,6 +204,7 @@ public class InitMethodTypeImpl extends EObjectImpl implements InitMethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -87,6 +87,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	 * The url-pattern element contains the url pattern of the mapping. Must follow
 	 * the rules specified in Section 10 of the Servlet API Specification.
 	 */
+	@Override
 	public String getUrlPattern() {
 		return urlPattern;
 	}
@@ -94,6 +95,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setUrlPattern(String newUrlPattern) {
 		String oldUrlPattern = urlPattern;
 		urlPattern = newUrlPattern;
@@ -106,6 +108,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -115,6 +118,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -125,6 +129,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.SERVLET_MAPPING__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -143,6 +148,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SERVLET_MAPPING__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
@@ -162,6 +168,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public Servlet getServlet() {
 		if (servlet != null && servlet.eIsProxy()) {
 			InternalEObject oldServlet = (InternalEObject)servlet;
@@ -186,6 +193,7 @@ public class ServletMappingImpl extends J2EEEObjectImpl implements ServletMappin
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setServlet(Servlet newServlet) {
 		Servlet oldServlet = servlet;
 		servlet = newServlet;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2022 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -131,6 +131,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	/**
 	 * @deprecated - no known callers
 	 */
+	@Override
 	public URL getBaseURL() {
 		return Platform.getBundle(PLUGIN_ID).getEntry("plugin.properties"); //$NON-NLS-1$
 	}
@@ -145,6 +146,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 *            the key of the image resource.
 	 * @return the description on the image resource.
 	 */
+	@Override
 	public Object getImage(String key) {
 		ImageDescriptor imageDescriptor = getImageDescriptor(key);
 		if (imageDescriptor != null)
@@ -159,6 +161,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 *            the key of the string resource.
 	 * @return the string resource associated with the key.
 	 */
+	@Override
 	public String getString(String key) {
 		return getMessage(key);
 	}
@@ -174,6 +177,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 * @see #getString(String)
 	 * @see MessageFormat#format(String, Object[])
 	 */
+	@Override
 	public String getString(String key, Object[] substitutions) {
 		return getMessage(key, substitutions);
 	}
@@ -199,11 +203,13 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
+	@Override
 	public String getString(String key, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key);
 	}
 
+	@Override
 	public String getString(String key, Object[] substitutions, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key,substitutions);

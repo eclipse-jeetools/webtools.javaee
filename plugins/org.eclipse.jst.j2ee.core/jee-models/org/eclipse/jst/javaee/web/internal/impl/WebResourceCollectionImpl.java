@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -158,6 +158,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getWebResourceName() {
 		return webResourceName;
 	}
@@ -167,6 +168,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWebResourceName(String newWebResourceName) {
 		String oldWebResourceName = webResourceName;
 		webResourceName = newWebResourceName;
@@ -179,6 +181,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS);
@@ -191,6 +194,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<UrlPatternType> getUrlPatterns() {
 		if (urlPatterns == null) {
 			urlPatterns = new EObjectContainmentEList<UrlPatternType>(UrlPatternType.class, this, WebPackage.WEB_RESOURCE_COLLECTION__URL_PATTERNS);
@@ -203,6 +207,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getHttpMethods() {
 		if (httpMethods == null) {
 			httpMethods = new EDataTypeEList<String>(String.class, this, WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHODS);
@@ -215,6 +220,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getHttpMethodOmission() {
 		if (httpMethodOmission == null) {
 			httpMethodOmission = new EDataTypeEList<String>(String.class, this, WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD_OMISSION);
@@ -227,6 +233,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -236,6 +243,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

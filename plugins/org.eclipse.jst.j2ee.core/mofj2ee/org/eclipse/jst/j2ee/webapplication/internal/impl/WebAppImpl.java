@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2022 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -215,9 +215,11 @@ public class WebAppImpl extends JNDIEnvRefsGroupImpl implements WebApp {
 /**
  * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp
  */
+@Override
 public boolean containsSecurityRole(java.lang.String name) {
 	return getSecurityRoleNamed(name) != null;
 }
+@Override
 public ErrorPage getErrorPageByCode(Integer code) {
 	List lerrorPages = getErrorPages();
 	String codeString = code.toString();
@@ -232,6 +234,7 @@ public ErrorPage getErrorPageByCode(Integer code) {
 	}
 	return null;
 }
+@Override
 public ErrorPage getErrorPageByExceptionType(String exceptionType) {
 	if (exceptionType != null) {
 		List lerrorPages = getErrorPages();
@@ -253,6 +256,7 @@ public ErrorPage getErrorPageByExceptionType(String exceptionType) {
  * @return The first filter mapping found for the specified filter, or null if no
  * mapping exists for the filter.
  */
+@Override
 public FilterMapping getFilterMapping(
 	Filter aFilter) {
 	if (aFilter != null) {
@@ -269,6 +273,7 @@ public FilterMapping getFilterMapping(
 /**
  * getFilterNamed method comment.
  */
+@Override
 public Filter getFilterNamed(java.lang.String name) {
 	List lfilters = getFilters();
 	if (lfilters == null || lfilters.size() == 0) {
@@ -283,6 +288,7 @@ public Filter getFilterNamed(java.lang.String name) {
 	}
 	return null;
 }
+@Override
 public List getFilterNames() {
 	List names, lfilters = getFilters();
 	names = new ArrayList(lfilters.size());
@@ -297,6 +303,7 @@ public List getFilterNames() {
  * Returns the mime type for the specified extension
  * @param An extension to find the mime type for.
  */
+@Override
 public java.lang.String getMimeType(java.lang.String extension) {
 	if (extension != null) {
 		List mappings = getMimeMappings();
@@ -309,6 +316,7 @@ public java.lang.String getMimeType(java.lang.String extension) {
 	}
 	return null;
 }
+@Override
 public SecurityRole getSecurityRoleNamed(String roleName) {
 	java.util.List tempRoles = getSecurityRoles();
 	SecurityRole role;
@@ -325,6 +333,7 @@ public SecurityRole getSecurityRoleNamed(String roleName) {
  * @return The servlet mapping for the specified servlet, or null if no
  * mapping exists for the servlet.
  */
+@Override
 public ServletMapping getServletMapping(
 	Servlet aServlet) {
 	if (aServlet != null) {
@@ -341,6 +350,7 @@ public ServletMapping getServletMapping(
 /**
  * getServletNamed method comment.
  */
+@Override
 public Servlet getServletNamed(java.lang.String name) {
 	List lservlets = getServlets();
 	if (lservlets == null || lservlets.size() == 0) {
@@ -357,6 +367,7 @@ public Servlet getServletNamed(java.lang.String name) {
 	}
 	return null;
 }
+@Override
 public List getServletNames() {
 	List names, lservlets = getServlets();
 	names = new ArrayList(lservlets.size());
@@ -372,6 +383,7 @@ public List getServletNames() {
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion2_2Descriptor() {
 	CommonUtil.checkDDObjectForVersion(this);
 	String systemId = ((XMLResource)eResource()).getSystemId();
@@ -382,6 +394,7 @@ public boolean isVersion2_2Descriptor() {
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion2_3Descriptor() {
 	CommonUtil.checkDDObjectForVersion(this);
 	String systemId = ((XMLResource)eResource()).getSystemId();
@@ -390,6 +403,7 @@ public boolean isVersion2_3Descriptor() {
 /**
  * @see org.eclipse.jst.j2ee.internal.webapplication.WebApp
  */
+@Override
 public void renameSecurityRole(java.lang.String existingRoleName, java.lang.String newRoleName) {
 	SecurityRole role = getSecurityRoleNamed(existingRoleName);
 	if (role != null)
@@ -406,6 +420,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * descriptor, indicates that this web application is programmed appropriately to
 	 * be deployed into a distributed servlet container
 	 */
+	@Override
 	public boolean isDistributable() {
 		return distributable;
 	}
@@ -413,6 +428,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDistributable(boolean newDistributable) {
 		boolean oldDistributable = distributable;
 		distributable = newDistributable;
@@ -427,6 +443,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetDistributable() {
 		boolean oldDistributable = distributable;
 		boolean oldDistributableESet = distributableESet;
@@ -441,6 +458,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetDistributable() {
 		return distributableESet;
 	}
@@ -458,6 +476,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -467,6 +486,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -477,6 +497,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getContexts() {
 		if (contexts == null) {
 			contexts = new EObjectContainmentWithInverseEList(ContextParam.class, this, WebapplicationPackage.WEB_APP__CONTEXTS, WebapplicationPackage.CONTEXT_PARAM__WEB_APP);
@@ -487,6 +508,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getErrorPages() {
 		if (errorPages == null) {
 			errorPages = new EObjectContainmentWithInverseEList(ErrorPage.class, this, WebapplicationPackage.WEB_APP__ERROR_PAGES, WebapplicationPackage.ERROR_PAGE__WEB_APP);
@@ -497,6 +519,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WelcomeFileList getFileList() {
 		return fileList;
 	}
@@ -519,6 +542,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setFileList(WelcomeFileList newFileList) {
 		if (newFileList != fileList) {
 			NotificationChain msgs = null;
@@ -536,6 +560,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList<TagLibRef> getTagLibs() {
 		if (tagLibs == null) {
 			tagLibs = new EObjectContainmentWithInverseEList(TagLibRef.class, this, WebapplicationPackage.WEB_APP__TAG_LIBS, WebapplicationPackage.TAG_LIB_REF__WEB_APP);
@@ -546,6 +571,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getConstraints() {
 		if (constraints == null) {
 			constraints = new EObjectContainmentWithInverseEList(SecurityConstraint.class, this, WebapplicationPackage.WEB_APP__CONSTRAINTS, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP);
@@ -557,6 +583,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	* This returns the module version id. Compare with J2EEVersionConstants to determine module level
 	*/
 	
+	@Override
 	public int getVersionID() throws IllegalStateException {
 		J2EEVersionResource res = (J2EEVersionResource) eResource();
 		if (res == null) {
@@ -588,6 +615,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public LoginConfig getLoginConfig() {
 		return loginConfig;
 	}
@@ -610,6 +638,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLoginConfig(LoginConfig newLoginConfig) {
 		if (newLoginConfig != loginConfig) {
 			NotificationChain msgs = null;
@@ -627,6 +656,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getMimeMappings() {
 		if (mimeMappings == null) {
 			mimeMappings = new EObjectContainmentWithInverseEList(MimeMapping.class, this, WebapplicationPackage.WEB_APP__MIME_MAPPINGS, WebapplicationPackage.MIME_MAPPING__WEB_APP);
@@ -637,6 +667,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public SessionConfig getSessionConfig() {
 		return sessionConfig;
 	}
@@ -659,6 +690,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSessionConfig(SessionConfig newSessionConfig) {
 		if (newSessionConfig != sessionConfig) {
 			NotificationChain msgs = null;
@@ -676,6 +708,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getServletMappings() {
 		if (servletMappings == null) {
 			servletMappings = new EObjectContainmentWithInverseEList(ServletMapping.class, this, WebapplicationPackage.WEB_APP__SERVLET_MAPPINGS, WebapplicationPackage.SERVLET_MAPPING__WEB_APP);
@@ -686,6 +719,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList<Servlet> getServlets() {
 		if (servlets == null) {
 			servlets = new EObjectContainmentWithInverseEList(Servlet.class, this, WebapplicationPackage.WEB_APP__SERVLETS, WebapplicationPackage.SERVLET__WEB_APP);
@@ -696,6 +730,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getSecurityRoles() {
 		if (securityRoles == null) {
 			securityRoles = new EObjectContainmentEList(SecurityRole.class, this, WebapplicationPackage.WEB_APP__SECURITY_ROLES);
@@ -706,6 +741,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getFilters() {
 		if (filters == null) {
 			filters = new EObjectContainmentEList(Filter.class, this, WebapplicationPackage.WEB_APP__FILTERS);
@@ -717,6 +753,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * @generated This field/method will be replaced during code generation 
 	 * Filter mappings defined for the web app
 	 */
+	@Override
 	public EList getFilterMappings() {
 		if (filterMappings == null) {
 			filterMappings = new EObjectContainmentEList(FilterMapping.class, this, WebapplicationPackage.WEB_APP__FILTER_MAPPINGS);
@@ -729,6 +766,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * The listeners collection contains deployment properties for a web application
 	 * listener beans in the web app.
 	 */
+	@Override
 	public EList getListeners() {
 		if (listeners == null) {
 			listeners = new EObjectContainmentEList(Listener.class, this, WebapplicationPackage.WEB_APP__LISTENERS);
@@ -741,6 +779,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getContextParams() {
 		if (contextParams == null) {
 			contextParams = new EObjectContainmentEList(ParamValue.class, this, WebapplicationPackage.WEB_APP__CONTEXT_PARAMS);
@@ -751,6 +790,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @deprecated: Use getEnvironmentProperties()
 	 */
+	@Override
 	public EList getEnvEntries() {
 		
 		return getEnvironmentProperties();
@@ -761,6 +801,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JSPConfig getJspConfig() {
 		return jspConfig;
 	}
@@ -785,6 +826,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJspConfig(JSPConfig newJspConfig) {
 		if (newJspConfig != jspConfig) {
 			NotificationChain msgs = null;
@@ -804,6 +846,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getMessageDestinations() {
 		if (messageDestinations == null) {
 			messageDestinations = new EObjectContainmentEList(MessageDestination.class, this, WebapplicationPackage.WEB_APP__MESSAGE_DESTINATIONS);
@@ -816,6 +859,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LocalEncodingMappingList getLocalEncodingMappingList() {
 		return localEncodingMappingList;
 	}
@@ -840,6 +884,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocalEncodingMappingList(LocalEncodingMappingList newLocalEncodingMappingList) {
 		if (newLocalEncodingMappingList != localEncodingMappingList) {
 			NotificationChain msgs = null;

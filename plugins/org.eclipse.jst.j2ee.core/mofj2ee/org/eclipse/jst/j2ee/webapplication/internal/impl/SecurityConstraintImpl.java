@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -102,6 +102,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -111,6 +112,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDisplayName(String newDisplayName) {
 		String oldDisplayName = displayName;
 		displayName = newDisplayName;
@@ -121,6 +123,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -139,6 +142,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SECURITY_CONSTRAINT__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
@@ -158,6 +162,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getWebResourceCollections() {
 		if (webResourceCollections == null) {
 			webResourceCollections = new EObjectContainmentWithInverseEList(WebResourceCollection.class, this, WebapplicationPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS, WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT);
@@ -168,6 +173,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public AuthConstraint getAuthConstraint() {
 		return authConstraint;
 	}
@@ -190,6 +196,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setAuthConstraint(AuthConstraint newAuthConstraint) {
 		if (newAuthConstraint != authConstraint) {
 			NotificationChain msgs = null;
@@ -207,6 +214,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public UserDataConstraint getUserDataConstraint() {
 		return userDataConstraint;
 	}
@@ -229,6 +237,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setUserDataConstraint(UserDataConstraint newUserDataConstraint) {
 		if (newUserDataConstraint != userDataConstraint) {
 			NotificationChain msgs = null;
@@ -248,6 +257,7 @@ public class SecurityConstraintImpl extends J2EEEObjectImpl implements SecurityC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList(DisplayName.class, this, WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES);

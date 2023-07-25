@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -226,6 +226,7 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		earFileListViewer.setContentProvider(provider);
 		earFileListViewer.setLabelProvider(provider);
 		earFileListViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				List result = new ArrayList();
 				result.addAll(Arrays.asList(earFileListViewer.getCheckedElements()));
@@ -263,16 +264,19 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 
 		setColumnEditors();
 		earFileListViewer.setCellModifier(new ICellModifier() {
+			@Override
 			public boolean canModify(Object element, String property) {
 				return PROJECT_COLUMN.equals(property);
 			}
 
+			@Override
 			public Object getValue(Object element, String property) {
 				TableItem[] items = earFileListViewer.getTable().getSelection();
 				TableItem item = items[0];
 				return item.getText(1);
 			}
 
+			@Override
 			public void modify(Object element, String property, Object value) {
 				TableItem elementHolder = (TableItem) element;
 				if (property.equals(PROJECT_COLUMN)) {

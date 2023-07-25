@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -570,6 +570,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS);
@@ -582,6 +583,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__DISPLAY_NAMES);
@@ -594,6 +596,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__ICONS);
@@ -606,6 +609,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbName() {
 		return ejbName;
 	}
@@ -615,6 +619,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbName(String newEjbName) {
 		String oldEjbName = ejbName;
 		ejbName = newEjbName;
@@ -627,6 +632,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -636,6 +642,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -648,6 +655,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbClass() {
 		return ejbClass;
 	}
@@ -657,6 +665,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbClass(String newEjbClass) {
 		String oldEjbClass = ejbClass;
 		ejbClass = newEjbClass;
@@ -669,6 +678,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessagingType() {
 		return messagingType;
 	}
@@ -678,6 +688,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessagingType(String newMessagingType) {
 		String oldMessagingType = messagingType;
 		messagingType = newMessagingType;
@@ -690,6 +701,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getTimeoutMethod() {
 		return timeoutMethod;
 	}
@@ -714,6 +726,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimeoutMethod(NamedMethodType newTimeoutMethod) {
 		if (newTimeoutMethod != timeoutMethod) {
 			NotificationChain msgs = null;
@@ -733,6 +746,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<TimerType> getTimer() {
 		if (timer == null) {
 			timer = new EObjectContainmentEList<TimerType>(TimerType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__TIMER);
@@ -745,6 +759,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransactionType getTransactionType() {
 		return transactionType;
 	}
@@ -754,6 +769,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionType(TransactionType newTransactionType) {
 		TransactionType oldTransactionType = transactionType;
 		transactionType = newTransactionType == null ? TRANSACTION_TYPE_EDEFAULT : newTransactionType;
@@ -768,6 +784,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionType() {
 		TransactionType oldTransactionType = transactionType;
 		boolean oldTransactionTypeESet = transactionTypeESet;
@@ -782,6 +799,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionType() {
 		return transactionTypeESet;
 	}
@@ -791,6 +809,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessageDestinationType() {
 		return messageDestinationType;
 	}
@@ -800,6 +819,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageDestinationType(String newMessageDestinationType) {
 		String oldMessageDestinationType = messageDestinationType;
 		messageDestinationType = newMessageDestinationType;
@@ -812,6 +832,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMessageDestinationLink() {
 		return messageDestinationLink;
 	}
@@ -821,6 +842,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageDestinationLink(String newMessageDestinationLink) {
 		String oldMessageDestinationLink = messageDestinationLink;
 		messageDestinationLink = newMessageDestinationLink;
@@ -833,6 +855,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationConfig getActivationConfig() {
 		return activationConfig;
 	}
@@ -857,6 +880,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActivationConfig(ActivationConfig newActivationConfig) {
 		if (newActivationConfig != activationConfig) {
 			NotificationChain msgs = null;
@@ -876,6 +900,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AroundInvokeType> getAroundInvokes() {
 		if (aroundInvokes == null) {
 			aroundInvokes = new EObjectContainmentEList<AroundInvokeType>(AroundInvokeType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_INVOKES);
@@ -888,6 +913,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AroundTimeoutType> getAroundTimeouts() {
 		if (aroundTimeouts == null) {
 			aroundTimeouts = new EObjectContainmentEList<AroundTimeoutType>(AroundTimeoutType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS);
@@ -900,6 +926,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
 			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__ENV_ENTRIES);
@@ -912,6 +939,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
 			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_REFS);
@@ -924,6 +952,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbLocalRef> getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
 			ejbLocalRefs = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_LOCAL_REFS);
@@ -936,6 +965,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__SERVICE_REFS);
@@ -948,6 +978,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
 			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_REFS);
@@ -960,6 +991,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
 			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_ENV_REFS);
@@ -972,6 +1004,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
 			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_REFS);
@@ -984,6 +1017,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		if (persistenceContextRefs == null) {
 			persistenceContextRefs = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_CONTEXT_REFS);
@@ -996,6 +1030,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
 			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_UNIT_REFS);
@@ -1008,6 +1043,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
 			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS);
@@ -1020,6 +1056,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
 			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PRE_DESTROYS);
@@ -1032,6 +1069,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DataSourceType> getDataSource() {
 		if (dataSource == null) {
 			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE);
@@ -1044,6 +1082,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
 		if (jmsConnectionFactory == null) {
 			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY);
@@ -1056,6 +1095,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsDestinationType> getJmsDestination() {
 		if (jmsDestination == null) {
 			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_DESTINATION);
@@ -1068,6 +1108,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MailSessionType> getMailSession() {
 		if (mailSession == null) {
 			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__MAIL_SESSION);
@@ -1080,6 +1121,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConnectionFactoryResourceType> getConnectionFactory() {
 		if (connectionFactory == null) {
 			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY);
@@ -1092,6 +1134,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AdministeredObjectType> getAdministeredObject() {
 		if (administeredObject == null) {
 			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT);
@@ -1104,6 +1147,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityRoleRef> getSecurityRoleRef() {
 		if (securityRoleRef == null) {
 			securityRoleRef = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF);
@@ -1116,6 +1160,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityIdentityType getSecurityIdentity() {
 		return securityIdentity;
 	}
@@ -1140,6 +1185,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecurityIdentity(SecurityIdentityType newSecurityIdentity) {
 		if (newSecurityIdentity != securityIdentity) {
 			NotificationChain msgs = null;
@@ -1159,6 +1205,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -1168,6 +1215,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,15 +76,24 @@ public interface XMLResource extends TranslatorResource, J2EEVersionConstants {
 
 	//The following methods are to support ReferencedResource without having an actual
 	//This may be just a subset of what is available in ReferencedResource
+	@Override
 	void saveIfNecessary() throws Exception;
+	@Override
 	void releaseFromWrite();
+	@Override
 	void releaseFromRead();
 	void preDelete();
+	@Override
 	boolean isSharedForWrite();
+	@Override
 	boolean isShared();
+	@Override
 	boolean isReadOnly();
+	@Override
 	boolean isNew();
+	@Override
 	void accessForWrite();
+	@Override
 	void accessForRead(); 
 
 }

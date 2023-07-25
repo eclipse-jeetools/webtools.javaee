@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -179,7 +179,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -188,7 +189,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -200,7 +202,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getJavaMethodName() {
+  @Override
+public String getJavaMethodName() {
 		return javaMethodName;
 	}
 
@@ -209,7 +212,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setJavaMethodName(String newJavaMethodName) {
+  @Override
+public void setJavaMethodName(String newJavaMethodName) {
 		String oldJavaMethodName = javaMethodName;
 		javaMethodName = newJavaMethodName;
 		if (eNotificationRequired())
@@ -221,7 +225,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getWsdlOperation() {
+  @Override
+public String getWsdlOperation() {
 		return wsdlOperation;
 	}
 
@@ -230,7 +235,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWsdlOperation(String newWsdlOperation) {
+  @Override
+public void setWsdlOperation(String newWsdlOperation) {
 		String oldWsdlOperation = wsdlOperation;
 		wsdlOperation = newWsdlOperation;
 		if (eNotificationRequired())
@@ -242,7 +248,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isWrappedElement() {
+  @Override
+public boolean isWrappedElement() {
 		return wrappedElement;
 	}
 
@@ -251,7 +258,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWrappedElement(boolean newWrappedElement) {
+  @Override
+public void setWrappedElement(boolean newWrappedElement) {
 		boolean oldWrappedElement = wrappedElement;
 		wrappedElement = newWrappedElement;
 		boolean oldWrappedElementESet = wrappedElementESet;
@@ -265,7 +273,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void unsetWrappedElement() {
+  @Override
+public void unsetWrappedElement() {
 		boolean oldWrappedElement = wrappedElement;
 		boolean oldWrappedElementESet = wrappedElementESet;
 		wrappedElement = WRAPPED_ELEMENT_EDEFAULT;
@@ -279,7 +288,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSetWrappedElement() {
+  @Override
+public boolean isSetWrappedElement() {
 		return wrappedElementESet;
 	}
 
@@ -288,7 +298,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getMethodParamPartsMappings() {
+  @Override
+public EList getMethodParamPartsMappings() {
 		if (methodParamPartsMappings == null) {
 			methodParamPartsMappings = new EObjectContainmentEList(MethodParamPartsMapping.class, this, JaxrpcmapPackage.SERVICE_ENDPOINT_METHOD_MAPPING__METHOD_PARAM_PARTS_MAPPINGS);
 		}
@@ -300,7 +311,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLReturnValueMapping getWsdlReturnValueMapping() {
+  @Override
+public WSDLReturnValueMapping getWsdlReturnValueMapping() {
 		return wsdlReturnValueMapping;
 	}
 
@@ -324,7 +336,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWsdlReturnValueMapping(WSDLReturnValueMapping newWsdlReturnValueMapping) {
+  @Override
+public void setWsdlReturnValueMapping(WSDLReturnValueMapping newWsdlReturnValueMapping) {
 		if (newWsdlReturnValueMapping != wsdlReturnValueMapping) {
 			NotificationChain msgs = null;
 			if (wsdlReturnValueMapping != null)

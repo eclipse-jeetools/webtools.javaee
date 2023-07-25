@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,6 +53,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 		super();
 		try {
 			Display.getDefault().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					IWorkbench wb = PlatformUI.getWorkbench();
 					if (wb == null) return;
@@ -119,6 +120,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter#promptForInconsistentFileRefresh(List)
 	 */
+	@Override
 	public boolean promptForInconsistentFileRefresh(List inconsistentFiles) {
 		if (inconsistentFiles == null || inconsistentFiles.size() == 0) // this case should never
 			// occur.
@@ -144,6 +146,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 		final String[] fileNames = (String[])inconsistentFileNames.toArray(new String[inconsistentFileNames.size()]);
 		
 		Display.getDefault().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				inconsistentResult = ListMessageDialog.openQuestion(getShell(), title, message, fileNames);
 			}
@@ -154,6 +157,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter#getValidateEditContext()
 	 */
+	@Override
 	public Object getValidateEditContext() {
 		return getShell();
 	}
@@ -161,6 +165,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.ui.IPartListener#partActivated(IWorkbenchPart)
 	 */
+	@Override
 	public void partActivated(IWorkbenchPart part) {
 		if (part == fPart) {
 			handleActivation();
@@ -192,6 +197,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.ui.IPartListener#partBroughtToTop(IWorkbenchPart)
 	 */
+	@Override
 	public void partBroughtToTop(IWorkbenchPart part) {
 		//do nothing
 	}
@@ -199,6 +205,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.ui.IPartListener#partClosed(IWorkbenchPart)
 	 */
+	@Override
 	public void partClosed(IWorkbenchPart part) {
 		if (part == fPart)
 			part.getSite().getPage().removePartListener(this);
@@ -209,6 +216,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.ui.IPartListener#partDeactivated(IWorkbenchPart)
 	 */
+	@Override
 	public void partDeactivated(IWorkbenchPart part) {
 		if (part == fPart) {
 			if (fIsDeactivating)
@@ -228,10 +236,12 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.ui.IPartListener#partOpened(IWorkbenchPart)
 	 */
+	@Override
 	public void partOpened(IWorkbenchPart part) {
 		//do nothing
 	}
 
+	@Override
 	public IStatus validateState() {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		if ((fShell==null) && (wb != null && (wb.getActiveWorkbenchWindow() != null)))
@@ -245,6 +255,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 					if (!fMessageUp) {
 						fMessageUp = true;
 						Display.getDefault().asyncExec(new Runnable() {
+							@Override
 							public void run() {
 								MessageDialog.openError(getShell(), J2EEUIMessages.getResourceString("Error_checking_out_files_10"), status.getMessage()); //$NON-NLS-1$
 							}
@@ -265,6 +276,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateValidatorPresenter#promptForInconsistentFileOverwrite(List)
 	 */
+	@Override
 	public boolean promptForInconsistentFileOverwrite(List inconsistentFiles) {
 		int size = inconsistentFiles.size();
 		List files = new ArrayList();
@@ -275,6 +287,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 		}
 		final String[] items = (String[])files.toArray(new String[files.size()]);
 		Display.getDefault().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				inconsistentOverwriteResult = ListMessageDialog.openQuestion(getShell(), J2EEUIMessages.getResourceString("Inconsistent_files_detected_11"), //$NON-NLS-1$
 					J2EEUIMessages.getResourceString("The_following_files_are_inconsistent_with_the_file_system._Do_you_want_to_save_and_overwrite_these_files_on_the_file_system__12_WARN_"), //$NON-NLS-1$
@@ -292,6 +305,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see IValidateEditListener#hasReadOnlyFiles()
 	 */
+	@Override
 	public boolean hasReadOnlyFiles() {
 		if (firstReadOnlyFileAttempt) {
 			checkReadOnly();
@@ -312,19 +326,23 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 		}
 	}
 
+	@Override
 	public boolean checkSave() throws CoreException {
 		return validateState().isOK() && getValidator().checkSave(this);
 	}
 
+	@Override
 	public void setShell(Shell aShell) {
 		fShell = aShell;
 	}
 	
+	@Override
 	public void setEditModel(EditModel anEditModel) {
 		fValidator = anEditModel;
 		
 	}
 
+	@Override
 	public IStatus validateState(EditModel anEditModel) {
 		setEditModel(anEditModel);
 		return validateState();

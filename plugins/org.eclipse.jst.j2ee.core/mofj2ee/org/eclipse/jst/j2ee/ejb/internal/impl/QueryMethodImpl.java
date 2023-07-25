@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -136,6 +136,7 @@ protected Method getSelectMethod() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public Query getQuery() {
 		if (eContainerFeatureID != EjbPackage.QUERY_METHOD__QUERY) return null;
 		return (Query)eContainer();
@@ -154,6 +155,7 @@ protected Method getSelectMethod() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setQuery(Query newQuery) {
 		if (newQuery != eInternalContainer() || (eContainerFeatureID != EjbPackage.QUERY_METHOD__QUERY && newQuery != null)) {
 			if (EcoreUtil.isAncestor(this, newQuery))
@@ -291,6 +293,7 @@ protected Method getSelectMethod() {
 	 * 
 	 * May return null.
 	 */
+	@Override
 	public JavaClass[] getClientTypeJavaClasses() {
 		if (getName() == null || getEnterpriseBean() == null) return null;
 		EnterpriseBean ejb = getEnterpriseBean();

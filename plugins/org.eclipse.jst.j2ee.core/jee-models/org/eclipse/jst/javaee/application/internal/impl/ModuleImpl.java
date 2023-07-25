@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -175,6 +175,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConnector() {
 		return connector;
 	}
@@ -184,6 +185,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConnector(String newConnector) {
 		String oldConnector = connector;
 		connector = newConnector;
@@ -191,6 +193,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 			eNotify(new ENotificationImpl(this, Notification.SET, ApplicationPackage.MODULE__CONNECTOR, oldConnector, connector));
 	}
 	// Returns the uri of the given module type
+	@Override
 	public String getUri() {
 		if (eIsSet(ApplicationPackage.MODULE__EJB))
 			return getEjb();
@@ -209,6 +212,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjb() {
 		return ejb;
 	}
@@ -218,6 +222,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjb(String newEjb) {
 		String oldEjb = ejb;
 		ejb = newEjb;
@@ -230,6 +235,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getJava() {
 		return java;
 	}
@@ -239,6 +245,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJava(String newJava) {
 		String oldJava = java;
 		java = newJava;
@@ -251,6 +258,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Web getWeb() {
 		return web;
 	}
@@ -275,6 +283,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWeb(Web newWeb) {
 		if (newWeb != web) {
 			NotificationChain msgs = null;
@@ -294,6 +303,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAltDd() {
 		return altDd;
 	}
@@ -303,6 +313,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAltDd(String newAltDd) {
 		String oldAltDd = altDd;
 		altDd = newAltDd;
@@ -315,6 +326,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -324,6 +336,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -477,8 +490,10 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 		return result.toString();
 	}
 
+	@Override
 	public void setUri(String value) {
 	}
+	@Override
 	public boolean isConnectorModule() {
 		if (eIsSet(ApplicationPackage.MODULE__CONNECTOR))
 			return true;
@@ -487,6 +502,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	/* Returns false by default
 	 *
 	 */
+	@Override
 	public boolean isEjbModule() {
 		if (eIsSet(ApplicationPackage.MODULE__EJB) )
 			return true;
@@ -495,6 +511,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	/* 
 	 * Returns false by default
 	 */
+	@Override
 	public boolean isJavaModule() {
 		if (eIsSet(ApplicationPackage.MODULE__JAVA))
 			return true;
@@ -503,6 +520,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	/* 
 	 * Returns false by default
 	 */
+	@Override
 	public boolean isWebModule() {
 		if (eIsSet(ApplicationPackage.MODULE__WEB))
 			return true;

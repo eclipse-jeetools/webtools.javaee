@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 IBM Corporation and others.
+ * Copyright (c) 2017, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ public class WebServicePropertyTester extends PropertyTester {
 	private static final String PROPERTY_WSDL_RESOURCE = "isWsdlResource"; //$NON-NLS-1$
 	private static final String PROPERTY_SERVICE = "isService"; //$NON-NLS-1$
 	
+	@Override
 	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
 		
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();

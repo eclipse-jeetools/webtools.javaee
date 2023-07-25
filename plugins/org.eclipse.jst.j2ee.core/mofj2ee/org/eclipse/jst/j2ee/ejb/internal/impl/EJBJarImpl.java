@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -111,6 +111,7 @@ public class EJBJarImpl extends CompatibilityDescriptionGroupImpl implements EJB
 /**
  * Return true if there are any ContainerManagedEntity beans in this jar.
  */
+@Override
 public boolean containsContainerManagedBeans() {
 	Iterator it = getEnterpriseBeans().iterator();
 	EnterpriseBean ejb;
@@ -124,6 +125,7 @@ public boolean containsContainerManagedBeans() {
 /**
  * @see org.eclipse.jst.j2ee.internal.ejb.EJBJar
  */
+@Override
 public boolean containsSecurityRole(java.lang.String name) {
 	AssemblyDescriptor ad = getAssemblyDescriptor();
 	return (ad != null) && (ad.getSecurityRoleNamed(name) != null);
@@ -132,6 +134,7 @@ public boolean containsSecurityRole(java.lang.String name) {
  * Return List of BMP beans in this jar.
  * @return java.util.List
  */
+@Override
 public List getBeanManagedBeans() {
 	List allBeans, beans;
 	allBeans = getEnterpriseBeans();
@@ -149,6 +152,7 @@ public List getBeanManagedBeans() {
  * Return List of ContainerManagedEntity beans in this jar.
  * @return java.util.List
  */
+@Override
 public List getContainerManagedBeans() {
 	List cmps = new ArrayList(getEnterpriseBeans().size());
 	Iterator it = getEnterpriseBeans().iterator();
@@ -165,6 +169,7 @@ public List getContainerManagedBeans() {
  * Return List of EJB 1.1 ContainerManagedEntity beans in this jar.
  * @return java.util.List
  */
+@Override
 public List getEJB11ContainerManagedBeans() {
 	List cmps = new ArrayList(getEnterpriseBeans().size());
 	Iterator it = getEnterpriseBeans().iterator();
@@ -181,6 +186,7 @@ public List getEJB11ContainerManagedBeans() {
  * Return List of EJB 2.0 ContainerManagedEntity beans in this jar.
  * @return java.util.List
  */
+@Override
 public List getEJB20ContainerManagedBeans() {
 	List cmps = new ArrayList(getEnterpriseBeans().size());
 	Iterator it = getEnterpriseBeans().iterator();
@@ -195,6 +201,7 @@ public List getEJB20ContainerManagedBeans() {
 	/*
 	 * @see EJBJar#getMessageDrivenBeans()
 	 */
+	@Override
 	public List getMessageDrivenBeans() {
 		List ejbs = getEnterpriseBeans();
 		int size = ejbs.size();
@@ -211,6 +218,7 @@ public List getEJB20ContainerManagedBeans() {
  * @return The list of EjbRelations references
  * A list of ejb-relation elements, which specify the container managed relationships.
  */
+@Override
 public List getEjbRelations() {
 	return getRelationshipList() == null ? null : getRelationshipList().getEjbRelations();
 }
@@ -219,6 +227,7 @@ public List getEjbRelations() {
  * of the ref must equate to a named enterprise bean contained in the jar; otherwise return
  * null
  */
+@Override
 public EnterpriseBean getEnterpiseBeanFromRef(EjbRef ref) {
 	String link = ref.getLink();
 	if (link == null) {
@@ -226,6 +235,7 @@ public EnterpriseBean getEnterpiseBeanFromRef(EjbRef ref) {
 	}
 	return getEnterpriseBeanNamed(link);
 }
+@Override
 public EnterpriseBean getEnterpriseBeanNamed(String ejbName) {
 	if (ejbName == null)
 		return null;
@@ -242,6 +252,7 @@ public EnterpriseBean getEnterpriseBeanNamed(String ejbName) {
  * Return ALL EnterpriseBean(s) that are referencing @aJavaClass as a
  * home, remote, bean class, or key class.
  */
+@Override
 public java.util.List getEnterpriseBeansWithReference(JavaClass aJavaClass) {
 	List beans = getEnterpriseBeans();
 	List result = new ArrayList();
@@ -257,6 +268,7 @@ public java.util.List getEnterpriseBeansWithReference(JavaClass aJavaClass) {
  * Return the *FIRST* EnterpriseBean that is referencing @aJavaClass as its
  * home, remote, bean class, or key class.
  */
+@Override
 public EnterpriseBean getEnterpriseBeanWithReference(JavaClass aJavaClass) {
 	List beans = getEnterpriseBeans();
 	EnterpriseBean bean = null;
@@ -271,6 +283,7 @@ public EnterpriseBean getEnterpriseBeanWithReference(JavaClass aJavaClass) {
  * Return List of Session beans in this jar.
  * @return java.util.List
  */
+@Override
 public List getSessionBeans() {
 	List allBeans, beans;
 	allBeans = getEnterpriseBeans();
@@ -289,6 +302,7 @@ public List getSessionBeans() {
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion1_1Descriptor() {
 	CommonUtil.checkDDObjectForVersion(this);
 	EJBResource ejbRes = (EJBResource) eResource();
@@ -299,6 +313,7 @@ public boolean isVersion1_1Descriptor() {
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion2_0Descriptor()  {
 	CommonUtil.checkDDObjectForVersion(this);
 	EJBResource ejbRes = (EJBResource) eResource();
@@ -307,6 +322,7 @@ public boolean isVersion2_0Descriptor()  {
 /**
  * @see org.eclipse.jst.j2ee.internal.ejb.EJBJar
  */
+@Override
 public void renameSecurityRole(java.lang.String existingRoleName, java.lang.String newRoleName) {
 	AssemblyDescriptor ad = getAssemblyDescriptor();
 	if (ad != null)
@@ -330,6 +346,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * The optional ejb-client-jar element specifies a JAR file that contains the class files necessary for a client program to access the enterprise beans in the ejb-jar file. The Deployer should make the ejb-client JAR file accessible to the client's class-loader.  Example:<ejb-client-jar>employee_service_client.jar<//ejb-client-jar>
 
 	 */
+	@Override
 	public String getEjbClientJar() {
 		return ejbClientJar;
 	}
@@ -337,6 +354,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEjbClientJar(String newEjbClientJar) {
 		String oldEjbClientJar = ejbClientJar;
 		ejbClientJar = newEjbClientJar;
@@ -349,6 +367,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -356,6 +375,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	This returns the module version id.  Compare with J2EEVersionConstants to determine module level
 	*/
+	@Override
 	public int getVersionID() throws IllegalStateException {
 		J2EEVersionResource ejbRes = (J2EEVersionResource) eResource();
 		if (ejbRes == null) {
@@ -389,6 +409,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -399,6 +420,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public AssemblyDescriptor getAssemblyDescriptor() {
 		return assemblyDescriptor;
 	}
@@ -421,6 +443,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setAssemblyDescriptor(AssemblyDescriptor newAssemblyDescriptor) {
 		if (newAssemblyDescriptor != assemblyDescriptor) {
 			NotificationChain msgs = null;
@@ -440,6 +463,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * The enterprise-beans element contains the declarations of one or more
 	 * enterprise beans.
 	 */
+	@Override
 	public EList getEnterpriseBeans() {
 		if (enterpriseBeans == null) {
 			enterpriseBeans = new EObjectContainmentWithInverseEList(EnterpriseBean.class, this, EjbPackage.EJB_JAR__ENTERPRISE_BEANS, EjbPackage.ENTERPRISE_BEAN__EJB_JAR);
@@ -452,6 +476,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * The relationships collection describes the relationships in which container managed persistence entity beans and dependent objects participate. The relationships element contains an optional description; a list of ejb-entity-ref elements (references to entity beans that participate in container managed relationships but whose abstract persistence schemas are not included in the ejb-jar file);
 	 * and a list of ejb-relation elements, which specify the container managed relationships.
 	 */
+	@Override
 	public Relationships getRelationshipList() {
 		return relationshipList;
 	}
@@ -474,6 +499,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRelationshipList(Relationships newRelationshipList) {
 		if (newRelationshipList != relationshipList) {
 			NotificationChain msgs = null;
@@ -643,6 +669,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 		return result.toString();
 	}
 
+	@Override
 	public EJBRelationshipRole getRelationshipRole(String aRoleName, ContainerManagedEntity sourceCMP) {
 		if (aRoleName == null || sourceCMP == null) return null;
 		EJBRelationshipRole role = null;
@@ -660,6 +687,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 		return null;
 	}
 	
+	@Override
 	public EJBRelation getEJBRelation(String aRelationName) {
 		Relationships relList = getRelationshipList();
 		if (relList != null) {
@@ -678,6 +706,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @see EJBJar#getEJBRelationsForSource(ContainerManagedEntity)
 	 */
+	@Override
 	public List getEJBRelationsForSource(ContainerManagedEntity cmp) {
 		Relationships relList = getRelationshipList();
 		List result = null;
@@ -706,6 +735,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 		return result;
 	}
 	
+	@Override
 	public List getEJBRelationshipRolesForType(ContainerManagedEntity cmp) {
 		Relationships relList = getRelationshipList();
 		List result = null;

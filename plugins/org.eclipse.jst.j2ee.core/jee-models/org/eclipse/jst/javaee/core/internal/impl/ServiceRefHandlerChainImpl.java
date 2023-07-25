@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -164,6 +164,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServiceNamePattern() {
 		return serviceNamePattern;
 	}
@@ -173,6 +174,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceNamePattern(String newServiceNamePattern) {
 		String oldServiceNamePattern = serviceNamePattern;
 		serviceNamePattern = newServiceNamePattern;
@@ -185,6 +187,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPortNamePattern() {
 		return portNamePattern;
 	}
@@ -194,6 +197,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPortNamePattern(String newPortNamePattern) {
 		String oldPortNamePattern = portNamePattern;
 		portNamePattern = newPortNamePattern;
@@ -206,6 +210,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getProtocolBindings() {
 		return protocolBindings;
 	}
@@ -215,6 +220,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProtocolBindings(List<String> newProtocolBindings) {
 		List<String> oldProtocolBindings = protocolBindings;
 		protocolBindings = newProtocolBindings;
@@ -227,6 +233,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRefHandler> getHandlers() {
 		if (handlers == null) {
 			handlers = new EObjectContainmentEList<ServiceRefHandler>(ServiceRefHandler.class, this, JavaeePackage.SERVICE_REF_HANDLER_CHAIN__HANDLERS);
@@ -239,6 +246,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -248,6 +256,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

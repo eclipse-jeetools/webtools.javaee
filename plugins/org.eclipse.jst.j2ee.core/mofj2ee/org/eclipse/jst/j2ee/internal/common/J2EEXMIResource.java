@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,18 +37,21 @@ public class J2EEXMIResource extends CompatibilityXMIResourceImpl implements J2E
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.J2EEVersionResource#getJ2EEVersionID()
 	 */
+	@Override
 	public int getJ2EEVersionID() {
 		return J2EEVersionConstants.J2EE_1_3_ID;
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.J2EEVersionResource#getModuleVersionID()
 	 */
+	@Override
 	public int getModuleVersionID() {
 		return 0;
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.J2EEVersionResource#getVersionID()
 	 */
+	@Override
 	public int getVersionID() {
 		return 0;
 	}

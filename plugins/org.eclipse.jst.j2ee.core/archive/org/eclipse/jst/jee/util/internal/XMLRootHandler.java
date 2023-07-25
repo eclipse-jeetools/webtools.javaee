@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2007 IBM Corporation and others.
+ * Copyright (c) 2004, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,6 +97,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 * 
 	 * @see org.xml.sax.ext.LexicalHandler#comment(char[], int, int)
 	 */
+	@Override
 	public final void comment(final char[] ch, final int start, final int length) {
 		// Not interested.
 	}
@@ -141,6 +142,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 * 
 	 * @see org.xml.sax.ext.LexicalHandler#endCDATA()
 	 */
+	@Override
 	public final void endCDATA() {
 		// Not interested.
 	}
@@ -150,6 +152,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 * 
 	 * @see org.xml.sax.ext.LexicalHandler#endDTD()
 	 */
+	@Override
 	public final void endDTD() {
 		// Not interested.
 	}
@@ -159,6 +162,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 * 
 	 * @see org.xml.sax.ext.LexicalHandler#endEntity(java.lang.String)
 	 */
+	@Override
 	public final void endEntity(final String name) {
 		// Not interested.
 	}
@@ -198,6 +202,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 * 
 	 * @see org.xml.sax.ext.LexicalHandler#startCDATA()
 	 */
+	@Override
 	public final void startCDATA() {
 		// Not interested.
 	}
@@ -208,6 +213,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 * @see org.xml.sax.ext.LexicalHandler#startDTD(java.lang.String,
 	 *      java.lang.String, java.lang.String)
 	 */
+	@Override
 	public final void startDTD(final String name, final String publicId, final String systemId) throws SAXException {
 		dtdName = name;
 		dtdPublicID = publicId;
@@ -235,6 +241,7 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 * 
 	 * @see org.xml.sax.ext.LexicalHandler#startEntity(java.lang.String)
 	 */
+	@Override
 	public final void startEntity(final String name) {
 		// Not interested.
 	}

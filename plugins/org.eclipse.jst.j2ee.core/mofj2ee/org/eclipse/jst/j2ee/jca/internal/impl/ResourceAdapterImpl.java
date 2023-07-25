@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -244,6 +244,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * Specifies the fully qualified name of the Java class that implements the javax.resource.spi.Managed-ConnectionFactory interface. This Java class is provided as part of resource adapter's implementation of connector architecture specified contracts.
 
 	 */
+	@Override
 	public String getManagedConnectionFactoryClass() {
 		return managedConnectionFactoryClass;
 	}
@@ -251,6 +252,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setManagedConnectionFactoryClass(String newManagedConnectionFactoryClass) {
 		String oldManagedConnectionFactoryClass = managedConnectionFactoryClass;
 		managedConnectionFactoryClass = newManagedConnectionFactoryClass;
@@ -263,6 +265,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * Specifies the fully-qualified name of the ConnectionFactory interface supported by the resource adapter.
 
 	 */
+	@Override
 	public String getConnectionFactoryInterface() {
 		return connectionFactoryInterface;
 	}
@@ -270,6 +273,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setConnectionFactoryInterface(String newConnectionFactoryInterface) {
 		String oldConnectionFactoryInterface = connectionFactoryInterface;
 		connectionFactoryInterface = newConnectionFactoryInterface;
@@ -281,6 +285,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * @generated This field/method will be replaced during code generation 
 	 * Specifies the fully-qualified name of the ConnectionFactory class that implements resource adapter specific ConnectionFactory interface.
 	 */
+	@Override
 	public String getConnectionFactoryImplClass() {
 		return connectionFactoryImplClass;
 	}
@@ -288,6 +293,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setConnectionFactoryImplClass(String newConnectionFactoryImplClass) {
 		String oldConnectionFactoryImplClass = connectionFactoryImplClass;
 		connectionFactoryImplClass = newConnectionFactoryImplClass;
@@ -298,6 +304,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getConnectionInterface() {
 		return connectionInterface;
 	}
@@ -305,6 +312,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setConnectionInterface(String newConnectionInterface) {
 		String oldConnectionInterface = connectionInterface;
 		connectionInterface = newConnectionInterface;
@@ -316,6 +324,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * @generated This field/method will be replaced during code generation 
 	 * Specifies the fully-qualified name of the Connection interface supported by the resource adapter.
 	 */
+	@Override
 	public String getConnectionImplClass() {
 		return connectionImplClass;
 	}
@@ -323,6 +332,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setConnectionImplClass(String newConnectionImplClass) {
 		String oldConnectionImplClass = connectionImplClass;
 		connectionImplClass = newConnectionImplClass;
@@ -339,6 +349,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 *   LocalTransaction
 	 *   XATransaction
 	 */
+	@Override
 	public TransactionSupportKind getTransactionSupport() {
 		return transactionSupport;
 	}
@@ -348,6 +359,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionSupport(TransactionSupportKind newTransactionSupport) {
 		TransactionSupportKind oldTransactionSupport = transactionSupport;
 		transactionSupport = newTransactionSupport == null ? TRANSACTION_SUPPORT_EDEFAULT : newTransactionSupport;
@@ -362,6 +374,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionSupport() {
 		TransactionSupportKind oldTransactionSupport = transactionSupport;
 		boolean oldTransactionSupportESet = transactionSupportESet;
@@ -376,6 +389,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionSupport() {
 		return transactionSupportESet;
 	}
@@ -384,6 +398,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * @generated This field/method will be replaced during code generation 
 	 * Specifies whether the resource adapter implementation supports re-authentication of existing Managed-Connection instance. Note that this information is for the resource adapter implementation and not for the underlying EIS instance.
 	 */
+	@Override
 	public boolean isReauthenticationSupport() {
 		return reauthenticationSupport;
 	}
@@ -391,6 +406,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setReauthenticationSupport(boolean newReauthenticationSupport) {
 		boolean oldReauthenticationSupport = reauthenticationSupport;
 		reauthenticationSupport = newReauthenticationSupport;
@@ -405,6 +421,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetReauthenticationSupport() {
 		boolean oldReauthenticationSupport = reauthenticationSupport;
 		boolean oldReauthenticationSupportESet = reauthenticationSupportESet;
@@ -419,6 +436,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetReauthenticationSupport() {
 		return reauthenticationSupportESet;
 	}
@@ -428,6 +446,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResourceAdapterClass() {
 		return resourceAdapterClass;
 	}
@@ -437,6 +456,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceAdapterClass(String newResourceAdapterClass) {
 		String oldResourceAdapterClass = resourceAdapterClass;
 		resourceAdapterClass = newResourceAdapterClass;
@@ -447,6 +467,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getSecurityPermissions() {
 		if (securityPermissions == null) {
 			securityPermissions = new EObjectContainmentEList(SecurityPermission.class, this, JcaPackage.RESOURCE_ADAPTER__SECURITY_PERMISSIONS);
@@ -457,6 +478,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getAuthenticationMechanisms() {
 		if (authenticationMechanisms == null) {
 			authenticationMechanisms = new EObjectContainmentEList(AuthenticationMechanism.class, this, JcaPackage.RESOURCE_ADAPTER__AUTHENTICATION_MECHANISMS);
@@ -467,6 +489,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getConfigProperties() {
 		if (configProperties == null) {
 			configProperties = new EObjectContainmentEList(ConfigProperty.class, this, JcaPackage.RESOURCE_ADAPTER__CONFIG_PROPERTIES);
@@ -479,6 +502,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OutboundResourceAdapter getOutboundResourceAdapter() {
 		return outboundResourceAdapter;
 	}
@@ -503,6 +527,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOutboundResourceAdapter(OutboundResourceAdapter newOutboundResourceAdapter) {
 		if (newOutboundResourceAdapter != outboundResourceAdapter) {
 			NotificationChain msgs = null;
@@ -522,6 +547,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InboundResourceAdapter getInboundResourceAdapter() {
 		return inboundResourceAdapter;
 	}
@@ -546,6 +572,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInboundResourceAdapter(InboundResourceAdapter newInboundResourceAdapter) {
 		if (newInboundResourceAdapter != inboundResourceAdapter) {
 			NotificationChain msgs = null;
@@ -565,6 +592,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getAdminObjects() {
 		if (adminObjects == null) {
 			adminObjects = new EObjectContainmentEList(AdminObject.class, this, JcaPackage.RESOURCE_ADAPTER__ADMIN_OBJECTS);

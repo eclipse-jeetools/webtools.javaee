@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -86,7 +86,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public InitParam createInitParam() {
+  @Override
+public InitParam createInitParam() {
 		InitParamImpl initParam = new InitParamImpl();
 		return initParam;
 	}
@@ -96,7 +97,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public SOAPHeader createSOAPHeader() {
+  @Override
+public SOAPHeader createSOAPHeader() {
 		SOAPHeaderImpl soapHeader = new SOAPHeaderImpl();
 		return soapHeader;
 	}
@@ -106,7 +108,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public SOAPRole createSOAPRole() {
+  @Override
+public SOAPRole createSOAPRole() {
 		SOAPRoleImpl soapRole = new SOAPRoleImpl();
 		return soapRole;
 	}
@@ -116,7 +119,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public PortName createPortName() {
+  @Override
+public PortName createPortName() {
 		PortNameImpl portName = new PortNameImpl();
 		return portName;
 	}
@@ -126,7 +130,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public DescriptionType createDescriptionType() {
+  @Override
+public DescriptionType createDescriptionType() {
 		DescriptionTypeImpl descriptionType = new DescriptionTypeImpl();
 		return descriptionType;
 	}
@@ -136,7 +141,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public DisplayNameType createDisplayNameType() {
+  @Override
+public DisplayNameType createDisplayNameType() {
 		DisplayNameTypeImpl displayNameType = new DisplayNameTypeImpl();
 		return displayNameType;
 	}
@@ -146,7 +152,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WscommonPackage getWscommonPackage() {
+  @Override
+public WscommonPackage getWscommonPackage() {
 		return (WscommonPackage)getEPackage();
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -96,6 +96,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public ModuleFile addCopy(ModuleFile aModuleFile) throws DuplicateObjectException {
 		Object result = primAddCopyRef(aModuleFile);
 		if (result instanceof ModuleRef)
@@ -162,6 +163,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public ModuleRef addCopyRef(ModuleFile aModuleFile) throws DuplicateObjectException {
 		Object result = primAddCopyRef(aModuleFile);
 		if (result instanceof ModuleRef)
@@ -175,6 +177,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public SecurityRole addCopy(SecurityRole aRole, Module aModule) throws DuplicateObjectException {
 		EObject dd = null;
 		try {
@@ -202,6 +205,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public SecurityRole addCopyIfNotExists(SecurityRole aRole) {
 		Application dd = getDeploymentDescriptor();
 		SecurityRole copy = null;
@@ -241,6 +245,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * 
 	 * @return Only return null if an altDD is not defined.
 	 */
+	@Override
 	public EObject getAltDeploymentDescriptor(Module aModule) throws FileNotFoundException, ResourceLoadException, EmptyResourceException {
 		// Look for altDD
 		String altDD = aModule.getAltDD();
@@ -260,6 +265,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public java.util.List getApplicationClientFiles() {
 		List clientFiles = new ArrayList();
 		List fileList = getFiles();
@@ -291,6 +297,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 *             is a runtime exception, because we can't override the signature of the generated
 	 *             methods
 	 */
+	@Override
 	public Application getDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		Application dd = this.getDeploymentDescriptorGen();
 		if (dd == null && canLazyInitialize()) {
@@ -307,6 +314,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * Retrieves the deployment descriptor root element for the specified module. Takes into account
 	 * altDD indirection.
 	 */
+	@Override
 	public Connector getDeploymentDescriptor(ConnectorModule aModule) throws FileNotFoundException, ResourceLoadException, EmptyResourceException {
 		return (Connector) getDeploymentDescriptor((Module) aModule);
 	}
@@ -315,6 +323,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * Retrieves the deployment descriptor root element for the specified module. Takes into account
 	 * altDD indirection.
 	 */
+	@Override
 	public EJBJar getDeploymentDescriptor(EjbModule aModule) throws FileNotFoundException, ResourceLoadException, EmptyResourceException {
 		return (EJBJar) getDeploymentDescriptor((Module) aModule);
 	}
@@ -323,6 +332,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * Retrieves the deployment descriptor root element for the specified module. Takes into account
 	 * altDD indirection.
 	 */
+	@Override
 	public ApplicationClient getDeploymentDescriptor(JavaClientModule aModule) throws FileNotFoundException, ResourceLoadException, EmptyResourceException {
 		return (ApplicationClient) getDeploymentDescriptor((Module) aModule);
 	}
@@ -331,6 +341,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * Retrieves the deployment descriptor root element for the specified module. Takes into account
 	 * altDD indirection.
 	 */
+	@Override
 	public EObject getDeploymentDescriptor(Module aModule) throws FileNotFoundException, ResourceLoadException, EmptyResourceException {
 		EObject dd = getAltDeploymentDescriptor(aModule);
 		if (dd == null)
@@ -342,6 +353,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * Retrieves the deployment descriptor root element for the specified module. Takes into account
 	 * altDD indirection.
 	 */
+	@Override
 	public WebApp getDeploymentDescriptor(WebModule aModule) throws FileNotFoundException, ResourceLoadException, EmptyResourceException {
 		return (WebApp) getDeploymentDescriptor((Module) aModule);
 	}
@@ -357,6 +369,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public java.util.List getEJBJarFiles() {
 		List ejbJarFiles = new ArrayList();
 		List fileList = getFiles();
@@ -382,6 +395,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 *            ref - An ejb reference
 	 * @return EnterpriseBean
 	 */
+	@Override
 	public EnterpriseBean getEnterpiseBeanFromRef(EjbRef ref) {
 		String link = ref.getLink();
 		if (link == null) {
@@ -411,6 +425,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 *            moduleUri - The module uri
 	 * @return EnterpriseBean
 	 */
+	@Override
 	public EnterpriseBean getEnterpiseBeanFromRef(EjbRef ref, String moduleUri) {
 		String link = ref.getLink();
 		if (link == null) {
@@ -477,6 +492,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public Module getModule(String aUri, String altDD) {
 		return getDeploymentDescriptor().getModule(aUri, altDD);
 	}
@@ -484,6 +500,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public ModuleRef getModuleRef(Module moduleDescriptor) {
 		List refs = getModuleRefs();
 		for (int i = 0; i < refs.size(); i++) {
@@ -497,6 +514,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * Return a filtered list of the archives
 	 */
+	@Override
 	public List getModuleFiles() {
 		List moduleFiles = new ArrayList();
 		List fileList = getFiles();
@@ -527,6 +545,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public java.util.List getRARFiles() {
 		List rarFiles = new ArrayList();
 		List fileList = getFiles();
@@ -542,6 +561,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public EList getRolesFromAllModules() {
 		EList roleList = new org.eclipse.emf.common.util.BasicEList();
 		List modules = getDeploymentDescriptor().getModules();
@@ -558,6 +578,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public EList getRolesFromModule(Module aModule) {
 		EList roleList = new org.eclipse.emf.common.util.BasicEList();
 		try {
@@ -574,6 +595,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * Return the DeployementDescriptor.
 	 */
+	@Override
 	public EObject getStandardDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		return getDeploymentDescriptor();
 	}
@@ -581,6 +603,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public java.util.List getWARFiles() {
 		List warFiles = new ArrayList();
 		List fileList = getFiles();
@@ -705,6 +728,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see EARFile
 	 */
+	@Override
 	public void pushDownRole(SecurityRole role) {
 		if (role == null)
 			throw new IllegalArgumentException(CommonArchiveResourceHandler.Parameter_should_not_be_nu_EXC_); // = "Parameter should not be null"
@@ -719,6 +743,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see EARFile
 	 */
+	@Override
 	public void pushDownRole(SecurityRole role, Module aModule) {
 		try {
 			if (aModule.isWebModule()) {
@@ -759,6 +784,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public void remove(ModuleRef aModuleRef) {
 		if (aModuleRef == null)
 			return;
@@ -775,6 +801,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see EARFile
 	 */
+	@Override
 	public List getModuleRefs(ModuleFile aModuleFile) {
 		List refs = getModuleRefs();
 		List result = new ArrayList(1);
@@ -804,6 +831,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public void renameSecurityRole(String existingRoleName, String newRoleName) throws ObjectNotFoundException, DuplicateObjectException {
 		Application app = getDeploymentDescriptor();
 		SecurityRole aRole = app.getSecurityRoleNamed(existingRoleName);
@@ -820,6 +848,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public void rollUpRoles() {
 		List modules = getDeploymentDescriptor().getModules();
 		for (int i = 0; i < modules.size(); i++) {
@@ -831,6 +860,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public void rollUpRoles(Module aModule) {
 		List securityRoles = null;
 		try {
@@ -849,6 +879,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		}
 	}
 
+	@Override
 	public void setDeploymentDescriptor(Application l) {
 		this.setDeploymentDescriptorGen(l);
 		replaceRoot(getMofResourceMakeIfNecessary(getDeploymentDescriptorUri()), l);
@@ -995,6 +1026,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		return moduleRefs;
 	}
 
+	@Override
 	public EList getModuleRefs() {
 		EList refs = getModuleRefsGen();
 
@@ -1033,6 +1065,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/*
 	 * @see EARFile#getClientModuleRefs()
 	 */
+	@Override
 	public List getClientModuleRefs() {
 		List result = new ArrayList();
 		List refs = getModuleRefs();
@@ -1047,6 +1080,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/*
 	 * @see EARFile#getConnectorModuleRefs()
 	 */
+	@Override
 	public List getConnectorModuleRefs() {
 		List result = new ArrayList();
 		List refs = getModuleRefs();
@@ -1061,6 +1095,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/*
 	 * @see EARFile#getEJBModuleRefs()
 	 */
+	@Override
 	public List getEJBModuleRefs() {
 		List result = new ArrayList();
 		List refs = getModuleRefs();
@@ -1075,6 +1110,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/*
 	 * @see EARFile#getWebModuleRefs()
 	 */
+	@Override
 	public List getWebModuleRefs() {
 		List result = new ArrayList();
 		List refs = getModuleRefs();
@@ -1089,6 +1125,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/*
 	 * @see EARFile#getFARFiles()
 	 */
+	@Override
 	public List getFARFiles() {
 		List farFiles = new ArrayList();
 		List fileList = getFiles();
@@ -1107,10 +1144,12 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * 
 	 * @see com.ibm.etools.commonarchive.EARFile#getArchivesOfType(java.lang.String)
 	 */
+	@Override
 	public List getArchivesOfType(String type) {
 		return Collections.EMPTY_LIST;
 	}
 
+	@Override
 	public Map getEJBReferences(boolean filterLinkedReferences, boolean filterNonLinkedReferences) throws ArchiveWrappedException {
 		if (!filterLinkedReferences || !filterNonLinkedReferences) {
 			Application app = getDeploymentDescriptor();

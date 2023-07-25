@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -173,6 +173,7 @@ public abstract class AbstractMethodsContentProvider extends AdapterFactoryConte
 			 * 
 			 * @see java.lang.Runnable#run()
 			 */
+			@Override
 			public void run() {
 				// findMethodItem() should be run in a Display thread
 				EJBMethodItem item = findMethodItem(me);
@@ -195,6 +196,7 @@ public abstract class AbstractMethodsContentProvider extends AdapterFactoryConte
 			 * 
 			 * @see java.lang.Runnable#run()
 			 */
+			@Override
 			public void run() {
 				EnterpriseBean ejb = me.getEnterpriseBean();
 				EJBMethodItem item = findMethodItem(ejb, parent);
@@ -273,6 +275,7 @@ public abstract class AbstractMethodsContentProvider extends AdapterFactoryConte
 			 * 
 			 * @see java.lang.Runnable#run()
 			 */
+			@Override
 			public void run() {
 
 				getTreeViewer().setInput(target); //reset the input
@@ -290,6 +293,7 @@ public abstract class AbstractMethodsContentProvider extends AdapterFactoryConte
 			 * 
 			 * @see java.lang.Runnable#run()
 			 */
+			@Override
 			public void run() {
 				getTreeViewer().add(parent, me);
 			}
@@ -304,6 +308,7 @@ public abstract class AbstractMethodsContentProvider extends AdapterFactoryConte
 			 * 
 			 * @see java.lang.Runnable#run()
 			 */
+			@Override
 			public void run() {
 				if (target != null)
 					getTreeViewer().refresh(target);

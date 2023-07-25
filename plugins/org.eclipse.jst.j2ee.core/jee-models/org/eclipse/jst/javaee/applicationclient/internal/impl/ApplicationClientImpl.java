@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -419,6 +419,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getModuleName() {
 		return moduleName;
 	}
@@ -428,6 +429,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModuleName(String newModuleName) {
 		String oldModuleName = moduleName;
 		moduleName = newModuleName;
@@ -440,6 +442,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, ApplicationclientPackage.APPLICATION_CLIENT__DESCRIPTIONS);
@@ -452,6 +455,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, ApplicationclientPackage.APPLICATION_CLIENT__DISPLAY_NAMES);
@@ -464,6 +468,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, ApplicationclientPackage.APPLICATION_CLIENT__ICONS);
@@ -476,6 +481,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
 			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, ApplicationclientPackage.APPLICATION_CLIENT__ENV_ENTRIES);
@@ -488,6 +494,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
 			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__EJB_REFS);
@@ -500,6 +507,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__SERVICE_REFS);
@@ -512,6 +520,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
 			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_REFS);
@@ -524,6 +533,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
 			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS);
@@ -536,6 +546,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
 			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS);
@@ -548,6 +559,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
 			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__PERSISTENCE_UNIT_REFS);
@@ -560,6 +572,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
 			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, ApplicationclientPackage.APPLICATION_CLIENT__POST_CONSTRUCTS);
@@ -572,6 +585,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
 			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, ApplicationclientPackage.APPLICATION_CLIENT__PRE_DESTROYS);
@@ -584,6 +598,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCallbackHandler() {
 		return callbackHandler;
 	}
@@ -593,6 +608,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCallbackHandler(String newCallbackHandler) {
 		String oldCallbackHandler = callbackHandler;
 		callbackHandler = newCallbackHandler;
@@ -605,6 +621,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestination> getMessageDestinations() {
 		if (messageDestinations == null) {
 			messageDestinations = new EObjectContainmentEList<MessageDestination>(MessageDestination.class, this, ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS);
@@ -617,6 +634,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DataSourceType> getDataSource() {
 		if (dataSource == null) {
 			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE);
@@ -629,6 +647,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
 		if (jmsConnectionFactory == null) {
 			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__JMS_CONNECTION_FACTORY);
@@ -641,6 +660,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsDestinationType> getJmsDestination() {
 		if (jmsDestination == null) {
 			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__JMS_DESTINATION);
@@ -653,6 +673,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MailSessionType> getMailSession() {
 		if (mailSession == null) {
 			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__MAIL_SESSION);
@@ -665,6 +686,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConnectionFactoryResourceType> getConnectionFactory() {
 		if (connectionFactory == null) {
 			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__CONNECTION_FACTORY);
@@ -677,6 +699,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AdministeredObjectType> getAdministeredObject() {
 		if (administeredObject == null) {
 			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__ADMINISTERED_OBJECT);
@@ -689,6 +712,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -698,6 +722,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -710,6 +735,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isMetadataComplete() {
 		return metadataComplete;
 	}
@@ -719,6 +745,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMetadataComplete(boolean newMetadataComplete) {
 		boolean oldMetadataComplete = metadataComplete;
 		metadataComplete = newMetadataComplete;
@@ -733,6 +760,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMetadataComplete() {
 		boolean oldMetadataComplete = metadataComplete;
 		boolean oldMetadataCompleteESet = metadataCompleteESet;
@@ -747,6 +775,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMetadataComplete() {
 		return metadataCompleteESet;
 	}
@@ -756,6 +785,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -765,6 +795,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -779,6 +810,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetVersion() {
 		String oldVersion = version;
 		boolean oldVersionESet = versionESet;
@@ -793,6 +825,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetVersion() {
 		return versionESet;
 	}

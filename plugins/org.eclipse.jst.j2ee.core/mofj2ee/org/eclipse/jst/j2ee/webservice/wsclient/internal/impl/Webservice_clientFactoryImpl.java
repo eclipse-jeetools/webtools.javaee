@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -83,6 +83,7 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ServiceRef createServiceRef() {
 		ServiceRefImpl serviceRef = new ServiceRefImpl();
 		return serviceRef;
@@ -93,6 +94,7 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PortComponentRef createPortComponentRef() {
 		PortComponentRefImpl portComponentRef = new PortComponentRefImpl();
 		return portComponentRef;
@@ -103,6 +105,7 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Handler createHandler() {
 		HandlerImpl handler = new HandlerImpl();
 		return handler;
@@ -113,7 +116,8 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public WebServicesClient createWebServicesClient() {
+    @Override
+	public WebServicesClient createWebServicesClient() {
 		WebServicesClientImpl webServicesClient = new WebServicesClientImpl();
 		return webServicesClient;
 	}
@@ -123,7 +127,8 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public ComponentScopedRefs createComponentScopedRefs() {
+    @Override
+	public ComponentScopedRefs createComponentScopedRefs() {
 		ComponentScopedRefsImpl componentScopedRefs = new ComponentScopedRefsImpl();
 		return componentScopedRefs;
 	}
@@ -133,6 +138,7 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Webservice_clientPackage getWebservice_clientPackage() {
 		return (Webservice_clientPackage)getEPackage();
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,7 +50,8 @@ public abstract class ContainerManagedEntityFilter implements EJBExtensionFilter
      * All CMPAttributeFilters only operate on ContainerManagedEntityExtension
      * objects.
      */
-    public List filter(EnterpriseBean ejb) {
+    @Override
+	public List filter(EnterpriseBean ejb) {
         if (ejb.isEntity() && ((Entity) ejb).isContainerManagedEntity()) return filter((ContainerManagedEntity) ejb);
         return new ArrayList();
     }

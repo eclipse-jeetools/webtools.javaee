@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -101,6 +101,7 @@ public class ServiceRefHandlerChainsImpl extends EObjectImpl implements ServiceR
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRefHandlerChain> getHandlerChains() {
 		if (handlerChains == null) {
 			handlerChains = new EObjectContainmentEList<ServiceRefHandlerChain>(ServiceRefHandlerChain.class, this, JavaeePackage.SERVICE_REF_HANDLER_CHAINS__HANDLER_CHAINS);
@@ -113,6 +114,7 @@ public class ServiceRefHandlerChainsImpl extends EObjectImpl implements ServiceR
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -122,6 +124,7 @@ public class ServiceRefHandlerChainsImpl extends EObjectImpl implements ServiceR
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

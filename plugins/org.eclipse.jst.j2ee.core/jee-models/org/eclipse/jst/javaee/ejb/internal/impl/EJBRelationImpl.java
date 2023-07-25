@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -135,6 +135,7 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.EJB_RELATION__DESCRIPTIONS);
@@ -147,6 +148,7 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbRelationName() {
 		return ejbRelationName;
 	}
@@ -156,6 +158,7 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbRelationName(String newEjbRelationName) {
 		String oldEjbRelationName = ejbRelationName;
 		ejbRelationName = newEjbRelationName;
@@ -168,6 +171,7 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EJBRelationshipRole> getEjbRelationshipRoles() {
 		if (ejbRelationshipRoles == null) {
 			ejbRelationshipRoles = new EObjectContainmentEList<EJBRelationshipRole>(EJBRelationshipRole.class, this, EjbPackage.EJB_RELATION__EJB_RELATIONSHIP_ROLES);
@@ -180,6 +184,7 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -189,6 +194,7 @@ public class EJBRelationImpl extends EObjectImpl implements EJBRelation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

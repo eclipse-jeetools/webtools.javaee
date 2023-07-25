@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 IBM Corporation and others.
+ * Copyright (c) 2013, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -302,6 +302,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Description getDescription() {
 		return description;
 	}
@@ -326,6 +327,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(Description newDescription) {
 		if (newDescription != description) {
 			NotificationChain msgs = null;
@@ -345,6 +347,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -354,6 +357,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -366,6 +370,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getStoreProtocol() {
 		return storeProtocol;
 	}
@@ -375,6 +380,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStoreProtocol(String newStoreProtocol) {
 		String oldStoreProtocol = storeProtocol;
 		storeProtocol = newStoreProtocol;
@@ -387,6 +393,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getStoreProtocolClass() {
 		return storeProtocolClass;
 	}
@@ -396,6 +403,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStoreProtocolClass(String newStoreProtocolClass) {
 		String oldStoreProtocolClass = storeProtocolClass;
 		storeProtocolClass = newStoreProtocolClass;
@@ -408,6 +416,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTransportProtocol() {
 		return transportProtocol;
 	}
@@ -417,6 +426,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransportProtocol(String newTransportProtocol) {
 		String oldTransportProtocol = transportProtocol;
 		transportProtocol = newTransportProtocol;
@@ -429,6 +439,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTransportProtocolClass() {
 		return transportProtocolClass;
 	}
@@ -438,6 +449,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransportProtocolClass(String newTransportProtocolClass) {
 		String oldTransportProtocolClass = transportProtocolClass;
 		transportProtocolClass = newTransportProtocolClass;
@@ -450,6 +462,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getHost() {
 		return host;
 	}
@@ -459,6 +472,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHost(String newHost) {
 		String oldHost = host;
 		host = newHost;
@@ -471,6 +485,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getUser() {
 		return user;
 	}
@@ -480,6 +495,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUser(String newUser) {
 		String oldUser = user;
 		user = newUser;
@@ -492,6 +508,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -501,6 +518,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPassword(String newPassword) {
 		String oldPassword = password;
 		password = newPassword;
@@ -513,6 +531,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFrom() {
 		return from;
 	}
@@ -522,6 +541,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFrom(String newFrom) {
 		String oldFrom = from;
 		from = newFrom;
@@ -534,6 +554,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PropertyType> getProperty() {
 		if (property == null) {
 			property = new EObjectContainmentEList<PropertyType>(PropertyType.class, this, JavaeePackage.MAIL_SESSION_TYPE__PROPERTY);
@@ -546,6 +567,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -555,6 +577,7 @@ public class MailSessionTypeImpl extends EObjectImpl implements MailSessionType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

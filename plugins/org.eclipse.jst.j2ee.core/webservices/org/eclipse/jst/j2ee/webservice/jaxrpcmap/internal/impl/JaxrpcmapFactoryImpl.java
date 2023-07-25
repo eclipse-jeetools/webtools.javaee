@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -117,7 +117,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public JavaWSDLMapping createJavaWSDLMapping() {
+  @Override
+public JavaWSDLMapping createJavaWSDLMapping() {
 		JavaWSDLMappingImpl javaWSDLMapping = new JavaWSDLMappingImpl();
 		return javaWSDLMapping;
 	}
@@ -127,7 +128,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public PackageMapping createPackageMapping() {
+  @Override
+public PackageMapping createPackageMapping() {
 		PackageMappingImpl packageMapping = new PackageMappingImpl();
 		return packageMapping;
 	}
@@ -137,7 +139,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public JavaXMLTypeMapping createJavaXMLTypeMapping() {
+  @Override
+public JavaXMLTypeMapping createJavaXMLTypeMapping() {
 		JavaXMLTypeMappingImpl javaXMLTypeMapping = new JavaXMLTypeMappingImpl();
 		return javaXMLTypeMapping;
 	}
@@ -147,7 +150,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ExceptionMapping createExceptionMapping() {
+  @Override
+public ExceptionMapping createExceptionMapping() {
 		ExceptionMappingImpl exceptionMapping = new ExceptionMappingImpl();
 		return exceptionMapping;
 	}
@@ -157,7 +161,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ServiceInterfaceMapping createServiceInterfaceMapping() {
+  @Override
+public ServiceInterfaceMapping createServiceInterfaceMapping() {
 		ServiceInterfaceMappingImpl serviceInterfaceMapping = new ServiceInterfaceMappingImpl();
 		return serviceInterfaceMapping;
 	}
@@ -167,7 +172,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ServiceEndpointInterfaceMapping createServiceEndpointInterfaceMapping() {
+  @Override
+public ServiceEndpointInterfaceMapping createServiceEndpointInterfaceMapping() {
 		ServiceEndpointInterfaceMappingImpl serviceEndpointInterfaceMapping = new ServiceEndpointInterfaceMappingImpl();
 		return serviceEndpointInterfaceMapping;
 	}
@@ -177,7 +183,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public RootTypeQname createRootTypeQname() {
+  @Override
+public RootTypeQname createRootTypeQname() {
 		RootTypeQnameImpl rootTypeQname = new RootTypeQnameImpl();
 		return rootTypeQname;
 	}
@@ -187,7 +194,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public VariableMapping createVariableMapping() {
+  @Override
+public VariableMapping createVariableMapping() {
 		VariableMappingImpl variableMapping = new VariableMappingImpl();
 		return variableMapping;
 	}
@@ -197,7 +205,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLMessage createWSDLMessage() {
+  @Override
+public WSDLMessage createWSDLMessage() {
 		WSDLMessageImpl wsdlMessage = new WSDLMessageImpl();
 		return wsdlMessage;
 	}
@@ -207,7 +216,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ConstructorParameterOrder createConstructorParameterOrder() {
+  @Override
+public ConstructorParameterOrder createConstructorParameterOrder() {
 		ConstructorParameterOrderImpl constructorParameterOrder = new ConstructorParameterOrderImpl();
 		return constructorParameterOrder;
 	}
@@ -217,7 +227,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ElementName createElementName() {
+  @Override
+public ElementName createElementName() {
 		ElementNameImpl elementName = new ElementNameImpl();
 		return elementName;
 	}
@@ -227,7 +238,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLServiceName createWSDLServiceName() {
+  @Override
+public WSDLServiceName createWSDLServiceName() {
 		WSDLServiceNameImpl wsdlServiceName = new WSDLServiceNameImpl();
 		return wsdlServiceName;
 	}
@@ -237,7 +249,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public PortMapping createPortMapping() {
+  @Override
+public PortMapping createPortMapping() {
 		PortMappingImpl portMapping = new PortMappingImpl();
 		return portMapping;
 	}
@@ -247,7 +260,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLPortType createWSDLPortType() {
+  @Override
+public WSDLPortType createWSDLPortType() {
 		WSDLPortTypeImpl wsdlPortType = new WSDLPortTypeImpl();
 		return wsdlPortType;
 	}
@@ -257,7 +271,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLBinding createWSDLBinding() {
+  @Override
+public WSDLBinding createWSDLBinding() {
 		WSDLBindingImpl wsdlBinding = new WSDLBindingImpl();
 		return wsdlBinding;
 	}
@@ -267,7 +282,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ServiceEndpointMethodMapping createServiceEndpointMethodMapping() {
+  @Override
+public ServiceEndpointMethodMapping createServiceEndpointMethodMapping() {
 		ServiceEndpointMethodMappingImpl serviceEndpointMethodMapping = new ServiceEndpointMethodMappingImpl();
 		return serviceEndpointMethodMapping;
 	}
@@ -277,7 +293,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLOperation createWSDLOperation() {
+  @Override
+public WSDLOperation createWSDLOperation() {
 		WSDLOperationImpl wsdlOperation = new WSDLOperationImpl();
 		return wsdlOperation;
 	}
@@ -287,7 +304,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public MethodParamPartsMapping createMethodParamPartsMapping() {
+  @Override
+public MethodParamPartsMapping createMethodParamPartsMapping() {
 		MethodParamPartsMappingImpl methodParamPartsMapping = new MethodParamPartsMappingImpl();
 		return methodParamPartsMapping;
 	}
@@ -297,7 +315,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLReturnValueMapping createWSDLReturnValueMapping() {
+  @Override
+public WSDLReturnValueMapping createWSDLReturnValueMapping() {
 		WSDLReturnValueMappingImpl wsdlReturnValueMapping = new WSDLReturnValueMappingImpl();
 		return wsdlReturnValueMapping;
 	}
@@ -307,7 +326,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLMessageMapping createWSDLMessageMapping() {
+  @Override
+public WSDLMessageMapping createWSDLMessageMapping() {
 		WSDLMessageMappingImpl wsdlMessageMapping = new WSDLMessageMappingImpl();
 		return wsdlMessageMapping;
 	}
@@ -317,7 +337,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLMessagePartName createWSDLMessagePartName() {
+  @Override
+public WSDLMessagePartName createWSDLMessagePartName() {
 		WSDLMessagePartNameImpl wsdlMessagePartName = new WSDLMessagePartNameImpl();
 		return wsdlMessagePartName;
 	}
@@ -327,7 +348,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public InterfaceMapping createInterfaceMapping() {
+  @Override
+public InterfaceMapping createInterfaceMapping() {
 		InterfaceMappingImpl interfaceMapping = new InterfaceMappingImpl();
 		return interfaceMapping;
 	}
@@ -337,7 +359,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public JaxrpcmapPackage getJaxrpcmapPackage() {
+  @Override
+public JaxrpcmapPackage getJaxrpcmapPackage() {
 		return (JaxrpcmapPackage)getEPackage();
 	}
 

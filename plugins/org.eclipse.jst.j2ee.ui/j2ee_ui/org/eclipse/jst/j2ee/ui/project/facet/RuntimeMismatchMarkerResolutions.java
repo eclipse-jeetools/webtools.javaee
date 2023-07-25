@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005-2007 BEA Systems, Inc.
+ * Copyright (c) 2005-2019 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -43,7 +43,8 @@ public final class RuntimeMismatchMarkerResolutions
     private static final String ATTR_RUNTIME2 = "runtime2"; //$NON-NLS-1$
     private static final String ATTR_MODULE_PROJECT = "moduleProject"; //$NON-NLS-1$
     
-    public IMarkerResolution[] getResolutions( final IMarker marker )
+    @Override
+	public IMarkerResolution[] getResolutions( final IMarker marker )
     {
         final List resolutions = new ArrayList( 2 );
         
@@ -126,12 +127,14 @@ public final class RuntimeMismatchMarkerResolutions
             this.runtime = runtime;
         }
         
-        public String getLabel()
+        @Override
+		public String getLabel()
         {
             return NLS.bind( Resources.useSameRuntime, this.runtime.getLocalizedName() );
         }
 
-        public void run( final IMarker marker )
+        @Override
+		public void run( final IMarker marker )
         {
             try
             {

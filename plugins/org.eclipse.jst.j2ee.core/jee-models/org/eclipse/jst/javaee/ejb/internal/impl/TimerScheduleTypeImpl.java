@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -226,6 +226,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSecond() {
 		return second;
 	}
@@ -235,6 +236,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecond(String newSecond) {
 		String oldSecond = second;
 		second = newSecond;
@@ -247,6 +249,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMinute() {
 		return minute;
 	}
@@ -256,6 +259,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMinute(String newMinute) {
 		String oldMinute = minute;
 		minute = newMinute;
@@ -268,6 +272,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getHour() {
 		return hour;
 	}
@@ -277,6 +282,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHour(String newHour) {
 		String oldHour = hour;
 		hour = newHour;
@@ -289,6 +295,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDayOfMonth() {
 		return dayOfMonth;
 	}
@@ -298,6 +305,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDayOfMonth(String newDayOfMonth) {
 		String oldDayOfMonth = dayOfMonth;
 		dayOfMonth = newDayOfMonth;
@@ -310,6 +318,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMonth() {
 		return month;
 	}
@@ -319,6 +328,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMonth(String newMonth) {
 		String oldMonth = month;
 		month = newMonth;
@@ -331,6 +341,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDayOfWeek() {
 		return dayOfWeek;
 	}
@@ -340,6 +351,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDayOfWeek(String newDayOfWeek) {
 		String oldDayOfWeek = dayOfWeek;
 		dayOfWeek = newDayOfWeek;
@@ -352,6 +364,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getYear() {
 		return year;
 	}
@@ -361,6 +374,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setYear(String newYear) {
 		String oldYear = year;
 		year = newYear;
@@ -373,6 +387,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -382,6 +397,7 @@ public class TimerScheduleTypeImpl extends EObjectImpl implements TimerScheduleT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

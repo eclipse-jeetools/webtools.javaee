@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ public interface ApplicationResource extends XMLResource {
 	   * @since 1.0
 	   * @return The deployment descriptor of the EAR, application deployment descriptor
 	   */
+	@Override
 	public Application getApplication() ;
 }
 

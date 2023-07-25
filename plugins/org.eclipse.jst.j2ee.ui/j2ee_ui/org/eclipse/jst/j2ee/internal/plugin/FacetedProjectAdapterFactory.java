@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2006 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,8 @@ public class FacetedProjectAdapterFactory implements IAdapterFactory {
 
     private static final Class[] ADAPTER_TYPES = { IActionFilter.class };
     
-    public Object getAdapter( final Object adaptable, 
+    @Override
+	public Object getAdapter( final Object adaptable, 
                               final Class adapterType )
     {
         if( adapterType == IActionFilter.class )
@@ -28,7 +29,8 @@ public class FacetedProjectAdapterFactory implements IAdapterFactory {
         return null;
     }
 
-    public Class[] getAdapterList()
+    @Override
+	public Class[] getAdapterList()
     {
         return ADAPTER_TYPES;
     }

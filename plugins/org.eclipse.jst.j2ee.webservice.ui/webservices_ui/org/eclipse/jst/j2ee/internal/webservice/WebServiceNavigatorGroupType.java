@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -127,6 +127,7 @@ public class WebServiceNavigatorGroupType implements IActionFilter {
 	 * @see org.eclipse.ui.IActionFilter#testAttribute(java.lang.Object, java.lang.String,
 	 *      java.lang.String)
 	 */
+	@Override
 	public boolean testAttribute(Object target, String name, String value) {
 		if (target != null && target instanceof WebServiceNavigatorGroupType && value != null) {
 			WebServiceNavigatorGroupType group = (WebServiceNavigatorGroupType) target;

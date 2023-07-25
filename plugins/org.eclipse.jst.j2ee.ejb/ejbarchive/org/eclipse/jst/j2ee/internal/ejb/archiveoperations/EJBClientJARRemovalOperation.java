@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -138,6 +138,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 	 */
 	protected void addAdditionalFilesForValidateEdit(final List roFiles) throws CoreException {
 		IResourceVisitor visitor = new IResourceVisitor() {
+			@Override
 			public boolean visit(IResource resource) throws CoreException {
 				if (resource.isDerived())
 					return false;
@@ -225,7 +226,8 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 	private void updateDD() {
 		IModelProvider ejbModel = ModelProviderManager.getModelProvider(ejbProject);
         ejbModel.modify(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 IModelProvider writableEjbModel = ModelProviderManager.getModelProvider(ejbProject);
                 Object modelObject = writableEjbModel.getModelObject();
                 
@@ -355,6 +357,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 		return new IResourceVisitor() {
 			private boolean projectIsSource = sourceContainers.contains(clientProject);
 
+			@Override
 			public boolean visit(IResource resource) throws CoreException {
 				if (moveResourceMonitor.isCanceled())
 					return false;
@@ -448,6 +451,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 
 	private IResourceVisitor getFolderResourceVisitor(final IPath sourceRoot, final IPath destinationRoot) {
 		return new IResourceVisitor() {
+			@Override
 			public boolean visit(IResource resource) throws CoreException {
 				if (moveResourceMonitor.isCanceled())
 					return false;

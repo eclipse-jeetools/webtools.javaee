@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2009, 2011 Red Hat, IBM
+ * Copyright (c) 2009, 2019 Red Hat, IBM
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -127,6 +127,7 @@ public class EarModuleDependenciesPropertyPage extends
 			libDirTextErrorDecoration = new ControlDecoration(libDirText, SWT.TOP | SWT.LEAD);
 			libDirTextErrorDecoration.hide();
 			libDirText.addModifyListener(new ModifyListener() {
+				@Override
 				public void modifyText(ModifyEvent e) {
 					libDirTextModified();
 				} });
@@ -287,6 +288,7 @@ public class EarModuleDependenciesPropertyPage extends
 		if (libDir.equals(earDefaultLirDir)) {
 			if(oldLibDir != null) {
 				earModel.modify(new Runnable() {
+					@Override
 					public void run() {		
 					Application app2 = (Application)earModel.getModelObject();
 					app2.setLibraryDirectory(null);
@@ -294,6 +296,7 @@ public class EarModuleDependenciesPropertyPage extends
 			}
 		} else if ((oldLibDir != null && !oldLibDir.equals(libDir)) || oldLibDir == null) {
 			earModel.modify(new Runnable() {
+				@Override
 				public void run() {		
 				Application app2 = (Application)earModel.getModelObject();
 				app2.setLibraryDirectory(libDir);
@@ -309,6 +312,7 @@ public class EarModuleDependenciesPropertyPage extends
 	
 	public ProjectConverterOperationProvider getConverterProvider() {
 		return new ProjectConverterOperationProvider() {
+			@Override
 			public IDataModelOperation getConversionOperation(IProject project) {
 				return J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(project);
 			}

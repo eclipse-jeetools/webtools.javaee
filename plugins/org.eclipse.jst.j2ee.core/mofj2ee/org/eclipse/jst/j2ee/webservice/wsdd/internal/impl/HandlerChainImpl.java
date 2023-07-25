@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2009 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -134,6 +134,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServiceNamePattern() {
 		return serviceNamePattern;
 	}
@@ -143,6 +144,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceNamePattern(String newServiceNamePattern) {
 		String oldServiceNamePattern = serviceNamePattern;
 		serviceNamePattern = newServiceNamePattern;
@@ -155,6 +157,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPortNamePattern() {
 		return portNamePattern;
 	}
@@ -164,6 +167,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPortNamePattern(String newPortNamePattern) {
 		String oldPortNamePattern = portNamePattern;
 		portNamePattern = newPortNamePattern;
@@ -176,6 +180,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getProtocolBindings() {
 		if (protocolBindings == null) {
 			protocolBindings = new EDataTypeUniqueEList(String.class, this, WsddPackage.HANDLER_CHAIN__PROTOCOL_BINDINGS);
@@ -188,6 +193,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getHandlers() {
 		if (handlers == null) {
 			handlers = new EObjectContainmentEList(Handler.class, this, WsddPackage.HANDLER_CHAIN__HANDLERS);

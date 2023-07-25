@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -78,6 +78,7 @@ public class EntityImpl extends EnterpriseBeanImpl implements Entity {
 		return EjbPackage.Literals.ENTITY;
 	}
 
+@Override
 public String getPrimaryKeyName() {
 	getPrimaryKey();
 	return primaryKey == null ? null : primaryKey.getQualifiedName();
@@ -117,6 +118,7 @@ public java.lang.Object primRefValue(EObject feature) {
 	}
 	return super.primRefValue(feature);
 }
+@Override
 public void setPrimaryKeyName(String primaryKeyName) {
 	eSet(EjbPackage.eINSTANCE.getEntity_PrimaryKey(), createClassRef(primaryKeyName));
 }
@@ -125,6 +127,7 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	 * The reentrant element specifies whether an entity bean is reentrant or not.
 
 	 */
+	@Override
 	public boolean isReentrant() {
 		return reentrant;
 	}
@@ -134,6 +137,7 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReentrant(boolean newReentrant) {
 		boolean oldReentrant = reentrant;
 		reentrant = newReentrant;
@@ -148,7 +152,8 @@ public void setPrimaryKeyName(String primaryKeyName) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void unsetReentrant() {
+  @Override
+public void unsetReentrant() {
 		boolean oldReentrant = reentrant;
 		boolean oldReentrantESet = reentrantESet;
 		reentrant = REENTRANT_EDEFAULT;
@@ -162,7 +167,8 @@ public void setPrimaryKeyName(String primaryKeyName) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSetReentrant() {
+  @Override
+public boolean isSetReentrant() {
 		return reentrantESet;
 	}
 
@@ -171,7 +177,8 @@ public void setPrimaryKeyName(String primaryKeyName) {
      */
  
  
-    public JavaClass getPrimaryKey()  { 
+    @Override
+	public JavaClass getPrimaryKey()  { 
        if (primaryKey != null && primaryKey.eIsProxy()) { 
           JavaClass oldPrimaryKey = primaryKey; 
           JavaClass resolved = (JavaClass)EcoreUtil.resolve(primaryKey, this); 
@@ -190,6 +197,7 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setPrimaryKey(JavaClass newPrimaryKey) {
 		JavaClass oldPrimaryKey = primaryKey;
 		primaryKey = newPrimaryKey;

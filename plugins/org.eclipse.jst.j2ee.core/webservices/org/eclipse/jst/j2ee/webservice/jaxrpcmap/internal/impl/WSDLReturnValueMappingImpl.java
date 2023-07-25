@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -132,7 +132,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -141,7 +142,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -153,7 +155,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getMethodReturnValue() {
+  @Override
+public String getMethodReturnValue() {
 		return methodReturnValue;
 	}
 
@@ -162,7 +165,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setMethodReturnValue(String newMethodReturnValue) {
+  @Override
+public void setMethodReturnValue(String newMethodReturnValue) {
 		String oldMethodReturnValue = methodReturnValue;
 		methodReturnValue = newMethodReturnValue;
 		if (eNotificationRequired())
@@ -174,7 +178,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getWsdlMessagePartName() {
+  @Override
+public String getWsdlMessagePartName() {
 		return wsdlMessagePartName;
 	}
 
@@ -183,7 +188,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWsdlMessagePartName(String newWsdlMessagePartName) {
+  @Override
+public void setWsdlMessagePartName(String newWsdlMessagePartName) {
 		String oldWsdlMessagePartName = wsdlMessagePartName;
 		wsdlMessagePartName = newWsdlMessagePartName;
 		if (eNotificationRequired())
@@ -195,7 +201,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLMessage getWsdlMessage() {
+  @Override
+public WSDLMessage getWsdlMessage() {
 		return wsdlMessage;
 	}
 
@@ -219,7 +226,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWsdlMessage(WSDLMessage newWsdlMessage) {
+  @Override
+public void setWsdlMessage(WSDLMessage newWsdlMessage) {
 		if (newWsdlMessage != wsdlMessage) {
 			NotificationChain msgs = null;
 			if (wsdlMessage != null)

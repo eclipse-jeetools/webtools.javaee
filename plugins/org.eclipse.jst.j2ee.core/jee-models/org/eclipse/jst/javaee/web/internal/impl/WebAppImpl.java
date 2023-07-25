@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -237,6 +237,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getGroup() {
 		if (group == null) {
 			group = new BasicFeatureMap(this, WebPackage.WEB_APP__GROUP);
@@ -249,6 +250,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__DESCRIPTIONS);
 	}
@@ -258,6 +260,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__DISPLAY_NAMES);
 	}
@@ -267,6 +270,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__ICONS);
 	}
@@ -276,6 +280,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EmptyType> getDistributables() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__DISTRIBUTABLES);
 	}
@@ -285,6 +290,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ParamValue> getContextParams() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__CONTEXT_PARAMS);
 	}
@@ -294,6 +300,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Filter> getFilters() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__FILTERS);
 	}
@@ -303,6 +310,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<FilterMapping> getFilterMappings() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__FILTER_MAPPINGS);
 	}
@@ -312,6 +320,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Listener> getListeners() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__LISTENERS);
 	}
@@ -321,6 +330,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Servlet> getServlets() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__SERVLETS);
 	}
@@ -330,6 +340,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServletMapping> getServletMappings() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__SERVLET_MAPPINGS);
 	}
@@ -339,6 +350,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SessionConfig> getSessionConfigs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__SESSION_CONFIGS);
 	}
@@ -348,6 +360,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MimeMapping> getMimeMappings() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__MIME_MAPPINGS);
 	}
@@ -357,6 +370,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<WelcomeFileList> getWelcomeFileLists() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__WELCOME_FILE_LISTS);
 	}
@@ -366,6 +380,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ErrorPage> getErrorPages() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__ERROR_PAGES);
 	}
@@ -375,6 +390,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JspConfig> getJspConfigs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__JSP_CONFIGS);
 	}
@@ -384,6 +400,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityConstraint> getSecurityConstraints() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__SECURITY_CONSTRAINTS);
 	}
@@ -393,6 +410,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LoginConfig> getLoginConfigs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__LOGIN_CONFIGS);
 	}
@@ -402,6 +420,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityRole> getSecurityRoles() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__SECURITY_ROLES);
 	}
@@ -411,6 +430,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EnvEntry> getEnvEntries() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__ENV_ENTRIES);
 	}
@@ -420,6 +440,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbRef> getEjbRefs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__EJB_REFS);
 	}
@@ -429,6 +450,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbLocalRef> getEjbLocalRefs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__EJB_LOCAL_REFS);
 	}
@@ -438,6 +460,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRef> getServiceRefs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__SERVICE_REFS);
 	}
@@ -447,6 +470,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceRef> getResourceRefs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__RESOURCE_REFS);
 	}
@@ -456,6 +480,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceEnvRef> getResourceEnvRefs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__RESOURCE_ENV_REFS);
 	}
@@ -465,6 +490,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATION_REFS);
 	}
@@ -474,6 +500,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__PERSISTENCE_CONTEXT_REFS);
 	}
@@ -483,6 +510,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__PERSISTENCE_UNIT_REFS);
 	}
@@ -492,6 +520,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPostConstructs() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__POST_CONSTRUCTS);
 	}
@@ -501,6 +530,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPreDestroys() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__PRE_DESTROYS);
 	}
@@ -510,6 +540,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DataSourceType> getDataSource() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__DATA_SOURCE);
 	}
@@ -519,6 +550,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__JMS_CONNECTION_FACTORY);
 	}
@@ -528,6 +560,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsDestinationType> getJmsDestination() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__JMS_DESTINATION);
 	}
@@ -537,6 +570,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MailSessionType> getMailSession() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__MAIL_SESSION);
 	}
@@ -546,6 +580,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConnectionFactoryResourceType> getConnectionFactory() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__CONNECTION_FACTORY);
 	}
@@ -555,6 +590,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AdministeredObjectType> getAdministeredObject() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__ADMINISTERED_OBJECT);
 	}
@@ -564,6 +600,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestination> getMessageDestinations() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATIONS);
 	}
@@ -573,6 +610,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LocaleEncodingMappingList> getLocalEncodingMappingsLists() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS);
 	}
@@ -582,6 +620,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EmptyType> getDenyUncoveredHttpMethods() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__DENY_UNCOVERED_HTTP_METHODS);
 	}
@@ -591,6 +630,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getModuleName() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__MODULE_NAME);
 	}
@@ -600,6 +640,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AbsoluteOrderingType> getAbsoluteOrdering() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__ABSOLUTE_ORDERING);
 	}
@@ -609,6 +650,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -618,6 +660,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -630,6 +673,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isMetadataComplete() {
 		return metadataComplete;
 	}
@@ -639,6 +683,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMetadataComplete(boolean newMetadataComplete) {
 		boolean oldMetadataComplete = metadataComplete;
 		metadataComplete = newMetadataComplete;
@@ -653,6 +698,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMetadataComplete() {
 		boolean oldMetadataComplete = metadataComplete;
 		boolean oldMetadataCompleteESet = metadataCompleteESet;
@@ -667,6 +713,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMetadataComplete() {
 		return metadataCompleteESet;
 	}
@@ -676,6 +723,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebAppVersionType getVersion() {
 		return version;
 	}
@@ -685,6 +733,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(WebAppVersionType newVersion) {
 		WebAppVersionType oldVersion = version;
 		version = newVersion == null ? VERSION_EDEFAULT : newVersion;
@@ -699,6 +748,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetVersion() {
 		WebAppVersionType oldVersion = version;
 		boolean oldVersionESet = versionESet;
@@ -713,6 +763,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetVersion() {
 		return versionESet;
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Red Hat and others.
+ * Copyright (c) 2009, 2023 Red Hat and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -148,55 +148,67 @@ public class AddClasspathLibReferencesParticipant extends AbstractFlattenPartici
 			this.ref = ref;
 		}
 	
+		@Override
 		public void create(int updateFlags, IProgressMonitor aMonitor) {
 			ref.create(updateFlags, aMonitor);			
 		}
 
+		@Override
 		public boolean exists() {
 			return ref.exists();
 		}
 
+		@Override
 		public String getArchiveName() {
 			return ref.getArchiveName();
 		}
 
+		@Override
 		public int getDependencyType() {
 			return ref.getDependencyType();
 		}
 
+		@Override
 		public IVirtualComponent getEnclosingComponent() {
 			return ref.getEnclosingComponent();
 		}
 
+		@Override
 		public IVirtualComponent getReferencedComponent() {
 			return ref.getReferencedComponent();
 		}
 
+		@Override
 		public IPath getRuntimePath() {
 			// remove the ../ portion of the path
 			return ref.getRuntimePath().removeFirstSegments(1);
 		}
 
+		@Override
 		public boolean isDerived() {
 			return ref.isDerived();
 		}
 
+		@Override
 		public void setArchiveName(String archiveName) {
 			ref.setArchiveName(archiveName);
 			
 		}
 
+		@Override
 		public void setDependencyType(int aDependencyType) {
 			ref.setDependencyType(aDependencyType);
 			
 		}
 
+		@Override
 		public void setReferencedComponent(
 				IVirtualComponent referencedComponent, EObject dependentObject) {
 			ref.setReferencedComponent(referencedComponent, dependentObject);
 			
 		}
 
+		@Override
 		public void setRuntimePath(IPath aRuntimePath) {
 			ref.setRuntimePath(aRuntimePath);
 		}

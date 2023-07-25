@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -342,6 +342,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.SERVICE_REF__DESCRIPTIONS);
@@ -354,6 +355,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JavaeePackage.SERVICE_REF__DISPLAY_NAMES);
@@ -366,6 +368,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JavaeePackage.SERVICE_REF__ICONS);
@@ -378,6 +381,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServiceRefName() {
 		return serviceRefName;
 	}
@@ -387,6 +391,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceRefName(String newServiceRefName) {
 		String oldServiceRefName = serviceRefName;
 		serviceRefName = newServiceRefName;
@@ -399,6 +404,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServiceInterface() {
 		return serviceInterface;
 	}
@@ -408,6 +414,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceInterface(String newServiceInterface) {
 		String oldServiceInterface = serviceInterface;
 		serviceInterface = newServiceInterface;
@@ -420,6 +427,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServiceRefType() {
 		return serviceRefType;
 	}
@@ -429,6 +437,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceRefType(String newServiceRefType) {
 		String oldServiceRefType = serviceRefType;
 		serviceRefType = newServiceRefType;
@@ -441,6 +450,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getWsdlFile() {
 		return wsdlFile;
 	}
@@ -450,6 +460,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWsdlFile(String newWsdlFile) {
 		String oldWsdlFile = wsdlFile;
 		wsdlFile = newWsdlFile;
@@ -462,6 +473,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getJaxrpcMappingFile() {
 		return jaxrpcMappingFile;
 	}
@@ -471,6 +483,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJaxrpcMappingFile(String newJaxrpcMappingFile) {
 		String oldJaxrpcMappingFile = jaxrpcMappingFile;
 		jaxrpcMappingFile = newJaxrpcMappingFile;
@@ -483,6 +496,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QName getServiceQname() {
 		return serviceQname;
 	}
@@ -492,6 +506,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceQname(QName newServiceQname) {
 		QName oldServiceQname = serviceQname;
 		serviceQname = newServiceQname;
@@ -504,6 +519,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PortComponentRef> getPortComponentRefs() {
 		if (portComponentRefs == null) {
 			portComponentRefs = new EObjectContainmentEList<PortComponentRef>(PortComponentRef.class, this, JavaeePackage.SERVICE_REF__PORT_COMPONENT_REFS);
@@ -516,6 +532,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRefHandler> getHandlers() {
 		if (handlers == null) {
 			handlers = new EObjectContainmentEList<ServiceRefHandler>(ServiceRefHandler.class, this, JavaeePackage.SERVICE_REF__HANDLERS);
@@ -528,6 +545,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ServiceRefHandlerChains getHandlerChains() {
 		return handlerChains;
 	}
@@ -552,6 +570,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHandlerChains(ServiceRefHandlerChains newHandlerChains) {
 		if (newHandlerChains != handlerChains) {
 			NotificationChain msgs = null;
@@ -571,6 +590,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -580,6 +600,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -592,6 +613,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
 			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.SERVICE_REF__INJECTION_TARGETS);
@@ -604,6 +626,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLookupName() {
 		return lookupName;
 	}
@@ -613,6 +636,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookupName(String newLookupName) {
 		String oldLookupName = lookupName;
 		lookupName = newLookupName;
@@ -625,6 +649,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -634,6 +659,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -914,6 +940,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 		return result.toString();
 	}
 
+	@Override
 	public void setServiceQname(Object newServiceQname) {
 		if (newServiceQname == null || newServiceQname instanceof QName)
 		{

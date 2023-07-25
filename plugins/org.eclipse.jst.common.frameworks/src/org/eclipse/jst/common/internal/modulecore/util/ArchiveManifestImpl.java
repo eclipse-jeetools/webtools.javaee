@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -64,11 +64,13 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	/**
 	 * Creates a new manifest entry (attributes) for the given name
 	 */
+	@Override
 	public void addEntry(String entryName) {
 		Attributes attr = new Attributes();
 		addEntry(entryName, attr);
 	}
 
+	@Override
 	public void addEntry(String entryName, Attributes attr) {
 		getEntries().put(entryName, attr);
 	}
@@ -77,6 +79,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	 * Adds the key/value pair to the attributes for the given entry name; if the entry does not
 	 * exist, creates a new attributes
 	 */
+	@Override
 	public void addEntryAttribute(String entryName, String key, String value) {
 		Attributes attr = getAttributes(entryName);
 		if (attr == null)
@@ -85,6 +88,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 		attr.putValue(key, value);
 	}
 
+	@Override
 	public void addVersionIfNecessary() {
 		//This is a hack because of the fact that the manifest does not serialize correctly if
 		//The version is not set. In addition to saves, the serialization is used for copy
@@ -95,6 +99,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	/**
 	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
+	@Override
 	public void appendClassPath(java.lang.String extension) {
 		String classPath = getClassPath();
 		if (classPath != null)
@@ -106,6 +111,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	/**
 	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
+	@Override
 	public java.lang.String getClassPath() {
 		return ManifestUtilities.getValueIgnoreKeyCase(Attributes.Name.CLASS_PATH.toString(), getMainAttributes());
 	}
@@ -113,6 +119,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	/**
 	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
+	@Override
 	public java.lang.String[] getClassPathTokenized() {
 		String classPath = getClassPath();
 		if (classPath == null)
@@ -120,6 +127,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 		return ManifestUtilities.getTokens(classPath);
 	}
 
+	@Override
 	public String getEntryAttribute(String entryName, String key) {
 		Attributes attr = getAttributes(entryName);
 		if (attr == null)
@@ -127,10 +135,12 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 		return attr.getValue(key);
 	}
 
+	@Override
 	public String getMainClass() {
 		return ManifestUtilities.getValueIgnoreKeyCase(Attributes.Name.MAIN_CLASS.toString(), getMainAttributes());
 	}
 
+	@Override
 	public String getManifestVersion() {
 		return getMainAttributes().getValue(Attributes.Name.MANIFEST_VERSION);
 	}
@@ -138,6 +148,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	/**
 	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
+	@Override
 	public void mergeClassPath(java.lang.String[] classPathEntries) {
 		StringBuffer sb = new StringBuffer();
 		java.util.List existing = java.util.Arrays.asList(getClassPathTokenized());
@@ -157,10 +168,12 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 		setClassPath(sb.toString());
 	}
 
+	@Override
 	public void removeEntry(String entryName) {
 		getEntries().remove(entryName);
 	}
 
+	@Override
 	public void removeEntryAttribute(String entryName, Object key) {
 		Attributes attr = getAttributes(entryName);
 		if (attr != null)
@@ -170,6 +183,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	/**
 	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
+	@Override
 	public void setClassPath(java.lang.String aSpaceDelimitedPath) {
 		Attributes attributes = getMainAttributes();
 		if (aSpaceDelimitedPath == null)
@@ -181,6 +195,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	/**
 	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
+	@Override
 	public void setMainClass(java.lang.String className) {
 		Attributes attributes = getMainAttributes();
 		if (className == null)
@@ -192,6 +207,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	/**
 	 * @see org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest
 	 */
+	@Override
 	public void setManifestVersion(java.lang.String version) {
 		Attributes attributes = getMainAttributes();
 		attributes.putValue(Attributes.Name.MANIFEST_VERSION.toString(), version);
@@ -206,6 +222,7 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 	 * @exception IOException
 	 *                if an I/O error has occurred
 	 */
+	@Override
 	public void writeSplittingClasspath(OutputStream out) throws IOException {
 		DataOutputStream dos = new DataOutputStream(out);
 		// Write out the main attributes for the manifest
@@ -330,10 +347,12 @@ public class ArchiveManifestImpl extends java.util.jar.Manifest implements Archi
 		return;
 	}
 
+	@Override
 	public String getImplementationVersion() {
 		return getMainAttributes().getValue(Attributes.Name.IMPLEMENTATION_VERSION);
 	}
 
+	@Override
 	public void setImplemenationVersion(String version) {
 		Attributes attributes = getMainAttributes();
 		attributes.putValue(Attributes.Name.IMPLEMENTATION_VERSION.toString(), version);

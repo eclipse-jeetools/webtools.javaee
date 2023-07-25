@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -165,6 +165,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		return new ClasspathModel(J2EEProjectUtilities.readManifest(project), false);
 	}
 
+	@Override
 	public void dispose() {
 		isDisposed = true;
 		JavaCore.removeElementChangedListener(this);
@@ -213,6 +214,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		validateEditListener.setShell(propPage.getShell());
 	}
 
+	@Override
 	public void setVisible(boolean visible) {
 		if (visible) {
 			if (caughtManifestException != null && !model.isDirty()) {
@@ -224,11 +226,13 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	/**
 	 * Refreshes the ClasspathModel if the project classpath is changed.
 	 */
+	@Override
 	public void elementChanged(final ElementChangedEvent event) {
 		if (event.getType() == ElementChangedEvent.POST_CHANGE && classpathChanged(event.getDelta())) {
 			// trigger a recomputation and refresh for the currently selected EAR
 			if (!isDisposed) {
 				display.asyncExec (new Runnable () {
+					@Override
 					public void run () {
 						if (!isDisposed) {
 							handleClasspathChange();
@@ -285,6 +289,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		return false;
 	}
 
+	@Override
 	public Composite createContents(Composite parent) {
 		initialize();
 		Composite composite = createBasicComposite(parent);
@@ -396,6 +401,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	 * 
 	 * @see com.ibm.etools.j2ee.common.ui.classpath.IClasspathTableOwner#createGroup(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	public Group createGroup(Composite parent) {
 		return new Group(parent, SWT.NULL);
 	}
@@ -436,6 +442,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	/**
 	 * @see IClasspathTableOwner#createAvailableJARsViewer(Composite)
 	 */
+	@Override
 	public CheckboxTableViewer createAvailableJARsViewer(Composite parent) {
 		int flags = SWT.CHECK | SWT.BORDER | SWT.FULL_SELECTION | SWT.MULTI;
 
@@ -469,6 +476,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	/**
 	 * @see IClasspathTableOwner#createButtonColumnComposite(Composite)
 	 */
+	@Override
 	public Composite createButtonColumnComposite(Composite parent) {
 		Composite buttonColumn = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
@@ -484,6 +492,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	/**
 	 * @see IClasspathTableOwner
 	 */
+	@Override
 	public Button primCreatePushButton(String label, Composite buttonColumn) {
 		Button aButton = new Button(buttonColumn, SWT.PUSH);
 		aButton.setText(label);
@@ -493,6 +502,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	/**
 	 * @see IClasspathTableOwner
 	 */
+	@Override
 	public Button primCreateRadioButton(String label, Composite parent) {
 		Button aButton = new Button(parent, SWT.RADIO);
 		aButton.setText(label);
@@ -502,6 +512,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	/**
 	 * @see Listener#handleEvent(Event)
 	 */
+	@Override
 	public void handleEvent(Event event) {
 		if (event.widget == availableAppsCombo)
 			availableAppsSelected(event);
@@ -547,6 +558,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	/**
 	 * @see ClasspathModelListener#modelChanged(ClasspathModelEvent)
 	 */
+	@Override
 	public void modelChanged(ClasspathModelEvent evt) {
 		if (evt.getEventType() == ClasspathModelEvent.CLASS_PATH_CHANGED) {
 			isDirty = true;
@@ -556,6 +568,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		}
 	}
 
+	@Override
 	public void performDefaults() {
 		model.resetClassPathSelection();
 		refresh();
@@ -563,6 +576,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		model.dispose();
 	}
 
+	@Override
 	public boolean performCancel() {
 		model.dispose();
 		return true;
@@ -571,6 +585,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	/**
 	 * @see org.eclipse.jface.preference.IPreferencePage#performOk()
 	 */
+	@Override
 	public boolean performOk() {
 		if (!isDirty)
 			return true;
@@ -960,6 +975,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	private IStatus addModulesToEAR(IProgressMonitor monitor, final IVirtualComponent earComponent, final List compsToUncheckList) {
 		try {
 			IWorkspaceRunnable runnable = new IWorkspaceRunnable(){
+				@Override
 				public void run(IProgressMonitor monitor) throws CoreException{
 					execAddOp(monitor, compsToUncheckList, J2EEConstants.EAR_ROOT_DIR, earComponent);
 				}

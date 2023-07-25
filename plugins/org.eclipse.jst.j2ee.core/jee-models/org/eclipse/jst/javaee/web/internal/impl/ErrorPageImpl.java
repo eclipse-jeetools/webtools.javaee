@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -144,6 +144,7 @@ public class ErrorPageImpl extends EObjectImpl implements ErrorPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getErrorCode() {
 		return errorCode;
 	}
@@ -153,6 +154,7 @@ public class ErrorPageImpl extends EObjectImpl implements ErrorPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setErrorCode(BigInteger newErrorCode) {
 		BigInteger oldErrorCode = errorCode;
 		errorCode = newErrorCode;
@@ -165,6 +167,7 @@ public class ErrorPageImpl extends EObjectImpl implements ErrorPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getExceptionType() {
 		return exceptionType;
 	}
@@ -174,6 +177,7 @@ public class ErrorPageImpl extends EObjectImpl implements ErrorPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExceptionType(String newExceptionType) {
 		String oldExceptionType = exceptionType;
 		exceptionType = newExceptionType;
@@ -186,6 +190,7 @@ public class ErrorPageImpl extends EObjectImpl implements ErrorPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocation() {
 		return location;
 	}
@@ -195,6 +200,7 @@ public class ErrorPageImpl extends EObjectImpl implements ErrorPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocation(String newLocation) {
 		String oldLocation = location;
 		location = newLocation;
@@ -207,6 +213,7 @@ public class ErrorPageImpl extends EObjectImpl implements ErrorPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -216,6 +223,7 @@ public class ErrorPageImpl extends EObjectImpl implements ErrorPage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

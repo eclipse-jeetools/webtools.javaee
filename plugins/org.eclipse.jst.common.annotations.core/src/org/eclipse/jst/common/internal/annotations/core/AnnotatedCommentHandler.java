@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -37,6 +37,7 @@ public class AnnotatedCommentHandler implements TagParseEventHandler {
 	 * 
 	 * @see org.eclipse.wst.common.internal.annotations.core.TagParseEventHandler#annotationTag(org.eclipse.wst.common.internal.annotations.core.Token)
 	 */
+	@Override
 	public void annotationTag(Token tag) {
 		this.annotationToken = tag;
 	}
@@ -46,6 +47,7 @@ public class AnnotatedCommentHandler implements TagParseEventHandler {
 	 * 
 	 * @see org.eclipse.wst.common.internal.annotations.core.TagParseEventHandler#endOfTag(int)
 	 */
+	@Override
 	public void endOfTag(int pos) {
 		// Do nothing
 	}
@@ -56,6 +58,7 @@ public class AnnotatedCommentHandler implements TagParseEventHandler {
 	 * @see org.eclipse.wst.common.internal.annotations.core.TagParseEventHandler#attribute(org.eclipse.wst.common.internal.annotations.core.Token,
 	 *      int, org.eclipse.wst.common.internal.annotations.core.Token)
 	 */
+	@Override
 	public void attribute(Token name, int equalsPosition, Token value) {
 		if (value.getText() == null || value.getText().length() == 0)
 			getAnnotations().put(this.annotationToken.getText(), name.getText());

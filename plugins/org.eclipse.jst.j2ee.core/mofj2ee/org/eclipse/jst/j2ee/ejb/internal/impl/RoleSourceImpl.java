@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -90,6 +90,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -97,6 +98,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -107,6 +109,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EJBRelationshipRole getRole() {
 		if (eContainerFeatureID != EjbPackage.ROLE_SOURCE__ROLE) return null;
 		return (EJBRelationshipRole)eContainer();
@@ -125,6 +128,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRole(EJBRelationshipRole newRole) {
 		if (newRole != eInternalContainer() || (eContainerFeatureID != EjbPackage.ROLE_SOURCE__ROLE && newRole != null)) {
 			if (EcoreUtil.isAncestor(this, newRole))
@@ -144,6 +148,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public ContainerManagedEntity getEntityBean() {
 		if (entityBean != null && entityBean.eIsProxy()) {
 			InternalEObject oldEntityBean = (InternalEObject)entityBean;
@@ -170,6 +175,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEntityBean(ContainerManagedEntity newEntityBean) {
 		ContainerManagedEntity oldEntityBean = entityBean;
 		entityBean = newEntityBean;
@@ -182,6 +188,7 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.ROLE_SOURCE__DESCRIPTIONS);

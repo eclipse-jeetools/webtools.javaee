@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -154,6 +154,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.CMR_FIELD__DESCRIPTIONS);
@@ -166,6 +167,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCmrFieldName() {
 		return cmrFieldName;
 	}
@@ -175,6 +177,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCmrFieldName(String newCmrFieldName) {
 		String oldCmrFieldName = cmrFieldName;
 		cmrFieldName = newCmrFieldName;
@@ -187,6 +190,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CMRFieldType getCmrFieldType() {
 		return cmrFieldType;
 	}
@@ -196,6 +200,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCmrFieldType(CMRFieldType newCmrFieldType) {
 		CMRFieldType oldCmrFieldType = cmrFieldType;
 		cmrFieldType = newCmrFieldType == null ? CMR_FIELD_TYPE_EDEFAULT : newCmrFieldType;
@@ -210,6 +215,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetCmrFieldType() {
 		CMRFieldType oldCmrFieldType = cmrFieldType;
 		boolean oldCmrFieldTypeESet = cmrFieldTypeESet;
@@ -224,6 +230,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetCmrFieldType() {
 		return cmrFieldTypeESet;
 	}
@@ -233,6 +240,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -242,6 +250,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

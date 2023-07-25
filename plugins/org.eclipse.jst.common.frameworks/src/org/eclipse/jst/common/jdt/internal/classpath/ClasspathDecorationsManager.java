@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005, 2023 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -347,12 +347,14 @@ public final class ClasspathDecorationsManager
             }
         }
 
-        public boolean hasNext() 
+        @Override
+		public boolean hasNext() 
         {
             return ( this.element != null );
         }
 
-        public Object next() 
+        @Override
+		public Object next() 
         {
             final Element el = this.element;
 
@@ -366,7 +368,8 @@ public final class ClasspathDecorationsManager
             return el;
         }
 
-        public void remove() 
+        @Override
+		public void remove() 
         {
             throw new UnsupportedOperationException();
         }

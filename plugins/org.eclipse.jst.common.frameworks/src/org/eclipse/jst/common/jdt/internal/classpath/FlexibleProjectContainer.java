@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005, 2006 BEA Systems, Inc.
+ * Copyright (c) 2005, 2023 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -131,17 +131,20 @@ public abstract class FlexibleProjectContainer
         }
     }
     
-    public int getKind()
+    @Override
+	public int getKind()
     {
         return K_APPLICATION;
     }
 
-    public IPath getPath()
+    @Override
+	public IPath getPath()
     {
         return this.path;
     }
     
-    public IClasspathEntry[] getClasspathEntries()
+    @Override
+	public IClasspathEntry[] getClasspathEntries()
     {
         return this.cpentries;
     }
@@ -432,7 +435,8 @@ public abstract class FlexibleProjectContainer
             ws.addResourceChangeListener( listener, IResourceChangeEvent.PRE_BUILD );
         }
         
-        public void resourceChanged( final IResourceChangeEvent event )
+        @Override
+		public void resourceChanged( final IResourceChangeEvent event )
         {
             // Screen the delta before going any further. 
             
@@ -503,7 +507,8 @@ public abstract class FlexibleProjectContainer
             
             final IResourceDeltaVisitor visitor = new IResourceDeltaVisitor()
             {
-                public boolean visit( final IResourceDelta delta ) 
+                @Override
+				public boolean visit( final IResourceDelta delta ) 
                 {
                     final IResource r = delta.getResource();
                     

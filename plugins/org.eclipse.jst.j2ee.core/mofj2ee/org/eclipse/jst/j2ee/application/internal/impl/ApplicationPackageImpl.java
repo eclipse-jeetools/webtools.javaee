@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -123,6 +123,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getApplication() {
 		return applicationEClass;
 	}
@@ -132,6 +133,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplication_Version() {
 		return (EAttribute)applicationEClass.getEStructuralFeatures().get(0);
 	}
@@ -139,6 +141,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getApplication_SecurityRoles() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(1);
 	}
@@ -146,6 +149,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getApplication_Modules() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(2);
 	}
@@ -153,6 +157,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getModule() {
 		return moduleEClass;
 	}
@@ -160,6 +165,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getModule_Uri() {
 		return (EAttribute)moduleEClass.getEStructuralFeatures().get(0);
 	}
@@ -167,6 +173,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getModule_AltDD() {
 		return (EAttribute)moduleEClass.getEStructuralFeatures().get(1);
 	}
@@ -174,6 +181,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getModule_Application() {
 		return (EReference)moduleEClass.getEStructuralFeatures().get(2);
 	}
@@ -181,6 +189,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getWebModule() {
 		return webModuleEClass;
 	}
@@ -188,6 +197,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getWebModule_ContextRoot() {
 		return (EAttribute)webModuleEClass.getEStructuralFeatures().get(0);
 	}
@@ -195,6 +205,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getJavaClientModule() {
 		return javaClientModuleEClass;
 	}
@@ -202,6 +213,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEjbModule() {
 		return ejbModuleEClass;
 	}
@@ -209,6 +221,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getConnectorModule() {
 		return connectorModuleEClass;
 	}
@@ -216,6 +229,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ApplicationFactory getApplicationFactory() {
 		return (ApplicationFactory)getEFactoryInstance();
 	}

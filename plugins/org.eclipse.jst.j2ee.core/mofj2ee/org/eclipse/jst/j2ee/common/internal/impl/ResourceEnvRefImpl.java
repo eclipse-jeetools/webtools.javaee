@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -104,15 +104,18 @@ public class ResourceEnvRefImpl extends J2EEEObjectImpl implements ResourceEnvRe
 		return JavaRefFactory.eINSTANCE.createClassRef(targetName);
 	}
 
+	@Override
 	public String getTypeName() {
 		getType();
 		return type == null ? null : type.getQualifiedName();
 	}
 
+	@Override
 	public void setTypeName(String className) {
 		eSet(CommonPackage.eINSTANCE.getResourceEnvRef_Type(), createClassRef(className));
 	}
 
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -125,6 +128,7 @@ public class ResourceEnvRefImpl extends J2EEEObjectImpl implements ResourceEnvRe
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.SECURITY_ROLE__DESCRIPTION, oldDescription, description));
 	}
 
+	@Override
 	public String getDescription() {
 		if (getDescriptions() != null && !getDescriptions().isEmpty()) {
 			Description d = (Description) getDescriptions().get(0);
@@ -140,6 +144,7 @@ public class ResourceEnvRefImpl extends J2EEEObjectImpl implements ResourceEnvRe
 	 *            value is the environment entry name used in the enterprise
 	 *            bean code.
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -147,6 +152,7 @@ public class ResourceEnvRefImpl extends J2EEEObjectImpl implements ResourceEnvRe
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -158,6 +164,7 @@ public class ResourceEnvRefImpl extends J2EEEObjectImpl implements ResourceEnvRe
 	 * @generated This field/method will be replaced during code generation 
 	 * Specifies the type of a resource environment reference.  See the class description for an example.
 	 */
+	@Override
 	public JavaClass getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
@@ -182,6 +189,7 @@ public class ResourceEnvRefImpl extends J2EEEObjectImpl implements ResourceEnvRe
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setType(JavaClass newType) {
 		JavaClass oldType = type;
 		type = newType;
@@ -194,6 +202,7 @@ public class ResourceEnvRefImpl extends J2EEEObjectImpl implements ResourceEnvRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.RESOURCE_ENV_REF__DESCRIPTIONS);

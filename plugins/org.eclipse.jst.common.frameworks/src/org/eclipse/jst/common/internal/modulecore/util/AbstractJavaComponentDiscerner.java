@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Red Hat and others.
+ * Copyright (c) 2009, 2023 Red Hat and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -15,21 +15,25 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class AbstractJavaComponentDiscerner implements IJavaComponentDiscerner {
 
+	@Override
 	public IProject[] findParentProjects(IProject child) {
 		return new IProject[]{};
 	}
 
+	@Override
 	public IVirtualReference[] findPossibleManifestEntries(
 			IProject parentProject, IProject childProject) {
 		return new IVirtualReference[]{};
 	}
 
+	@Override
 	public IVirtualReference[] findPossibleManifestEntries(
 			IProject parentProject, IProject childProject,
 			IVirtualReference[] currentEntries) {
 		return new IVirtualReference[]{};
 	}
 
+	@Override
 	public IVirtualReference[] findCurrentManifestEntries(
 			IProject parentProject, IProject childProject) {
 		return new IVirtualReference[]{};

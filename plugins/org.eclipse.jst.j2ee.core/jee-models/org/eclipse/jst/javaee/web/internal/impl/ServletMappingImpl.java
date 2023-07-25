@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -123,6 +123,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServletName() {
 		return servletName;
 	}
@@ -132,6 +133,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServletName(String newServletName) {
 		String oldServletName = servletName;
 		servletName = newServletName;
@@ -144,6 +146,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<UrlPatternType> getUrlPatterns() {
 		if (urlPatterns == null) {
 			urlPatterns = new EObjectContainmentEList<UrlPatternType>(UrlPatternType.class, this, WebPackage.SERVLET_MAPPING__URL_PATTERNS);
@@ -156,6 +159,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -165,6 +169,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

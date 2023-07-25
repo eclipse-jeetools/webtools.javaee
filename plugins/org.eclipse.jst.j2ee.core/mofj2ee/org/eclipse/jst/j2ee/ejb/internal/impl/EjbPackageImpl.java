@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -335,6 +335,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getMethodPermission() {
 		return methodPermissionEClass;
 	}
@@ -342,6 +343,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMethodPermission_Description() {
 		return (EAttribute)methodPermissionEClass.getEStructuralFeatures().get(0);
 	}
@@ -349,6 +351,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMethodPermission_Unchecked() {
 		return (EAttribute)methodPermissionEClass.getEStructuralFeatures().get(1);
 	}
@@ -356,6 +359,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMethodPermission_AssemblyDescriptor() {
 		return (EReference)methodPermissionEClass.getEStructuralFeatures().get(2);
 	}
@@ -363,6 +367,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMethodPermission_Roles() {
 		return (EReference)methodPermissionEClass.getEStructuralFeatures().get(3);
 	}
@@ -370,6 +375,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMethodPermission_MethodElements() {
 		return (EReference)methodPermissionEClass.getEStructuralFeatures().get(4);
 	}
@@ -379,6 +385,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethodPermission_Descriptions() {
 		return (EReference)methodPermissionEClass.getEStructuralFeatures().get(5);
 	}
@@ -386,6 +393,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getAssemblyDescriptor() {
 		return assemblyDescriptorEClass;
 	}
@@ -393,6 +401,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_MethodPermissions() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(0);
 	}
@@ -400,6 +409,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_MethodTransactions() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(1);
 	}
@@ -407,6 +417,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_EjbJar() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(2);
 	}
@@ -414,6 +425,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_SecurityRoles() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(3);
 	}
@@ -421,6 +433,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_ExcludeList() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(4);
 	}
@@ -430,6 +443,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_MessageDestinations() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(5);
 	}
@@ -437,6 +451,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getMethodTransaction() {
 		return methodTransactionEClass;
 	}
@@ -444,6 +459,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMethodTransaction_TransactionAttribute() {
 		return (EAttribute)methodTransactionEClass.getEStructuralFeatures().get(0);
 	}
@@ -451,6 +467,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMethodTransaction_Description() {
 		return (EAttribute)methodTransactionEClass.getEStructuralFeatures().get(1);
 	}
@@ -458,6 +475,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMethodTransaction_AssemblyDescriptor() {
 		return (EReference)methodTransactionEClass.getEStructuralFeatures().get(2);
 	}
@@ -465,6 +483,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMethodTransaction_MethodElements() {
 		return (EReference)methodTransactionEClass.getEStructuralFeatures().get(3);
 	}
@@ -474,6 +493,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethodTransaction_Descriptions() {
 		return (EReference)methodTransactionEClass.getEStructuralFeatures().get(4);
 	}
@@ -481,6 +501,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEnterpriseBean() {
 		return enterpriseBeanEClass;
 	}
@@ -490,6 +511,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnterpriseBean_Name() {
 		return (EAttribute)enterpriseBeanEClass.getEStructuralFeatures().get(0);
 	}
@@ -497,6 +519,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEnterpriseBean_SecurityRoleRefs() {
 		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(1);
 	}
@@ -504,6 +527,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEnterpriseBean_EjbClass() {
 		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(2);
 	}
@@ -511,6 +535,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEnterpriseBean_HomeInterface() {
 		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(3);
 	}
@@ -518,6 +543,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEnterpriseBean_RemoteInterface() {
 		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(4);
 	}
@@ -525,6 +551,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEnterpriseBean_EjbJar() {
 		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(5);
 	}
@@ -532,6 +559,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEnterpriseBean_SecurityIdentity() {
 		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(6);
 	}
@@ -539,6 +567,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEnterpriseBean_LocalHomeInterface() {
 		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(7);
 	}
@@ -546,6 +575,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEnterpriseBean_LocalInterface() {
 		return (EReference)enterpriseBeanEClass.getEStructuralFeatures().get(8);
 	}
@@ -553,6 +583,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEntity() {
 		return entityEClass;
 	}
@@ -562,6 +593,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntity_Reentrant() {
 		return (EAttribute)entityEClass.getEStructuralFeatures().get(0);
 	}
@@ -569,6 +601,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEntity_PrimaryKey() {
 		return (EReference)entityEClass.getEStructuralFeatures().get(1);
 	}
@@ -576,6 +609,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getContainerManagedEntity() {
 		return containerManagedEntityEClass;
 	}
@@ -583,6 +617,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getContainerManagedEntity_Version() {
 		return (EAttribute)containerManagedEntityEClass.getEStructuralFeatures().get(0);
 	}
@@ -590,6 +625,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getContainerManagedEntity_AbstractSchemaName() {
 		return (EAttribute)containerManagedEntityEClass.getEStructuralFeatures().get(1);
 	}
@@ -597,6 +633,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getContainerManagedEntity_PersistentAttributes() {
 		return (EReference)containerManagedEntityEClass.getEStructuralFeatures().get(2);
 	}
@@ -604,6 +641,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getContainerManagedEntity_KeyAttributes() {
 		return (EReference)containerManagedEntityEClass.getEStructuralFeatures().get(3);
 	}
@@ -613,6 +651,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getContainerManagedEntity_Queries() {
 		return (EReference)containerManagedEntityEClass.getEStructuralFeatures().get(4);
 	}
@@ -622,6 +661,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getContainerManagedEntity_CMPAttribute() {
 		return (EReference)containerManagedEntityEClass.getEStructuralFeatures().get(5);
 	}
@@ -631,6 +671,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getContainerManagedEntity_PrimKeyField() {
 		return (EReference)containerManagedEntityEClass.getEStructuralFeatures().get(6);
 	}
@@ -638,6 +679,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getCMPAttribute() {
 		return cmpAttributeEClass;
 	}
@@ -645,6 +687,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getCMPAttribute_Description() {
 		return (EAttribute)cmpAttributeEClass.getEStructuralFeatures().get(0);
 	}
@@ -654,6 +697,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCMPAttribute_Descriptions() {
 		return (EReference)cmpAttributeEClass.getEStructuralFeatures().get(1);
 	}
@@ -661,6 +705,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getCMRField() {
 		return cmrFieldEClass;
 	}
@@ -668,6 +713,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getCMRField_Role() {
 		return (EReference)cmrFieldEClass.getEStructuralFeatures().get(0);
 	}
@@ -675,6 +721,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getCMRField_CollectionType() {
 		return (EReference)cmrFieldEClass.getEStructuralFeatures().get(1);
 	}
@@ -682,6 +729,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEJBRelationshipRole() {
 		return ejbRelationshipRoleEClass;
 	}
@@ -689,6 +737,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEJBRelationshipRole_Description() {
 		return (EAttribute)ejbRelationshipRoleEClass.getEStructuralFeatures().get(0);
 	}
@@ -696,6 +745,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEJBRelationshipRole_RoleName() {
 		return (EAttribute)ejbRelationshipRoleEClass.getEStructuralFeatures().get(1);
 	}
@@ -703,6 +753,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEJBRelationshipRole_Multiplicity() {
 		return (EAttribute)ejbRelationshipRoleEClass.getEStructuralFeatures().get(2);
 	}
@@ -710,6 +761,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEJBRelationshipRole_CascadeDelete() {
 		return (EAttribute)ejbRelationshipRoleEClass.getEStructuralFeatures().get(3);
 	}
@@ -717,6 +769,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBRelationshipRole_Relationship() {
 		return (EReference)ejbRelationshipRoleEClass.getEStructuralFeatures().get(4);
 	}
@@ -724,6 +777,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBRelationshipRole_Source() {
 		return (EReference)ejbRelationshipRoleEClass.getEStructuralFeatures().get(5);
 	}
@@ -731,6 +785,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBRelationshipRole_CmrField() {
 		return (EReference)ejbRelationshipRoleEClass.getEStructuralFeatures().get(6);
 	}
@@ -740,6 +795,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBRelationshipRole_Descriptions() {
 		return (EReference)ejbRelationshipRoleEClass.getEStructuralFeatures().get(7);
 	}
@@ -747,6 +803,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEJBRelation() {
 		return ejbRelationEClass;
 	}
@@ -754,6 +811,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEJBRelation_Description() {
 		return (EAttribute)ejbRelationEClass.getEStructuralFeatures().get(0);
 	}
@@ -761,6 +819,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEJBRelation_Name() {
 		return (EAttribute)ejbRelationEClass.getEStructuralFeatures().get(1);
 	}
@@ -768,6 +827,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBRelation_RelationshipList() {
 		return (EReference)ejbRelationEClass.getEStructuralFeatures().get(2);
 	}
@@ -775,6 +835,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBRelation_RelationshipRoles() {
 		return (EReference)ejbRelationEClass.getEStructuralFeatures().get(3);
 	}
@@ -784,6 +845,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBRelation_Descriptions() {
 		return (EReference)ejbRelationEClass.getEStructuralFeatures().get(4);
 	}
@@ -791,6 +853,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getRelationships() {
 		return relationshipsEClass;
 	}
@@ -798,6 +861,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getRelationships_Description() {
 		return (EAttribute)relationshipsEClass.getEStructuralFeatures().get(0);
 	}
@@ -805,6 +869,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getRelationships_EjbJar() {
 		return (EReference)relationshipsEClass.getEStructuralFeatures().get(1);
 	}
@@ -812,6 +877,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getRelationships_EjbRelations() {
 		return (EReference)relationshipsEClass.getEStructuralFeatures().get(2);
 	}
@@ -821,6 +887,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRelationships_Descriptions() {
 		return (EReference)relationshipsEClass.getEStructuralFeatures().get(3);
 	}
@@ -828,6 +895,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEJBJar() {
 		return ejbJarEClass;
 	}
@@ -835,6 +903,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEJBJar_EjbClientJar() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(0);
 	}
@@ -844,6 +913,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBJar_Version() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(1);
 	}
@@ -851,6 +921,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBJar_AssemblyDescriptor() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(2);
 	}
@@ -858,6 +929,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBJar_EnterpriseBeans() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(3);
 	}
@@ -865,6 +937,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBJar_RelationshipList() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(4);
 	}
@@ -872,6 +945,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getRoleSource() {
 		return roleSourceEClass;
 	}
@@ -879,6 +953,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getRoleSource_Description() {
 		return (EAttribute)roleSourceEClass.getEStructuralFeatures().get(0);
 	}
@@ -886,6 +961,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getRoleSource_Role() {
 		return (EReference)roleSourceEClass.getEStructuralFeatures().get(1);
 	}
@@ -893,6 +969,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getRoleSource_EntityBean() {
 		return (EReference)roleSourceEClass.getEStructuralFeatures().get(2);
 	}
@@ -902,6 +979,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRoleSource_Descriptions() {
 		return (EReference)roleSourceEClass.getEStructuralFeatures().get(3);
 	}
@@ -909,6 +987,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getQuery() {
 		return queryEClass;
 	}
@@ -916,6 +995,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getQuery_Description() {
 		return (EAttribute)queryEClass.getEStructuralFeatures().get(0);
 	}
@@ -923,6 +1003,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getQuery_EjbQL() {
 		return (EAttribute)queryEClass.getEStructuralFeatures().get(1);
 	}
@@ -930,6 +1011,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getQuery_ReturnTypeMapping() {
 		return (EAttribute)queryEClass.getEStructuralFeatures().get(2);
 	}
@@ -937,6 +1019,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getQuery_QueryMethod() {
 		return (EReference)queryEClass.getEStructuralFeatures().get(3);
 	}
@@ -944,6 +1027,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getQuery_Entity() {
 		return (EReference)queryEClass.getEStructuralFeatures().get(4);
 	}
@@ -953,6 +1037,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQuery_Descriptions() {
 		return (EReference)queryEClass.getEStructuralFeatures().get(5);
 	}
@@ -960,6 +1045,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getQueryMethod() {
 		return queryMethodEClass;
 	}
@@ -967,6 +1053,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getQueryMethod_Query() {
 		return (EReference)queryMethodEClass.getEStructuralFeatures().get(0);
 	}
@@ -976,6 +1063,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActivationConfigProperty() {
 		return activationConfigPropertyEClass;
 	}
@@ -985,6 +1073,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActivationConfigProperty_Value() {
 		return (EAttribute)activationConfigPropertyEClass.getEStructuralFeatures().get(0);
 	}
@@ -994,6 +1083,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActivationConfigProperty_Name() {
 		return (EAttribute)activationConfigPropertyEClass.getEStructuralFeatures().get(1);
 	}
@@ -1003,6 +1093,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActivationConfig() {
 		return activationConfigEClass;
 	}
@@ -1012,6 +1103,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActivationConfig_ConfigProperties() {
 		return (EReference)activationConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -1021,6 +1113,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActivationConfig_Descriptions() {
 		return (EReference)activationConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -1028,6 +1121,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getMethodElement() {
 		return methodElementEClass;
 	}
@@ -1035,6 +1129,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMethodElement_Name() {
 		return (EAttribute)methodElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -1042,6 +1137,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMethodElement_Parms() {
 		return (EAttribute)methodElementEClass.getEStructuralFeatures().get(1);
 	}
@@ -1049,6 +1145,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMethodElement_Type() {
 		return (EAttribute)methodElementEClass.getEStructuralFeatures().get(2);
 	}
@@ -1056,6 +1153,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMethodElement_Description() {
 		return (EAttribute)methodElementEClass.getEStructuralFeatures().get(3);
 	}
@@ -1063,6 +1161,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMethodElement_EnterpriseBean() {
 		return (EReference)methodElementEClass.getEStructuralFeatures().get(4);
 	}
@@ -1072,6 +1171,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethodElement_Descriptions() {
 		return (EReference)methodElementEClass.getEStructuralFeatures().get(5);
 	}
@@ -1079,6 +1179,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getExcludeList() {
 		return excludeListEClass;
 	}
@@ -1086,6 +1187,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getExcludeList_Description() {
 		return (EAttribute)excludeListEClass.getEStructuralFeatures().get(0);
 	}
@@ -1093,6 +1195,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getExcludeList_MethodElements() {
 		return (EReference)excludeListEClass.getEStructuralFeatures().get(1);
 	}
@@ -1102,6 +1205,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExcludeList_Descriptions() {
 		return (EReference)excludeListEClass.getEStructuralFeatures().get(2);
 	}
@@ -1109,6 +1213,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getSession() {
 		return sessionEClass;
 	}
@@ -1116,6 +1221,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSession_TransactionType() {
 		return (EAttribute)sessionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1123,6 +1229,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSession_SessionType() {
 		return (EAttribute)sessionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1132,6 +1239,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSession_ServiceEndpoint() {
 		return (EReference)sessionEClass.getEStructuralFeatures().get(2);
 	}
@@ -1139,6 +1247,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getMessageDriven() {
 		return messageDrivenEClass;
 	}
@@ -1146,6 +1255,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMessageDriven_TransactionType() {
 		return (EAttribute)messageDrivenEClass.getEStructuralFeatures().get(0);
 	}
@@ -1153,6 +1263,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMessageDriven_MessageSelector() {
 		return (EAttribute)messageDrivenEClass.getEStructuralFeatures().get(1);
 	}
@@ -1160,6 +1271,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMessageDriven_AcknowledgeMode() {
 		return (EAttribute)messageDrivenEClass.getEStructuralFeatures().get(2);
 	}
@@ -1167,6 +1279,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMessageDriven_Destination() {
 		return (EReference)messageDrivenEClass.getEStructuralFeatures().get(4);
 	}
@@ -1176,6 +1289,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDriven_ActivationConfig() {
 		return (EReference)messageDrivenEClass.getEStructuralFeatures().get(5);
 	}
@@ -1185,6 +1299,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDriven_MessageDestination() {
 		return (EReference)messageDrivenEClass.getEStructuralFeatures().get(6);
 	}
@@ -1194,6 +1309,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDriven_Link() {
 		return (EAttribute)messageDrivenEClass.getEStructuralFeatures().get(3);
 	}
@@ -1203,6 +1319,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDriven_MessagingType() {
 		return (EReference)messageDrivenEClass.getEStructuralFeatures().get(7);
 	}
@@ -1210,6 +1327,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getMessageDrivenDestination() {
 		return messageDrivenDestinationEClass;
 	}
@@ -1217,6 +1335,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMessageDrivenDestination_Type() {
 		return (EAttribute)messageDrivenDestinationEClass.getEStructuralFeatures().get(0);
 	}
@@ -1224,6 +1343,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getMessageDrivenDestination_SubscriptionDurability() {
 		return (EAttribute)messageDrivenDestinationEClass.getEStructuralFeatures().get(1);
 	}
@@ -1231,6 +1351,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getMessageDrivenDestination_Bean() {
 		return (EReference)messageDrivenDestinationEClass.getEStructuralFeatures().get(2);
 	}
@@ -1238,6 +1359,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEJBMethodCategory() {
 		return ejbMethodCategoryEClass;
 	}
@@ -1245,6 +1367,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getTransactionAttributeType() {
 		return transactionAttributeTypeEEnum;
 	}
@@ -1252,6 +1375,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getMultiplicityKind() {
 		return multiplicityKindEEnum;
 	}
@@ -1259,6 +1383,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getReturnTypeMapping() {
 		return returnTypeMappingEEnum;
 	}
@@ -1266,6 +1391,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getMethodElementKind() {
 		return methodElementKindEEnum;
 	}
@@ -1273,6 +1399,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getTransactionType() {
 		return transactionTypeEEnum;
 	}
@@ -1280,6 +1407,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getAcknowledgeMode() {
 		return acknowledgeModeEEnum;
 	}
@@ -1287,6 +1415,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getDestinationType() {
 		return destinationTypeEEnum;
 	}
@@ -1294,6 +1423,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getSubscriptionDurabilityKind() {
 		return subscriptionDurabilityKindEEnum;
 	}
@@ -1301,6 +1431,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getSessionType() {
 		return sessionTypeEEnum;
 	}
@@ -1308,6 +1439,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EjbFactory getEjbFactory() {
 		return (EjbFactory)getEFactoryInstance();
 	}

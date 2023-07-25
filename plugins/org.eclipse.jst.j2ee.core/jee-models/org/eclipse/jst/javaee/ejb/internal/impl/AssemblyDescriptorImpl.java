@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -174,6 +174,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityRole> getSecurityRoles() {
 		if (securityRoles == null) {
 			securityRoles = new EObjectContainmentEList<SecurityRole>(SecurityRole.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES);
@@ -186,6 +187,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MethodPermission> getMethodPermissions() {
 		if (methodPermissions == null) {
 			methodPermissions = new EObjectContainmentEList<MethodPermission>(MethodPermission.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS);
@@ -198,6 +200,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ContainerTransactionType> getContainerTransactions() {
 		if (containerTransactions == null) {
 			containerTransactions = new EObjectContainmentEList<ContainerTransactionType>(ContainerTransactionType.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__CONTAINER_TRANSACTIONS);
@@ -210,6 +213,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InterceptorBindingType> getInterceptorBindings() {
 		if (interceptorBindings == null) {
 			interceptorBindings = new EObjectContainmentEList<InterceptorBindingType>(InterceptorBindingType.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__INTERCEPTOR_BINDINGS);
@@ -222,6 +226,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestination> getMessageDestinations() {
 		if (messageDestinations == null) {
 			messageDestinations = new EObjectContainmentEList<MessageDestination>(MessageDestination.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS);
@@ -234,6 +239,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExcludeList getExcludeList() {
 		return excludeList;
 	}
@@ -258,6 +264,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExcludeList(ExcludeList newExcludeList) {
 		if (newExcludeList != excludeList) {
 			NotificationChain msgs = null;
@@ -277,6 +284,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ApplicationException> getApplicationExceptions() {
 		if (applicationExceptions == null) {
 			applicationExceptions = new EObjectContainmentEList<ApplicationException>(ApplicationException.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__APPLICATION_EXCEPTIONS);
@@ -289,6 +297,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -298,6 +307,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

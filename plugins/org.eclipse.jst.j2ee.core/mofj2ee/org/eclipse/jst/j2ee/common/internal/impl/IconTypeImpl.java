@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -117,6 +117,7 @@ public class IconTypeImpl extends J2EEEObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSmallIcon() {
 		return smallIcon;
 	}
@@ -126,6 +127,7 @@ public class IconTypeImpl extends J2EEEObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSmallIcon(String newSmallIcon) {
 		String oldSmallIcon = smallIcon;
 		smallIcon = newSmallIcon;
@@ -138,6 +140,7 @@ public class IconTypeImpl extends J2EEEObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLargeIcon() {
 		return largeIcon;
 	}
@@ -147,6 +150,7 @@ public class IconTypeImpl extends J2EEEObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLargeIcon(String newLargeIcon) {
 		String oldLargeIcon = largeIcon;
 		largeIcon = newLargeIcon;
@@ -159,6 +163,7 @@ public class IconTypeImpl extends J2EEEObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLang() {
 		return lang;
 	}
@@ -168,6 +173,7 @@ public class IconTypeImpl extends J2EEEObjectImpl implements IconType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLang(String newLang) {
 		String oldLang = lang;
 		lang = newLang;

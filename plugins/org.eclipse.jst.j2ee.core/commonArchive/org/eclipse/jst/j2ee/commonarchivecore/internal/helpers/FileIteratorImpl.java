@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,14 +36,17 @@ public class FileIteratorImpl implements FileIterator {
 		files = theFiles;
 	}
 
+	@Override
 	public InputStream getInputStream(File aFile) throws java.io.IOException, java.io.FileNotFoundException {
 		return aFile.getInputStream();
 	}
 
+	@Override
 	public boolean hasNext() {
 		return position < files.size();
 	}
 
+	@Override
 	public File next() {
 		if (!hasNext())
 			throw new NoSuchElementException(CommonArchiveResourceHandler.End_of_list_reached_EXC_); // = "End of list reached"

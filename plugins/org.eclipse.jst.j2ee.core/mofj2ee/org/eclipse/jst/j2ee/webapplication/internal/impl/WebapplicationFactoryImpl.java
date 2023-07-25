@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -174,6 +174,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public WebApp createWebApp() {
 		WebAppImpl webApp = new WebAppImpl();
 		return webApp;
@@ -182,6 +183,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ContextParam createContextParam() {
 		ContextParamImpl contextParam = new ContextParamImpl();
 		return contextParam;
@@ -190,6 +192,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ErrorPage createErrorPage() {
 		ErrorPageImpl errorPage = new ErrorPageImpl();
 		return errorPage;
@@ -200,6 +203,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TagLibRef createTagLibRef() {
 		TagLibRefImpl tagLibRef = new TagLibRefImpl();
 		return tagLibRef;
@@ -208,6 +212,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ExceptionTypeErrorPage createExceptionTypeErrorPage() {
 		ExceptionTypeErrorPageImpl exceptionTypeErrorPage = new ExceptionTypeErrorPageImpl();
 		return exceptionTypeErrorPage;
@@ -216,6 +221,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ErrorCodeErrorPage createErrorCodeErrorPage() {
 		ErrorCodeErrorPageImpl errorCodeErrorPage = new ErrorCodeErrorPageImpl();
 		return errorCodeErrorPage;
@@ -224,6 +230,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public WelcomeFileList createWelcomeFileList() {
 		WelcomeFileListImpl welcomeFileList = new WelcomeFileListImpl();
 		return welcomeFileList;
@@ -232,6 +239,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public WelcomeFile createWelcomeFile() {
 		WelcomeFileImpl welcomeFile = new WelcomeFileImpl();
 		return welcomeFile;
@@ -240,6 +248,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public SecurityConstraint createSecurityConstraint() {
 		SecurityConstraintImpl securityConstraint = new SecurityConstraintImpl();
 		return securityConstraint;
@@ -248,6 +257,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public WebResourceCollection createWebResourceCollection() {
 		WebResourceCollectionImpl webResourceCollection = new WebResourceCollectionImpl();
 		return webResourceCollection;
@@ -256,6 +266,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public URLPatternType createURLPatternType() {
 		URLPatternTypeImpl urlPatternType = new URLPatternTypeImpl();
 		return urlPatternType;
@@ -264,6 +275,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public AuthConstraint createAuthConstraint() {
 		AuthConstraintImpl authConstraint = new AuthConstraintImpl();
 		return authConstraint;
@@ -272,6 +284,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public UserDataConstraint createUserDataConstraint() {
 		UserDataConstraintImpl userDataConstraint = new UserDataConstraintImpl();
 		return userDataConstraint;
@@ -280,6 +293,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public LoginConfig createLoginConfig() {
 		LoginConfigImpl loginConfig = new LoginConfigImpl();
 		return loginConfig;
@@ -288,6 +302,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public FormLoginConfig createFormLoginConfig() {
 		FormLoginConfigImpl formLoginConfig = new FormLoginConfigImpl();
 		return formLoginConfig;
@@ -296,6 +311,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public MimeMapping createMimeMapping() {
 		MimeMappingImpl mimeMapping = new MimeMappingImpl();
 		return mimeMapping;
@@ -304,6 +320,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public SessionConfig createSessionConfig() {
 		SessionConfigImpl sessionConfig = new SessionConfigImpl();
 		return sessionConfig;
@@ -312,6 +329,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ServletMapping createServletMapping() {
 		ServletMappingImpl servletMapping = new ServletMappingImpl();
 		return servletMapping;
@@ -320,6 +338,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Servlet createServlet() {
 		ServletImpl servlet = new ServletImpl();
 		return servlet;
@@ -328,6 +347,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ServletType createServletType() {
 		ServletTypeImpl servletType = new ServletTypeImpl();
 		return servletType;
@@ -336,6 +356,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public JSPType createJSPType() {
 		JSPTypeImpl jspType = new JSPTypeImpl();
 		return jspType;
@@ -344,6 +365,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public InitParam createInitParam() {
 		InitParamImpl initParam = new InitParamImpl();
 		return initParam;
@@ -352,6 +374,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Filter createFilter() {
 		FilterImpl filter = new FilterImpl();
 		return filter;
@@ -360,6 +383,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public FilterMapping createFilterMapping() {
 		FilterMappingImpl filterMapping = new FilterMappingImpl();
 		return filterMapping;
@@ -370,6 +394,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LocalEncodingMappingList createLocalEncodingMappingList() {
 		LocalEncodingMappingListImpl localEncodingMappingList = new LocalEncodingMappingListImpl();
 		return localEncodingMappingList;
@@ -380,6 +405,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LocalEncodingMapping createLocalEncodingMapping() {
 		LocalEncodingMappingImpl localEncodingMapping = new LocalEncodingMappingImpl();
 		return localEncodingMapping;
@@ -390,6 +416,7 @@ public static WebapplicationFactory getActiveFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HTTPMethodType createHTTPMethodType() {
 		HTTPMethodTypeImpl httpMethodType = new HTTPMethodTypeImpl();
 		return httpMethodType;
@@ -498,6 +525,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public RoleNameType createRoleNameType() {
 		RoleNameTypeImpl roleNameType = new RoleNameTypeImpl();
 		return roleNameType;
@@ -506,6 +534,7 @@ public static WebapplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public WebapplicationPackage getWebapplicationPackage() {
 		return (WebapplicationPackage)getEPackage();
 	}

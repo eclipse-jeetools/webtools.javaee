@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	/**
 	 * Subclasses may wish to override.
 	 */
+	@Override
 	public void close() {
 	}
 
@@ -101,6 +102,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	/**
 	 * Default implementation; subclasses should override as necessary.
 	 */
+	@Override
 	public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
 		if (archiveResource.getType() == IArchive.ARCHIVE_TYPE) {
 			IArchive thisArchive = (IArchive) archiveResource;
@@ -121,6 +123,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	/**
 	 * Default implementation; subclasses should override as necessary.
 	 */
+	@Override
 	public boolean containsArchiveResource(IPath resourcePath) {
 		return false;
 	}
@@ -128,6 +131,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	/**
 	 * Default implementation; subclasses should override as necessary.
 	 */
+	@Override
 	public boolean containsModelObject(IPath modelObjectPath) {
 		return false;
 	}
@@ -135,6 +139,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	/**
 	 * Default implementation; subclasses should override as necessary.
 	 */
+	@Override
 	public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
 		return null;
 	}
@@ -142,6 +147,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	/**
 	 * Default implementation; subclasses should override as necessary.
 	 */
+	@Override
 	public List<IArchiveResource> getArchiveResources() {
 		return null;
 	}
@@ -149,6 +155,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 	/**
 	 * Default implementation; subclasses should override as necessary.
 	 */
+	@Override
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		return null;
 	}

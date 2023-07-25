@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -125,7 +125,8 @@ protected JavaClass getKeyClass() {
  *		Or use getEjbClass() to get additional Java info.
  */
 
- public Field getField() {
+ @Override
+public Field getField() {
 	ContainerManagedEntity ejb = getCMPEntity();
 	
 	if(ejb == null)
@@ -149,6 +150,7 @@ protected JavaClass getKeyClass() {
 	}
 	return field;
 }
+@Override
 public String getGetterName() {
 	if (name != null && name.length() > 0) {
 		StringBuffer b = new StringBuffer("get"); //$NON-NLS-1$
@@ -162,12 +164,15 @@ public String getGetterName() {
  * Return the type of this attribute in its original form (i.e., unwrapped if
  * the type has been wrapped).
  */
+@Override
 public JavaHelpers getOriginatingType() {
 	return originatingType;
 }
+@Override
 public String getSetterName() {
 	return "set" + Character.toUpperCase(getName().charAt(0)) + (getName().length() > 1 ? getName().substring(1) : ""); //$NON-NLS-1$ //$NON-NLS-2$
 }
+@Override
 public JavaHelpers getType() {
 	if (getEType() != null)
 		return (JavaHelpers) getEType();
@@ -235,17 +240,21 @@ private EClassifier getKeyFieldTypeFromKeyClass() {
 	}
 	return null;
 }
+@Override
 public boolean isCMRField() {
 	return false;
 }
+@Override
 public boolean isKey() {
 	return getCMPEntity() == null ? false : getCMPEntity().isKeyAttribute(this);
 }
 
+@Override
 public boolean isPrimKeyField(){
 	return getCMPEntity() == null ? false : getCMPEntity().getPrimKeyField() == this;
 }
 
+@Override
 public void setOriginatingType(JavaHelpers newOriginatingType) {
 	originatingType = newOriginatingType;
 }
@@ -255,6 +264,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * 
 	 * The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -262,6 +272,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -274,6 +285,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.CMP_ATTRIBUTE__DESCRIPTIONS);

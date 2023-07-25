@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -103,24 +103,28 @@ public class EJBRelationImpl extends J2EEEObjectImpl implements EJBRelation {
 		return EjbPackage.Literals.EJB_RELATION;
 	}
 
+@Override
 public boolean containsRelationshipRole(EJBRelationshipRole aRole) {
 	return getRelationshipRoles().contains(aRole);
 }
 /**
  * Return the roles.
  */
+@Override
 public EList getCommonRoles() {
 	return getRelationshipRoles();
 }
 /**
  * Return the first role.
  */
+@Override
 public CommonRelationshipRole getFirstCommonRole() {
 	return getFirstRole();
 }
 /**
  * Return the first role.
  */
+@Override
 public EJBRelationshipRole getFirstRole() {
 	List list = getRelationshipRoles();
 	if (list.size() == 0)
@@ -130,6 +134,7 @@ public EJBRelationshipRole getFirstRole() {
 /**
  * Return the other role.
  */
+@Override
 public EJBRelationshipRole getOppositeRole(EJBRelationshipRole aRole) {
 	if (aRole != null) {
 		if (aRole == getFirstRole())
@@ -142,12 +147,14 @@ public EJBRelationshipRole getOppositeRole(EJBRelationshipRole aRole) {
 /**
  * Return the first role.
  */
+@Override
 public CommonRelationshipRole getSecondCommonRole() {
 	return getSecondRole();
 }
 /**
  * Return the second role.
  */
+@Override
 public EJBRelationshipRole getSecondRole() {
 	List list = getRelationshipRoles();
 	if (list.size() < 2)
@@ -158,6 +165,7 @@ public EJBRelationshipRole getSecondRole() {
  * Set the forward role.  Implemented by ensuring that the passed role is the first role 
  * which is the "tiebreaker" in case of unclear relationships, such as 1:1.
  */
+@Override
 public void setFoward(EJBRelationshipRole aRole) {
 	
 	EList roles = getRelationshipRoles();
@@ -175,6 +183,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * 
 	 * The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -182,6 +191,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -194,6 +204,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * The name of the relationship. If specified, must be unique within the ejb-jar file.
 	 * @invariant self.name unique within Set<collect(ejbJar.ejbRelations.name)>
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -201,6 +212,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -211,6 +223,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public Relationships getRelationshipList() {
 		if (eContainerFeatureID != EjbPackage.EJB_RELATION__RELATIONSHIP_LIST) return null;
 		return (Relationships)eContainer();
@@ -229,6 +242,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRelationshipList(Relationships newRelationshipList) {
 		if (newRelationshipList != eInternalContainer() || (eContainerFeatureID != EjbPackage.EJB_RELATION__RELATIONSHIP_LIST && newRelationshipList != null)) {
 			if (EcoreUtil.isAncestor(this, newRelationshipList))
@@ -252,6 +266,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * @migration EJB1.1 Containment used to be by reference on relation--now by value.
 
 	 */
+	@Override
 	public EList getRelationshipRoles() {
 		if (relationshipRoles == null) {
 			relationshipRoles = new EObjectContainmentWithInverseEList(EJBRelationshipRole.class, this, EjbPackage.EJB_RELATION__RELATIONSHIP_ROLES, EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP);
@@ -264,6 +279,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.EJB_RELATION__DESCRIPTIONS);
@@ -437,6 +453,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 		return result.toString();
 	}
 
+	@Override
 	public EJBRelationshipRole getRelationshipRole(String aRoleName) {
 		if (aRoleName == null) return null;
 		List roles = getRelationshipRoles();

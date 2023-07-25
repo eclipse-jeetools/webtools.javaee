@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -196,6 +196,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 		}
 	}
 
+@Override
 public MethodElement createMethodElement(String aSignature) {
 	MethodElement me = createMethodElement();
 	me.initializeFromSignature(aSignature);
@@ -204,6 +205,7 @@ public MethodElement createMethodElement(String aSignature) {
 /**
  * Helper method to create a MethodElement from a java method.   Defaults the type to "Unspecified".
  */
+@Override
 public MethodElement createMethodElementFrom(
 	Method method) {
 
@@ -227,6 +229,7 @@ public MethodElement createMethodElementFrom(
  * Helper method to reflect the method and create a MethodElement.  If the parameter is null, creates an element
  * with a name of "*".  Defaults the type to "Unspecified".
  */
+@Override
 public MethodElement createMethodElementFrom(java.lang.reflect.Method method) {
 
 	String methodName = method == null ? "*" : method.getName(); //$NON-NLS-1$
@@ -273,6 +276,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public MethodPermission createMethodPermission() {
 		MethodPermissionImpl methodPermission = new MethodPermissionImpl();
 		return methodPermission;
@@ -281,6 +285,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public AssemblyDescriptor createAssemblyDescriptor() {
 		AssemblyDescriptorImpl assemblyDescriptor = new AssemblyDescriptorImpl();
 		return assemblyDescriptor;
@@ -289,6 +294,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public MethodTransaction createMethodTransaction() {
 		MethodTransactionImpl methodTransaction = new MethodTransactionImpl();
 		return methodTransaction;
@@ -297,6 +303,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Entity createEntity() {
 		EntityImpl entity = new EntityImpl();
 		return entity;
@@ -310,7 +317,8 @@ static String getTypeName(Class type) {
 		return containerManagedEntity;
 	}
 
-  	public ContainerManagedEntity createContainerManagedEntity() {
+  	@Override
+	public ContainerManagedEntity createContainerManagedEntity() {
   		ContainerManagedEntity cmp = createContainerManagedEntityGen();
   		adaptNew(cmp, CMP_ADAPTER_FACTORIES);
   		addKeySynchronizationAdapter(cmp);
@@ -329,6 +337,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public CMPAttribute createCMPAttribute() {
 		CMPAttributeImpl cmpAttribute = new CMPAttributeImpl();
 		return cmpAttribute;
@@ -337,6 +346,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public CMRField createCMRField() {
 		CMRFieldImpl cmrField = new CMRFieldImpl();
 		return cmrField;
@@ -345,6 +355,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EJBRelationshipRole createEJBRelationshipRole() {
 		EJBRelationshipRoleImpl ejbRelationshipRole = new EJBRelationshipRoleImpl();
 		return ejbRelationshipRole;
@@ -358,7 +369,8 @@ static String getTypeName(Class type) {
 		return ejbRelation;
 	}
 
-  	public EJBRelation createEJBRelation() {
+  	@Override
+	public EJBRelation createEJBRelation() {
   		EJBRelation rel = createEJBRelationGen();
   		adaptNew(rel, EJB_RELATION_ADAPTER_FACTORIES);
   		return rel;
@@ -372,6 +384,7 @@ static String getTypeName(Class type) {
 		return relationships;
 	}
 
+	@Override
 	public Relationships createRelationships() {
 		Relationships rel = createRelationshipsGen();
 		adaptNew(rel, RELATIONSHIPS_ADAPTER_FACTORIES);
@@ -380,6 +393,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EJBJar createEJBJar() {
 		EJBJarImpl ejbJar = new EJBJarImpl();
 		return ejbJar;
@@ -388,6 +402,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public RoleSource createRoleSource() {
 		RoleSourceImpl roleSource = new RoleSourceImpl();
 		return roleSource;
@@ -396,6 +411,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Query createQuery() {
 		QueryImpl query = new QueryImpl();
 		return query;
@@ -404,6 +420,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public QueryMethod createQueryMethod() {
 		QueryMethodImpl queryMethod = new QueryMethodImpl();
 		return queryMethod;
@@ -414,6 +431,7 @@ static String getTypeName(Class type) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationConfigProperty createActivationConfigProperty() {
 		ActivationConfigPropertyImpl activationConfigProperty = new ActivationConfigPropertyImpl();
 		return activationConfigProperty;
@@ -424,6 +442,7 @@ static String getTypeName(Class type) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationConfig createActivationConfig() {
 		ActivationConfigImpl activationConfig = new ActivationConfigImpl();
 		return activationConfig;
@@ -612,6 +631,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public MethodElement createMethodElement() {
 		MethodElementImpl methodElement = new MethodElementImpl();
 		return methodElement;
@@ -620,6 +640,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ExcludeList createExcludeList() {
 		ExcludeListImpl excludeList = new ExcludeListImpl();
 		return excludeList;
@@ -628,6 +649,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Session createSession() {
 		SessionImpl session = new SessionImpl();
 		return session;
@@ -636,6 +658,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public MessageDriven createMessageDriven() {
 		MessageDrivenImpl messageDriven = new MessageDrivenImpl();
 		return messageDriven;
@@ -644,6 +667,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public MessageDrivenDestination createMessageDrivenDestination() {
 		MessageDrivenDestinationImpl messageDrivenDestination = new MessageDrivenDestinationImpl();
 		return messageDrivenDestination;
@@ -652,6 +676,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EJBMethodCategory createEJBMethodCategory() {
 		EJBMethodCategoryImpl ejbMethodCategory = new EJBMethodCategoryImpl();
 		return ejbMethodCategory;
@@ -660,6 +685,7 @@ static String getTypeName(Class type) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EjbPackage getEjbPackage() {
 		return (EjbPackage)getEPackage();
 	}

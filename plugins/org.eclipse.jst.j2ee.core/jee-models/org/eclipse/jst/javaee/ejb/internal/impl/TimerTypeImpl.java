@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -242,6 +242,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescription() {
 		if (description == null) {
 			description = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.TIMER_TYPE__DESCRIPTION);
@@ -254,6 +255,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TimerScheduleType getSchedule() {
 		return schedule;
 	}
@@ -278,6 +280,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSchedule(TimerScheduleType newSchedule) {
 		if (newSchedule != schedule) {
 			NotificationChain msgs = null;
@@ -297,6 +300,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public XMLGregorianCalendar getStart() {
 		return start;
 	}
@@ -306,6 +310,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStart(XMLGregorianCalendar newStart) {
 		XMLGregorianCalendar oldStart = start;
 		start = newStart;
@@ -318,6 +323,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public XMLGregorianCalendar getEnd() {
 		return end;
 	}
@@ -327,6 +333,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnd(XMLGregorianCalendar newEnd) {
 		XMLGregorianCalendar oldEnd = end;
 		end = newEnd;
@@ -339,6 +346,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getTimeoutMethod() {
 		return timeoutMethod;
 	}
@@ -363,6 +371,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimeoutMethod(NamedMethodType newTimeoutMethod) {
 		if (newTimeoutMethod != timeoutMethod) {
 			NotificationChain msgs = null;
@@ -382,6 +391,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isPersistent() {
 		return persistent;
 	}
@@ -391,6 +401,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPersistent(boolean newPersistent) {
 		boolean oldPersistent = persistent;
 		persistent = newPersistent;
@@ -405,6 +416,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetPersistent() {
 		boolean oldPersistent = persistent;
 		boolean oldPersistentESet = persistentESet;
@@ -419,6 +431,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetPersistent() {
 		return persistentESet;
 	}
@@ -428,6 +441,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getTimezone() {
 		return timezone;
 	}
@@ -437,6 +451,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimezone(String newTimezone) {
 		String oldTimezone = timezone;
 		timezone = newTimezone;
@@ -449,6 +464,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getInfo() {
 		return info;
 	}
@@ -458,6 +474,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInfo(String newInfo) {
 		String oldInfo = info;
 		info = newInfo;
@@ -470,6 +487,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -479,6 +497,7 @@ public class TimerTypeImpl extends EObjectImpl implements TimerType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

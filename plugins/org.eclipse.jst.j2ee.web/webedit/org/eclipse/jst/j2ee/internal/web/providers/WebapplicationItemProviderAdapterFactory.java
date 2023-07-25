@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -246,6 +246,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void addListener(INotifyChangedListener notifyChangedListener) {
 		changeNotifier.addListener(notifyChangedListener);
 	}
@@ -673,6 +674,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 		return welcomeFileListItemProvider;
 	}
 
+	@Override
 	public void dispose() {
 		disposable.dispose();
 	}
@@ -680,6 +682,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This returns the root adapter factory that contains the factory.
 	 */
+	@Override
 	public ComposeableAdapterFactory getRootAdapterFactory() {
 		return (parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory());
 	}
@@ -694,6 +697,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void removeListener(INotifyChangedListener notifyChangedListener) {
 		changeNotifier.removeListener(notifyChangedListener);
 	}
@@ -704,6 +708,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void fireNotifyChanged(Notification notification) {
 		changeNotifier.fireNotifyChanged(notification);
 
@@ -715,6 +720,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This sets the composed adapter factory that contains the factory.
 	 */
+	@Override
 	public void setParentAdapterFactory(ComposedAdapterFactory parentAdapterFactory) {
 		this.parentAdapterFactory = parentAdapterFactory;
 	}

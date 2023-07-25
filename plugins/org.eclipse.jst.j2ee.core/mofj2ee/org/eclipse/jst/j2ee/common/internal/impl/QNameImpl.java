@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -145,6 +145,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 		return namespaceURI;
 	}
 
+	@Override
 	public String getNamespaceURI() {
 		if (namespaceURI != null)
 			return namespaceURI;
@@ -163,6 +164,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.QNAME__NAMESPACE_URI, oldNamespaceURI, namespaceURI));
 	}
 
+	@Override
 	public void setNamespaceURI(String newNamespaceURI) {
 	    String prefix = getInternalPrefixOrNsURI();
 	    String oldNsURI = getInternalPrefixOrNsURI();
@@ -180,6 +182,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocalPart() {
 		return localPart;
 	}
@@ -196,6 +199,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.QNAME__LOCAL_PART, oldLocalPart, localPart));
 	}
 
+	@Override
 	public void setLocalPart(String newLocalPart) {
 		setLocalPartGen(newLocalPart);
 		updateCombine();
@@ -206,6 +210,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCombinedQName() {
 		return combinedQName;
 	}
@@ -222,6 +227,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.QNAME__COMBINED_QNAME, oldCombinedQName, combinedQName));
 	}
 
+	@Override
 	public void setCombinedQName(String newCombinedQName) {
 		setCombinedQNameGen(newCombinedQName);
 		updateParse();
@@ -269,6 +275,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getInternalPrefixOrNsURI() {
 		return internalPrefixOrNsURI;
 	}
@@ -285,6 +292,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.QNAME__INTERNAL_PREFIX_OR_NS_URI, oldInternalPrefixOrNsURI, internalPrefixOrNsURI));
 	}
 
+	@Override
 	public void setInternalPrefixOrNsURI(String newInternalPrefixOrNsURI) {
 		setInternalPrefixOrNsURIGen(newInternalPrefixOrNsURI);
 		updateCombine();
@@ -423,6 +431,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.QName#setValues(java.lang.String, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public void setValues(String prefix, String nsURI, String localPart) {
 		setInternalPrefixOrNsURIGen(prefix);
 		setLocalPartGen(localPart);

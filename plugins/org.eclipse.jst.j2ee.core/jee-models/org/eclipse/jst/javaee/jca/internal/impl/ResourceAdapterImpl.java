@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -170,6 +170,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResourceadapterClass() {
 		return resourceadapterClass;
 	}
@@ -179,6 +180,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceadapterClass(String newResourceadapterClass) {
 		String oldResourceadapterClass = resourceadapterClass;
 		resourceadapterClass = newResourceadapterClass;
@@ -191,6 +193,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConfigProperty> getConfigProperty() {
 		if (configProperty == null) {
 			configProperty = new EObjectContainmentEList<ConfigProperty>(ConfigProperty.class, this, JcaPackage.RESOURCE_ADAPTER__CONFIG_PROPERTY);
@@ -203,6 +206,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OutboundResourceAdapter getOutboundResourceadapter() {
 		return outboundResourceadapter;
 	}
@@ -227,6 +231,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOutboundResourceadapter(OutboundResourceAdapter newOutboundResourceadapter) {
 		if (newOutboundResourceadapter != outboundResourceadapter) {
 			NotificationChain msgs = null;
@@ -246,6 +251,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InboundResourceAdapter getInboundResourceadapter() {
 		return inboundResourceadapter;
 	}
@@ -270,6 +276,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInboundResourceadapter(InboundResourceAdapter newInboundResourceadapter) {
 		if (newInboundResourceadapter != inboundResourceadapter) {
 			NotificationChain msgs = null;
@@ -289,6 +296,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AdminObject> getAdminobject() {
 		if (adminobject == null) {
 			adminobject = new EObjectContainmentEList<AdminObject>(AdminObject.class, this, JcaPackage.RESOURCE_ADAPTER__ADMINOBJECT);
@@ -301,6 +309,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityPermission> getSecurityPermission() {
 		if (securityPermission == null) {
 			securityPermission = new EObjectContainmentEList<SecurityPermission>(SecurityPermission.class, this, JcaPackage.RESOURCE_ADAPTER__SECURITY_PERMISSION);
@@ -313,6 +322,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -322,6 +332,7 @@ public class ResourceAdapterImpl extends EObjectImpl implements ResourceAdapter 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

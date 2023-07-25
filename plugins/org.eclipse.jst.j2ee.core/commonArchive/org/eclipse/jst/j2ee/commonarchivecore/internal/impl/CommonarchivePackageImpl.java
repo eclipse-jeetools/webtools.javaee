@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -196,6 +196,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getContainer() {
 		return containerEClass;
 	}
@@ -203,6 +204,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getContainer_Files() {
 		return (EReference)containerEClass.getEStructuralFeatures().get(0);
 	}
@@ -210,6 +212,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getWARFile() {
 		return warFileEClass;
 	}
@@ -217,6 +220,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getWARFile_DeploymentDescriptor() {
 		return (EReference)warFileEClass.getEStructuralFeatures().get(0);
 	}
@@ -224,6 +228,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getModuleFile() {
 		return moduleFileEClass;
 	}
@@ -231,6 +236,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEARFile() {
 		return earFileEClass;
 	}
@@ -238,6 +244,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEARFile_DeploymentDescriptor() {
 		return (EReference)earFileEClass.getEStructuralFeatures().get(1);
 	}
@@ -245,6 +252,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEARFile_ModuleRefs() {
 		return (EReference)earFileEClass.getEStructuralFeatures().get(0);
 	}
@@ -252,6 +260,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getModuleRef() {
 		return moduleRefEClass;
 	}
@@ -259,6 +268,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getModuleRef_ModuleFile() {
 		return (EReference)moduleRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -266,6 +276,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getModuleRef_EarFile() {
 		return (EReference)moduleRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -275,6 +286,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getModuleRef_Module() {
 		return (EReference)moduleRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -282,6 +294,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEJBModuleRef() {
 		return ejbModuleRefEClass;
 	}
@@ -289,6 +302,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getWebModuleRef() {
 		return webModuleRefEClass;
 	}
@@ -296,6 +310,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getClientModuleRef() {
 		return clientModuleRefEClass;
 	}
@@ -303,6 +318,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getConnectorModuleRef() {
 		return connectorModuleRefEClass;
 	}
@@ -310,6 +326,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getApplicationClientFile() {
 		return applicationClientFileEClass;
 	}
@@ -317,6 +334,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getApplicationClientFile_DeploymentDescriptor() {
 		return (EReference)applicationClientFileEClass.getEStructuralFeatures().get(0);
 	}
@@ -324,6 +342,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEJBJarFile() {
 		return ejbJarFileEClass;
 	}
@@ -331,6 +350,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getEJBJarFile_DeploymentDescriptor() {
 		return (EReference)ejbJarFileEClass.getEStructuralFeatures().get(0);
 	}
@@ -338,6 +358,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getRARFile() {
 		return rarFileEClass;
 	}
@@ -346,6 +367,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRARFile_DeploymentDescriptor() {
 		return (EReference)rarFileEClass.getEStructuralFeatures().get(0);
 	}
@@ -353,6 +375,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getArchive() {
 		return archiveEClass;
 	}
@@ -361,6 +384,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getArchive_Types() {
 		return (EAttribute)archiveEClass.getEStructuralFeatures().get(0);
 	}
@@ -368,6 +392,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getFile() {
 		return fileEClass;
 	}
@@ -375,6 +400,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getFile_URI() {
 		return (EAttribute)fileEClass.getEStructuralFeatures().get(0);
 	}
@@ -382,6 +408,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getFile_LastModified() {
 		return (EAttribute)fileEClass.getEStructuralFeatures().get(1);
 	}
@@ -389,6 +416,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getFile_Size() {
 		return (EAttribute)fileEClass.getEStructuralFeatures().get(2);
 	}
@@ -397,6 +425,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFile_DirectoryEntry() {
 		return (EAttribute)fileEClass.getEStructuralFeatures().get(3);
 	}
@@ -404,6 +433,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getFile_OriginalURI() {
 		return (EAttribute)fileEClass.getEStructuralFeatures().get(4);
 	}
@@ -411,6 +441,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getFile_LoadingContainer() {
 		return (EReference)fileEClass.getEStructuralFeatures().get(5);
 	}
@@ -418,6 +449,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getFile_Container() {
 		return (EReference)fileEClass.getEStructuralFeatures().get(6);
 	}
@@ -425,6 +457,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getReadOnlyDirectory() {
 		return readOnlyDirectoryEClass;
 	}
@@ -432,6 +465,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public CommonarchiveFactory getCommonarchiveFactory() {
 		return (CommonarchiveFactory)getEFactoryInstance();
 	}

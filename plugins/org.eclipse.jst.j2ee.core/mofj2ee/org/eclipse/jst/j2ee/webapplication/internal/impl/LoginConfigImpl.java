@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -115,6 +115,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * authenticated using the configured mechanism. Legal values for this element are 
 	 * "BASIC", "DIGEST", "FORM", or "CLIENT-CERT".
 	 */
+	@Override
 	public AuthMethodKind getAuthMethod() {
 		return authMethod;
 	}
@@ -124,6 +125,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAuthMethod(AuthMethodKind newAuthMethod) {
 		AuthMethodKind oldAuthMethod = authMethod;
 		authMethod = newAuthMethod == null ? AUTH_METHOD_EDEFAULT : newAuthMethod;
@@ -138,6 +140,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetAuthMethod() {
 		AuthMethodKind oldAuthMethod = authMethod;
 		boolean oldAuthMethodESet = authMethodESet;
@@ -152,6 +155,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetAuthMethod() {
 		return authMethodESet;
 	}
@@ -161,6 +165,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * The realm name element specifies the realm name to use in HTTP Basic
 	 * authorization
 	 */
+	@Override
 	public String getRealmName() {
 		return realmName;
 	}
@@ -168,6 +173,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRealmName(String newRealmName) {
 		String oldRealmName = realmName;
 		realmName = newRealmName;
@@ -180,6 +186,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getAuthorizationMethod() {
 		return authorizationMethod;
 	}
@@ -189,6 +196,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAuthorizationMethod(String newAuthorizationMethod) {
 		String oldAuthorizationMethod = authorizationMethod;
 		authorizationMethod = newAuthorizationMethod;
@@ -199,6 +207,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.LOGIN_CONFIG__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -217,6 +226,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.LOGIN_CONFIG__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
@@ -236,6 +246,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public FormLoginConfig getFormLoginConfig() {
 		return formLoginConfig;
 	}
@@ -258,6 +269,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setFormLoginConfig(FormLoginConfig newFormLoginConfig) {
 		if (newFormLoginConfig != formLoginConfig) {
 			NotificationChain msgs = null;

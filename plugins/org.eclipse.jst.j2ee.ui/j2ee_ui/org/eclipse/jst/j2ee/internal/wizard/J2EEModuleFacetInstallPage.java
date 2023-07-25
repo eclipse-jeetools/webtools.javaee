@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -81,14 +81,16 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
 	{
         this.facetVersionListener = new IDataModelListener()
         {
-            public void propertyChanged( final DataModelEvent event )
+            @Override
+			public void propertyChanged( final DataModelEvent event )
             {
                 if( event.getFlag() == DataModelEvent.VALUE_CHG &&
                     event.getPropertyName().equals( FACET_VERSION ) )
                 {
                     final Runnable runnable = new Runnable()
                     {
-                        public void run()
+                        @Override
+						public void run()
                         {
                             handleFacetVersionChangedEvent();
                         }

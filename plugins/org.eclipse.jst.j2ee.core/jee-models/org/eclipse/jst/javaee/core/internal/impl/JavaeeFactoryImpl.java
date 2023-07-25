@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -312,6 +312,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AddressingType createAddressingType() {
 		AddressingTypeImpl addressingType = new AddressingTypeImpl();
 		return addressingType;
@@ -322,6 +323,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AdministeredObjectType createAdministeredObjectType() {
 		AdministeredObjectTypeImpl administeredObjectType = new AdministeredObjectTypeImpl();
 		return administeredObjectType;
@@ -332,6 +334,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConnectionFactoryResourceType createConnectionFactoryResourceType() {
 		ConnectionFactoryResourceTypeImpl connectionFactoryResourceType = new ConnectionFactoryResourceTypeImpl();
 		return connectionFactoryResourceType;
@@ -342,6 +345,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DataSourceType createDataSourceType() {
 		DataSourceTypeImpl dataSourceType = new DataSourceTypeImpl();
 		return dataSourceType;
@@ -352,6 +356,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Description createDescription() {
 		DescriptionImpl description = new DescriptionImpl();
 		return description;
@@ -362,6 +367,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DisplayName createDisplayName() {
 		DisplayNameImpl displayName = new DisplayNameImpl();
 		return displayName;
@@ -372,6 +378,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EjbLocalRef createEjbLocalRef() {
 		EjbLocalRefImpl ejbLocalRef = new EjbLocalRefImpl();
 		return ejbLocalRef;
@@ -382,6 +389,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EjbRef createEjbRef() {
 		EjbRefImpl ejbRef = new EjbRefImpl();
 		return ejbRef;
@@ -392,6 +400,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EmptyType createEmptyType() {
 		EmptyTypeImpl emptyType = new EmptyTypeImpl();
 		return emptyType;
@@ -402,6 +411,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnvEntry createEnvEntry() {
 		EnvEntryImpl envEntry = new EnvEntryImpl();
 		return envEntry;
@@ -412,6 +422,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Icon createIcon() {
 		IconImpl icon = new IconImpl();
 		return icon;
@@ -422,6 +433,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InjectionTarget createInjectionTarget() {
 		InjectionTargetImpl injectionTarget = new InjectionTargetImpl();
 		return injectionTarget;
@@ -432,6 +444,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JmsConnectionFactoryType createJmsConnectionFactoryType() {
 		JmsConnectionFactoryTypeImpl jmsConnectionFactoryType = new JmsConnectionFactoryTypeImpl();
 		return jmsConnectionFactoryType;
@@ -442,6 +455,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JmsDestinationType createJmsDestinationType() {
 		JmsDestinationTypeImpl jmsDestinationType = new JmsDestinationTypeImpl();
 		return jmsDestinationType;
@@ -452,6 +466,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LifecycleCallback createLifecycleCallback() {
 		LifecycleCallbackImpl lifecycleCallback = new LifecycleCallbackImpl();
 		return lifecycleCallback;
@@ -462,6 +477,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Listener createListener() {
 		ListenerImpl listener = new ListenerImpl();
 		return listener;
@@ -472,6 +488,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MailSessionType createMailSessionType() {
 		MailSessionTypeImpl mailSessionType = new MailSessionTypeImpl();
 		return mailSessionType;
@@ -482,6 +499,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageDestination createMessageDestination() {
 		MessageDestinationImpl messageDestination = new MessageDestinationImpl();
 		return messageDestination;
@@ -492,6 +510,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageDestinationRef createMessageDestinationRef() {
 		MessageDestinationRefImpl messageDestinationRef = new MessageDestinationRefImpl();
 		return messageDestinationRef;
@@ -502,6 +521,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ParamValue createParamValue() {
 		ParamValueImpl paramValue = new ParamValueImpl();
 		return paramValue;
@@ -512,6 +532,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PersistenceContextRef createPersistenceContextRef() {
 		PersistenceContextRefImpl persistenceContextRef = new PersistenceContextRefImpl();
 		return persistenceContextRef;
@@ -522,6 +543,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PersistenceUnitRef createPersistenceUnitRef() {
 		PersistenceUnitRefImpl persistenceUnitRef = new PersistenceUnitRefImpl();
 		return persistenceUnitRef;
@@ -532,6 +554,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PortComponentRef createPortComponentRef() {
 		PortComponentRefImpl portComponentRef = new PortComponentRefImpl();
 		return portComponentRef;
@@ -542,6 +565,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PropertyType createPropertyType() {
 		PropertyTypeImpl propertyType = new PropertyTypeImpl();
 		return propertyType;
@@ -552,6 +576,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceEnvRef createResourceEnvRef() {
 		ResourceEnvRefImpl resourceEnvRef = new ResourceEnvRefImpl();
 		return resourceEnvRef;
@@ -562,6 +587,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceRef createResourceRef() {
 		ResourceRefImpl resourceRef = new ResourceRefImpl();
 		return resourceRef;
@@ -572,6 +598,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RespectBindingType createRespectBindingType() {
 		RespectBindingTypeImpl respectBindingType = new RespectBindingTypeImpl();
 		return respectBindingType;
@@ -582,6 +609,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RunAs createRunAs() {
 		RunAsImpl runAs = new RunAsImpl();
 		return runAs;
@@ -592,6 +620,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityRole createSecurityRole() {
 		SecurityRoleImpl securityRole = new SecurityRoleImpl();
 		return securityRole;
@@ -602,6 +631,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityRoleRef createSecurityRoleRef() {
 		SecurityRoleRefImpl securityRoleRef = new SecurityRoleRefImpl();
 		return securityRoleRef;
@@ -612,6 +642,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ServiceRef createServiceRef() {
 		ServiceRefImpl serviceRef = new ServiceRefImpl();
 		return serviceRef;
@@ -622,6 +653,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ServiceRefHandler createServiceRefHandler() {
 		ServiceRefHandlerImpl serviceRefHandler = new ServiceRefHandlerImpl();
 		return serviceRefHandler;
@@ -632,6 +664,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ServiceRefHandlerChain createServiceRefHandlerChain() {
 		ServiceRefHandlerChainImpl serviceRefHandlerChain = new ServiceRefHandlerChainImpl();
 		return serviceRefHandlerChain;
@@ -642,6 +675,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ServiceRefHandlerChains createServiceRefHandlerChains() {
 		ServiceRefHandlerChainsImpl serviceRefHandlerChains = new ServiceRefHandlerChainsImpl();
 		return serviceRefHandlerChains;
@@ -652,6 +686,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UrlPatternType createUrlPatternType() {
 		UrlPatternTypeImpl urlPatternType = new UrlPatternTypeImpl();
 		return urlPatternType;
@@ -1511,6 +1546,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaeePackage getJavaeePackage() {
 		return (JavaeePackage)getEPackage();
 	}

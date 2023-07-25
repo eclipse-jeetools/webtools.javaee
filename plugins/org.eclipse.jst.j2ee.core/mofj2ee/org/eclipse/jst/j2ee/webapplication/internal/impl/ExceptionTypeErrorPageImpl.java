@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,6 +50,7 @@ public class ExceptionTypeErrorPageImpl extends ErrorPageImpl implements Excepti
  * Helper method to set the ExceptionType to a JavaClass having a fully qualified
  * name specified by the parameter
  */
+@Override
 public String getExceptionTypeName() {
 	getExceptionType();
 	return exceptionType == null ? null : exceptionType.getQualifiedName();
@@ -61,12 +62,14 @@ public String getExceptionTypeName() {
 public boolean isExceptionType() {
 	return true;
 }
+@Override
 public void setExceptionTypeName(String exceptionTypeName) {
 	setExceptionType(JavaRefFactory.eINSTANCE.createClassRef(exceptionTypeName));
 }
 /**
  * @deprecated Use @link{#setExceptionTypeName(String)}
  */
+@Override
 public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) {
 	setExceptionTypeName(exceptionTypeName);
 }
@@ -74,6 +77,7 @@ public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) 
 	 * @generated This field/method will be replaced during code generation 
 	 * The exception type contains a fully qualified class name of a Java exception type.
 	 */
+	@Override
 	public JavaClass getExceptionType() {
 		if (exceptionType != null && exceptionType.eIsProxy()) {
 			InternalEObject oldExceptionType = (InternalEObject)exceptionType;
@@ -98,6 +102,7 @@ public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setExceptionType(JavaClass newExceptionType) {
 		JavaClass oldExceptionType = exceptionType;
 		exceptionType = newExceptionType;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -61,6 +61,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	/*
 	 * Javadoc copied from interface.
 	 */
+	@Override
 	public URL getBaseURL() {
 		return getBundle().getEntry("/"); //$NON-NLS-1$
 	}
@@ -68,6 +69,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	/**
 	 * This gets a .gif from the icons folder.
 	 */
+	@Override
 	public Object getImage(String key) {
 		return J2EEPlugin.getImageURL(key, getBundle());
 	}
@@ -152,6 +154,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	/*
 	 * Javadoc copied from interface.
 	 */
+	@Override
 	public String getString(String key) {
 		return Platform.getResourceString(getBundle(), key);
 	}
@@ -159,6 +162,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	/*
 	 * Javadoc copied from interface.
 	 */
+	@Override
 	public String getString(String key, Object[] substitutions) {
 		return MessageFormat.format(getString(key), substitutions);
 	}
@@ -185,11 +189,13 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 		super.start(context); 
 	}
 
+	@Override
 	public String getString(String key, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key);
 	}
 
+	@Override
 	public String getString(String key, Object[] substitutions, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key,substitutions);

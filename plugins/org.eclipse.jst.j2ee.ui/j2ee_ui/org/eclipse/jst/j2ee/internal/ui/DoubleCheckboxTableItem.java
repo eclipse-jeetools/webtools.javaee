@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 SAP AG and others.
+ * Copyright (c) 2008, 2019 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -74,6 +74,7 @@ public class DoubleCheckboxTableItem extends TableItem {
 		secondCheckBox.pack();
 		final DoubleCheckboxTableItem th = this; 
 		selLstnr = new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				SecondCheckBoxStateChangedEvent evt = new SecondCheckBoxStateChangedEvent(tableViewer, 
 																			getData(),
@@ -81,6 +82,7 @@ public class DoubleCheckboxTableItem extends TableItem {
 				evt.setTableItem(th);
 				tblLstnr.checkStateChanged(evt);
 			}
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {}
 		};
 		secondCheckBox.addSelectionListener(selLstnr);

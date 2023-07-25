@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -306,7 +306,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getJavaWSDLMapping() {
+  @Override
+public EClass getJavaWSDLMapping() {
 		return javaWSDLMappingEClass;
 	}
 
@@ -315,7 +316,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getJavaWSDLMapping_Id() {
+  @Override
+public EAttribute getJavaWSDLMapping_Id() {
 		return (EAttribute)javaWSDLMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -324,7 +326,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getJavaWSDLMapping_PackageMappings() {
+  @Override
+public EReference getJavaWSDLMapping_PackageMappings() {
 		return (EReference)javaWSDLMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -333,7 +336,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getJavaWSDLMapping_JavaXMLTypeMappings() {
+  @Override
+public EReference getJavaWSDLMapping_JavaXMLTypeMappings() {
 		return (EReference)javaWSDLMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -342,7 +346,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getJavaWSDLMapping_ExceptionMappings() {
+  @Override
+public EReference getJavaWSDLMapping_ExceptionMappings() {
 		return (EReference)javaWSDLMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -351,7 +356,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getJavaWSDLMapping_InterfaceMappings() {
+  @Override
+public EReference getJavaWSDLMapping_InterfaceMappings() {
 		return (EReference)javaWSDLMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -360,7 +366,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getPackageMapping() {
+  @Override
+public EClass getPackageMapping() {
 		return packageMappingEClass;
 	}
 
@@ -369,7 +376,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPackageMapping_Id() {
+  @Override
+public EAttribute getPackageMapping_Id() {
 		return (EAttribute)packageMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -378,7 +386,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPackageMapping_PackageType() {
+  @Override
+public EAttribute getPackageMapping_PackageType() {
 		return (EAttribute)packageMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -387,7 +396,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPackageMapping_NamespaceURI() {
+  @Override
+public EAttribute getPackageMapping_NamespaceURI() {
 		return (EAttribute)packageMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -396,7 +406,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getJavaXMLTypeMapping() {
+  @Override
+public EClass getJavaXMLTypeMapping() {
 		return javaXMLTypeMappingEClass;
 	}
 
@@ -405,7 +416,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getJavaXMLTypeMapping_Id() {
+  @Override
+public EAttribute getJavaXMLTypeMapping_Id() {
 		return (EAttribute)javaXMLTypeMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -414,7 +426,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getJavaXMLTypeMapping_ClassType() {
+  @Override
+public EAttribute getJavaXMLTypeMapping_ClassType() {
 		return (EAttribute)javaXMLTypeMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -423,7 +436,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getJavaXMLTypeMapping_QnameScope() {
+  @Override
+public EAttribute getJavaXMLTypeMapping_QnameScope() {
 		return (EAttribute)javaXMLTypeMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -432,7 +446,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getJavaXMLTypeMapping_AnonymousTypeQname() {
+  @Override
+public EAttribute getJavaXMLTypeMapping_AnonymousTypeQname() {
 		return (EAttribute)javaXMLTypeMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -441,7 +456,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getJavaXMLTypeMapping_RootTypeQname() {
+  @Override
+public EReference getJavaXMLTypeMapping_RootTypeQname() {
 		return (EReference)javaXMLTypeMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -450,7 +466,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getJavaXMLTypeMapping_VariableMappings() {
+  @Override
+public EReference getJavaXMLTypeMapping_VariableMappings() {
 		return (EReference)javaXMLTypeMappingEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -459,7 +476,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getExceptionMapping() {
+  @Override
+public EClass getExceptionMapping() {
 		return exceptionMappingEClass;
 	}
 
@@ -468,7 +486,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getExceptionMapping_Id() {
+  @Override
+public EAttribute getExceptionMapping_Id() {
 		return (EAttribute)exceptionMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -477,7 +496,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getExceptionMapping_ExceptionType() {
+  @Override
+public EAttribute getExceptionMapping_ExceptionType() {
 		return (EAttribute)exceptionMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -486,7 +506,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getExceptionMapping_WsdlMessagePartName() {
+  @Override
+public EAttribute getExceptionMapping_WsdlMessagePartName() {
 		return (EAttribute)exceptionMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -495,7 +516,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getExceptionMapping_WsdlMessage() {
+  @Override
+public EReference getExceptionMapping_WsdlMessage() {
 		return (EReference)exceptionMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -504,7 +526,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getExceptionMapping_ConstructorParameterOrder() {
+  @Override
+public EReference getExceptionMapping_ConstructorParameterOrder() {
 		return (EReference)exceptionMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -513,7 +536,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getServiceInterfaceMapping() {
+  @Override
+public EClass getServiceInterfaceMapping() {
 		return serviceInterfaceMappingEClass;
 	}
 
@@ -522,7 +546,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServiceInterfaceMapping_Id() {
+  @Override
+public EAttribute getServiceInterfaceMapping_Id() {
 		return (EAttribute)serviceInterfaceMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -531,7 +556,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServiceInterfaceMapping_ServiceInterface() {
+  @Override
+public EAttribute getServiceInterfaceMapping_ServiceInterface() {
 		return (EAttribute)serviceInterfaceMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -540,7 +566,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceInterfaceMapping_WsdlServiceName() {
+  @Override
+public EReference getServiceInterfaceMapping_WsdlServiceName() {
 		return (EReference)serviceInterfaceMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -549,7 +576,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceInterfaceMapping_PortMappings() {
+  @Override
+public EReference getServiceInterfaceMapping_PortMappings() {
 		return (EReference)serviceInterfaceMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -558,7 +586,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getServiceEndpointInterfaceMapping() {
+  @Override
+public EClass getServiceEndpointInterfaceMapping() {
 		return serviceEndpointInterfaceMappingEClass;
 	}
 
@@ -567,7 +596,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServiceEndpointInterfaceMapping_Id() {
+  @Override
+public EAttribute getServiceEndpointInterfaceMapping_Id() {
 		return (EAttribute)serviceEndpointInterfaceMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -576,7 +606,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServiceEndpointInterfaceMapping_ServiceEndpointInterface() {
+  @Override
+public EAttribute getServiceEndpointInterfaceMapping_ServiceEndpointInterface() {
 		return (EAttribute)serviceEndpointInterfaceMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -585,7 +616,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceEndpointInterfaceMapping_WsdlPortType() {
+  @Override
+public EReference getServiceEndpointInterfaceMapping_WsdlPortType() {
 		return (EReference)serviceEndpointInterfaceMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -594,7 +626,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceEndpointInterfaceMapping_WsdlBinding() {
+  @Override
+public EReference getServiceEndpointInterfaceMapping_WsdlBinding() {
 		return (EReference)serviceEndpointInterfaceMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -603,7 +636,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceEndpointInterfaceMapping_ServiceEndpointMethodMappings() {
+  @Override
+public EReference getServiceEndpointInterfaceMapping_ServiceEndpointMethodMappings() {
 		return (EReference)serviceEndpointInterfaceMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -612,7 +646,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getRootTypeQname() {
+  @Override
+public EClass getRootTypeQname() {
 		return rootTypeQnameEClass;
 	}
 
@@ -621,7 +656,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getVariableMapping() {
+  @Override
+public EClass getVariableMapping() {
 		return variableMappingEClass;
 	}
 
@@ -630,7 +666,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getVariableMapping_Id() {
+  @Override
+public EAttribute getVariableMapping_Id() {
 		return (EAttribute)variableMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -639,7 +676,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getVariableMapping_JavaVariableName() {
+  @Override
+public EAttribute getVariableMapping_JavaVariableName() {
 		return (EAttribute)variableMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -648,7 +686,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getVariableMapping_XmlElementName() {
+  @Override
+public EAttribute getVariableMapping_XmlElementName() {
 		return (EAttribute)variableMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -657,7 +696,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getVariableMapping_DataMember() {
+  @Override
+public EAttribute getVariableMapping_DataMember() {
 		return (EAttribute)variableMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -666,7 +706,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getVariableMapping_XmlAttributeName() {
+  @Override
+public EAttribute getVariableMapping_XmlAttributeName() {
 		return (EAttribute)variableMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -675,7 +716,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getVariableMapping_XmlWildcard() {
+  @Override
+public EAttribute getVariableMapping_XmlWildcard() {
 		return (EAttribute)variableMappingEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -684,7 +726,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLMessage() {
+  @Override
+public EClass getWSDLMessage() {
 		return wsdlMessageEClass;
 	}
 
@@ -693,7 +736,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getConstructorParameterOrder() {
+  @Override
+public EClass getConstructorParameterOrder() {
 		return constructorParameterOrderEClass;
 	}
 
@@ -702,7 +746,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getConstructorParameterOrder_Id() {
+  @Override
+public EAttribute getConstructorParameterOrder_Id() {
 		return (EAttribute)constructorParameterOrderEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -711,7 +756,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getConstructorParameterOrder_ElementNames() {
+  @Override
+public EReference getConstructorParameterOrder_ElementNames() {
 		return (EReference)constructorParameterOrderEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -720,7 +766,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getElementName() {
+  @Override
+public EClass getElementName() {
 		return elementNameEClass;
 	}
 
@@ -729,7 +776,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getElementName_Id() {
+  @Override
+public EAttribute getElementName_Id() {
 		return (EAttribute)elementNameEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -738,7 +786,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getElementName_Text() {
+  @Override
+public EAttribute getElementName_Text() {
 		return (EAttribute)elementNameEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -747,7 +796,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLServiceName() {
+  @Override
+public EClass getWSDLServiceName() {
 		return wsdlServiceNameEClass;
 	}
 
@@ -756,7 +806,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getPortMapping() {
+  @Override
+public EClass getPortMapping() {
 		return portMappingEClass;
 	}
 
@@ -765,7 +816,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortMapping_Id() {
+  @Override
+public EAttribute getPortMapping_Id() {
 		return (EAttribute)portMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -774,7 +826,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortMapping_PortName() {
+  @Override
+public EAttribute getPortMapping_PortName() {
 		return (EAttribute)portMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -783,7 +836,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortMapping_JavaPortName() {
+  @Override
+public EAttribute getPortMapping_JavaPortName() {
 		return (EAttribute)portMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -792,7 +846,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLPortType() {
+  @Override
+public EClass getWSDLPortType() {
 		return wsdlPortTypeEClass;
 	}
 
@@ -801,7 +856,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLBinding() {
+  @Override
+public EClass getWSDLBinding() {
 		return wsdlBindingEClass;
 	}
 
@@ -810,7 +866,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getServiceEndpointMethodMapping() {
+  @Override
+public EClass getServiceEndpointMethodMapping() {
 		return serviceEndpointMethodMappingEClass;
 	}
 
@@ -819,7 +876,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServiceEndpointMethodMapping_Id() {
+  @Override
+public EAttribute getServiceEndpointMethodMapping_Id() {
 		return (EAttribute)serviceEndpointMethodMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -828,7 +886,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServiceEndpointMethodMapping_JavaMethodName() {
+  @Override
+public EAttribute getServiceEndpointMethodMapping_JavaMethodName() {
 		return (EAttribute)serviceEndpointMethodMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -837,7 +896,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServiceEndpointMethodMapping_WsdlOperation() {
+  @Override
+public EAttribute getServiceEndpointMethodMapping_WsdlOperation() {
 		return (EAttribute)serviceEndpointMethodMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -846,7 +906,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getServiceEndpointMethodMapping_WrappedElement() {
+  @Override
+public EAttribute getServiceEndpointMethodMapping_WrappedElement() {
 		return (EAttribute)serviceEndpointMethodMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -855,7 +916,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceEndpointMethodMapping_MethodParamPartsMappings() {
+  @Override
+public EReference getServiceEndpointMethodMapping_MethodParamPartsMappings() {
 		return (EReference)serviceEndpointMethodMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -864,7 +926,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getServiceEndpointMethodMapping_WsdlReturnValueMapping() {
+  @Override
+public EReference getServiceEndpointMethodMapping_WsdlReturnValueMapping() {
 		return (EReference)serviceEndpointMethodMappingEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -873,7 +936,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLOperation() {
+  @Override
+public EClass getWSDLOperation() {
 		return wsdlOperationEClass;
 	}
 
@@ -882,7 +946,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLOperation_Id() {
+  @Override
+public EAttribute getWSDLOperation_Id() {
 		return (EAttribute)wsdlOperationEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -891,7 +956,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLOperation_WsdlOperation() {
+  @Override
+public EAttribute getWSDLOperation_WsdlOperation() {
 		return (EAttribute)wsdlOperationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -900,7 +966,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getMethodParamPartsMapping() {
+  @Override
+public EClass getMethodParamPartsMapping() {
 		return methodParamPartsMappingEClass;
 	}
 
@@ -909,7 +976,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getMethodParamPartsMapping_Id() {
+  @Override
+public EAttribute getMethodParamPartsMapping_Id() {
 		return (EAttribute)methodParamPartsMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -918,7 +986,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getMethodParamPartsMapping_ParamPosition() {
+  @Override
+public EAttribute getMethodParamPartsMapping_ParamPosition() {
 		return (EAttribute)methodParamPartsMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -927,7 +996,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getMethodParamPartsMapping_ParamType() {
+  @Override
+public EAttribute getMethodParamPartsMapping_ParamType() {
 		return (EAttribute)methodParamPartsMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -936,7 +1006,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getMethodParamPartsMapping_WsdlMessageMapping() {
+  @Override
+public EReference getMethodParamPartsMapping_WsdlMessageMapping() {
 		return (EReference)methodParamPartsMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -945,7 +1016,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLReturnValueMapping() {
+  @Override
+public EClass getWSDLReturnValueMapping() {
 		return wsdlReturnValueMappingEClass;
 	}
 
@@ -954,7 +1026,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLReturnValueMapping_Id() {
+  @Override
+public EAttribute getWSDLReturnValueMapping_Id() {
 		return (EAttribute)wsdlReturnValueMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -963,7 +1036,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLReturnValueMapping_MethodReturnValue() {
+  @Override
+public EAttribute getWSDLReturnValueMapping_MethodReturnValue() {
 		return (EAttribute)wsdlReturnValueMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -972,7 +1046,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLReturnValueMapping_WsdlMessagePartName() {
+  @Override
+public EAttribute getWSDLReturnValueMapping_WsdlMessagePartName() {
 		return (EAttribute)wsdlReturnValueMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -981,7 +1056,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getWSDLReturnValueMapping_WsdlMessage() {
+  @Override
+public EReference getWSDLReturnValueMapping_WsdlMessage() {
 		return (EReference)wsdlReturnValueMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -990,7 +1066,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLMessageMapping() {
+  @Override
+public EClass getWSDLMessageMapping() {
 		return wsdlMessageMappingEClass;
 	}
 
@@ -999,7 +1076,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLMessageMapping_Id() {
+  @Override
+public EAttribute getWSDLMessageMapping_Id() {
 		return (EAttribute)wsdlMessageMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1008,7 +1086,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLMessageMapping_WsdlMessagePartName() {
+  @Override
+public EAttribute getWSDLMessageMapping_WsdlMessagePartName() {
 		return (EAttribute)wsdlMessageMappingEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1017,7 +1096,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLMessageMapping_ParameterMode() {
+  @Override
+public EAttribute getWSDLMessageMapping_ParameterMode() {
 		return (EAttribute)wsdlMessageMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1026,7 +1106,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLMessageMapping_SoapHeader() {
+  @Override
+public EAttribute getWSDLMessageMapping_SoapHeader() {
 		return (EAttribute)wsdlMessageMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1035,7 +1116,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getWSDLMessageMapping_WsdlMessage() {
+  @Override
+public EReference getWSDLMessageMapping_WsdlMessage() {
 		return (EReference)wsdlMessageMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1044,7 +1126,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getWSDLMessagePartName() {
+  @Override
+public EClass getWSDLMessagePartName() {
 		return wsdlMessagePartNameEClass;
 	}
 
@@ -1053,7 +1136,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLMessagePartName_Id() {
+  @Override
+public EAttribute getWSDLMessagePartName_Id() {
 		return (EAttribute)wsdlMessagePartNameEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1062,7 +1146,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getWSDLMessagePartName_WsdlMessagePartName() {
+  @Override
+public EAttribute getWSDLMessagePartName_WsdlMessagePartName() {
 		return (EAttribute)wsdlMessagePartNameEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1071,7 +1156,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getInterfaceMapping() {
+  @Override
+public EClass getInterfaceMapping() {
 		return interfaceMappingEClass;
 	}
 
@@ -1080,7 +1166,8 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public JaxrpcmapFactory getJaxrpcmapFactory() {
+  @Override
+public JaxrpcmapFactory getJaxrpcmapFactory() {
 		return (JaxrpcmapFactory)getEFactoryInstance();
 	}
 

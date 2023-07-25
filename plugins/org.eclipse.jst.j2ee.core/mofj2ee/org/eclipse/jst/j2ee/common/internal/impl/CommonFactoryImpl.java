@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -172,6 +172,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EjbRef createEjbRef() {
 		EjbRefImpl ejbRef = new EjbRefImpl();
 		return ejbRef;
@@ -182,6 +183,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnvEntry createEnvEntry() {
 		EnvEntryImpl envEntry = new EnvEntryImpl();
 		return envEntry;
@@ -192,6 +194,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceRef createResourceRef() {
 		ResourceRefImpl resourceRef = new ResourceRefImpl();
 		return resourceRef;
@@ -202,6 +205,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityRoleRef createSecurityRoleRef() {
 		SecurityRoleRefImpl securityRoleRef = new SecurityRoleRefImpl();
 		return securityRoleRef;
@@ -212,6 +216,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityRole createSecurityRole() {
 		SecurityRoleImpl securityRole = new SecurityRoleImpl();
 		return securityRole;
@@ -222,6 +227,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceEnvRef createResourceEnvRef() {
 		ResourceEnvRefImpl resourceEnvRef = new ResourceEnvRefImpl();
 		return resourceEnvRef;
@@ -232,6 +238,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EJBLocalRef createEJBLocalRef() {
 		EJBLocalRefImpl ejbLocalRef = new EJBLocalRefImpl();
 		return ejbLocalRef;
@@ -242,6 +249,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RunAsSpecifiedIdentity createRunAsSpecifiedIdentity() {
 		RunAsSpecifiedIdentityImpl runAsSpecifiedIdentity = new RunAsSpecifiedIdentityImpl();
 		return runAsSpecifiedIdentity;
@@ -252,6 +260,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Identity createIdentity() {
 		IdentityImpl identity = new IdentityImpl();
 		return identity;
@@ -262,6 +271,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IconType createIconType() {
 		IconTypeImpl iconType = new IconTypeImpl();
 		return iconType;
@@ -272,6 +282,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DisplayName createDisplayName() {
 		DisplayNameImpl displayName = new DisplayNameImpl();
 		return displayName;
@@ -282,6 +293,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageDestinationRef createMessageDestinationRef() {
 		MessageDestinationRefImpl messageDestinationRef = new MessageDestinationRefImpl();
 		return messageDestinationRef;
@@ -292,6 +304,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageDestination createMessageDestination() {
 		MessageDestinationImpl messageDestination = new MessageDestinationImpl();
 		return messageDestination;
@@ -302,6 +315,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ParamValue createParamValue() {
 		ParamValueImpl paramValue = new ParamValueImpl();
 		return paramValue;
@@ -312,6 +326,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DescriptionGroup createDescriptionGroup() {
 		DescriptionGroupImpl descriptionGroup = new DescriptionGroupImpl();
 		return descriptionGroup;
@@ -322,6 +337,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityIdentity createSecurityIdentity() {
 		SecurityIdentityImpl securityIdentity = new SecurityIdentityImpl();
 		return securityIdentity;
@@ -332,6 +348,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UseCallerIdentity createUseCallerIdentity() {
 		UseCallerIdentityImpl useCallerIdentity = new UseCallerIdentityImpl();
 		return useCallerIdentity;
@@ -342,6 +359,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Description createDescription() {
 		DescriptionImpl description = new DescriptionImpl();
 		return description;
@@ -352,6 +370,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QName createQName() {
 		QNameImpl qName = new QNameImpl();
 		return qName;
@@ -362,6 +381,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Listener createListener() {
 		ListenerImpl listener = new ListenerImpl();
 		return listener;
@@ -372,6 +392,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CompatibilityDescriptionGroup createCompatibilityDescriptionGroup() {
 		CompatibilityDescriptionGroupImpl compatibilityDescriptionGroup = new CompatibilityDescriptionGroupImpl();
 		return compatibilityDescriptionGroup;
@@ -382,6 +403,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public J2EEEObject createJ2EEEObject() {
 		J2EEEObjectImpl j2EEEObject = new J2EEEObjectImpl();
 		return j2EEEObject;
@@ -392,6 +414,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public J2EEEAttribute createJ2EEEAttribute() {
 		J2EEEAttributeImpl j2EEEAttribute = new J2EEEAttributeImpl();
 		return j2EEEAttribute;
@@ -502,6 +525,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CommonPackage getCommonPackage() {
 		return (CommonPackage)getEPackage();
 	}

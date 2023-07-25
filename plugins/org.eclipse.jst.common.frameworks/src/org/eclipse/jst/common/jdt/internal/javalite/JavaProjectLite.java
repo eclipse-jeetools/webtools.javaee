@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -90,6 +90,7 @@ public final class JavaProjectLite implements IJavaProjectLite {
 		}
 	}
 
+	@Override
 	public final IClasspathEntry[] readRawClasspath() {
 		if (!isJavaProjectInitialized()) {
 			if (JavaCoreLite.isInitialized(_javaProject)) {
@@ -122,6 +123,7 @@ public final class JavaProjectLite implements IJavaProjectLite {
 		return _rawClasspath;
 	}
 
+	@Override
 	public final IPath readOutputLocation() {
 		if (!isJavaProjectInitialized()) {
 			if (JavaCoreLite.isInitialized(_javaProject)) {
@@ -161,10 +163,12 @@ public final class JavaProjectLite implements IJavaProjectLite {
 	/**
 	 * @see IJavaProjectLite#getProject()
 	 */
+	@Override
 	public final IProject getProject() {
 		return _javaProject.getProject();
 	}
 
+	@Override
 	public final boolean exists() {
 		return _javaProject.exists();
 	}
@@ -172,6 +176,7 @@ public final class JavaProjectLite implements IJavaProjectLite {
 	/**
 	 * @see IJavaProjectLite#isOpen()
 	 */
+	@Override
 	public final boolean isOpen() {
 		return _javaProject.isOpen();
 	}
@@ -179,6 +184,7 @@ public final class JavaProjectLite implements IJavaProjectLite {
 	/**
 	 * @see IJavaProjectLite#hasBuildState()
 	 */
+	@Override
 	public final boolean hasBuildState() {
 		return _javaProject.hasBuildState();
 	}

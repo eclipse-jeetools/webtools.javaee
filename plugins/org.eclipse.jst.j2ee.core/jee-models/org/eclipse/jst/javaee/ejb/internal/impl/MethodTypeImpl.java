@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -187,6 +187,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.METHOD_TYPE__DESCRIPTIONS);
@@ -199,6 +200,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbName() {
 		return ejbName;
 	}
@@ -208,6 +210,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbName(String newEjbName) {
 		String oldEjbName = ejbName;
 		ejbName = newEjbName;
@@ -220,6 +223,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MethodInterfaceType getMethodIntf() {
 		return methodIntf;
 	}
@@ -229,6 +233,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMethodIntf(MethodInterfaceType newMethodIntf) {
 		MethodInterfaceType oldMethodIntf = methodIntf;
 		methodIntf = newMethodIntf == null ? METHOD_INTF_EDEFAULT : newMethodIntf;
@@ -243,6 +248,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMethodIntf() {
 		MethodInterfaceType oldMethodIntf = methodIntf;
 		boolean oldMethodIntfESet = methodIntfESet;
@@ -257,6 +263,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMethodIntf() {
 		return methodIntfESet;
 	}
@@ -266,6 +273,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMethodName() {
 		return methodName;
 	}
@@ -275,6 +283,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMethodName(String newMethodName) {
 		String oldMethodName = methodName;
 		methodName = newMethodName;
@@ -287,6 +296,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MethodParams getMethodParams() {
 		return methodParams;
 	}
@@ -311,6 +321,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMethodParams(MethodParams newMethodParams) {
 		if (newMethodParams != methodParams) {
 			NotificationChain msgs = null;
@@ -330,6 +341,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -339,6 +351,7 @@ public class MethodTypeImpl extends EObjectImpl implements MethodType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

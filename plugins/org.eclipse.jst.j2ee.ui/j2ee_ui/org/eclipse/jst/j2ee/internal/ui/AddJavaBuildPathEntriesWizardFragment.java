@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2010 Oracle
+ * Copyright (c) 2010, 2019 Oracle
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -108,7 +108,8 @@ public final class AddJavaBuildPathEntriesWizardFragment
         (
             new ISelectionChangedListener() 
             {
-                public void selectionChanged( final SelectionChangedEvent event ) 
+                @Override
+				public void selectionChanged( final SelectionChangedEvent event ) 
                 {
                     handleSelectionChanged();
                 }
@@ -119,7 +120,8 @@ public final class AddJavaBuildPathEntriesWizardFragment
         (
             new IDoubleClickListener() 
             {
-                public void doubleClick( final DoubleClickEvent event ) 
+                @Override
+				public void doubleClick( final DoubleClickEvent event ) 
                 {
                     handleDoubleClick();
                 }
@@ -245,7 +247,8 @@ public final class AddJavaBuildPathEntriesWizardFragment
         implements ITreeContentProvider
         
     {
-        public Object[] getElements( final Object input ) 
+        @Override
+		public Object[] getElements( final Object input ) 
         {
             final List<IClasspathEntry> elements = new ArrayList<IClasspathEntry>();
             final List<?> filteredContainerIds = ClasspathDependencyExtensions.get().getFilteredClasspathContainerIDs();
@@ -316,13 +319,15 @@ public final class AddJavaBuildPathEntriesWizardFragment
             return elements.toArray();
         }
 
-        public boolean hasChildren( final Object element ) 
+        @Override
+		public boolean hasChildren( final Object element ) 
         {
             return ( element instanceof IClasspathEntry ) && 
                    ( ( (IClasspathEntry) element ).getEntryKind() == IClasspathEntry.CPE_CONTAINER );
         }
     
-        public Object[] getChildren( final Object parent ) 
+        @Override
+		public Object[] getChildren( final Object parent ) 
         {
             if( parent instanceof IClasspathEntry )
             {
@@ -356,7 +361,8 @@ public final class AddJavaBuildPathEntriesWizardFragment
             return new Object[ 0 ];
         }
 
-        public Object getParent( final Object element ) 
+        @Override
+		public Object getParent( final Object element ) 
         {
             if( element instanceof ChildClasspathEntry )
             {
@@ -366,13 +372,15 @@ public final class AddJavaBuildPathEntriesWizardFragment
             return null;
         }
 
-        public void inputChanged( final Viewer viewer, 
+        @Override
+		public void inputChanged( final Viewer viewer, 
                                   final Object oldInput, 
                                   final Object newInput ) 
         {
         }
 
-        public void dispose() 
+        @Override
+		public void dispose() 
         {
         }
     }

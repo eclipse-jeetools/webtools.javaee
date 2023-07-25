@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -138,6 +138,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.METHOD_PERMISSION__DESCRIPTIONS);
@@ -150,6 +151,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getRoleNames() {
 		if (roleNames == null) {
 			roleNames = new EDataTypeEList<String>(String.class, this, EjbPackage.METHOD_PERMISSION__ROLE_NAMES);
@@ -162,6 +164,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EmptyType getUnchecked() {
 		return unchecked;
 	}
@@ -186,6 +189,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUnchecked(EmptyType newUnchecked) {
 		if (newUnchecked != unchecked) {
 			NotificationChain msgs = null;
@@ -205,6 +209,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MethodType> getMethods() {
 		if (methods == null) {
 			methods = new EObjectContainmentEList<MethodType>(MethodType.class, this, EjbPackage.METHOD_PERMISSION__METHODS);
@@ -217,6 +222,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -226,6 +232,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

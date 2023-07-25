@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -75,24 +75,28 @@ public class ModuleImpl extends J2EEEObjectImpl implements Module, ICommonModule
 		return ApplicationPackage.Literals.MODULE;
 	}
 
+@Override
 public boolean isConnectorModule() {
 	return false;
 }
 /* Returns false by default
  *
  */
+@Override
 public boolean isEjbModule() {
 	return false;
 }
 /* 
  * Returns false by default
  */
+@Override
 public boolean isJavaModule() {
 	return false;
 }
 /* 
  * Returns false by default
  */
+@Override
 public boolean isWebModule() {
 	return false;
 }
@@ -101,6 +105,7 @@ public boolean isWebModule() {
 	 * Specifies the URI of a module, relative to the top level of the application package.
 
 	 */
+	@Override
 	public String getUri() {
 		return uri;
 	}
@@ -108,6 +113,7 @@ public boolean isWebModule() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setUri(String newUri) {
 		String oldUri = uri;
 		uri = newUri;
@@ -120,6 +126,7 @@ public boolean isWebModule() {
 	 * The alt-dd element specifies an optional URI to the post-assembly version of the deployment descriptor file for a particular J2EE module. The URI must specify the full pathname of the deployment descriptor file relative to the application's root directory. If alt-dd is not specified, the deployer must read the deployment descriptor from the default location and file name required by the respective component specification.
 
 	 */
+	@Override
 	public String getAltDD() {
 		return altDD;
 	}
@@ -127,6 +134,7 @@ public boolean isWebModule() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setAltDD(String newAltDD) {
 		String oldAltDD = altDD;
 		altDD = newAltDD;
@@ -137,6 +145,7 @@ public boolean isWebModule() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public Application getApplication() {
 		if (eContainerFeatureID != ApplicationPackage.MODULE__APPLICATION) return null;
 		return (Application)eContainer();
@@ -155,6 +164,7 @@ public boolean isWebModule() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setApplication(Application newApplication) {
 		if (newApplication != eInternalContainer() || (eContainerFeatureID != ApplicationPackage.MODULE__APPLICATION && newApplication != null)) {
 			if (EcoreUtil.isAncestor(this, newApplication))
@@ -310,6 +320,7 @@ public boolean isWebModule() {
 		result.append(')');
 		return result.toString();
 	}
+	@Override
 	public void setId(String frag) {
 		// This is a No-op because Id's are automatically set during proxy resolution
 		
@@ -318,6 +329,7 @@ public boolean isWebModule() {
 	 * @see org.eclipse.jst.j2ee.internal.ICommonEMFModule#getId()
 	 * This returns the id based on the containing resource
 	 */
+	@Override
 	public String getId() {
 		if (eResource() != null)
 			return eResource().getURIFragment(this);

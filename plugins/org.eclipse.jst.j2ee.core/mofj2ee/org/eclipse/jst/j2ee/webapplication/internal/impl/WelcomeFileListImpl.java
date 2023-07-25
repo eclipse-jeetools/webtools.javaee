@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -57,6 +57,7 @@ public class WelcomeFileListImpl extends J2EEEObjectImpl implements WelcomeFileL
 /**
  * addFileNamed method comment.
  */
+@Override
 public void addFileNamed(java.lang.String name) {
 	WelcomeFile lfile = ((WebapplicationPackage)EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI)).getWebapplicationFactory().createWelcomeFile();
 	lfile.setWelcomeFile(name);
@@ -65,6 +66,7 @@ public void addFileNamed(java.lang.String name) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -83,6 +85,7 @@ public void addFileNamed(java.lang.String name) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
@@ -102,6 +105,7 @@ public void addFileNamed(java.lang.String name) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getFile() {
 		if (file == null) {
 			file = new EObjectContainmentWithInverseEList(WelcomeFile.class, this, WebapplicationPackage.WELCOME_FILE_LIST__FILE, WebapplicationPackage.WELCOME_FILE__FILE_LIST);

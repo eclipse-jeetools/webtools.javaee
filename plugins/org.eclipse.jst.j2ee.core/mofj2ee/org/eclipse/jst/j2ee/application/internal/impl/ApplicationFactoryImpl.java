@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,6 +76,7 @@ public static ApplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Application createApplication() {
 		ApplicationImpl application = new ApplicationImpl();
 		return application;
@@ -84,6 +85,7 @@ public static ApplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Module createModule() {
 		ModuleImpl module = new ModuleImpl();
 		return module;
@@ -92,6 +94,7 @@ public static ApplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public WebModule createWebModule() {
 		WebModuleImpl webModule = new WebModuleImpl();
 		return webModule;
@@ -100,6 +103,7 @@ public static ApplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public JavaClientModule createJavaClientModule() {
 		JavaClientModuleImpl javaClientModule = new JavaClientModuleImpl();
 		return javaClientModule;
@@ -108,6 +112,7 @@ public static ApplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EjbModule createEjbModule() {
 		EjbModuleImpl ejbModule = new EjbModuleImpl();
 		return ejbModule;
@@ -116,6 +121,7 @@ public static ApplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ConnectorModule createConnectorModule() {
 		ConnectorModuleImpl connectorModule = new ConnectorModuleImpl();
 		return connectorModule;
@@ -124,6 +130,7 @@ public static ApplicationFactory getActiveFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public ApplicationPackage getApplicationPackage() {
 		return (ApplicationPackage)getEPackage();
 	}

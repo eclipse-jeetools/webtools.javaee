@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -71,7 +71,8 @@ public class EclipseEJBModelExtenderProvider extends RegistryReader implements I
             this.loadOrder = loadOrderCounter++;
         }
 
-        public String getID() {
+        @Override
+		public String getID() {
             return this.id;
         }
 
@@ -80,7 +81,8 @@ public class EclipseEJBModelExtenderProvider extends RegistryReader implements I
          * 
          * @see org.eclipse.wst.common.frameworks.internal.enablement.Identifiable#getLoadOrder()
          */
-        public int getLoadOrder() {
+        @Override
+		public int getLoadOrder() {
             return loadOrder;
         }
 
@@ -132,7 +134,8 @@ public class EclipseEJBModelExtenderProvider extends RegistryReader implements I
      * 
      * @see org.eclipse.jst.j2ee.internal.core.moduleextension.helper.IEJBModelExtenderProvider#getEJBModuleExtension(java.lang.Object)
      */
-    public EjbModuleExtensionHelper getEJBModuleExtension(Object context) {
+    @Override
+	public EjbModuleExtensionHelper getEJBModuleExtension(Object context) {
         //IProject project = null; // TODO MDE Get the project using Project Utilities (add depend to emf.workbench ?)
     	if (getExtensionHelpers().isEmpty())
     		return null;
@@ -147,7 +150,8 @@ public class EclipseEJBModelExtenderProvider extends RegistryReader implements I
      * 
      * @see org.eclipse.jst.j2ee.internal.core.moduleextension.helper.IEJBModelExtenderProvider#hasEJBModuleExtension(java.lang.Object)
      */
-    public boolean hasEJBModuleExtension(Object context) {
+    @Override
+	public boolean hasEJBModuleExtension(Object context) {
         return false;
     }
 

@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 /**
  * <copyright>
  * </copyright>
@@ -158,6 +170,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocation() {
 		return location;
 	}
@@ -167,6 +180,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocation(String newLocation) {
 		String oldLocation = location;
 		location = newLocation;
@@ -179,6 +193,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getMaxFileSize() {
 		return maxFileSize;
 	}
@@ -188,6 +203,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaxFileSize(long newMaxFileSize) {
 		long oldMaxFileSize = maxFileSize;
 		maxFileSize = newMaxFileSize;
@@ -202,6 +218,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMaxFileSize() {
 		long oldMaxFileSize = maxFileSize;
 		boolean oldMaxFileSizeESet = maxFileSizeESet;
@@ -216,6 +233,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMaxFileSize() {
 		return maxFileSizeESet;
 	}
@@ -225,6 +243,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public long getMaxRequestSize() {
 		return maxRequestSize;
 	}
@@ -234,6 +253,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaxRequestSize(long newMaxRequestSize) {
 		long oldMaxRequestSize = maxRequestSize;
 		maxRequestSize = newMaxRequestSize;
@@ -248,6 +268,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMaxRequestSize() {
 		long oldMaxRequestSize = maxRequestSize;
 		boolean oldMaxRequestSizeESet = maxRequestSizeESet;
@@ -262,6 +283,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMaxRequestSize() {
 		return maxRequestSizeESet;
 	}
@@ -271,6 +293,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getFileSizeThreshold() {
 		return fileSizeThreshold;
 	}
@@ -280,6 +303,7 @@ public class MultipartConfigTypeImpl extends EObjectImpl implements MultipartCon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFileSizeThreshold(BigInteger newFileSizeThreshold) {
 		BigInteger oldFileSizeThreshold = fileSizeThreshold;
 		fileSizeThreshold = newFileSizeThreshold;

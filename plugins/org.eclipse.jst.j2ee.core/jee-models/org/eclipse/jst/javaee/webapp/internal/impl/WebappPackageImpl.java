@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -107,6 +107,7 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWebAppDeploymentDescriptor() {
 		return webAppDeploymentDescriptorEClass;
 	}
@@ -116,6 +117,7 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebAppDeploymentDescriptor_Mixed() {
 		return (EAttribute)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(0);
 	}
@@ -125,6 +127,7 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_XMLNSPrefixMap() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(1);
 	}
@@ -134,6 +137,7 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_XSISchemaLocation() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(2);
 	}
@@ -143,6 +147,7 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_WebApp() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(3);
 	}
@@ -152,6 +157,7 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebappFactory getWebappFactory() {
 		return (WebappFactory)getEFactoryInstance();
 	}

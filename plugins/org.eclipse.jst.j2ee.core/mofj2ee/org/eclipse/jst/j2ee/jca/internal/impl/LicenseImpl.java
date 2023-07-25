@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -98,6 +98,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -105,6 +106,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -115,6 +117,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public boolean isRequired() {
 		return required;
 	}
@@ -122,6 +125,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRequired(boolean newRequired) {
 		boolean oldRequired = required;
 		required = newRequired;
@@ -136,6 +140,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetRequired() {
 		boolean oldRequired = required;
 		boolean oldRequiredESet = requiredESet;
@@ -150,6 +155,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRequired() {
 		return requiredESet;
 	}
@@ -159,6 +165,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, JcaPackage.LICENSE__DESCRIPTIONS);

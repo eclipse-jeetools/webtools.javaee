@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2020 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -82,12 +82,15 @@ public class RuntimeSelectionDialog extends MessageDialog {
 		link.addHyperlinkListener(new IHyperlinkListener() {
 			public static final String DATA_NO_LINK = "PropertyAndPreferencePage.nolink"; //$NON-NLS-1$
 
+			@Override
 			public void linkEntered(org.eclipse.ui.forms.events.HyperlinkEvent e) {
 			}
 
+			@Override
 			public void linkExited(org.eclipse.ui.forms.events.HyperlinkEvent e) {
 			}
 
+			@Override
 			public void linkActivated(org.eclipse.ui.forms.events.HyperlinkEvent e) {
 				String id = getPreferencePageID();
 				PreferencesUtil.createPropertyDialogOn(getShell(), project, id, new String[]{id}, DATA_NO_LINK).open(); //

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -68,6 +68,7 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	 * 
 	 * @cu from the workbench and fix the internal references for this working copy manager.
 	 */
+	@Override
 	public void delete(org.eclipse.jdt.core.ICompilationUnit cu, org.eclipse.core.runtime.IProgressMonitor monitor) {
 		getWorkingCopyManager().delete(cu, monitor);
 	}
@@ -100,6 +101,7 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	 *         not encode an editor input, or if there is no remembered working copy for this
 	 *         compilation unit
 	 */
+	@Override
 	public org.eclipse.jdt.core.ICompilationUnit getExistingWorkingCopy(org.eclipse.jdt.core.ICompilationUnit cu) throws org.eclipse.core.runtime.CoreException {
 		return getWorkingCopyManager().getExistingWorkingCopy(cu);
 	}
@@ -112,6 +114,7 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	 * @return the working copy of the compilation unit, or <code>null</code> if there is no
 	 *         remembered working copy for this compilation unit
 	 */
+	@Override
 	public org.eclipse.jdt.core.ICompilationUnit getWorkingCopy(ICompilationUnit cu, boolean forNewCU) throws CoreException {
 		return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
 	}

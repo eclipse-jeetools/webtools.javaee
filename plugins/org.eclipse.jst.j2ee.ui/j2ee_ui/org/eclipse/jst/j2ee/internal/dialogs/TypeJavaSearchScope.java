@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -216,6 +216,7 @@ public class TypeJavaSearchScope implements IJavaSearchScope {
 	 * 
 	 * @see IJavaSearchScope#encloses(String)
 	 */
+	@Override
 	public boolean encloses(String resourcePathString) {
 		IPath resourcePath;
 		int separatorIndex = resourcePathString.indexOf(JAR_FILE_ENTRY_SEPARATOR);
@@ -251,6 +252,7 @@ public class TypeJavaSearchScope implements IJavaSearchScope {
 	 * 
 	 * @see IJavaSearchScope#encloses(IJavaElement)
 	 */
+	@Override
 	public boolean encloses(IJavaElement element) {
 		if (this.elements != null) {
 			for (int i = 0, length = this.elements.size(); i < length; i++) {
@@ -273,6 +275,7 @@ public class TypeJavaSearchScope implements IJavaSearchScope {
 	 * 
 	 * @see IJavaSearchScope#enclosingProjectsAndJars()
 	 */
+	@Override
 	public IPath[] enclosingProjectsAndJars() {
 		return this.enclosingProjectsAndJars;
 	}
@@ -321,6 +324,7 @@ public class TypeJavaSearchScope implements IJavaSearchScope {
 	 * @see IJavaSearchScope#includesBinaries()
 	 * @deprecated
 	 */
+	@Override
 	public boolean includesBinaries() {
 		return true;
 	}
@@ -329,6 +333,7 @@ public class TypeJavaSearchScope implements IJavaSearchScope {
 	 * @see IJavaSearchScope#includesClasspaths()
 	 * @deprecated
 	 */
+	@Override
 	public boolean includesClasspaths() {
 		return true;
 	}
@@ -337,6 +342,7 @@ public class TypeJavaSearchScope implements IJavaSearchScope {
 	 * @see IJavaSearchScope#setIncludesBinaries(boolean)
 	 * @deprecated
 	 */
+	@Override
 	public void setIncludesBinaries(boolean includesBinaries) {
 		//Default nothing
 	}
@@ -345,6 +351,7 @@ public class TypeJavaSearchScope implements IJavaSearchScope {
 	 * @see IJavaSearchScope#setIncludesClasspaths(boolean)
 	 * @deprecated
 	 */
+	@Override
 	public void setIncludesClasspaths(boolean includesClasspaths) {
 		//Default nothing
 	}

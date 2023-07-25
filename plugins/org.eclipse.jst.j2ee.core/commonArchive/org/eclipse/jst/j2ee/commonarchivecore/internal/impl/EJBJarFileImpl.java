@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,6 +62,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	/**
 	 * Used for tools performing selective import
 	 */
+	@Override
 	public List getAssociatedFiles(EnterpriseBean ejb) {
 
 		List classNames = new java.util.ArrayList();
@@ -111,6 +112,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 *             is a runtime exception, because we can't override the signature of the generated
 	 *             methods
 	 */
+	@Override
 	public EJBJar getDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		EJBJar dd = this.getDeploymentDescriptorGen();
 		if (dd == null && canLazyInitialize()) {
@@ -133,6 +135,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	/**
 	 * Return the DeployementDescriptor.
 	 */
+	@Override
 	public EObject getStandardDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		return getDeploymentDescriptor();
 	}
@@ -153,6 +156,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.EJBJarFile
 	 */
+	@Override
 	public boolean isImportedFrom10() {
 		return getImportStrategy() != null && getImportStrategy().isEJB10();
 	}
@@ -171,6 +175,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	}
 
 
+	@Override
 	public void setDeploymentDescriptor(EJBJar l) {
 		this.setDeploymentDescriptorGen(l);
 		replaceRoot(getMofResourceMakeIfNecessary(getDeploymentDescriptorUri()), l);

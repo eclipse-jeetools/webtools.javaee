@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -289,6 +289,7 @@ public class MethodElementImpl extends J2EEEObjectImpl implements MethodElement 
 		return EjbPackage.Literals.METHOD_ELEMENT;
 	}
 
+@Override
 public void addMethodParams(String param) { 
 	String oldParms = getParms();
 	if (oldParms == null) {
@@ -301,9 +302,11 @@ public void addMethodParams(String param) {
  * Set the params for this method element to an empty array, as opposed
  * to null.
  */
+@Override
 public void applyZeroParams() {
 	setParms(""); //$NON-NLS-1$
 }
+@Override
 public boolean equalSignature(MethodElement anotherMethodElement) {
 	boolean equal = getName().equals(anotherMethodElement.getName());
 	if (equal) {
@@ -317,6 +320,7 @@ public boolean equalSignature(MethodElement anotherMethodElement) {
 	}
 	return equal;
 }
+@Override
 public java.util.List getMethodParams() { 
 	StringTokenizer tok = getMethodParamsTokenizer();
 	java.util.List v = new ArrayList();
@@ -380,6 +384,7 @@ private StringTokenizer getMethodParamsTokenizer() {
  * 4)  If the method name and params are specified, then a zero or one element array is returned, containing the one and only method
  *      on the interface with the appropriate signature, if it exists
  */
+@Override
 public Method[] getMethods() {
 	EnterpriseBean ejb = getEnterpriseBean();
 	if(ejb == null)
@@ -466,6 +471,7 @@ private List getMethods(JavaClass javaClass) {
 /**
  * Return the MethodElement that is most specific.
  */
+@Override
 public MethodElement getMostSpecific(MethodElement aMethodElement, JavaClass aClass) {
 	if (aMethodElement == null) return this;
 	if (aMethodElement.isDefault() && !isDefault())
@@ -520,6 +526,7 @@ public static String[] getPossibleTypeNames() {
  * Return the signature.
  * For example:  setTwoParamMethod(java.lang.String, java.lang.String)
  */
+@Override
 public String getSignature() {
 	if (isDefault())
 		return getName();
@@ -541,6 +548,7 @@ public String getSignature() {
 }
 // Returns null if the EEnum is UNSPECIFIED
 // unless it is a MessageDriven bean.
+@Override
 public JavaClass getTypeJavaClass() {
 	if (isHome())
 		return getEnterpriseBean().getHomeInterface();
@@ -560,6 +568,7 @@ public JavaClass getTypeJavaClass() {
  * overloaded method, even if the method is a zero parameter method.  Answer false if no
  * parameters apply, that is, the method element applies to all overloaded methods with this name
  */
+@Override
 public boolean hasMethodParams() {
 	return getParms() != null;
 }
@@ -567,9 +576,11 @@ public boolean hasMethodParams() {
  * Parse @aSignature setting the name and the params.
  * A signature example:  setTwoParamMethod(java.lang.String, java.lang.String)
  */
+@Override
 public void initializeFromSignature(String aSignature) {
 	parseSignature(aSignature);
 }
+@Override
 public boolean isDefault() {
     return JavaClass.DEFAULT_METHOD_NAME.equals(getName());
 }
@@ -577,27 +588,34 @@ public boolean isDefault() {
  * Return true if this MethodElement and @anotherMethodElement
  * represent the same exact methods.
  */
+@Override
 public boolean isEquivalent(MethodElement anotherMethodElement) {
 	boolean equal = equalSignature(anotherMethodElement);
 	if (equal)
 		equal = getEnterpriseBean() == anotherMethodElement.getEnterpriseBean();
 	return equal;
 }
+@Override
 public boolean isHome() {
 	return getType().getValue() == MethodElementKind.HOME;
 }
+@Override
 public boolean isRemote() {
 	return getType().getValue() == MethodElementKind.REMOTE;
 }
+@Override
 public boolean isUnspecified() {
 	return getType().getValue() == MethodElementKind.UNSPECIFIED;
 }
+@Override
 public boolean isLocalHome() {
 	return getType().getValue() == MethodElementKind.LOCAL_HOME;
 }
+@Override
 public boolean isLocal() {
 	return getType().getValue() == MethodElementKind.LOCAL;
 }
+@Override
 public boolean isService() {
 	return getType().getValue() == MethodElementKind.SERVICE_ENDPOINT;
 }
@@ -605,6 +623,7 @@ public boolean isService() {
  * Return true if this MethodElement represents one or more
  * methods.
  */
+@Override
 public boolean isValid() {
 	return getMethods().length > 0;
 }
@@ -630,6 +649,7 @@ public boolean matchesParams(Method aMethod) {
  * @aMethod, ignoring the return type, thrown exceptions, and declaring class of 
  * this instance or @aMethod.  Return false, if params is null
  */
+@Override
 public boolean nameAndParamsEquals(Method aMethod) {
 	if (aMethod != null) {
 		if (getName().equals(aMethod.getName())) {
@@ -739,6 +759,7 @@ protected boolean parmsEqual(MethodElement me) {
 				applyZeroParams();
 		}
 	}
+@Override
 public void removeMethodParams(String param) { 
 	String myParams = getParms();
 	if (myParams == null || myParams.length() == 0) {
@@ -758,6 +779,7 @@ public void removeMethodParams(String param) {
 /**
  * represents method comment.
  */
+@Override
 public boolean represents(Method aMethod) {
 	if (aMethod != null) {
 		if (isUnspecified() || typeClassImplementsInterface(aMethod.getJavaClass())) {
@@ -777,6 +799,7 @@ public boolean represents(Method aMethod) {
  * Sets the id to be [MethodTransactionID| MethodPermissionID]_EJBNAME_MethodName,
  * or [MethodTransactionID| MethodPermissionID]_EJBNAME_MethodName_Parms, if parms exist
  */
+@Override
 public void setIdToReadableString() { 
 	String aParms = getParms() == null ? "" : "_"+getParms().replace(' ', '_'); //$NON-NLS-1$ //$NON-NLS-2$
 	String prefix = ""; //$NON-NLS-1$
@@ -799,6 +822,7 @@ protected boolean typeClassImplementsInterface(JavaClass anInterface) {
  * @aMethod.  Return false, even if the MethodElement represents
  * @aMethod (i.e., @aMethod is contained in its list of methods).
  */
+@Override
 public boolean uniquelyIdentifies(Method aMethod) {
 	if (aMethod != null) {
 		if (getTypeJavaClass() != null && 
@@ -819,6 +843,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * interfaces.
 
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -826,6 +851,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -836,6 +862,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getParms() {
 		return parms;
 	}
@@ -843,6 +870,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setParms(String newParms) {
 		String oldParms = parms;
 		parms = newParms;
@@ -853,6 +881,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public MethodElementKind getType() {
 		return type;
 	}
@@ -862,6 +891,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(MethodElementKind newType) {
 		MethodElementKind oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -876,6 +906,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		MethodElementKind oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -890,6 +921,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -898,6 +930,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * @generated This field/method will be replaced during code generation 
 	 * The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -905,6 +938,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -915,6 +949,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EnterpriseBean getEnterpriseBean() {
 		if (enterpriseBean != null && enterpriseBean.eIsProxy()) {
 			InternalEObject oldEnterpriseBean = (InternalEObject)enterpriseBean;
@@ -939,6 +974,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEnterpriseBean(EnterpriseBean newEnterpriseBean) {
 		EnterpriseBean oldEnterpriseBean = enterpriseBean;
 		enterpriseBean = newEnterpriseBean;
@@ -951,6 +987,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.METHOD_ELEMENT__DESCRIPTIONS);

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2010, 2008 Oracle
+ * Copyright (c) 2010, 2019 Oracle
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,7 +62,8 @@ public class WtpUserLibraryProviderInstallPanel
         
         final IPropertyChangeListener listener = new IPropertyChangeListener()
         {
-            public void propertyChanged( final String property,
+            @Override
+			public void propertyChanged( final String property,
                                          final Object oldValue,
                                          final Object newValue )
             {
@@ -83,7 +84,8 @@ public class WtpUserLibraryProviderInstallPanel
         (
             new DisposeListener()
             {
-                public void widgetDisposed( final DisposeEvent event )
+                @Override
+				public void widgetDisposed( final DisposeEvent event )
                 {
                     cfg.removeListener( listener );
                 }

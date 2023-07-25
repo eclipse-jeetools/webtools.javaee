@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -306,6 +306,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getModuleName() {
 		return moduleName;
 	}
@@ -315,6 +316,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModuleName(String newModuleName) {
 		String oldModuleName = moduleName;
 		moduleName = newModuleName;
@@ -327,6 +329,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JcaPackage.CONNECTOR__DESCRIPTIONS);
@@ -339,6 +342,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JcaPackage.CONNECTOR__DISPLAY_NAMES);
@@ -351,6 +355,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JcaPackage.CONNECTOR__ICONS);
@@ -363,6 +368,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVendorName() {
 		return vendorName;
 	}
@@ -372,6 +378,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVendorName(String newVendorName) {
 		String oldVendorName = vendorName;
 		vendorName = newVendorName;
@@ -384,6 +391,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEisType() {
 		return eisType;
 	}
@@ -393,6 +401,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEisType(String newEisType) {
 		String oldEisType = eisType;
 		eisType = newEisType;
@@ -405,6 +414,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getResourceadapterVersion() {
 		return resourceadapterVersion;
 	}
@@ -414,6 +424,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceadapterVersion(String newResourceadapterVersion) {
 		String oldResourceadapterVersion = resourceadapterVersion;
 		resourceadapterVersion = newResourceadapterVersion;
@@ -426,6 +437,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public License getLicense() {
 		return license;
 	}
@@ -450,6 +462,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLicense(License newLicense) {
 		if (newLicense != license) {
 			NotificationChain msgs = null;
@@ -469,6 +482,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ResourceAdapter getResourceadapter() {
 		return resourceadapter;
 	}
@@ -493,6 +507,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResourceadapter(ResourceAdapter newResourceadapter) {
 		if (newResourceadapter != resourceadapter) {
 			NotificationChain msgs = null;
@@ -512,6 +527,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getRequiredWorkContext() {
 		if (requiredWorkContext == null) {
 			requiredWorkContext = new EDataTypeEList<String>(String.class, this, JcaPackage.CONNECTOR__REQUIRED_WORK_CONTEXT);
@@ -524,6 +540,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -533,6 +550,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -545,6 +563,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isMetadataComplete() {
 		return metadataComplete;
 	}
@@ -554,6 +573,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMetadataComplete(boolean newMetadataComplete) {
 		boolean oldMetadataComplete = metadataComplete;
 		metadataComplete = newMetadataComplete;
@@ -568,6 +588,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMetadataComplete() {
 		boolean oldMetadataComplete = metadataComplete;
 		boolean oldMetadataCompleteESet = metadataCompleteESet;
@@ -582,6 +603,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMetadataComplete() {
 		return metadataCompleteESet;
 	}
@@ -591,6 +613,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -600,6 +623,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -614,6 +638,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetVersion() {
 		String oldVersion = version;
 		boolean oldVersionESet = versionESet;
@@ -628,6 +653,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetVersion() {
 		return versionESet;
 	}

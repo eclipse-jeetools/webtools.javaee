@@ -686,7 +686,8 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		EValidator.Registry.INSTANCE.put
 			(theJavaeePackage, 
 			 new EValidator.Descriptor() {
-				 public EValidator getEValidator() {
+				 @Override
+				public EValidator getEValidator() {
 					 return JavaeeValidator.INSTANCE;
 				 }
 			 });
@@ -708,6 +709,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAddressingType() {
 		return addressingTypeEClass;
 	}
@@ -717,6 +719,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAddressingType_Enabled() {
 		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -726,6 +729,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAddressingType_Required() {
 		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -735,6 +739,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAddressingType_Responses() {
 		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -744,6 +749,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAdministeredObjectType() {
 		return administeredObjectTypeEClass;
 	}
@@ -753,6 +759,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAdministeredObjectType_Description() {
 		return (EReference)administeredObjectTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -762,6 +769,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdministeredObjectType_Name() {
 		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -771,6 +779,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdministeredObjectType_InterfaceName() {
 		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -780,6 +789,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdministeredObjectType_ClassName() {
 		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -789,6 +799,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdministeredObjectType_ResourceAdapter() {
 		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -798,6 +809,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAdministeredObjectType_Property() {
 		return (EReference)administeredObjectTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -807,6 +819,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdministeredObjectType_Id() {
 		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -816,6 +829,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConnectionFactoryResourceType() {
 		return connectionFactoryResourceTypeEClass;
 	}
@@ -825,6 +839,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConnectionFactoryResourceType_Description() {
 		return (EReference)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -834,6 +849,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionFactoryResourceType_Name() {
 		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -843,6 +859,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionFactoryResourceType_InterfaceName() {
 		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -852,6 +869,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionFactoryResourceType_ResourceAdapter() {
 		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -861,6 +879,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionFactoryResourceType_MaxPoolSize() {
 		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -870,6 +889,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionFactoryResourceType_MinPoolSize() {
 		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -879,6 +899,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionFactoryResourceType_TransactionSupport() {
 		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -888,6 +909,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConnectionFactoryResourceType_Property() {
 		return (EReference)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -897,6 +919,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionFactoryResourceType_Id() {
 		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(8);
 	}
@@ -906,6 +929,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDataSourceType() {
 		return dataSourceTypeEClass;
 	}
@@ -915,6 +939,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDataSourceType_Description() {
 		return (EReference)dataSourceTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -924,6 +949,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_Name() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -933,6 +959,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_ClassName() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -942,6 +969,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_ServerName() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -951,6 +979,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_PortNumber() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -960,6 +989,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_DatabaseName() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -969,6 +999,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_Url() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -978,6 +1009,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_User() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -987,6 +1019,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_Password() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(8);
 	}
@@ -996,6 +1029,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDataSourceType_Property() {
 		return (EReference)dataSourceTypeEClass.getEStructuralFeatures().get(9);
 	}
@@ -1005,6 +1039,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_LoginTimeout() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(10);
 	}
@@ -1014,6 +1049,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_Transactional() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(11);
 	}
@@ -1023,6 +1059,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_IsolationLevel() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(12);
 	}
@@ -1032,6 +1069,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_InitialPoolSize() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(13);
 	}
@@ -1041,6 +1079,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_MaxPoolSize() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(14);
 	}
@@ -1050,6 +1089,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_MinPoolSize() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(15);
 	}
@@ -1059,6 +1099,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_MaxIdleTime() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(16);
 	}
@@ -1068,6 +1109,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_MaxStatements() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(17);
 	}
@@ -1077,6 +1119,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDataSourceType_Id() {
 		return (EAttribute)dataSourceTypeEClass.getEStructuralFeatures().get(18);
 	}
@@ -1086,6 +1129,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDescription() {
 		return descriptionEClass;
 	}
@@ -1095,6 +1139,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDescription_Value() {
 		return (EAttribute)descriptionEClass.getEStructuralFeatures().get(0);
 	}
@@ -1104,6 +1149,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDescription_Lang() {
 		return (EAttribute)descriptionEClass.getEStructuralFeatures().get(1);
 	}
@@ -1113,6 +1159,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDisplayName() {
 		return displayNameEClass;
 	}
@@ -1122,6 +1169,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDisplayName_Value() {
 		return (EAttribute)displayNameEClass.getEStructuralFeatures().get(0);
 	}
@@ -1131,6 +1179,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDisplayName_Lang() {
 		return (EAttribute)displayNameEClass.getEStructuralFeatures().get(1);
 	}
@@ -1140,6 +1189,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEjbLocalRef() {
 		return ejbLocalRefEClass;
 	}
@@ -1149,6 +1199,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEjbLocalRef_Descriptions() {
 		return (EReference)ejbLocalRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -1158,6 +1209,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbLocalRef_EjbRefName() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -1167,6 +1219,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbLocalRef_EjbRefType() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -1176,6 +1229,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbLocalRef_LocalHome() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -1185,6 +1239,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbLocalRef_Local() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -1194,6 +1249,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbLocalRef_EjbLink() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -1203,6 +1259,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbLocalRef_MappedName() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -1212,6 +1269,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEjbLocalRef_InjectionTargets() {
 		return (EReference)ejbLocalRefEClass.getEStructuralFeatures().get(7);
 	}
@@ -1221,6 +1279,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbLocalRef_LookupName() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(8);
 	}
@@ -1230,6 +1289,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbLocalRef_Id() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(9);
 	}
@@ -1239,6 +1299,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEjbRef() {
 		return ejbRefEClass;
 	}
@@ -1248,6 +1309,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEjbRef_Descriptions() {
 		return (EReference)ejbRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -1257,6 +1319,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbRef_EjbRefName() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -1266,6 +1329,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbRef_EjbRefType() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -1275,6 +1339,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbRef_Home() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -1284,6 +1349,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbRef_Remote() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -1293,6 +1359,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbRef_EjbLink() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -1302,6 +1369,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbRef_MappedName() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -1311,6 +1379,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEjbRef_InjectionTargets() {
 		return (EReference)ejbRefEClass.getEStructuralFeatures().get(7);
 	}
@@ -1320,6 +1389,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbRef_LookupName() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(8);
 	}
@@ -1329,6 +1399,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEjbRef_Id() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(9);
 	}
@@ -1338,6 +1409,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEmptyType() {
 		return emptyTypeEClass;
 	}
@@ -1347,6 +1419,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEmptyType_Id() {
 		return (EAttribute)emptyTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1356,6 +1429,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEnvEntry() {
 		return envEntryEClass;
 	}
@@ -1365,6 +1439,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEnvEntry_Descriptions() {
 		return (EReference)envEntryEClass.getEStructuralFeatures().get(0);
 	}
@@ -1374,6 +1449,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnvEntry_EnvEntryName() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(1);
 	}
@@ -1383,6 +1459,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnvEntry_EnvEntryType() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(2);
 	}
@@ -1392,6 +1469,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnvEntry_EnvEntryValue() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(3);
 	}
@@ -1401,6 +1479,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnvEntry_MappedName() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(4);
 	}
@@ -1410,6 +1489,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEnvEntry_InjectionTargets() {
 		return (EReference)envEntryEClass.getEStructuralFeatures().get(5);
 	}
@@ -1419,6 +1499,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnvEntry_LookupName() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(6);
 	}
@@ -1428,6 +1509,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnvEntry_Id() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(7);
 	}
@@ -1437,6 +1519,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getIcon() {
 		return iconEClass;
 	}
@@ -1446,6 +1529,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIcon_SmallIcon() {
 		return (EAttribute)iconEClass.getEStructuralFeatures().get(0);
 	}
@@ -1455,6 +1539,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIcon_LargeIcon() {
 		return (EAttribute)iconEClass.getEStructuralFeatures().get(1);
 	}
@@ -1464,6 +1549,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIcon_Id() {
 		return (EAttribute)iconEClass.getEStructuralFeatures().get(2);
 	}
@@ -1473,6 +1559,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIcon_Lang() {
 		return (EAttribute)iconEClass.getEStructuralFeatures().get(3);
 	}
@@ -1482,6 +1569,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInjectionTarget() {
 		return injectionTargetEClass;
 	}
@@ -1491,6 +1579,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInjectionTarget_InjectionTargetClass() {
 		return (EAttribute)injectionTargetEClass.getEStructuralFeatures().get(0);
 	}
@@ -1500,6 +1589,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInjectionTarget_InjectionTargetName() {
 		return (EAttribute)injectionTargetEClass.getEStructuralFeatures().get(1);
 	}
@@ -1509,6 +1599,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getJmsConnectionFactoryType() {
 		return jmsConnectionFactoryTypeEClass;
 	}
@@ -1518,6 +1609,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJmsConnectionFactoryType_Description() {
 		return (EReference)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1527,6 +1619,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_Name() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1536,6 +1629,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_InterfaceName() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1545,6 +1639,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_ClassName() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -1554,6 +1649,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_ResourceAdapter() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -1563,6 +1659,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_User() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -1572,6 +1669,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_Password() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -1581,6 +1679,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_ClientId() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -1590,6 +1689,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJmsConnectionFactoryType_Property() {
 		return (EReference)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(8);
 	}
@@ -1599,6 +1699,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_Transactional() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(9);
 	}
@@ -1608,6 +1709,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_MaxPoolSize() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(10);
 	}
@@ -1617,6 +1719,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_MinPoolSize() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(11);
 	}
@@ -1626,6 +1729,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsConnectionFactoryType_Id() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(12);
 	}
@@ -1635,6 +1739,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getJmsDestinationType() {
 		return jmsDestinationTypeEClass;
 	}
@@ -1644,6 +1749,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJmsDestinationType_Description() {
 		return (EReference)jmsDestinationTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1653,6 +1759,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsDestinationType_Name() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1662,6 +1769,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsDestinationType_InterfaceName() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1671,6 +1779,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsDestinationType_ClassName() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -1680,6 +1789,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsDestinationType_ResourceAdapter() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -1689,6 +1799,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsDestinationType_DestinationName() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -1698,6 +1809,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJmsDestinationType_Property() {
 		return (EReference)jmsDestinationTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -1707,6 +1819,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJmsDestinationType_Id() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -1716,6 +1829,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLifecycleCallback() {
 		return lifecycleCallbackEClass;
 	}
@@ -1725,6 +1839,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLifecycleCallback_LifecycleCallbackClass() {
 		return (EAttribute)lifecycleCallbackEClass.getEStructuralFeatures().get(0);
 	}
@@ -1734,6 +1849,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLifecycleCallback_LifecycleCallbackMethod() {
 		return (EAttribute)lifecycleCallbackEClass.getEStructuralFeatures().get(1);
 	}
@@ -1743,6 +1859,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getListener() {
 		return listenerEClass;
 	}
@@ -1752,6 +1869,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getListener_Descriptions() {
 		return (EReference)listenerEClass.getEStructuralFeatures().get(0);
 	}
@@ -1761,6 +1879,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getListener_DisplayNames() {
 		return (EReference)listenerEClass.getEStructuralFeatures().get(1);
 	}
@@ -1770,6 +1889,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getListener_Icons() {
 		return (EReference)listenerEClass.getEStructuralFeatures().get(2);
 	}
@@ -1779,6 +1899,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getListener_ListenerClass() {
 		return (EAttribute)listenerEClass.getEStructuralFeatures().get(3);
 	}
@@ -1788,6 +1909,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getListener_Id() {
 		return (EAttribute)listenerEClass.getEStructuralFeatures().get(4);
 	}
@@ -1797,6 +1919,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMailSessionType() {
 		return mailSessionTypeEClass;
 	}
@@ -1806,6 +1929,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMailSessionType_Description() {
 		return (EReference)mailSessionTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1815,6 +1939,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_Name() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1824,6 +1949,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_StoreProtocol() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1833,6 +1959,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_StoreProtocolClass() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -1842,6 +1969,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_TransportProtocol() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -1851,6 +1979,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_TransportProtocolClass() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -1860,6 +1989,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_Host() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -1869,6 +1999,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_User() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -1878,6 +2009,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_Password() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(8);
 	}
@@ -1887,6 +2019,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_From() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(9);
 	}
@@ -1896,6 +2029,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMailSessionType_Property() {
 		return (EReference)mailSessionTypeEClass.getEStructuralFeatures().get(10);
 	}
@@ -1905,6 +2039,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMailSessionType_Id() {
 		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(11);
 	}
@@ -1914,6 +2049,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMessageDestination() {
 		return messageDestinationEClass;
 	}
@@ -1923,6 +2059,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDestination_Descriptions() {
 		return (EReference)messageDestinationEClass.getEStructuralFeatures().get(0);
 	}
@@ -1932,6 +2069,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDestination_DisplayNames() {
 		return (EReference)messageDestinationEClass.getEStructuralFeatures().get(1);
 	}
@@ -1941,6 +2079,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDestination_Icons() {
 		return (EReference)messageDestinationEClass.getEStructuralFeatures().get(2);
 	}
@@ -1950,6 +2089,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestination_MessageDestinationName() {
 		return (EAttribute)messageDestinationEClass.getEStructuralFeatures().get(3);
 	}
@@ -1959,6 +2099,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestination_MappedName() {
 		return (EAttribute)messageDestinationEClass.getEStructuralFeatures().get(4);
 	}
@@ -1968,6 +2109,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestination_LookupName() {
 		return (EAttribute)messageDestinationEClass.getEStructuralFeatures().get(5);
 	}
@@ -1977,6 +2119,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestination_Id() {
 		return (EAttribute)messageDestinationEClass.getEStructuralFeatures().get(6);
 	}
@@ -1986,6 +2129,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMessageDestinationRef() {
 		return messageDestinationRefEClass;
 	}
@@ -1995,6 +2139,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDestinationRef_Descriptions() {
 		return (EReference)messageDestinationRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -2004,6 +2149,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_MessageDestinationRefName() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -2013,6 +2159,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_MessageDestinationType() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -2022,6 +2169,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_MessageDestinationUsage() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -2031,6 +2179,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_MessageDestinationLink() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -2040,6 +2189,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_MappedName() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -2049,6 +2199,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDestinationRef_InjectionTargets() {
 		return (EReference)messageDestinationRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -2058,6 +2209,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_LookupName() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(7);
 	}
@@ -2067,6 +2219,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_Id() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(8);
 	}
@@ -2076,6 +2229,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getParamValue() {
 		return paramValueEClass;
 	}
@@ -2085,6 +2239,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getParamValue_Descriptions() {
 		return (EReference)paramValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -2094,6 +2249,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParamValue_ParamName() {
 		return (EAttribute)paramValueEClass.getEStructuralFeatures().get(1);
 	}
@@ -2103,6 +2259,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParamValue_ParamValue() {
 		return (EAttribute)paramValueEClass.getEStructuralFeatures().get(2);
 	}
@@ -2112,6 +2269,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParamValue_Id() {
 		return (EAttribute)paramValueEClass.getEStructuralFeatures().get(3);
 	}
@@ -2121,6 +2279,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPersistenceContextRef() {
 		return persistenceContextRefEClass;
 	}
@@ -2130,6 +2289,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPersistenceContextRef_Descriptions() {
 		return (EReference)persistenceContextRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -2139,6 +2299,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceContextRef_PersistenceContextRefName() {
 		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -2148,6 +2309,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceContextRef_PersistenceUnitName() {
 		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -2157,6 +2319,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceContextRef_PersistenceContextType() {
 		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -2166,6 +2329,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceContextRef_PersistenceContextSynchronization() {
 		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -2175,6 +2339,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPersistenceContextRef_PersistenceProperties() {
 		return (EReference)persistenceContextRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -2184,6 +2349,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceContextRef_MappedName() {
 		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -2193,6 +2359,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPersistenceContextRef_InjectionTargets() {
 		return (EReference)persistenceContextRefEClass.getEStructuralFeatures().get(7);
 	}
@@ -2202,6 +2369,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceContextRef_Id() {
 		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(8);
 	}
@@ -2211,6 +2379,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPersistenceUnitRef() {
 		return persistenceUnitRefEClass;
 	}
@@ -2220,6 +2389,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPersistenceUnitRef_Descriptions() {
 		return (EReference)persistenceUnitRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -2229,6 +2399,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceUnitRef_PersistenceUnitRefName() {
 		return (EAttribute)persistenceUnitRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -2238,6 +2409,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceUnitRef_PersistenceUnitName() {
 		return (EAttribute)persistenceUnitRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -2247,6 +2419,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceUnitRef_MappedName() {
 		return (EAttribute)persistenceUnitRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -2256,6 +2429,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPersistenceUnitRef_InjectionTargets() {
 		return (EReference)persistenceUnitRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -2265,6 +2439,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPersistenceUnitRef_Id() {
 		return (EAttribute)persistenceUnitRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -2274,6 +2449,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPortComponentRef() {
 		return portComponentRefEClass;
 	}
@@ -2283,6 +2459,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponentRef_ServiceEndpointInterface() {
 		return (EAttribute)portComponentRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -2292,6 +2469,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponentRef_EnableMtom() {
 		return (EAttribute)portComponentRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -2301,6 +2479,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponentRef_MtomThreshold() {
 		return (EAttribute)portComponentRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -2310,6 +2489,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPortComponentRef_Addressing() {
 		return (EReference)portComponentRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -2319,6 +2499,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPortComponentRef_RespectBinding() {
 		return (EReference)portComponentRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -2328,6 +2509,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponentRef_PortComponentLink() {
 		return (EAttribute)portComponentRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -2337,6 +2519,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPortComponentRef_Id() {
 		return (EAttribute)portComponentRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -2346,6 +2529,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPropertyType() {
 		return propertyTypeEClass;
 	}
@@ -2355,6 +2539,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPropertyType_Name() {
 		return (EAttribute)propertyTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2364,6 +2549,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPropertyType_Value() {
 		return (EAttribute)propertyTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2373,6 +2559,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPropertyType_Id() {
 		return (EAttribute)propertyTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -2382,6 +2569,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getResourceEnvRef() {
 		return resourceEnvRefEClass;
 	}
@@ -2391,6 +2579,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceEnvRef_Descriptions() {
 		return (EReference)resourceEnvRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -2400,6 +2589,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceEnvRef_ResourceEnvRefName() {
 		return (EAttribute)resourceEnvRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -2409,6 +2599,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceEnvRef_ResourceEnvRefType() {
 		return (EAttribute)resourceEnvRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -2418,6 +2609,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceEnvRef_MappedName() {
 		return (EAttribute)resourceEnvRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -2427,6 +2619,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceEnvRef_InjectionTargets() {
 		return (EReference)resourceEnvRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -2436,6 +2629,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceEnvRef_LookupName() {
 		return (EAttribute)resourceEnvRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -2445,6 +2639,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceEnvRef_Id() {
 		return (EAttribute)resourceEnvRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -2454,6 +2649,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getResourceRef() {
 		return resourceRefEClass;
 	}
@@ -2463,6 +2659,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceRef_Descriptions() {
 		return (EReference)resourceRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -2472,6 +2669,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceRef_ResRefName() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -2481,6 +2679,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceRef_ResType() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -2490,6 +2689,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceRef_ResAuth() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -2499,6 +2699,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceRef_ResSharingScope() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -2508,6 +2709,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceRef_MappedName() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -2517,6 +2719,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceRef_InjectionTargets() {
 		return (EReference)resourceRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -2526,6 +2729,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceRef_LookupName() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(7);
 	}
@@ -2535,6 +2739,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceRef_Id() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(8);
 	}
@@ -2544,6 +2749,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRespectBindingType() {
 		return respectBindingTypeEClass;
 	}
@@ -2553,6 +2759,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRespectBindingType_Enabled() {
 		return (EAttribute)respectBindingTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2562,6 +2769,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRunAs() {
 		return runAsEClass;
 	}
@@ -2571,6 +2779,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRunAs_Descriptions() {
 		return (EReference)runAsEClass.getEStructuralFeatures().get(0);
 	}
@@ -2580,6 +2789,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRunAs_RoleName() {
 		return (EAttribute)runAsEClass.getEStructuralFeatures().get(1);
 	}
@@ -2589,6 +2799,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRunAs_Id() {
 		return (EAttribute)runAsEClass.getEStructuralFeatures().get(2);
 	}
@@ -2598,6 +2809,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSecurityRole() {
 		return securityRoleEClass;
 	}
@@ -2607,6 +2819,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityRole_Descriptions() {
 		return (EReference)securityRoleEClass.getEStructuralFeatures().get(0);
 	}
@@ -2616,6 +2829,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSecurityRole_RoleName() {
 		return (EAttribute)securityRoleEClass.getEStructuralFeatures().get(1);
 	}
@@ -2625,6 +2839,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSecurityRole_Id() {
 		return (EAttribute)securityRoleEClass.getEStructuralFeatures().get(2);
 	}
@@ -2634,6 +2849,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSecurityRoleRef() {
 		return securityRoleRefEClass;
 	}
@@ -2643,6 +2859,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityRoleRef_Descriptions() {
 		return (EReference)securityRoleRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -2652,6 +2869,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSecurityRoleRef_RoleName() {
 		return (EAttribute)securityRoleRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -2661,6 +2879,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSecurityRoleRef_RoleLink() {
 		return (EAttribute)securityRoleRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -2670,6 +2889,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSecurityRoleRef_Id() {
 		return (EAttribute)securityRoleRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -2679,6 +2899,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getServiceRef() {
 		return serviceRefEClass;
 	}
@@ -2688,6 +2909,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_Descriptions() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -2697,6 +2919,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_DisplayNames() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -2706,6 +2929,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_Icons() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -2715,6 +2939,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_ServiceRefName() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -2724,6 +2949,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_ServiceInterface() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -2733,6 +2959,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_ServiceRefType() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -2742,6 +2969,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_WsdlFile() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -2751,6 +2979,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_JaxrpcMappingFile() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(7);
 	}
@@ -2760,6 +2989,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_ServiceQname() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(8);
 	}
@@ -2769,6 +2999,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_PortComponentRefs() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(9);
 	}
@@ -2778,6 +3009,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_Handlers() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(10);
 	}
@@ -2787,6 +3019,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_HandlerChains() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(11);
 	}
@@ -2796,6 +3029,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_MappedName() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(12);
 	}
@@ -2805,6 +3039,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRef_InjectionTargets() {
 		return (EReference)serviceRefEClass.getEStructuralFeatures().get(13);
 	}
@@ -2814,6 +3049,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_LookupName() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(14);
 	}
@@ -2823,6 +3059,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRef_Id() {
 		return (EAttribute)serviceRefEClass.getEStructuralFeatures().get(15);
 	}
@@ -2832,6 +3069,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getServiceRefHandler() {
 		return serviceRefHandlerEClass;
 	}
@@ -2841,6 +3079,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRefHandler_Descriptions() {
 		return (EReference)serviceRefHandlerEClass.getEStructuralFeatures().get(0);
 	}
@@ -2850,6 +3089,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRefHandler_DisplayNames() {
 		return (EReference)serviceRefHandlerEClass.getEStructuralFeatures().get(1);
 	}
@@ -2859,6 +3099,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRefHandler_Icons() {
 		return (EReference)serviceRefHandlerEClass.getEStructuralFeatures().get(2);
 	}
@@ -2868,6 +3109,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandler_HandlerName() {
 		return (EAttribute)serviceRefHandlerEClass.getEStructuralFeatures().get(3);
 	}
@@ -2877,6 +3119,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandler_HandlerClass() {
 		return (EAttribute)serviceRefHandlerEClass.getEStructuralFeatures().get(4);
 	}
@@ -2886,6 +3129,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRefHandler_InitParams() {
 		return (EReference)serviceRefHandlerEClass.getEStructuralFeatures().get(5);
 	}
@@ -2895,6 +3139,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandler_SoapHeaders() {
 		return (EAttribute)serviceRefHandlerEClass.getEStructuralFeatures().get(6);
 	}
@@ -2904,6 +3149,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandler_SoapRoles() {
 		return (EAttribute)serviceRefHandlerEClass.getEStructuralFeatures().get(7);
 	}
@@ -2913,6 +3159,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandler_PortNames() {
 		return (EAttribute)serviceRefHandlerEClass.getEStructuralFeatures().get(8);
 	}
@@ -2922,6 +3169,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandler_Id() {
 		return (EAttribute)serviceRefHandlerEClass.getEStructuralFeatures().get(9);
 	}
@@ -2931,6 +3179,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getServiceRefHandlerChain() {
 		return serviceRefHandlerChainEClass;
 	}
@@ -2940,6 +3189,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandlerChain_ServiceNamePattern() {
 		return (EAttribute)serviceRefHandlerChainEClass.getEStructuralFeatures().get(0);
 	}
@@ -2949,6 +3199,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandlerChain_PortNamePattern() {
 		return (EAttribute)serviceRefHandlerChainEClass.getEStructuralFeatures().get(1);
 	}
@@ -2958,6 +3209,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandlerChain_ProtocolBindings() {
 		return (EAttribute)serviceRefHandlerChainEClass.getEStructuralFeatures().get(2);
 	}
@@ -2967,6 +3219,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRefHandlerChain_Handlers() {
 		return (EReference)serviceRefHandlerChainEClass.getEStructuralFeatures().get(3);
 	}
@@ -2976,6 +3229,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandlerChain_Id() {
 		return (EAttribute)serviceRefHandlerChainEClass.getEStructuralFeatures().get(4);
 	}
@@ -2985,6 +3239,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getServiceRefHandlerChains() {
 		return serviceRefHandlerChainsEClass;
 	}
@@ -2994,6 +3249,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServiceRefHandlerChains_HandlerChains() {
 		return (EReference)serviceRefHandlerChainsEClass.getEStructuralFeatures().get(0);
 	}
@@ -3003,6 +3259,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServiceRefHandlerChains_Id() {
 		return (EAttribute)serviceRefHandlerChainsEClass.getEStructuralFeatures().get(1);
 	}
@@ -3012,6 +3269,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getUrlPatternType() {
 		return urlPatternTypeEClass;
 	}
@@ -3021,6 +3279,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getUrlPatternType_Value() {
 		return (EAttribute)urlPatternTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -3030,6 +3289,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getAddressingResponsesType() {
 		return addressingResponsesTypeEEnum;
 	}
@@ -3039,6 +3299,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getEjbRefType() {
 		return ejbRefTypeEEnum;
 	}
@@ -3048,6 +3309,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getGenericBooleanType() {
 		return genericBooleanTypeEEnum;
 	}
@@ -3057,6 +3319,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getIsolationLevelType() {
 		return isolationLevelTypeEEnum;
 	}
@@ -3066,6 +3329,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getEnvEntryType() {
 		return envEntryTypeEDataType;
 	}
@@ -3075,6 +3339,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getMessageDestinationUsageType() {
 		return messageDestinationUsageTypeEEnum;
 	}
@@ -3084,6 +3349,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getPersistenceContextSynchronizationType() {
 		return persistenceContextSynchronizationTypeEEnum;
 	}
@@ -3093,6 +3359,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getPersistenceContextType() {
 		return persistenceContextTypeEEnum;
 	}
@@ -3102,6 +3369,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getResAuthType() {
 		return resAuthTypeEEnum;
 	}
@@ -3111,6 +3379,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getResSharingScopeType() {
 		return resSharingScopeTypeEEnum;
 	}
@@ -3120,6 +3389,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTransactionSupport() {
 		return transactionSupportEEnum;
 	}
@@ -3129,6 +3399,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getAddressingResponsesTypeObject() {
 		return addressingResponsesTypeObjectEDataType;
 	}
@@ -3138,6 +3409,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getDeweyVersionType() {
 		return deweyVersionTypeEDataType;
 	}
@@ -3147,6 +3419,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getEJBLink() {
 		return ejbLinkEDataType;
 	}
@@ -3156,6 +3429,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getEjbRefNameType() {
 		return ejbRefNameTypeEDataType;
 	}
@@ -3165,6 +3439,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getEjbRefTypeObject() {
 		return ejbRefTypeObjectEDataType;
 	}
@@ -3174,6 +3449,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getFullyQualifiedClassType() {
 		return fullyQualifiedClassTypeEDataType;
 	}
@@ -3183,6 +3459,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getGenericBooleanTypeObject() {
 		return genericBooleanTypeObjectEDataType;
 	}
@@ -3192,6 +3469,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getHome() {
 		return homeEDataType;
 	}
@@ -3201,6 +3479,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getIsolationLevelTypeObject() {
 		return isolationLevelTypeObjectEDataType;
 	}
@@ -3210,6 +3489,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getJavaIdentifier() {
 		return javaIdentifierEDataType;
 	}
@@ -3219,6 +3499,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getJavaType() {
 		return javaTypeEDataType;
 	}
@@ -3228,6 +3509,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getJdbcUrlType() {
 		return jdbcUrlTypeEDataType;
 	}
@@ -3237,6 +3519,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getJNDIName() {
 		return jndiNameEDataType;
 	}
@@ -3246,6 +3529,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getLocal() {
 		return localEDataType;
 	}
@@ -3255,6 +3539,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getLocalHome() {
 		return localHomeEDataType;
 	}
@@ -3264,6 +3549,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getMessageDestinationLink() {
 		return messageDestinationLinkEDataType;
 	}
@@ -3273,6 +3559,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getMessageDestinationTypeType() {
 		return messageDestinationTypeTypeEDataType;
 	}
@@ -3282,6 +3569,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getMessageDestinationUsageTypeObject() {
 		return messageDestinationUsageTypeObjectEDataType;
 	}
@@ -3291,6 +3579,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getPathType() {
 		return pathTypeEDataType;
 	}
@@ -3300,6 +3589,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getPersistenceContextSynchronizationTypeObject() {
 		return persistenceContextSynchronizationTypeObjectEDataType;
 	}
@@ -3309,6 +3599,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getPersistenceContextTypeObject() {
 		return persistenceContextTypeObjectEDataType;
 	}
@@ -3318,6 +3609,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getProtocolBindingListType() {
 		return protocolBindingListTypeEDataType;
 	}
@@ -3327,6 +3619,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getProtocolBindingType() {
 		return protocolBindingTypeEDataType;
 	}
@@ -3336,6 +3629,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getProtocolURIAliasType() {
 		return protocolURIAliasTypeEDataType;
 	}
@@ -3345,6 +3639,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getQnamePattern() {
 		return qnamePatternEDataType;
 	}
@@ -3354,6 +3649,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getRemote() {
 		return remoteEDataType;
 	}
@@ -3363,6 +3659,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getResAuthTypeObject() {
 		return resAuthTypeObjectEDataType;
 	}
@@ -3372,6 +3669,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getResSharingScopeTypeObject() {
 		return resSharingScopeTypeObjectEDataType;
 	}
@@ -3381,6 +3679,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getRoleName() {
 		return roleNameEDataType;
 	}
@@ -3390,6 +3689,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getTransactionSupportObject() {
 		return transactionSupportObjectEDataType;
 	}
@@ -3399,6 +3699,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getTrueFalseType() {
 		return trueFalseTypeEDataType;
 	}
@@ -3408,6 +3709,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getTrueFalseTypeObject() {
 		return trueFalseTypeObjectEDataType;
 	}
@@ -3417,6 +3719,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaeeFactory getJavaeeFactory() {
 		return (JavaeeFactory)getEFactoryInstance();
 	}

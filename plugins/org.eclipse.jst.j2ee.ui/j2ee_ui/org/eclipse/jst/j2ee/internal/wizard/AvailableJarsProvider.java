@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,6 +49,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 * @param listener
 	 *            a label provider listener
 	 */
+	@Override
 	public void addListener(org.eclipse.jface.viewers.ILabelProviderListener listener) {
 		//do nothing
 	}
@@ -59,6 +60,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 * used outside of the context of a viewer, it is the client's responsibility to ensure that
 	 * this method is called when the provider is no longer needed.
 	 */
+	@Override
 	public void dispose() {
 		//dispose
 	}
@@ -72,6 +74,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 * @param columnIndex
 	 *            the zero-based index of the column in which the label appears
 	 */
+	@Override
 	public org.eclipse.swt.graphics.Image getColumnImage(Object element, int columnIndex) {
 		if (columnIndex > 0)
 			return null;
@@ -102,6 +105,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 * @param columnIndex
 	 *            the zero-based index of the column in which the label appears
 	 */
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		String value = null;
 		switch (columnIndex) {
@@ -142,6 +146,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 *            the input element
 	 * @return the array of elements to display in the viewer
 	 */
+	@Override
 	public java.lang.Object[] getElements(Object inputElement) {
 		ClassPathSelection selection = (ClassPathSelection) inputElement;
 		return filter(selection, selection.getFilterLevel()).toArray();
@@ -215,6 +220,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 * @param newInput
 	 *            the new input element, or <code>null</code> if the viewer does not have an input
 	 */
+	@Override
 	public void inputChanged(org.eclipse.jface.viewers.Viewer viewer, Object oldInput, Object newInput) {
 		//do nothing
 	}
@@ -231,6 +237,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 * @return <code>true</code> if the label would be affected, and <code>false</code> if it
 	 *         would be unaffected
 	 */
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
@@ -242,6 +249,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 	 * @param listener
 	 *            a label provider listener
 	 */
+	@Override
 	public void removeListener(org.eclipse.jface.viewers.ILabelProviderListener listener) {
 		//do nothing
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,6 +51,7 @@ public class AdapterTextCCombo extends AdapterImpl implements ModifyListener {
 			setText(msg.getNewStringValue());
 	}
 
+	@Override
 	public void modifyText(ModifyEvent e) {
 		if (syncTextAndModel()) {
 			CommandModifyText command = new CommandModifyText(null, null, eObject_, feature_, text_.getText(), nillable_);

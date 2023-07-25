@@ -123,6 +123,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getApplicationClient() {
 		return applicationClientEClass;
 	}
@@ -132,6 +133,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationClient_ModuleName() {
 		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(0);
 	}
@@ -141,6 +143,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_Descriptions() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(1);
 	}
@@ -150,6 +153,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_DisplayNames() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(2);
 	}
@@ -159,6 +163,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_Icons() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(3);
 	}
@@ -168,6 +173,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_EnvEntries() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(4);
 	}
@@ -177,6 +183,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_EjbRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(5);
 	}
@@ -186,6 +193,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_ServiceRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(6);
 	}
@@ -195,6 +203,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_ResourceRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(7);
 	}
@@ -204,6 +213,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_ResourceEnvRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(8);
 	}
@@ -213,6 +223,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_MessageDestinationRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(9);
 	}
@@ -222,6 +233,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_PersistenceUnitRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(10);
 	}
@@ -231,6 +243,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_PostConstructs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(11);
 	}
@@ -240,6 +253,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_PreDestroys() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(12);
 	}
@@ -249,6 +263,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationClient_CallbackHandler() {
 		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(13);
 	}
@@ -258,6 +273,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_MessageDestinations() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(14);
 	}
@@ -267,6 +283,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_DataSource() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(15);
 	}
@@ -276,6 +293,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_JmsConnectionFactory() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(16);
 	}
@@ -285,6 +303,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_JmsDestination() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(17);
 	}
@@ -294,6 +313,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_MailSession() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(18);
 	}
@@ -303,6 +323,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_ConnectionFactory() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(19);
 	}
@@ -312,6 +333,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClient_AdministeredObject() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(20);
 	}
@@ -321,6 +343,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationClient_Id() {
 		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(21);
 	}
@@ -330,6 +353,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationClient_MetadataComplete() {
 		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(22);
 	}
@@ -339,6 +363,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationClient_Version() {
 		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(23);
 	}
@@ -348,6 +373,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getApplicationClientDeploymentDescriptor() {
 		return applicationClientDeploymentDescriptorEClass;
 	}
@@ -357,6 +383,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationClientDeploymentDescriptor_Mixed() {
 		return (EAttribute)applicationClientDeploymentDescriptorEClass.getEStructuralFeatures().get(0);
 	}
@@ -366,6 +393,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClientDeploymentDescriptor_XMLNSPrefixMap() {
 		return (EReference)applicationClientDeploymentDescriptorEClass.getEStructuralFeatures().get(1);
 	}
@@ -375,6 +403,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClientDeploymentDescriptor_XSISchemaLocation() {
 		return (EReference)applicationClientDeploymentDescriptorEClass.getEStructuralFeatures().get(2);
 	}
@@ -384,6 +413,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplicationClientDeploymentDescriptor_ApplicationClient() {
 		return (EReference)applicationClientDeploymentDescriptorEClass.getEStructuralFeatures().get(3);
 	}
@@ -393,6 +423,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ApplicationclientFactory getApplicationclientFactory() {
 		return (ApplicationclientFactory)getEFactoryInstance();
 	}

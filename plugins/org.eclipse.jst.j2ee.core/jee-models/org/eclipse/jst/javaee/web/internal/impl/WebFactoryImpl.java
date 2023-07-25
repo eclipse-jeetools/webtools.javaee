@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -217,6 +217,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AbsoluteOrderingType createAbsoluteOrderingType() {
 		AbsoluteOrderingTypeImpl absoluteOrderingType = new AbsoluteOrderingTypeImpl();
 		return absoluteOrderingType;
@@ -227,6 +228,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AuthConstraint createAuthConstraint() {
 		AuthConstraintImpl authConstraint = new AuthConstraintImpl();
 		return authConstraint;
@@ -237,6 +239,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookieCommentType createCookieCommentType() {
 		CookieCommentTypeImpl cookieCommentType = new CookieCommentTypeImpl();
 		return cookieCommentType;
@@ -247,6 +250,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookieConfigType createCookieConfigType() {
 		CookieConfigTypeImpl cookieConfigType = new CookieConfigTypeImpl();
 		return cookieConfigType;
@@ -257,6 +261,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookieDomainType createCookieDomainType() {
 		CookieDomainTypeImpl cookieDomainType = new CookieDomainTypeImpl();
 		return cookieDomainType;
@@ -267,6 +272,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookieNameType createCookieNameType() {
 		CookieNameTypeImpl cookieNameType = new CookieNameTypeImpl();
 		return cookieNameType;
@@ -277,6 +283,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CookiePathType createCookiePathType() {
 		CookiePathTypeImpl cookiePathType = new CookiePathTypeImpl();
 		return cookiePathType;
@@ -287,6 +294,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ErrorPage createErrorPage() {
 		ErrorPageImpl errorPage = new ErrorPageImpl();
 		return errorPage;
@@ -297,6 +305,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Filter createFilter() {
 		FilterImpl filter = new FilterImpl();
 		return filter;
@@ -307,6 +316,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FilterMapping createFilterMapping() {
 		FilterMappingImpl filterMapping = new FilterMappingImpl();
 		return filterMapping;
@@ -317,6 +327,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FormLoginConfig createFormLoginConfig() {
 		FormLoginConfigImpl formLoginConfig = new FormLoginConfigImpl();
 		return formLoginConfig;
@@ -327,6 +338,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LocaleEncodingMapping createLocaleEncodingMapping() {
 		LocaleEncodingMappingImpl localeEncodingMapping = new LocaleEncodingMappingImpl();
 		return localeEncodingMapping;
@@ -337,6 +349,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LocaleEncodingMappingList createLocaleEncodingMappingList() {
 		LocaleEncodingMappingListImpl localeEncodingMappingList = new LocaleEncodingMappingListImpl();
 		return localeEncodingMappingList;
@@ -347,6 +360,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public LoginConfig createLoginConfig() {
 		LoginConfigImpl loginConfig = new LoginConfigImpl();
 		return loginConfig;
@@ -357,6 +371,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MimeMapping createMimeMapping() {
 		MimeMappingImpl mimeMapping = new MimeMappingImpl();
 		return mimeMapping;
@@ -367,6 +382,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MultipartConfigType createMultipartConfigType() {
 		MultipartConfigTypeImpl multipartConfigType = new MultipartConfigTypeImpl();
 		return multipartConfigType;
@@ -377,6 +393,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OrderingOrderingType createOrderingOrderingType() {
 		OrderingOrderingTypeImpl orderingOrderingType = new OrderingOrderingTypeImpl();
 		return orderingOrderingType;
@@ -387,6 +404,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OrderingOthersType createOrderingOthersType() {
 		OrderingOthersTypeImpl orderingOthersType = new OrderingOthersTypeImpl();
 		return orderingOthersType;
@@ -397,6 +415,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OrderingType createOrderingType() {
 		OrderingTypeImpl orderingType = new OrderingTypeImpl();
 		return orderingType;
@@ -407,6 +426,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityConstraint createSecurityConstraint() {
 		SecurityConstraintImpl securityConstraint = new SecurityConstraintImpl();
 		return securityConstraint;
@@ -417,6 +437,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Servlet createServlet() {
 		ServletImpl servlet = new ServletImpl();
 		return servlet;
@@ -427,6 +448,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ServletMapping createServletMapping() {
 		ServletMappingImpl servletMapping = new ServletMappingImpl();
 		return servletMapping;
@@ -437,6 +459,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SessionConfig createSessionConfig() {
 		SessionConfigImpl sessionConfig = new SessionConfigImpl();
 		return sessionConfig;
@@ -447,6 +470,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public UserDataConstraint createUserDataConstraint() {
 		UserDataConstraintImpl userDataConstraint = new UserDataConstraintImpl();
 		return userDataConstraint;
@@ -457,6 +481,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebApp createWebApp() {
 		WebAppImpl webApp = new WebAppImpl();
 		return webApp;
@@ -467,6 +492,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebAppDeploymentDescriptor createWebAppDeploymentDescriptor() {
 		WebAppDeploymentDescriptorImpl webAppDeploymentDescriptor = new WebAppDeploymentDescriptorImpl();
 		return webAppDeploymentDescriptor;
@@ -477,6 +503,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebFragment createWebFragment() {
 		WebFragmentImpl webFragment = new WebFragmentImpl();
 		return webFragment;
@@ -487,6 +514,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebResourceCollection createWebResourceCollection() {
 		WebResourceCollectionImpl webResourceCollection = new WebResourceCollectionImpl();
 		return webResourceCollection;
@@ -497,6 +525,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WelcomeFileList createWelcomeFileList() {
 		WelcomeFileListImpl welcomeFileList = new WelcomeFileListImpl();
 		return welcomeFileList;
@@ -936,6 +965,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebPackage getWebPackage() {
 		return (WebPackage)getEPackage();
 	}

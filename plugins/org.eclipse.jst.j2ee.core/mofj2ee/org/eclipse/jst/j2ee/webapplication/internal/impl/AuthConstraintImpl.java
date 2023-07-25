@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -83,6 +83,7 @@ public class AuthConstraintImpl extends J2EEEObjectImpl implements AuthConstrain
 	 * @generated This field/method will be replaced during code generation 
 	 * A description of the auth constraint.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -90,6 +91,7 @@ public class AuthConstraintImpl extends J2EEEObjectImpl implements AuthConstrain
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -103,6 +105,7 @@ public class AuthConstraintImpl extends J2EEEObjectImpl implements AuthConstrain
 	 * of a security role (a String).
 
 	 */
+	@Override
 	public EList getRoles() {
 		if (roles == null) {
 			roles = new EDataTypeUniqueEList(String.class, this, WebapplicationPackage.AUTH_CONSTRAINT__ROLES);
@@ -113,6 +116,7 @@ public class AuthConstraintImpl extends J2EEEObjectImpl implements AuthConstrain
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public SecurityConstraint getSecConstraint() {
 		if (eContainerFeatureID != WebapplicationPackage.AUTH_CONSTRAINT__SEC_CONSTRAINT) return null;
 		return (SecurityConstraint)eContainer();
@@ -131,6 +135,7 @@ public class AuthConstraintImpl extends J2EEEObjectImpl implements AuthConstrain
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSecConstraint(SecurityConstraint newSecConstraint) {
 		if (newSecConstraint != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.AUTH_CONSTRAINT__SEC_CONSTRAINT && newSecConstraint != null)) {
 			if (EcoreUtil.isAncestor(this, newSecConstraint))
@@ -152,6 +157,7 @@ public class AuthConstraintImpl extends J2EEEObjectImpl implements AuthConstrain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, WebapplicationPackage.AUTH_CONSTRAINT__DESCRIPTIONS);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,6 +56,7 @@ public class CMRFieldImpl extends CMPAttributeImpl implements CMRField {
 public JavaClass createClassRef(String targetName) {
 	return JavaRefFactory.eINSTANCE.createClassRef(targetName);
 }
+@Override
 public String getCollectionTypeName() {
 	getCollectionType();
 	return collectionType == null ? null : collectionType.getQualifiedName();
@@ -70,12 +71,14 @@ public boolean isPrimKeyField(){
 public boolean isCMRField() {
 	return true;
 }
+@Override
 public void setCollectionTypeName(String typeName) {
 	eSet(EjbPackage.eINSTANCE.getCMRField_CollectionType(), createClassRef(typeName));
 }
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EJBRelationshipRole getRole() {
 		if (eContainerFeatureID() != EjbPackage.CMR_FIELD__ROLE) return null;
 		return (EJBRelationshipRole)eContainer();
@@ -94,6 +97,7 @@ public void setCollectionTypeName(String typeName) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRole(EJBRelationshipRole newRole) {
 		if (newRole != eInternalContainer() || (eContainerFeatureID() != EjbPackage.CMR_FIELD__ROLE && newRole != null)) {
 			if (EcoreUtil.isAncestor(this, newRole))
@@ -113,6 +117,7 @@ public void setCollectionTypeName(String typeName) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public JavaClass getCollectionType() {
 		if (collectionType != null && collectionType.eIsProxy()) {
 			InternalEObject oldCollectionType = (InternalEObject)collectionType;
@@ -137,6 +142,7 @@ public void setCollectionTypeName(String typeName) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setCollectionType(JavaClass newCollectionType) {
 		JavaClass oldCollectionType = collectionType;
 		collectionType = newCollectionType;

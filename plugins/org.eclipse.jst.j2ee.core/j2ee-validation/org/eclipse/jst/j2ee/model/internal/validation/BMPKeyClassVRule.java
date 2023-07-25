@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,6 +58,7 @@ public final class BMPKeyClassVRule extends AKeyClassVRule implements IRemoteTyp
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 	
+	@Override
 	public final Map getMessageIds() {
 		return MESSAGE_IDS;
 	}
@@ -68,39 +69,48 @@ public final class BMPKeyClassVRule extends AKeyClassVRule implements IRemoteTyp
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
 
+	@Override
 	public final Object[] getDependsOn() {
 		return DEPENDS_ON;
 	}
 	
+	@Override
 	public final Object getId() {
 		return ID;
 	}
 
+	@Override
 	public final long[] getSupertypes() {
 		return SUPERTYPES;
 	}
 	
+	@Override
 	public final long[] getShouldNotBeSupertypes() {
 		return SHOULD_NOT_BE_SUPERTYPES;
 	}
 
+	@Override
 	public final int isRemote() {
 		return IS_REMOTE;
 	}
 	
+	@Override
 	public final long[] getMethodsWhichMustExist() {
 		return METHODS_WHICH_MUST_EXIST;
 	}
 	
 	
+	@Override
 	public final long[] getMethodsWhichMustNotExist() {
 		return METHODS_WHICH_MUST_NOT_EXIST;
 	}
 	
+	@Override
 	public final long[] getKnownMethodTypes() {
 		return KNOWN_METHOD_TYPES;
 	}
 	
+	@Override
 	public Object getTarget(Object parent, Object clazz) {
 		if(parent == null) {
 			return null;
@@ -112,6 +122,7 @@ public final class BMPKeyClassVRule extends AKeyClassVRule implements IRemoteTyp
 	/*
 	 * @see IClassVRule#validate(IEJBValidationContext, EnterpriseBean, JavaClass, Method)
 	 */
+	@Override
 	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass parent, Method method, List[] methodExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// Do not perform any validation on the methods of this class (other than the
 		// validation performed in AKeyClassVRule's check for the existence of hashCode()
@@ -121,6 +132,7 @@ public final class BMPKeyClassVRule extends AKeyClassVRule implements IRemoteTyp
 	/*
 	 * @see IClassVRule#validate(IEJBValidationContext, EnterpriseBean, JavaClass, Field)
 	 */
+	@Override
 	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		// Do not perform any validation on the fields of the BMP key class
 		long fieldType = MethodUtility.getUtility().getFieldTypeId(bean, clazz, field, this);

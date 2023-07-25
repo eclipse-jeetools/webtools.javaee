@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -146,6 +146,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.LISTENER__DESCRIPTIONS);
@@ -158,6 +159,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JavaeePackage.LISTENER__DISPLAY_NAMES);
@@ -170,6 +172,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JavaeePackage.LISTENER__ICONS);
@@ -182,6 +185,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getListenerClass() {
 		return listenerClass;
 	}
@@ -191,6 +195,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setListenerClass(String newListenerClass) {
 		String oldListenerClass = listenerClass;
 		listenerClass = newListenerClass;
@@ -203,6 +208,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -212,6 +218,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

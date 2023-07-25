@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -149,6 +149,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -158,6 +159,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -170,6 +172,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getSignature() {
 		return signature;
 	}
@@ -179,6 +182,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSignature(String newSignature) {
 		String oldSignature = signature;
 		signature = newSignature;
@@ -191,6 +195,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getExample() {
 		return example;
 	}
@@ -200,6 +205,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExample(String newExample) {
 		String oldExample = example;
 		example = newExample;
@@ -212,6 +218,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaClass getFunctionClass() {
 		if (functionClass != null && functionClass.eIsProxy()) {
 			InternalEObject oldFunctionClass = (InternalEObject)functionClass;
@@ -238,6 +245,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFunctionClass(JavaClass newFunctionClass) {
 		JavaClass oldFunctionClass = functionClass;
 		functionClass = newFunctionClass;
@@ -250,6 +258,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getFunctionExtensions() {
 		if (functionExtensions == null) {
 			functionExtensions = new EObjectContainmentEList(TldExtension.class, this, TaglibPackage.FUNCTION__FUNCTION_EXTENSIONS);

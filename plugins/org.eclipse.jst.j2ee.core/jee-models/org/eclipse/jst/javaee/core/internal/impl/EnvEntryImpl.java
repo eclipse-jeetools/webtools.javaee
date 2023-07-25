@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -219,6 +219,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.ENV_ENTRY__DESCRIPTIONS);
@@ -231,6 +232,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEnvEntryName() {
 		return envEntryName;
 	}
@@ -240,6 +242,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnvEntryName(String newEnvEntryName) {
 		String oldEnvEntryName = envEntryName;
 		envEntryName = newEnvEntryName;
@@ -252,6 +255,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEnvEntryType() {
 		return envEntryType;
 	}
@@ -261,6 +265,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnvEntryType(String newEnvEntryType) {
 		String oldEnvEntryType = envEntryType;
 		envEntryType = newEnvEntryType;
@@ -273,6 +278,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEnvEntryValue() {
 		return envEntryValue;
 	}
@@ -282,6 +288,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnvEntryValue(String newEnvEntryValue) {
 		String oldEnvEntryValue = envEntryValue;
 		envEntryValue = newEnvEntryValue;
@@ -294,6 +301,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -303,6 +311,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -315,6 +324,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
 			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.ENV_ENTRY__INJECTION_TARGETS);
@@ -327,6 +337,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLookupName() {
 		return lookupName;
 	}
@@ -336,6 +347,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLookupName(String newLookupName) {
 		String oldLookupName = lookupName;
 		lookupName = newLookupName;
@@ -348,6 +360,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -357,6 +370,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -541,6 +555,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * This is provided for Java EE 5 model equivalence
 	 * @param newEnvEntryType
 	 */
+	@Override
 	public void setEnvEntryType(EnvEntryType newEnvEntryType) {
 		if (newEnvEntryType != null)
 		{
@@ -552,11 +567,13 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 		}
 	}
 
+	@Override
 	public void unsetEnvEntryType()
 	{
 		setEnvEntryType((String)null);
 	}
 
+	@Override
 	public boolean isSetEnvEntryType()
 	{
 		return (envEntryType != null);

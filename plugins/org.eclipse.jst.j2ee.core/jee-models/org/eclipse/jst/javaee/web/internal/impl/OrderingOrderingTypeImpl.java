@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 /**
  * <copyright>
  * </copyright>
@@ -86,6 +98,7 @@ public class OrderingOrderingTypeImpl extends EObjectImpl implements OrderingOrd
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getName() {
 		if (name == null) {
 			name = new EDataTypeEList<String>(String.class, this, WebPackage.ORDERING_ORDERING_TYPE__NAME);
@@ -98,6 +111,7 @@ public class OrderingOrderingTypeImpl extends EObjectImpl implements OrderingOrd
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OrderingOthersType getOthers() {
 		return others;
 	}
@@ -122,6 +136,7 @@ public class OrderingOrderingTypeImpl extends EObjectImpl implements OrderingOrd
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOthers(OrderingOthersType newOthers) {
 		if (newOthers != others) {
 			NotificationChain msgs = null;

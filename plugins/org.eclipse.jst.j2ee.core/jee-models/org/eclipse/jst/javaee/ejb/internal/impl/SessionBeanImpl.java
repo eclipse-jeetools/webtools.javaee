@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -884,6 +884,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.SESSION_BEAN__DESCRIPTIONS);
@@ -896,6 +897,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, EjbPackage.SESSION_BEAN__DISPLAY_NAMES);
@@ -908,6 +910,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, EjbPackage.SESSION_BEAN__ICONS);
@@ -920,6 +923,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbName() {
 		return ejbName;
 	}
@@ -929,6 +933,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbName(String newEjbName) {
 		String oldEjbName = ejbName;
 		ejbName = newEjbName;
@@ -941,6 +946,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -950,6 +956,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -962,6 +969,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getHome() {
 		return home;
 	}
@@ -971,6 +979,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHome(String newHome) {
 		String oldHome = home;
 		home = newHome;
@@ -983,6 +992,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getRemote() {
 		return remote;
 	}
@@ -992,6 +1002,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRemote(String newRemote) {
 		String oldRemote = remote;
 		remote = newRemote;
@@ -1004,6 +1015,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocalHome() {
 		return localHome;
 	}
@@ -1013,6 +1025,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocalHome(String newLocalHome) {
 		String oldLocalHome = localHome;
 		localHome = newLocalHome;
@@ -1025,6 +1038,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocal() {
 		return local;
 	}
@@ -1034,6 +1048,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocal(String newLocal) {
 		String oldLocal = local;
 		local = newLocal;
@@ -1046,6 +1061,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getBusinessLocals() {
 		if (businessLocals == null) {
 			businessLocals = new EDataTypeEList<String>(String.class, this, EjbPackage.SESSION_BEAN__BUSINESS_LOCALS);
@@ -1058,6 +1074,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getBusinessRemotes() {
 		if (businessRemotes == null) {
 			businessRemotes = new EDataTypeEList<String>(String.class, this, EjbPackage.SESSION_BEAN__BUSINESS_REMOTES);
@@ -1070,6 +1087,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EmptyType getLocalBean() {
 		return localBean;
 	}
@@ -1094,6 +1112,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocalBean(EmptyType newLocalBean) {
 		if (newLocalBean != localBean) {
 			NotificationChain msgs = null;
@@ -1113,6 +1132,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServiceEndpoint() {
 		return serviceEndpoint;
 	}
@@ -1122,6 +1142,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServiceEndpoint(String newServiceEndpoint) {
 		String oldServiceEndpoint = serviceEndpoint;
 		serviceEndpoint = newServiceEndpoint;
@@ -1134,6 +1155,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEjbClass() {
 		return ejbClass;
 	}
@@ -1143,6 +1165,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEjbClass(String newEjbClass) {
 		String oldEjbClass = ejbClass;
 		ejbClass = newEjbClass;
@@ -1155,6 +1178,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SessionType getSessionType() {
 		return sessionType;
 	}
@@ -1164,6 +1188,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSessionType(SessionType newSessionType) {
 		SessionType oldSessionType = sessionType;
 		sessionType = newSessionType == null ? SESSION_TYPE_EDEFAULT : newSessionType;
@@ -1178,6 +1203,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetSessionType() {
 		SessionType oldSessionType = sessionType;
 		boolean oldSessionTypeESet = sessionTypeESet;
@@ -1192,6 +1218,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSessionType() {
 		return sessionTypeESet;
 	}
@@ -1201,6 +1228,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatefulTimeoutType getStatefulTimeout() {
 		return statefulTimeout;
 	}
@@ -1225,6 +1253,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setStatefulTimeout(StatefulTimeoutType newStatefulTimeout) {
 		if (newStatefulTimeout != statefulTimeout) {
 			NotificationChain msgs = null;
@@ -1244,6 +1273,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getTimeoutMethod() {
 		return timeoutMethod;
 	}
@@ -1268,6 +1298,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTimeoutMethod(NamedMethodType newTimeoutMethod) {
 		if (newTimeoutMethod != timeoutMethod) {
 			NotificationChain msgs = null;
@@ -1287,6 +1318,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<TimerType> getTimer() {
 		if (timer == null) {
 			timer = new EObjectContainmentEList<TimerType>(TimerType.class, this, EjbPackage.SESSION_BEAN__TIMER);
@@ -1299,6 +1331,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInitOnStartup() {
 		return initOnStartup;
 	}
@@ -1308,6 +1341,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitOnStartup(boolean newInitOnStartup) {
 		boolean oldInitOnStartup = initOnStartup;
 		initOnStartup = newInitOnStartup;
@@ -1322,6 +1356,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetInitOnStartup() {
 		boolean oldInitOnStartup = initOnStartup;
 		boolean oldInitOnStartupESet = initOnStartupESet;
@@ -1336,6 +1371,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetInitOnStartup() {
 		return initOnStartupESet;
 	}
@@ -1345,6 +1381,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConcurrencyManagementTypeType getConcurrencyManagementType() {
 		return concurrencyManagementType;
 	}
@@ -1354,6 +1391,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConcurrencyManagementType(ConcurrencyManagementTypeType newConcurrencyManagementType) {
 		ConcurrencyManagementTypeType oldConcurrencyManagementType = concurrencyManagementType;
 		concurrencyManagementType = newConcurrencyManagementType == null ? CONCURRENCY_MANAGEMENT_TYPE_EDEFAULT : newConcurrencyManagementType;
@@ -1368,6 +1406,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetConcurrencyManagementType() {
 		ConcurrencyManagementTypeType oldConcurrencyManagementType = concurrencyManagementType;
 		boolean oldConcurrencyManagementTypeESet = concurrencyManagementTypeESet;
@@ -1382,6 +1421,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetConcurrencyManagementType() {
 		return concurrencyManagementTypeESet;
 	}
@@ -1391,6 +1431,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConcurrentMethodType> getConcurrentMethod() {
 		if (concurrentMethod == null) {
 			concurrentMethod = new EObjectContainmentEList<ConcurrentMethodType>(ConcurrentMethodType.class, this, EjbPackage.SESSION_BEAN__CONCURRENT_METHOD);
@@ -1403,6 +1444,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DependsOnType getDependsOn() {
 		return dependsOn;
 	}
@@ -1427,6 +1469,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDependsOn(DependsOnType newDependsOn) {
 		if (newDependsOn != dependsOn) {
 			NotificationChain msgs = null;
@@ -1446,6 +1489,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InitMethodType> getInitMethods() {
 		if (initMethods == null) {
 			initMethods = new EObjectContainmentEList<InitMethodType>(InitMethodType.class, this, EjbPackage.SESSION_BEAN__INIT_METHODS);
@@ -1458,6 +1502,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<RemoveMethodType> getRemoveMethods() {
 		if (removeMethods == null) {
 			removeMethods = new EObjectContainmentEList<RemoveMethodType>(RemoveMethodType.class, this, EjbPackage.SESSION_BEAN__REMOVE_METHODS);
@@ -1470,6 +1515,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AsyncMethodType> getAsyncMethod() {
 		if (asyncMethod == null) {
 			asyncMethod = new EObjectContainmentEList<AsyncMethodType>(AsyncMethodType.class, this, EjbPackage.SESSION_BEAN__ASYNC_METHOD);
@@ -1482,6 +1528,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransactionType getTransactionType() {
 		return transactionType;
 	}
@@ -1491,6 +1538,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionType(TransactionType newTransactionType) {
 		TransactionType oldTransactionType = transactionType;
 		transactionType = newTransactionType == null ? TRANSACTION_TYPE_EDEFAULT : newTransactionType;
@@ -1505,6 +1553,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionType() {
 		TransactionType oldTransactionType = transactionType;
 		boolean oldTransactionTypeESet = transactionTypeESet;
@@ -1519,6 +1568,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionType() {
 		return transactionTypeESet;
 	}
@@ -1528,6 +1578,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getAfterBeginMethod() {
 		return afterBeginMethod;
 	}
@@ -1552,6 +1603,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAfterBeginMethod(NamedMethodType newAfterBeginMethod) {
 		if (newAfterBeginMethod != afterBeginMethod) {
 			NotificationChain msgs = null;
@@ -1571,6 +1623,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getBeforeCompletionMethod() {
 		return beforeCompletionMethod;
 	}
@@ -1595,6 +1648,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBeforeCompletionMethod(NamedMethodType newBeforeCompletionMethod) {
 		if (newBeforeCompletionMethod != beforeCompletionMethod) {
 			NotificationChain msgs = null;
@@ -1614,6 +1668,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getAfterCompletionMethod() {
 		return afterCompletionMethod;
 	}
@@ -1638,6 +1693,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAfterCompletionMethod(NamedMethodType newAfterCompletionMethod) {
 		if (newAfterCompletionMethod != afterCompletionMethod) {
 			NotificationChain msgs = null;
@@ -1657,6 +1713,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AroundInvokeType> getAroundInvokes() {
 		if (aroundInvokes == null) {
 			aroundInvokes = new EObjectContainmentEList<AroundInvokeType>(AroundInvokeType.class, this, EjbPackage.SESSION_BEAN__AROUND_INVOKES);
@@ -1669,6 +1726,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AroundTimeoutType> getAroundTimeouts() {
 		if (aroundTimeouts == null) {
 			aroundTimeouts = new EObjectContainmentEList<AroundTimeoutType>(AroundTimeoutType.class, this, EjbPackage.SESSION_BEAN__AROUND_TIMEOUTS);
@@ -1681,6 +1739,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
 			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.SESSION_BEAN__ENV_ENTRIES);
@@ -1693,6 +1752,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
 			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, EjbPackage.SESSION_BEAN__EJB_REFS);
@@ -1705,6 +1765,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbLocalRef> getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
 			ejbLocalRefs = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, EjbPackage.SESSION_BEAN__EJB_LOCAL_REFS);
@@ -1717,6 +1778,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, EjbPackage.SESSION_BEAN__SERVICE_REFS);
@@ -1729,6 +1791,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
 			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, EjbPackage.SESSION_BEAN__RESOURCE_REFS);
@@ -1741,6 +1804,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
 			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, EjbPackage.SESSION_BEAN__RESOURCE_ENV_REFS);
@@ -1753,6 +1817,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
 			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, EjbPackage.SESSION_BEAN__MESSAGE_DESTINATION_REFS);
@@ -1765,6 +1830,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		if (persistenceContextRefs == null) {
 			persistenceContextRefs = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, EjbPackage.SESSION_BEAN__PERSISTENCE_CONTEXT_REFS);
@@ -1777,6 +1843,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
 			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, EjbPackage.SESSION_BEAN__PERSISTENCE_UNIT_REFS);
@@ -1789,6 +1856,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
 			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__POST_CONSTRUCTS);
@@ -1801,6 +1869,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
 			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__PRE_DESTROYS);
@@ -1813,6 +1882,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DataSourceType> getDataSource() {
 		if (dataSource == null) {
 			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, EjbPackage.SESSION_BEAN__DATA_SOURCE);
@@ -1825,6 +1895,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
 		if (jmsConnectionFactory == null) {
 			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, EjbPackage.SESSION_BEAN__JMS_CONNECTION_FACTORY);
@@ -1837,6 +1908,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsDestinationType> getJmsDestination() {
 		if (jmsDestination == null) {
 			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, EjbPackage.SESSION_BEAN__JMS_DESTINATION);
@@ -1849,6 +1921,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MailSessionType> getMailSession() {
 		if (mailSession == null) {
 			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, EjbPackage.SESSION_BEAN__MAIL_SESSION);
@@ -1861,6 +1934,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConnectionFactoryResourceType> getConnectionFactory() {
 		if (connectionFactory == null) {
 			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, EjbPackage.SESSION_BEAN__CONNECTION_FACTORY);
@@ -1873,6 +1947,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AdministeredObjectType> getAdministeredObject() {
 		if (administeredObject == null) {
 			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, EjbPackage.SESSION_BEAN__ADMINISTERED_OBJECT);
@@ -1885,6 +1960,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPostActivates() {
 		if (postActivates == null) {
 			postActivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__POST_ACTIVATES);
@@ -1897,6 +1973,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<LifecycleCallback> getPrePassivates() {
 		if (prePassivates == null) {
 			prePassivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__PRE_PASSIVATES);
@@ -1909,6 +1986,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityRoleRef> getSecurityRoleRefs() {
 		if (securityRoleRefs == null) {
 			securityRoleRefs = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, EjbPackage.SESSION_BEAN__SECURITY_ROLE_REFS);
@@ -1921,6 +1999,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityIdentityType getSecurityIdentities() {
 		return securityIdentities;
 	}
@@ -1945,6 +2024,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSecurityIdentities(SecurityIdentityType newSecurityIdentities) {
 		if (newSecurityIdentities != securityIdentities) {
 			NotificationChain msgs = null;
@@ -1964,6 +2044,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isPassivationCapable() {
 		return passivationCapable;
 	}
@@ -1973,6 +2054,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPassivationCapable(boolean newPassivationCapable) {
 		boolean oldPassivationCapable = passivationCapable;
 		passivationCapable = newPassivationCapable;
@@ -1987,6 +2069,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetPassivationCapable() {
 		boolean oldPassivationCapable = passivationCapable;
 		boolean oldPassivationCapableESet = passivationCapableESet;
@@ -2001,6 +2084,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetPassivationCapable() {
 		return passivationCapableESet;
 	}
@@ -2010,6 +2094,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -2019,6 +2104,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

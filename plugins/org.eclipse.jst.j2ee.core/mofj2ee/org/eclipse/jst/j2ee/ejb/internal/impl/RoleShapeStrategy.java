@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,9 +59,11 @@ public CommonRelationshipRole getRole() {
  * @return CommonRelationshipRole
  */
 
+@Override
 public boolean isFlat () {
 	return false;
 }
+@Override
 public boolean isRound () {
 	return false;
 }
@@ -75,6 +77,7 @@ public static String makeJavaName(String firstName, String secondName) {
 		nameBuffer.append(secondName.charAt(i));
 	return nameBuffer.toString();
 }
+@Override
 public void reconcileAttributes(List roleAttributes) {
 	if (canContinue()) {
 		busy = true;

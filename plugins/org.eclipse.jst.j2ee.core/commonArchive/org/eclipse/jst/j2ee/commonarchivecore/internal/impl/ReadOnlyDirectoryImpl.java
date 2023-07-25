@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,6 +50,7 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 	/**
 	 * containsFileInRootOrSubdirectory method comment.
 	 */
+	@Override
 	public boolean containsFileInSelfOrSubdirectory(java.lang.String aUri) {
 		return getLoadStrategy().contains(aUri);
 	}
@@ -57,6 +58,7 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 	/**
 	 * getFileInSelfOrSubdirectory method comment.
 	 */
+	@Override
 	public File getFileInSelfOrSubdirectory(java.lang.String aUri) throws java.io.FileNotFoundException {
 		if (!containsFileInSelfOrSubdirectory(aUri))
 			throw new java.io.FileNotFoundException(aUri);
@@ -77,6 +79,7 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 	 * Returns a flat list of all the files contained in this directory and subdirectories, with the
 	 * directories filtered out, as the list would appear in an archive
 	 */
+	@Override
 	public java.util.List getFilesRecursive() {
 		List allFiles = new ArrayList();
 		List filesList = getFiles();
@@ -93,6 +96,7 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 	/**
 	 * Return a filtered list on the files with just the instances of ReadOnlyDirectory
 	 */
+	@Override
 	public List getReadOnlyDirectories() {
 		List filtered = new ArrayList();
 		List filesList = getFiles();

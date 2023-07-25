@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -310,6 +310,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getSecurityRole() {
 		return securityRoleEClass;
 	}
@@ -317,6 +318,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSecurityRole_Description() {
 		return (EAttribute)securityRoleEClass.getEStructuralFeatures().get(0);
 	}
@@ -324,6 +326,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSecurityRole_RoleName() {
 		return (EAttribute)securityRoleEClass.getEStructuralFeatures().get(1);
 	}
@@ -333,6 +336,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityRole_Descriptions() {
 		return (EReference)securityRoleEClass.getEStructuralFeatures().get(2);
 	}
@@ -340,6 +344,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getResourceRef() {
 		return resourceRefEClass;
 	}
@@ -347,6 +352,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceRef_Description() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -354,6 +360,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceRef_Name() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -361,6 +368,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceRef_Type() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -368,6 +376,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceRef_Auth() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -375,6 +384,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceRef_Link() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -382,6 +392,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceRef_ResSharingScope() {
 		return (EAttribute)resourceRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -391,6 +402,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceRef_Descriptions() {
 		return (EReference)resourceRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -398,6 +410,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEjbRef() {
 		return ejbRefEClass;
 	}
@@ -405,6 +418,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEjbRef_Name() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -412,6 +426,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEjbRef_Type() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -419,6 +434,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEjbRef_Home() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -426,6 +442,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEjbRef_Remote() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -433,6 +450,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEjbRef_Link() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -440,6 +458,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEjbRef_Description() {
 		return (EAttribute)ejbRefEClass.getEStructuralFeatures().get(5);
 	}
@@ -449,6 +468,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEjbRef_Descriptions() {
 		return (EReference)ejbRefEClass.getEStructuralFeatures().get(6);
 	}
@@ -456,6 +476,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEJBLocalRef() {
 		return ejbLocalRefEClass;
 	}
@@ -465,6 +486,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBLocalRef_LocalHome() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -474,6 +496,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBLocalRef_Local() {
 		return (EAttribute)ejbLocalRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -481,6 +504,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getEnvEntry() {
 		return envEntryEClass;
 	}
@@ -488,6 +512,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEnvEntry_Description() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(0);
 	}
@@ -495,6 +520,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEnvEntry_Name() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(1);
 	}
@@ -502,6 +528,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEnvEntry_Value() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(2);
 	}
@@ -509,6 +536,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getEnvEntry_Type() {
 		return (EAttribute)envEntryEClass.getEStructuralFeatures().get(3);
 	}
@@ -518,6 +546,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEnvEntry_Descriptions() {
 		return (EReference)envEntryEClass.getEStructuralFeatures().get(4);
 	}
@@ -525,6 +554,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getSecurityRoleRef() {
 		return securityRoleRefEClass;
 	}
@@ -532,6 +562,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSecurityRoleRef_Name() {
 		return (EAttribute)securityRoleRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -539,6 +570,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSecurityRoleRef_Description() {
 		return (EAttribute)securityRoleRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -546,6 +578,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSecurityRoleRef_Link() {
 		return (EAttribute)securityRoleRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -555,6 +588,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityRoleRef_Descriptions() {
 		return (EReference)securityRoleRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -562,6 +596,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getRunAsSpecifiedIdentity() {
 		return runAsSpecifiedIdentityEClass;
 	}
@@ -569,6 +604,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getRunAsSpecifiedIdentity_Identity() {
 		return (EReference)runAsSpecifiedIdentityEClass.getEStructuralFeatures().get(0);
 	}
@@ -576,6 +612,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getSecurityIdentity() {
 		return securityIdentityEClass;
 	}
@@ -583,6 +620,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSecurityIdentity_Description() {
 		return (EAttribute)securityIdentityEClass.getEStructuralFeatures().get(0);
 	}
@@ -592,6 +630,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityIdentity_Descriptions() {
 		return (EReference)securityIdentityEClass.getEStructuralFeatures().get(1);
 	}
@@ -599,6 +638,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getUseCallerIdentity() {
 		return useCallerIdentityEClass;
 	}
@@ -608,6 +648,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDescription() {
 		return descriptionEClass;
 	}
@@ -617,6 +658,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDescription_Lang() {
 		return (EAttribute)descriptionEClass.getEStructuralFeatures().get(0);
 	}
@@ -626,6 +668,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDescription_Value() {
 		return (EAttribute)descriptionEClass.getEStructuralFeatures().get(1);
 	}
@@ -635,6 +678,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getQName() {
 		return qNameEClass;
 	}
@@ -644,6 +688,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQName_NamespaceURI() {
 		return (EAttribute)qNameEClass.getEStructuralFeatures().get(0);
 	}
@@ -653,6 +698,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQName_LocalPart() {
 		return (EAttribute)qNameEClass.getEStructuralFeatures().get(1);
 	}
@@ -662,6 +708,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQName_CombinedQName() {
 		return (EAttribute)qNameEClass.getEStructuralFeatures().get(2);
 	}
@@ -671,6 +718,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQName_InternalPrefixOrNsURI() {
 		return (EAttribute)qNameEClass.getEStructuralFeatures().get(3);
 	}
@@ -680,6 +728,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getListener() {
 		return listenerEClass;
 	}
@@ -689,6 +738,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getListener_ListenerClass() {
 		return (EReference)listenerEClass.getEStructuralFeatures().get(0);
 	}
@@ -698,6 +748,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCompatibilityDescriptionGroup() {
 		return compatibilityDescriptionGroupEClass;
 	}
@@ -707,6 +758,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCompatibilityDescriptionGroup_SmallIcon() {
 		return (EAttribute)compatibilityDescriptionGroupEClass.getEStructuralFeatures().get(0);
 	}
@@ -716,6 +768,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCompatibilityDescriptionGroup_LargeIcon() {
 		return (EAttribute)compatibilityDescriptionGroupEClass.getEStructuralFeatures().get(1);
 	}
@@ -725,6 +778,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCompatibilityDescriptionGroup_Description() {
 		return (EAttribute)compatibilityDescriptionGroupEClass.getEStructuralFeatures().get(2);
 	}
@@ -734,6 +788,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCompatibilityDescriptionGroup_DisplayName() {
 		return (EAttribute)compatibilityDescriptionGroupEClass.getEStructuralFeatures().get(3);
 	}
@@ -743,6 +798,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getJ2EEEObject() {
 		return j2EEEObjectEClass;
 	}
@@ -752,6 +808,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getJ2EEEAttribute() {
 		return j2EEEAttributeEClass;
 	}
@@ -759,6 +816,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getIdentity() {
 		return identityEClass;
 	}
@@ -766,6 +824,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getIdentity_Description() {
 		return (EAttribute)identityEClass.getEStructuralFeatures().get(0);
 	}
@@ -773,6 +832,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getIdentity_RoleName() {
 		return (EAttribute)identityEClass.getEStructuralFeatures().get(1);
 	}
@@ -782,6 +842,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getIdentity_Descriptions() {
 		return (EReference)identityEClass.getEStructuralFeatures().get(2);
 	}
@@ -791,6 +852,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getIconType() {
 		return iconTypeEClass;
 	}
@@ -800,6 +862,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIconType_SmallIcon() {
 		return (EAttribute)iconTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -809,6 +872,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIconType_LargeIcon() {
 		return (EAttribute)iconTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -818,6 +882,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getIconType_Lang() {
 		return (EAttribute)iconTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -827,6 +892,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDisplayName() {
 		return displayNameEClass;
 	}
@@ -836,6 +902,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDisplayName_Lang() {
 		return (EAttribute)displayNameEClass.getEStructuralFeatures().get(0);
 	}
@@ -845,6 +912,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDisplayName_Value() {
 		return (EAttribute)displayNameEClass.getEStructuralFeatures().get(1);
 	}
@@ -854,6 +922,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMessageDestinationRef() {
 		return messageDestinationRefEClass;
 	}
@@ -863,6 +932,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_Name() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -872,6 +942,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_Type() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -881,6 +952,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_Usage() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -890,6 +962,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestinationRef_Link() {
 		return (EAttribute)messageDestinationRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -899,6 +972,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDestinationRef_Descriptions() {
 		return (EReference)messageDestinationRefEClass.getEStructuralFeatures().get(4);
 	}
@@ -908,6 +982,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMessageDestination() {
 		return messageDestinationEClass;
 	}
@@ -917,6 +992,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDestination_Name() {
 		return (EAttribute)messageDestinationEClass.getEStructuralFeatures().get(0);
 	}
@@ -926,6 +1002,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getParamValue() {
 		return paramValueEClass;
 	}
@@ -935,6 +1012,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParamValue_Name() {
 		return (EAttribute)paramValueEClass.getEStructuralFeatures().get(0);
 	}
@@ -944,6 +1022,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParamValue_Value() {
 		return (EAttribute)paramValueEClass.getEStructuralFeatures().get(1);
 	}
@@ -953,6 +1032,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getParamValue_Description() {
 		return (EAttribute)paramValueEClass.getEStructuralFeatures().get(2);
 	}
@@ -962,6 +1042,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getParamValue_Descriptions() {
 		return (EReference)paramValueEClass.getEStructuralFeatures().get(3);
 	}
@@ -971,6 +1052,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDescriptionGroup() {
 		return descriptionGroupEClass;
 	}
@@ -980,6 +1062,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDescriptionGroup_Icons() {
 		return (EReference)descriptionGroupEClass.getEStructuralFeatures().get(0);
 	}
@@ -989,6 +1072,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDescriptionGroup_DisplayNames() {
 		return (EReference)descriptionGroupEClass.getEStructuralFeatures().get(1);
 	}
@@ -998,6 +1082,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getDescriptionGroup_Descriptions() {
 		return (EReference)descriptionGroupEClass.getEStructuralFeatures().get(2);
 	}
@@ -1007,6 +1092,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getJNDIEnvRefsGroup() {
 		return jndiEnvRefsGroupEClass;
 	}
@@ -1016,6 +1102,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJNDIEnvRefsGroup_EnvironmentProperties() {
 		return (EReference)jndiEnvRefsGroupEClass.getEStructuralFeatures().get(0);
 	}
@@ -1025,6 +1112,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJNDIEnvRefsGroup_ResourceRefs() {
 		return (EReference)jndiEnvRefsGroupEClass.getEStructuralFeatures().get(1);
 	}
@@ -1034,6 +1122,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJNDIEnvRefsGroup_EjbRefs() {
 		return (EReference)jndiEnvRefsGroupEClass.getEStructuralFeatures().get(2);
 	}
@@ -1043,6 +1132,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJNDIEnvRefsGroup_ResourceEnvRefs() {
 		return (EReference)jndiEnvRefsGroupEClass.getEStructuralFeatures().get(3);
 	}
@@ -1052,6 +1142,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJNDIEnvRefsGroup_EjbLocalRefs() {
 		return (EReference)jndiEnvRefsGroupEClass.getEStructuralFeatures().get(4);
 	}
@@ -1061,6 +1152,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJNDIEnvRefsGroup_MessageDestinationRefs() {
 		return (EReference)jndiEnvRefsGroupEClass.getEStructuralFeatures().get(5);
 	}
@@ -1070,6 +1162,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJNDIEnvRefsGroup_ServiceRefs() {
 		return (EReference)jndiEnvRefsGroupEClass.getEStructuralFeatures().get(6);
 	}
@@ -1077,6 +1170,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getResourceEnvRef() {
 		return resourceEnvRefEClass;
 	}
@@ -1084,6 +1178,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceEnvRef_Description() {
 		return (EAttribute)resourceEnvRefEClass.getEStructuralFeatures().get(0);
 	}
@@ -1091,6 +1186,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceEnvRef_Name() {
 		return (EAttribute)resourceEnvRefEClass.getEStructuralFeatures().get(1);
 	}
@@ -1098,6 +1194,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getResourceEnvRef_Type() {
 		return (EReference)resourceEnvRefEClass.getEStructuralFeatures().get(2);
 	}
@@ -1107,6 +1204,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceEnvRef_Descriptions() {
 		return (EReference)resourceEnvRefEClass.getEStructuralFeatures().get(3);
 	}
@@ -1114,6 +1212,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getEjbRefType() {
 		return ejbRefTypeEEnum;
 	}
@@ -1121,6 +1220,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getEnvEntryType() {
 		return envEntryTypeEEnum;
 	}
@@ -1128,6 +1228,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getResAuthTypeBase() {
 		return resAuthTypeBaseEEnum;
 	}
@@ -1135,6 +1236,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getResSharingScopeType() {
 		return resSharingScopeTypeEEnum;
 	}
@@ -1144,6 +1246,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getMessageDestinationUsageType() {
 		return messageDestinationUsageTypeEEnum;
 	}
@@ -1151,6 +1254,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public CommonFactory getCommonFactory() {
 		return (CommonFactory)getEFactoryInstance();
 	}

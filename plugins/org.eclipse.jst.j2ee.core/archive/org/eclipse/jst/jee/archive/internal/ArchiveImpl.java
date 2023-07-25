@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -135,6 +135,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		openendBy = new FailedToCloseException();
 	}
 
+	@Override
 	public boolean isOpen() {
 		return openendBy != null;
 	}
@@ -159,6 +160,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		archiveOptions = null;
 	}
 
+	@Override
 	public IArchiveResource getArchiveResource(IPath archiveRelativePath) throws FileNotFoundException {
 		AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 		IArchiveResource aFile = null;
@@ -178,6 +180,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		return aFile;
 	}
 
+	@Override
 	public List<IArchiveResource> getArchiveResources() {
 		synchronized (this) {
 			if (!archiveFileIndex.isFullyIndexed()) {
@@ -191,6 +194,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		this.loadAdapter = loadAdapter;
 	}
 	
+	@Override
 	public IArchiveLoadAdapter getLoadAdapter() {
 		return loadAdapter;
 	}
@@ -199,6 +203,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		this.archiveOptions = archiveOptions;
 	}
 
+	@Override
 	public ArchiveOptions getArchiveOptions() {
 		return archiveOptions;
 	}
@@ -219,24 +224,29 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		}
 	}
 
+	@Override
 	public boolean containsModelObject() {
 		return containsModelObject(IArchive.EMPTY_MODEL_PATH);
 	}
 
+	@Override
 	public boolean containsModelObject(IPath modelObjectPath) {
 		AbstractArchiveLoadAdapter.verifyRelative(modelObjectPath);
 		return getLoadAdapter().containsModelObject(modelObjectPath);
 	}
 
+	@Override
 	public Object getModelObject() throws ArchiveModelLoadException {
 		return getModelObject(IArchive.EMPTY_MODEL_PATH);
 	}
 
+	@Override
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		AbstractArchiveLoadAdapter.verifyRelative(modelObjectPath);
 		return getLoadAdapter().getModelObject(modelObjectPath);
 	}
 
+	@Override
 	public boolean containsArchiveResource(IPath archiveRelativePath) {
 		AbstractArchiveLoadAdapter.verifyRelative(archiveRelativePath);
 		if (archiveFileIndex.containsFile(archiveRelativePath)) {
@@ -247,6 +257,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		return false;
 	}
 
+	@Override
 	public IArchive getNestedArchive(IArchiveResource archiveResource) throws ArchiveOpenFailureException {
 		try {
 			if (archiveResource.getArchive() != this) {
@@ -316,6 +327,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 	
 	
+	@Override
 	public List<IArchive> getNestedArchives() {
 		return Collections.unmodifiableList(archiveFileIndex.getNestedArchives());
 	}

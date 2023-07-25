@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -138,6 +138,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getFilterName() {
 		return filterName;
 	}
@@ -147,6 +148,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setFilterName(String newFilterName) {
 		String oldFilterName = filterName;
 		filterName = newFilterName;
@@ -159,6 +161,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getGroup() {
 		if (group == null) {
 			group = new BasicFeatureMap(this, WebPackage.FILTER_MAPPING__GROUP);
@@ -171,6 +174,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<UrlPatternType> getUrlPatterns() {
 		return getGroup().list(WebPackage.Literals.FILTER_MAPPING__URL_PATTERNS);
 	}
@@ -180,6 +184,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getServletNames() {
 		return getGroup().list(WebPackage.Literals.FILTER_MAPPING__SERVLET_NAMES);
 	}
@@ -189,6 +194,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DispatcherType> getDispatchers() {
 		if (dispatchers == null) {
 			dispatchers = new EDataTypeEList<DispatcherType>(DispatcherType.class, this, WebPackage.FILTER_MAPPING__DISPATCHERS);
@@ -201,6 +207,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -210,6 +217,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

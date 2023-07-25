@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -75,6 +75,7 @@ public class MimeMappingImpl extends J2EEEObjectImpl implements MimeMapping {
 	 * @generated This field/method will be replaced during code generation 
 	 * The extension element contains a string describing an extension. example: "txt"
 	 */
+	@Override
 	public String getExtension() {
 		return extension;
 	}
@@ -82,6 +83,7 @@ public class MimeMappingImpl extends J2EEEObjectImpl implements MimeMapping {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setExtension(String newExtension) {
 		String oldExtension = extension;
 		extension = newExtension;
@@ -93,6 +95,7 @@ public class MimeMappingImpl extends J2EEEObjectImpl implements MimeMapping {
 	 * @generated This field/method will be replaced during code generation 
 	 * The mime-type element contains a defined mime type. example: "text//plain"
 	 */
+	@Override
 	public String getMimeType() {
 		return mimeType;
 	}
@@ -100,6 +103,7 @@ public class MimeMappingImpl extends J2EEEObjectImpl implements MimeMapping {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setMimeType(String newMimeType) {
 		String oldMimeType = mimeType;
 		mimeType = newMimeType;
@@ -110,6 +114,7 @@ public class MimeMappingImpl extends J2EEEObjectImpl implements MimeMapping {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.MIME_MAPPING__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -128,6 +133,7 @@ public class MimeMappingImpl extends J2EEEObjectImpl implements MimeMapping {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.MIME_MAPPING__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))

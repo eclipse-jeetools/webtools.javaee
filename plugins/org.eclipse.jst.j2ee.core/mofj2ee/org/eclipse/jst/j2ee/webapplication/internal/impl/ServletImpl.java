@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2022 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -131,6 +131,7 @@ public class ServletImpl extends CompatibilityDescriptionGroupImpl implements Se
  * mapping, this must be done in the web-app.
  * @return java.util.List
  */
+@Override
 public List<ServletMapping> getMappings() {
 	WebApp webApp = (WebApp) eContainer();
 	if (webApp == null) return new BasicEList(0);
@@ -148,6 +149,7 @@ public List<ServletMapping> getMappings() {
 /**
  * getParamsAsProperties method comment.
  */
+@Override
 public Properties getParamsAsProperties() {
 	Properties props = new Properties();
 	List lparams = getParams();
@@ -161,6 +163,7 @@ public Properties getParamsAsProperties() {
 /**
  * @see Servlet
  */
+@Override
 public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.String newRoleName) {
 	List roleRefs = getSecurityRoleRefs();
 	for (int i = 0; i < roleRefs.size(); i++) {
@@ -173,6 +176,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * @generated This field/method will be replaced during code generation 
 	 * The servlet-name element contains the canonical name of the servlet.
 	 */
+	@Override
 	public String getServletName() {
 		return servletName;
 	}
@@ -180,6 +184,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setServletName(String newServletName) {
 		String oldServletName = servletName;
 		servletName = newServletName;
@@ -200,6 +205,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * The load-on-startup element indicates that this servlet should be loaded on the startup of the web application. The optional contents of these element must be a positive integer indicating the order in which the servlet should be loaded. Lower integers are loaded before higher integers. If no value is specified, or if the value specified is not a positive integer, the container is free to load it at any time in the startup sequence.
 
 	 */
+	@Override
 	public Integer getLoadOnStartup() {
 		return loadOnStartup;
 	}
@@ -209,6 +215,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLoadOnStartup(Integer newLoadOnStartup) {
 		Integer oldLoadOnStartup = loadOnStartup;
 		loadOnStartup = newLoadOnStartup;
@@ -223,7 +230,8 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void unsetLoadOnStartup() {
+  @Override
+public void unsetLoadOnStartup() {
 		Integer oldLoadOnStartup = loadOnStartup;
 		boolean oldLoadOnStartupESet = loadOnStartupESet;
 		loadOnStartup = LOAD_ON_STARTUP_EDEFAULT;
@@ -237,13 +245,15 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSetLoadOnStartup() {
+  @Override
+public boolean isSetLoadOnStartup() {
 		return loadOnStartupESet;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.SERVLET__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -262,6 +272,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SERVLET__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))
@@ -281,6 +292,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebType getWebType() {
 		return webType;
 	}
@@ -303,6 +315,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebType(WebType newWebType) {
 		if (newWebType != webType) {
 			NotificationChain msgs = null;
@@ -323,6 +336,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getParams() {
 		if (params == null) {
 			params = new EObjectContainmentEList(InitParam.class, this, WebapplicationPackage.SERVLET__PARAMS);
@@ -333,6 +347,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getSecurityRoleRefs() {
 		if (securityRoleRefs == null) {
 			securityRoleRefs = new EObjectContainmentEList(SecurityRoleRef.class, this, WebapplicationPackage.SERVLET__SECURITY_ROLE_REFS);
@@ -344,6 +359,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * @generated This field/method will be replaced during code generation 
 	 * If defined for a servlet, overrides the security identity used to call an EJB by that servlet in this web application. The role-name is one of the security roles already defined for this web application.
 	 */
+	@Override
 	public RunAsSpecifiedIdentity getRunAs() {
 		return runAs;
 	}
@@ -366,6 +382,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRunAs(RunAsSpecifiedIdentity newRunAs) {
 		if (newRunAs != runAs) {
 			NotificationChain msgs = null;
@@ -386,6 +403,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getInitParams() {
 		if (initParams == null) {
 			initParams = new EObjectContainmentEList(ParamValue.class, this, WebapplicationPackage.SERVLET__INIT_PARAMS);
@@ -597,6 +615,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/** 
 	 * return the java servlet class for this servlet
 	 */
+	@Override
 	public JavaClass getServletClass() {
 		JavaClass javaClass = null;
 		String javaClassName = null;

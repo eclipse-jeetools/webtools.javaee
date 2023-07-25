@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,6 +56,7 @@ public class WebfragmentResourceImpl extends JavaeeResourceImpl implements IRoot
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.javaee.jca.IConnectorResource#getRootObject()
 	 */
+	@Override
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
 			return null;
@@ -68,6 +69,7 @@ public class WebfragmentResourceImpl extends JavaeeResourceImpl implements IRoot
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.javaee.jca.IConnectorResource#getConnector()
 	 */
+	@Override
 	public WebFragment getWebFragment() {
 		return (WebFragment)getRootObject();
 	}

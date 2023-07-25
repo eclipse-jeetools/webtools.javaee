@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -81,6 +81,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocalHome() {
 		return localHome;
 	}
@@ -90,6 +91,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocalHome(String newLocalHome) {
 		String oldLocalHome = localHome;
 		localHome = newLocalHome;
@@ -102,6 +104,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocal() {
 		return local;
 	}
@@ -111,6 +114,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocal(String newLocal) {
 		String oldLocal = local;
 		local = newLocal;

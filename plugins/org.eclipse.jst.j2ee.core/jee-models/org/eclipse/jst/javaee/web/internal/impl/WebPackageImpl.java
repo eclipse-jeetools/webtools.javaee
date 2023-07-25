@@ -481,7 +481,8 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		EValidator.Registry.INSTANCE.put
 			(theWebPackage, 
 			 new EValidator.Descriptor() {
-				 public EValidator getEValidator() {
+				 @Override
+				public EValidator getEValidator() {
 					 return WebValidator.INSTANCE;
 				 }
 			 });
@@ -507,6 +508,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAbsoluteOrderingType() {
 		return absoluteOrderingTypeEClass;
 	}
@@ -516,6 +518,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAbsoluteOrderingType_Group() {
 		return (EAttribute)absoluteOrderingTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -525,6 +528,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAbsoluteOrderingType_Name() {
 		return (EAttribute)absoluteOrderingTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -534,6 +538,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAbsoluteOrderingType_Others() {
 		return (EReference)absoluteOrderingTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -543,6 +548,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAuthConstraint() {
 		return authConstraintEClass;
 	}
@@ -552,6 +558,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAuthConstraint_Descriptions() {
 		return (EReference)authConstraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -561,6 +568,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAuthConstraint_RoleNames() {
 		return (EAttribute)authConstraintEClass.getEStructuralFeatures().get(1);
 	}
@@ -570,6 +578,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAuthConstraint_Id() {
 		return (EAttribute)authConstraintEClass.getEStructuralFeatures().get(2);
 	}
@@ -579,6 +588,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCookieCommentType() {
 		return cookieCommentTypeEClass;
 	}
@@ -588,6 +598,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCookieCommentType_Value() {
 		return (EAttribute)cookieCommentTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -597,6 +608,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCookieConfigType() {
 		return cookieConfigTypeEClass;
 	}
@@ -606,6 +618,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCookieConfigType_Name() {
 		return (EReference)cookieConfigTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -615,6 +628,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCookieConfigType_Domain() {
 		return (EReference)cookieConfigTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -624,6 +638,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCookieConfigType_Path() {
 		return (EReference)cookieConfigTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -633,6 +648,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCookieConfigType_Comment() {
 		return (EReference)cookieConfigTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -642,6 +658,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCookieConfigType_HttpOnly() {
 		return (EAttribute)cookieConfigTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -651,6 +668,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCookieConfigType_Secure() {
 		return (EAttribute)cookieConfigTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -660,6 +678,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCookieConfigType_MaxAge() {
 		return (EAttribute)cookieConfigTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -669,6 +688,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCookieConfigType_Id() {
 		return (EAttribute)cookieConfigTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -678,6 +698,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCookieDomainType() {
 		return cookieDomainTypeEClass;
 	}
@@ -687,6 +708,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCookieDomainType_Value() {
 		return (EAttribute)cookieDomainTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -696,6 +718,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCookieNameType() {
 		return cookieNameTypeEClass;
 	}
@@ -705,6 +728,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCookieNameType_Value() {
 		return (EAttribute)cookieNameTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -714,6 +738,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCookiePathType() {
 		return cookiePathTypeEClass;
 	}
@@ -723,6 +748,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCookiePathType_Value() {
 		return (EAttribute)cookiePathTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -732,6 +758,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getErrorPage() {
 		return errorPageEClass;
 	}
@@ -741,6 +768,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getErrorPage_ErrorCode() {
 		return (EAttribute)errorPageEClass.getEStructuralFeatures().get(0);
 	}
@@ -750,6 +778,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getErrorPage_ExceptionType() {
 		return (EAttribute)errorPageEClass.getEStructuralFeatures().get(1);
 	}
@@ -759,6 +788,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getErrorPage_Location() {
 		return (EAttribute)errorPageEClass.getEStructuralFeatures().get(2);
 	}
@@ -768,6 +798,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getErrorPage_Id() {
 		return (EAttribute)errorPageEClass.getEStructuralFeatures().get(3);
 	}
@@ -777,6 +808,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFilter() {
 		return filterEClass;
 	}
@@ -786,6 +818,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFilter_Descriptions() {
 		return (EReference)filterEClass.getEStructuralFeatures().get(0);
 	}
@@ -795,6 +828,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFilter_DisplayNames() {
 		return (EReference)filterEClass.getEStructuralFeatures().get(1);
 	}
@@ -804,6 +838,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFilter_Icons() {
 		return (EReference)filterEClass.getEStructuralFeatures().get(2);
 	}
@@ -813,6 +848,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilter_FilterName() {
 		return (EAttribute)filterEClass.getEStructuralFeatures().get(3);
 	}
@@ -822,6 +858,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilter_FilterClass() {
 		return (EAttribute)filterEClass.getEStructuralFeatures().get(4);
 	}
@@ -831,6 +868,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilter_AsyncSupported() {
 		return (EAttribute)filterEClass.getEStructuralFeatures().get(5);
 	}
@@ -840,6 +878,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFilter_InitParams() {
 		return (EReference)filterEClass.getEStructuralFeatures().get(6);
 	}
@@ -849,6 +888,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilter_Id() {
 		return (EAttribute)filterEClass.getEStructuralFeatures().get(7);
 	}
@@ -858,6 +898,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFilterMapping() {
 		return filterMappingEClass;
 	}
@@ -867,6 +908,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilterMapping_FilterName() {
 		return (EAttribute)filterMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -876,6 +918,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilterMapping_Group() {
 		return (EAttribute)filterMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -885,6 +928,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFilterMapping_UrlPatterns() {
 		return (EReference)filterMappingEClass.getEStructuralFeatures().get(2);
 	}
@@ -894,6 +938,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilterMapping_ServletNames() {
 		return (EAttribute)filterMappingEClass.getEStructuralFeatures().get(3);
 	}
@@ -903,6 +948,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilterMapping_Dispatchers() {
 		return (EAttribute)filterMappingEClass.getEStructuralFeatures().get(4);
 	}
@@ -912,6 +958,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFilterMapping_Id() {
 		return (EAttribute)filterMappingEClass.getEStructuralFeatures().get(5);
 	}
@@ -921,6 +968,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFormLoginConfig() {
 		return formLoginConfigEClass;
 	}
@@ -930,6 +978,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFormLoginConfig_FormLoginPage() {
 		return (EAttribute)formLoginConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -939,6 +988,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFormLoginConfig_FormErrorPage() {
 		return (EAttribute)formLoginConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -948,6 +998,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFormLoginConfig_Id() {
 		return (EAttribute)formLoginConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -957,6 +1008,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLocaleEncodingMapping() {
 		return localeEncodingMappingEClass;
 	}
@@ -966,6 +1018,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocaleEncodingMapping_Locale() {
 		return (EAttribute)localeEncodingMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -975,6 +1028,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocaleEncodingMapping_Encoding() {
 		return (EAttribute)localeEncodingMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -984,6 +1038,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocaleEncodingMapping_Id() {
 		return (EAttribute)localeEncodingMappingEClass.getEStructuralFeatures().get(2);
 	}
@@ -993,6 +1048,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLocaleEncodingMappingList() {
 		return localeEncodingMappingListEClass;
 	}
@@ -1002,6 +1058,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLocaleEncodingMappingList_LocalEncodingMappings() {
 		return (EReference)localeEncodingMappingListEClass.getEStructuralFeatures().get(0);
 	}
@@ -1011,6 +1068,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLocaleEncodingMappingList_Id() {
 		return (EAttribute)localeEncodingMappingListEClass.getEStructuralFeatures().get(1);
 	}
@@ -1020,6 +1078,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getLoginConfig() {
 		return loginConfigEClass;
 	}
@@ -1029,6 +1088,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLoginConfig_AuthMethod() {
 		return (EAttribute)loginConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -1038,6 +1098,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLoginConfig_RealmName() {
 		return (EAttribute)loginConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -1047,6 +1108,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLoginConfig_FormLoginConfig() {
 		return (EReference)loginConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -1056,6 +1118,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getLoginConfig_Id() {
 		return (EAttribute)loginConfigEClass.getEStructuralFeatures().get(3);
 	}
@@ -1065,6 +1128,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMimeMapping() {
 		return mimeMappingEClass;
 	}
@@ -1074,6 +1138,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMimeMapping_Extension() {
 		return (EAttribute)mimeMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -1083,6 +1148,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMimeMapping_MimeType() {
 		return (EAttribute)mimeMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -1092,6 +1158,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMimeMapping_Id() {
 		return (EAttribute)mimeMappingEClass.getEStructuralFeatures().get(2);
 	}
@@ -1101,6 +1168,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMultipartConfigType() {
 		return multipartConfigTypeEClass;
 	}
@@ -1110,6 +1178,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMultipartConfigType_Location() {
 		return (EAttribute)multipartConfigTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1119,6 +1188,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMultipartConfigType_MaxFileSize() {
 		return (EAttribute)multipartConfigTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1128,6 +1198,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMultipartConfigType_MaxRequestSize() {
 		return (EAttribute)multipartConfigTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1137,6 +1208,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMultipartConfigType_FileSizeThreshold() {
 		return (EAttribute)multipartConfigTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -1146,6 +1218,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOrderingOrderingType() {
 		return orderingOrderingTypeEClass;
 	}
@@ -1155,6 +1228,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOrderingOrderingType_Name() {
 		return (EAttribute)orderingOrderingTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1164,6 +1238,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOrderingOrderingType_Others() {
 		return (EReference)orderingOrderingTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1173,6 +1248,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOrderingOthersType() {
 		return orderingOthersTypeEClass;
 	}
@@ -1182,6 +1258,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOrderingOthersType_Id() {
 		return (EAttribute)orderingOthersTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1191,6 +1268,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOrderingType() {
 		return orderingTypeEClass;
 	}
@@ -1200,6 +1278,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOrderingType_After() {
 		return (EReference)orderingTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1209,6 +1288,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOrderingType_Before() {
 		return (EReference)orderingTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1218,6 +1298,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSecurityConstraint() {
 		return securityConstraintEClass;
 	}
@@ -1227,6 +1308,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityConstraint_DisplayNames() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -1236,6 +1318,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityConstraint_WebResourceCollections() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(1);
 	}
@@ -1245,6 +1328,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityConstraint_AuthConstraint() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(2);
 	}
@@ -1254,6 +1338,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityConstraint_UserDataConstraint() {
 		return (EReference)securityConstraintEClass.getEStructuralFeatures().get(3);
 	}
@@ -1263,6 +1348,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSecurityConstraint_Id() {
 		return (EAttribute)securityConstraintEClass.getEStructuralFeatures().get(4);
 	}
@@ -1272,6 +1358,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getServlet() {
 		return servletEClass;
 	}
@@ -1281,6 +1368,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServlet_Descriptions() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(0);
 	}
@@ -1290,6 +1378,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServlet_DisplayNames() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(1);
 	}
@@ -1299,6 +1388,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServlet_Icons() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(2);
 	}
@@ -1308,6 +1398,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServlet_ServletName() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(3);
 	}
@@ -1317,6 +1408,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServlet_ServletClass() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(4);
 	}
@@ -1326,6 +1418,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServlet_JspFile() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(5);
 	}
@@ -1335,6 +1428,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServlet_InitParams() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(6);
 	}
@@ -1344,6 +1438,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServlet_LoadOnStartup() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(7);
 	}
@@ -1353,6 +1448,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServlet_Enabled() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(8);
 	}
@@ -1362,6 +1458,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServlet_AsyncSupported() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(9);
 	}
@@ -1371,6 +1468,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServlet_RunAs() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(10);
 	}
@@ -1380,6 +1478,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServlet_SecurityRoleRefs() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(11);
 	}
@@ -1389,6 +1488,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServlet_MultipartConfig() {
 		return (EReference)servletEClass.getEStructuralFeatures().get(12);
 	}
@@ -1398,6 +1498,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServlet_Id() {
 		return (EAttribute)servletEClass.getEStructuralFeatures().get(13);
 	}
@@ -1407,6 +1508,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getServletMapping() {
 		return servletMappingEClass;
 	}
@@ -1416,6 +1518,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServletMapping_ServletName() {
 		return (EAttribute)servletMappingEClass.getEStructuralFeatures().get(0);
 	}
@@ -1425,6 +1528,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getServletMapping_UrlPatterns() {
 		return (EReference)servletMappingEClass.getEStructuralFeatures().get(1);
 	}
@@ -1434,6 +1538,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getServletMapping_Id() {
 		return (EAttribute)servletMappingEClass.getEStructuralFeatures().get(2);
 	}
@@ -1443,6 +1548,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSessionConfig() {
 		return sessionConfigEClass;
 	}
@@ -1452,6 +1558,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionConfig_SessionTimeout() {
 		return (EAttribute)sessionConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -1461,6 +1568,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionConfig_CookieConfig() {
 		return (EReference)sessionConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -1470,6 +1578,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionConfig_TrackingMode() {
 		return (EAttribute)sessionConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -1479,6 +1588,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionConfig_Id() {
 		return (EAttribute)sessionConfigEClass.getEStructuralFeatures().get(3);
 	}
@@ -1488,6 +1598,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getUserDataConstraint() {
 		return userDataConstraintEClass;
 	}
@@ -1497,6 +1608,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getUserDataConstraint_Descriptions() {
 		return (EReference)userDataConstraintEClass.getEStructuralFeatures().get(0);
 	}
@@ -1506,6 +1618,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getUserDataConstraint_TransportGuarantee() {
 		return (EAttribute)userDataConstraintEClass.getEStructuralFeatures().get(1);
 	}
@@ -1515,6 +1628,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getUserDataConstraint_Id() {
 		return (EAttribute)userDataConstraintEClass.getEStructuralFeatures().get(2);
 	}
@@ -1524,6 +1638,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWebApp() {
 		return webAppEClass;
 	}
@@ -1533,6 +1648,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebApp_Group() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(0);
 	}
@@ -1542,6 +1658,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_Descriptions() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(2);
 	}
@@ -1551,6 +1668,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_DisplayNames() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(3);
 	}
@@ -1560,6 +1678,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_Icons() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(4);
 	}
@@ -1569,6 +1688,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_Distributables() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(5);
 	}
@@ -1578,6 +1698,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_ContextParams() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(6);
 	}
@@ -1587,6 +1708,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_Filters() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(7);
 	}
@@ -1596,6 +1718,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_FilterMappings() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(8);
 	}
@@ -1605,6 +1728,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_Listeners() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(9);
 	}
@@ -1614,6 +1738,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_Servlets() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(10);
 	}
@@ -1623,6 +1748,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_ServletMappings() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(11);
 	}
@@ -1632,6 +1758,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_SessionConfigs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(12);
 	}
@@ -1641,6 +1768,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_MimeMappings() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(13);
 	}
@@ -1650,6 +1778,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_WelcomeFileLists() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(14);
 	}
@@ -1659,6 +1788,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_ErrorPages() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(15);
 	}
@@ -1668,6 +1798,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_JspConfigs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(16);
 	}
@@ -1677,6 +1808,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_SecurityConstraints() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(17);
 	}
@@ -1686,6 +1818,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_LoginConfigs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(18);
 	}
@@ -1695,6 +1828,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_SecurityRoles() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(19);
 	}
@@ -1704,6 +1838,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_EnvEntries() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(20);
 	}
@@ -1713,6 +1848,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_EjbRefs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(21);
 	}
@@ -1722,6 +1858,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_EjbLocalRefs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(22);
 	}
@@ -1731,6 +1868,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_ServiceRefs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(23);
 	}
@@ -1740,6 +1878,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_ResourceRefs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(24);
 	}
@@ -1749,6 +1888,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_ResourceEnvRefs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(25);
 	}
@@ -1758,6 +1898,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_MessageDestinationRefs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(26);
 	}
@@ -1767,6 +1908,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_PersistenceContextRefs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(27);
 	}
@@ -1776,6 +1918,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_PersistenceUnitRefs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(28);
 	}
@@ -1785,6 +1928,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_PostConstructs() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(29);
 	}
@@ -1794,6 +1938,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_PreDestroys() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(30);
 	}
@@ -1803,6 +1948,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_DataSource() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(31);
 	}
@@ -1812,6 +1958,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_JmsConnectionFactory() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(32);
 	}
@@ -1821,6 +1968,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_JmsDestination() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(33);
 	}
@@ -1830,6 +1978,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_MailSession() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(34);
 	}
@@ -1839,6 +1988,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_ConnectionFactory() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(35);
 	}
@@ -1848,6 +1998,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_AdministeredObject() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(36);
 	}
@@ -1857,6 +2008,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_MessageDestinations() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(37);
 	}
@@ -1866,6 +2018,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_LocalEncodingMappingsLists() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(38);
 	}
@@ -1875,6 +2028,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_DenyUncoveredHttpMethods() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(39);
 	}
@@ -1884,6 +2038,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebApp_ModuleName() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(1);
 	}
@@ -1893,6 +2048,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebApp_AbsoluteOrdering() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(40);
 	}
@@ -1902,6 +2058,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebApp_Id() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(41);
 	}
@@ -1911,6 +2068,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebApp_MetadataComplete() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(42);
 	}
@@ -1920,6 +2078,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebApp_Version() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(43);
 	}
@@ -1929,6 +2088,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWebAppDeploymentDescriptor() {
 		return webAppDeploymentDescriptorEClass;
 	}
@@ -1938,6 +2098,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebAppDeploymentDescriptor_Mixed() {
 		return (EAttribute)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(0);
 	}
@@ -1947,6 +2108,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_XMLNSPrefixMap() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(1);
 	}
@@ -1956,6 +2118,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_XSISchemaLocation() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(2);
 	}
@@ -1965,6 +2128,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_WebApp() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(3);
 	}
@@ -1974,6 +2138,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWebFragment() {
 		return webFragmentEClass;
 	}
@@ -1983,6 +2148,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebFragment_Group() {
 		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(0);
 	}
@@ -1992,6 +2158,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_Descriptions() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(2);
 	}
@@ -2001,6 +2168,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_DisplayNames() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(3);
 	}
@@ -2010,6 +2178,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_Icons() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(4);
 	}
@@ -2019,6 +2188,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebFragment_Name() {
 		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(1);
 	}
@@ -2028,6 +2198,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_Distributables() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(5);
 	}
@@ -2037,6 +2208,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_ContextParams() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(6);
 	}
@@ -2046,6 +2218,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_Filters() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(7);
 	}
@@ -2055,6 +2228,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_FilterMappings() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(8);
 	}
@@ -2064,6 +2238,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_Listeners() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(9);
 	}
@@ -2073,6 +2248,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_Servlets() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(10);
 	}
@@ -2082,6 +2258,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_ServletMappings() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(11);
 	}
@@ -2091,6 +2268,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_SessionConfigs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(12);
 	}
@@ -2100,6 +2278,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_MimeMappings() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(13);
 	}
@@ -2109,6 +2288,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_WelcomeFileLists() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(14);
 	}
@@ -2118,6 +2298,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_ErrorPages() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(15);
 	}
@@ -2127,6 +2308,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_JspConfigs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(16);
 	}
@@ -2136,6 +2318,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_SecurityConstraints() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(17);
 	}
@@ -2145,6 +2328,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_LoginConfigs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(18);
 	}
@@ -2154,6 +2338,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_SecurityRoles() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(19);
 	}
@@ -2163,6 +2348,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_EnvEntries() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(20);
 	}
@@ -2172,6 +2358,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_EjbRefs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(21);
 	}
@@ -2181,6 +2368,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_EjbLocalRefs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(22);
 	}
@@ -2190,6 +2378,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_ServiceRefs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(23);
 	}
@@ -2199,6 +2388,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_ResourceRefs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(24);
 	}
@@ -2208,6 +2398,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_ResourceEnvRefs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(25);
 	}
@@ -2217,6 +2408,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_MessageDestinationRefs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(26);
 	}
@@ -2226,6 +2418,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_PersistenceContextRefs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(27);
 	}
@@ -2235,6 +2428,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_PersistenceUnitRefs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(28);
 	}
@@ -2244,6 +2438,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_PostConstructs() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(29);
 	}
@@ -2253,6 +2448,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_PreDestroys() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(30);
 	}
@@ -2262,6 +2458,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_DataSource() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(31);
 	}
@@ -2271,6 +2468,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_JmsConnectionFactory() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(32);
 	}
@@ -2280,6 +2478,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_JmsDestination() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(33);
 	}
@@ -2289,6 +2488,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_MailSession() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(34);
 	}
@@ -2298,6 +2498,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_ConnectionFactory() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(35);
 	}
@@ -2307,6 +2508,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_AdministeredObject() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(36);
 	}
@@ -2316,6 +2518,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_MessageDestinations() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(37);
 	}
@@ -2325,6 +2528,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_LocalEncodingMappingsLists() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(38);
 	}
@@ -2334,6 +2538,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebFragment_Ordering() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(39);
 	}
@@ -2343,6 +2548,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebFragment_Id() {
 		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(40);
 	}
@@ -2352,6 +2558,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebFragment_MetadataComplete() {
 		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(41);
 	}
@@ -2361,6 +2568,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebFragment_Version() {
 		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(42);
 	}
@@ -2370,6 +2578,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWebResourceCollection() {
 		return webResourceCollectionEClass;
 	}
@@ -2379,6 +2588,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebResourceCollection_WebResourceName() {
 		return (EAttribute)webResourceCollectionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2388,6 +2598,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebResourceCollection_Descriptions() {
 		return (EReference)webResourceCollectionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2397,6 +2608,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebResourceCollection_UrlPatterns() {
 		return (EReference)webResourceCollectionEClass.getEStructuralFeatures().get(2);
 	}
@@ -2406,6 +2618,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebResourceCollection_HttpMethods() {
 		return (EAttribute)webResourceCollectionEClass.getEStructuralFeatures().get(3);
 	}
@@ -2415,6 +2628,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebResourceCollection_HttpMethodOmission() {
 		return (EAttribute)webResourceCollectionEClass.getEStructuralFeatures().get(4);
 	}
@@ -2424,6 +2638,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebResourceCollection_Id() {
 		return (EAttribute)webResourceCollectionEClass.getEStructuralFeatures().get(5);
 	}
@@ -2433,6 +2648,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWelcomeFileList() {
 		return welcomeFileListEClass;
 	}
@@ -2442,6 +2658,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWelcomeFileList_WelcomeFiles() {
 		return (EAttribute)welcomeFileListEClass.getEStructuralFeatures().get(0);
 	}
@@ -2451,6 +2668,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWelcomeFileList_Id() {
 		return (EAttribute)welcomeFileListEClass.getEStructuralFeatures().get(1);
 	}
@@ -2460,6 +2678,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getDispatcherType() {
 		return dispatcherTypeEEnum;
 	}
@@ -2469,6 +2688,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getNullCharType() {
 		return nullCharTypeEEnum;
 	}
@@ -2478,6 +2698,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTrackingModeType() {
 		return trackingModeTypeEEnum;
 	}
@@ -2487,6 +2708,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTransportGuaranteeType() {
 		return transportGuaranteeTypeEEnum;
 	}
@@ -2496,6 +2718,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getWebAppVersionType() {
 		return webAppVersionTypeEEnum;
 	}
@@ -2505,6 +2728,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getAuthMethodType() {
 		return authMethodTypeEDataType;
 	}
@@ -2514,6 +2738,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getDispatcherTypeObject() {
 		return dispatcherTypeObjectEDataType;
 	}
@@ -2523,6 +2748,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getEncodingType() {
 		return encodingTypeEDataType;
 	}
@@ -2532,6 +2758,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getErrorCodeType() {
 		return errorCodeTypeEDataType;
 	}
@@ -2541,6 +2768,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getFilterNameType() {
 		return filterNameTypeEDataType;
 	}
@@ -2550,6 +2778,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getHttpMethodType() {
 		return httpMethodTypeEDataType;
 	}
@@ -2559,6 +2788,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getLoadOnStartupType() {
 		return loadOnStartupTypeEDataType;
 	}
@@ -2568,6 +2798,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getLocaleType() {
 		return localeTypeEDataType;
 	}
@@ -2577,6 +2808,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getMimeTypeType() {
 		return mimeTypeTypeEDataType;
 	}
@@ -2586,6 +2818,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getNonEmptyStringType() {
 		return nonEmptyStringTypeEDataType;
 	}
@@ -2595,6 +2828,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getNullCharTypeObject() {
 		return nullCharTypeObjectEDataType;
 	}
@@ -2604,6 +2838,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getServletNameType() {
 		return servletNameTypeEDataType;
 	}
@@ -2613,6 +2848,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getTrackingModeTypeObject() {
 		return trackingModeTypeObjectEDataType;
 	}
@@ -2622,6 +2858,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getTransportGuaranteeTypeObject() {
 		return transportGuaranteeTypeObjectEDataType;
 	}
@@ -2631,6 +2868,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getWarPathType() {
 		return warPathTypeEDataType;
 	}
@@ -2640,6 +2878,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getWebAppVersionTypeObject() {
 		return webAppVersionTypeObjectEDataType;
 	}
@@ -2649,6 +2888,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebFactory getWebFactory() {
 		return (WebFactory)getEFactoryInstance();
 	}

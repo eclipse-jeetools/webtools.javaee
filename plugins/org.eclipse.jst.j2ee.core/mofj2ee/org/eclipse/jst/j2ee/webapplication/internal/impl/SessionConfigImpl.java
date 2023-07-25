@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -72,6 +72,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * all sessions created in this web application. The specified timeout must be
 	 * expressed in a whole number of minutes.
 	 */
+	@Override
 	public int getSessionTimeout() {
 		return sessionTimeout;
 	}
@@ -79,6 +80,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSessionTimeout(int newSessionTimeout) {
 		int oldSessionTimeout = sessionTimeout;
 		sessionTimeout = newSessionTimeout;
@@ -93,7 +95,8 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void unsetSessionTimeout() {
+  @Override
+public void unsetSessionTimeout() {
 		int oldSessionTimeout = sessionTimeout;
 		boolean oldSessionTimeoutESet = sessionTimeoutESet;
 		sessionTimeout = SESSION_TIMEOUT_EDEFAULT;
@@ -107,13 +110,15 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSetSessionTimeout() {
+  @Override
+public boolean isSetSessionTimeout() {
 		return sessionTimeoutESet;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.SESSION_CONFIG__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -132,6 +137,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.SESSION_CONFIG__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))

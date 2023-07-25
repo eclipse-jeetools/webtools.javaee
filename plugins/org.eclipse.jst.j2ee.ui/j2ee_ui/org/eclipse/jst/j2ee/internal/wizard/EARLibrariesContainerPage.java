@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,17 +35,21 @@ public class EARLibrariesContainerPage extends NewElementWizardPage implements I
 		setDescription(EARLibrariesMessages.EARLibrariesContainerPage_1);
 	}
 
+	@Override
 	public boolean finish() {
 		return true;
 	}
 
+	@Override
 	public IClasspathEntry getSelection() {
 		return JavaCore.newContainerEntry(J2EEComponentClasspathContainer.CONTAINER_PATH);
 	}
 
+	@Override
 	public void setSelection(IClasspathEntry containerEntry) {
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(1, false));
@@ -56,6 +60,7 @@ public class EARLibrariesContainerPage extends NewElementWizardPage implements I
 		setControl(composite);
 	}
 
+	@Override
 	public void initialize(IJavaProject project, IClasspathEntry[] currentEntries) {
 	}
 

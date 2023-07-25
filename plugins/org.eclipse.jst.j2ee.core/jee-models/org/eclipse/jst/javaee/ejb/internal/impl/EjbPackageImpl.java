@@ -628,6 +628,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAccessTimeoutType() {
 		return accessTimeoutTypeEClass;
 	}
@@ -637,6 +638,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAccessTimeoutType_Timeout() {
 		return (EAttribute)accessTimeoutTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -646,6 +648,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAccessTimeoutType_Unit() {
 		return (EAttribute)accessTimeoutTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -655,6 +658,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAccessTimeoutType_Id() {
 		return (EAttribute)accessTimeoutTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -664,6 +668,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActivationConfig() {
 		return activationConfigEClass;
 	}
@@ -673,6 +678,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActivationConfig_Descriptions() {
 		return (EReference)activationConfigEClass.getEStructuralFeatures().get(0);
 	}
@@ -682,6 +688,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActivationConfig_ActivationConfigProperties() {
 		return (EReference)activationConfigEClass.getEStructuralFeatures().get(1);
 	}
@@ -691,6 +698,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActivationConfig_Id() {
 		return (EAttribute)activationConfigEClass.getEStructuralFeatures().get(2);
 	}
@@ -700,6 +708,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActivationConfigProperty() {
 		return activationConfigPropertyEClass;
 	}
@@ -709,6 +718,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActivationConfigProperty_ActivationConfigPropertyName() {
 		return (EAttribute)activationConfigPropertyEClass.getEStructuralFeatures().get(0);
 	}
@@ -718,6 +728,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActivationConfigProperty_ActivationConfigPropertyValue() {
 		return (EAttribute)activationConfigPropertyEClass.getEStructuralFeatures().get(1);
 	}
@@ -727,6 +738,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActivationConfigProperty_Id() {
 		return (EAttribute)activationConfigPropertyEClass.getEStructuralFeatures().get(2);
 	}
@@ -736,6 +748,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getApplicationException() {
 		return applicationExceptionEClass;
 	}
@@ -745,6 +758,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationException_ExceptionClass() {
 		return (EAttribute)applicationExceptionEClass.getEStructuralFeatures().get(0);
 	}
@@ -754,6 +768,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationException_Rollback() {
 		return (EAttribute)applicationExceptionEClass.getEStructuralFeatures().get(1);
 	}
@@ -763,6 +778,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationException_Inherited() {
 		return (EAttribute)applicationExceptionEClass.getEStructuralFeatures().get(2);
 	}
@@ -772,6 +788,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getApplicationException_Id() {
 		return (EAttribute)applicationExceptionEClass.getEStructuralFeatures().get(3);
 	}
@@ -781,6 +798,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAroundInvokeType() {
 		return aroundInvokeTypeEClass;
 	}
@@ -790,6 +808,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAroundInvokeType_Class() {
 		return (EAttribute)aroundInvokeTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -799,6 +818,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAroundInvokeType_MethodName() {
 		return (EAttribute)aroundInvokeTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -808,6 +828,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAroundTimeoutType() {
 		return aroundTimeoutTypeEClass;
 	}
@@ -817,6 +838,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAroundTimeoutType_Class() {
 		return (EAttribute)aroundTimeoutTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -826,6 +848,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAroundTimeoutType_MethodName() {
 		return (EAttribute)aroundTimeoutTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -835,6 +858,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAssemblyDescriptor() {
 		return assemblyDescriptorEClass;
 	}
@@ -844,6 +868,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_SecurityRoles() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(0);
 	}
@@ -853,6 +878,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_MethodPermissions() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(1);
 	}
@@ -862,6 +888,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_ContainerTransactions() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(2);
 	}
@@ -871,6 +898,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_InterceptorBindings() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(3);
 	}
@@ -880,6 +908,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_MessageDestinations() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(4);
 	}
@@ -889,6 +918,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_ExcludeList() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(5);
 	}
@@ -898,6 +928,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAssemblyDescriptor_ApplicationExceptions() {
 		return (EReference)assemblyDescriptorEClass.getEStructuralFeatures().get(6);
 	}
@@ -907,6 +938,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAssemblyDescriptor_Id() {
 		return (EAttribute)assemblyDescriptorEClass.getEStructuralFeatures().get(7);
 	}
@@ -916,6 +948,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAsyncMethodType() {
 		return asyncMethodTypeEClass;
 	}
@@ -925,6 +958,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAsyncMethodType_MethodName() {
 		return (EAttribute)asyncMethodTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -934,6 +968,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAsyncMethodType_MethodParams() {
 		return (EReference)asyncMethodTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -943,6 +978,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAsyncMethodType_Id() {
 		return (EAttribute)asyncMethodTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -952,6 +988,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCMPField() {
 		return cmpFieldEClass;
 	}
@@ -961,6 +998,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCMPField_Descriptions() {
 		return (EReference)cmpFieldEClass.getEStructuralFeatures().get(0);
 	}
@@ -970,6 +1008,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCMPField_FieldName() {
 		return (EAttribute)cmpFieldEClass.getEStructuralFeatures().get(1);
 	}
@@ -979,6 +1018,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCMPField_Id() {
 		return (EAttribute)cmpFieldEClass.getEStructuralFeatures().get(2);
 	}
@@ -988,6 +1028,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getCMRField() {
 		return cmrFieldEClass;
 	}
@@ -997,6 +1038,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getCMRField_Descriptions() {
 		return (EReference)cmrFieldEClass.getEStructuralFeatures().get(0);
 	}
@@ -1006,6 +1048,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCMRField_CmrFieldName() {
 		return (EAttribute)cmrFieldEClass.getEStructuralFeatures().get(1);
 	}
@@ -1015,6 +1058,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCMRField_CmrFieldType() {
 		return (EAttribute)cmrFieldEClass.getEStructuralFeatures().get(2);
 	}
@@ -1024,6 +1068,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getCMRField_Id() {
 		return (EAttribute)cmrFieldEClass.getEStructuralFeatures().get(3);
 	}
@@ -1033,6 +1078,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConcurrentMethodType() {
 		return concurrentMethodTypeEClass;
 	}
@@ -1042,6 +1088,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConcurrentMethodType_Method() {
 		return (EReference)concurrentMethodTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1051,6 +1098,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConcurrentMethodType_Lock() {
 		return (EAttribute)concurrentMethodTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1060,6 +1108,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConcurrentMethodType_AccessTimeout() {
 		return (EReference)concurrentMethodTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1069,6 +1118,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConcurrentMethodType_Id() {
 		return (EAttribute)concurrentMethodTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -1078,6 +1128,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getContainerTransactionType() {
 		return containerTransactionTypeEClass;
 	}
@@ -1087,6 +1138,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getContainerTransactionType_Descriptions() {
 		return (EReference)containerTransactionTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1096,6 +1148,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getContainerTransactionType_Methods() {
 		return (EReference)containerTransactionTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1105,6 +1158,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getContainerTransactionType_TransAttribute() {
 		return (EAttribute)containerTransactionTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1114,6 +1168,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getContainerTransactionType_Id() {
 		return (EAttribute)containerTransactionTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -1123,6 +1178,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getDependsOnType() {
 		return dependsOnTypeEClass;
 	}
@@ -1132,6 +1188,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDependsOnType_EjbName() {
 		return (EAttribute)dependsOnTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1141,6 +1198,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getDependsOnType_Id() {
 		return (EAttribute)dependsOnTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1150,6 +1208,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEJBJar() {
 		return ejbJarEClass;
 	}
@@ -1159,6 +1218,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJar_Descriptions() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(1);
 	}
@@ -1168,6 +1228,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJar_DisplayNames() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(2);
 	}
@@ -1177,6 +1238,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJar_Icons() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(3);
 	}
@@ -1186,6 +1248,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBJar_ModuleName() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(0);
 	}
@@ -1195,6 +1258,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJar_EnterpriseBeans() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(4);
 	}
@@ -1204,6 +1268,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJar_Interceptors() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(5);
 	}
@@ -1213,6 +1278,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJar_Relationships() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(6);
 	}
@@ -1222,6 +1288,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJar_AssemblyDescriptor() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(7);
 	}
@@ -1231,6 +1298,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBJar_EjbClientJar() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(8);
 	}
@@ -1240,6 +1308,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBJar_Id() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(9);
 	}
@@ -1249,6 +1318,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBJar_MetadataComplete() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(10);
 	}
@@ -1258,6 +1328,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBJar_Version() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(11);
 	}
@@ -1267,6 +1338,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEJBJarDeploymentDescriptor() {
 		return ejbJarDeploymentDescriptorEClass;
 	}
@@ -1276,6 +1348,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBJarDeploymentDescriptor_Mixed() {
 		return (EAttribute)ejbJarDeploymentDescriptorEClass.getEStructuralFeatures().get(0);
 	}
@@ -1285,6 +1358,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJarDeploymentDescriptor_XMLNSPrefixMap() {
 		return (EReference)ejbJarDeploymentDescriptorEClass.getEStructuralFeatures().get(1);
 	}
@@ -1294,6 +1368,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJarDeploymentDescriptor_XSISchemaLocation() {
 		return (EReference)ejbJarDeploymentDescriptorEClass.getEStructuralFeatures().get(2);
 	}
@@ -1303,6 +1378,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBJarDeploymentDescriptor_EjbJar() {
 		return (EReference)ejbJarDeploymentDescriptorEClass.getEStructuralFeatures().get(3);
 	}
@@ -1312,6 +1388,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEJBRelation() {
 		return ejbRelationEClass;
 	}
@@ -1321,6 +1398,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBRelation_Descriptions() {
 		return (EReference)ejbRelationEClass.getEStructuralFeatures().get(0);
 	}
@@ -1330,6 +1408,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBRelation_EjbRelationName() {
 		return (EAttribute)ejbRelationEClass.getEStructuralFeatures().get(1);
 	}
@@ -1339,6 +1418,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBRelation_EjbRelationshipRoles() {
 		return (EReference)ejbRelationEClass.getEStructuralFeatures().get(2);
 	}
@@ -1348,6 +1428,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBRelation_Id() {
 		return (EAttribute)ejbRelationEClass.getEStructuralFeatures().get(3);
 	}
@@ -1357,6 +1438,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEJBRelationshipRole() {
 		return ejbRelationshipRoleEClass;
 	}
@@ -1366,6 +1448,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBRelationshipRole_Descriptions() {
 		return (EReference)ejbRelationshipRoleEClass.getEStructuralFeatures().get(0);
 	}
@@ -1375,6 +1458,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBRelationshipRole_EjbRelationshipRoleName() {
 		return (EAttribute)ejbRelationshipRoleEClass.getEStructuralFeatures().get(1);
 	}
@@ -1384,6 +1468,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBRelationshipRole_Multiplicity() {
 		return (EAttribute)ejbRelationshipRoleEClass.getEStructuralFeatures().get(2);
 	}
@@ -1393,6 +1478,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBRelationshipRole_CascadeDelete() {
 		return (EReference)ejbRelationshipRoleEClass.getEStructuralFeatures().get(3);
 	}
@@ -1402,6 +1488,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBRelationshipRole_RelationshipRoleSource() {
 		return (EReference)ejbRelationshipRoleEClass.getEStructuralFeatures().get(4);
 	}
@@ -1411,6 +1498,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEJBRelationshipRole_CmrField() {
 		return (EReference)ejbRelationshipRoleEClass.getEStructuralFeatures().get(5);
 	}
@@ -1420,6 +1508,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEJBRelationshipRole_Id() {
 		return (EAttribute)ejbRelationshipRoleEClass.getEStructuralFeatures().get(6);
 	}
@@ -1429,6 +1518,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEnterpriseBeans() {
 		return enterpriseBeansEClass;
 	}
@@ -1438,6 +1528,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnterpriseBeans_Group() {
 		return (EAttribute)enterpriseBeansEClass.getEStructuralFeatures().get(0);
 	}
@@ -1447,6 +1538,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEnterpriseBeans_SessionBeans() {
 		return (EReference)enterpriseBeansEClass.getEStructuralFeatures().get(1);
 	}
@@ -1456,6 +1548,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEnterpriseBeans_EntityBeans() {
 		return (EReference)enterpriseBeansEClass.getEStructuralFeatures().get(2);
 	}
@@ -1465,6 +1558,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEnterpriseBeans_MessageDrivenBeans() {
 		return (EReference)enterpriseBeansEClass.getEStructuralFeatures().get(3);
 	}
@@ -1474,6 +1568,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEnterpriseBeans_Id() {
 		return (EAttribute)enterpriseBeansEClass.getEStructuralFeatures().get(4);
 	}
@@ -1483,6 +1578,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getEntityBean() {
 		return entityBeanEClass;
 	}
@@ -1492,6 +1588,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_Descriptions() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(0);
 	}
@@ -1501,6 +1598,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_DisplayNames() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(1);
 	}
@@ -1510,6 +1608,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_Icons() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(2);
 	}
@@ -1519,6 +1618,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_EjbName() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(3);
 	}
@@ -1528,6 +1628,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_MappedName() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(4);
 	}
@@ -1537,6 +1638,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_Home() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(5);
 	}
@@ -1546,6 +1648,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_Remote() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(6);
 	}
@@ -1555,6 +1658,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_LocalHome() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(7);
 	}
@@ -1564,6 +1668,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_Local() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(8);
 	}
@@ -1573,6 +1678,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_EjbClass() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(9);
 	}
@@ -1582,6 +1688,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_PersistenceType() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(10);
 	}
@@ -1591,6 +1698,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_PrimKeyClass() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(11);
 	}
@@ -1600,6 +1708,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_Reentrant() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(12);
 	}
@@ -1609,6 +1718,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_CmpVersion() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(13);
 	}
@@ -1618,6 +1728,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_AbstractSchemaName() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(14);
 	}
@@ -1627,6 +1738,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_CmpFields() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(15);
 	}
@@ -1636,6 +1748,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_PrimkeyField() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(16);
 	}
@@ -1645,6 +1758,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_EnvEntries() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(17);
 	}
@@ -1654,6 +1768,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_EjbRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(18);
 	}
@@ -1663,6 +1778,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_EjbLocalRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(19);
 	}
@@ -1672,6 +1788,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_ServiceRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(20);
 	}
@@ -1681,6 +1798,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_ResourceRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(21);
 	}
@@ -1690,6 +1808,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_ResourceEnvRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(22);
 	}
@@ -1699,6 +1818,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_MessageDestinationRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(23);
 	}
@@ -1708,6 +1828,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_PersistenceContextRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(24);
 	}
@@ -1717,6 +1838,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_PersistenceUnitRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(25);
 	}
@@ -1726,6 +1848,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_PostConstructs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(26);
 	}
@@ -1735,6 +1858,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_PreDestroys() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(27);
 	}
@@ -1744,6 +1868,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_DataSource() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(28);
 	}
@@ -1753,6 +1878,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_JmsConnectionFactory() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(29);
 	}
@@ -1762,6 +1888,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_JmsDestination() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(30);
 	}
@@ -1771,6 +1898,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_MailSession() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(31);
 	}
@@ -1780,6 +1908,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_ConnectionFactory() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(32);
 	}
@@ -1789,6 +1918,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_AdministeredObject() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(33);
 	}
@@ -1798,6 +1928,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_SecurityRoleRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(34);
 	}
@@ -1807,6 +1938,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_SecurityIdentity() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(35);
 	}
@@ -1816,6 +1948,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getEntityBean_Queries() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(36);
 	}
@@ -1825,6 +1958,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getEntityBean_Id() {
 		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(37);
 	}
@@ -1834,6 +1968,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExcludeList() {
 		return excludeListEClass;
 	}
@@ -1843,6 +1978,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExcludeList_Descriptions() {
 		return (EReference)excludeListEClass.getEStructuralFeatures().get(0);
 	}
@@ -1852,6 +1988,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getExcludeList_Methods() {
 		return (EReference)excludeListEClass.getEStructuralFeatures().get(1);
 	}
@@ -1861,6 +1998,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExcludeList_Id() {
 		return (EAttribute)excludeListEClass.getEStructuralFeatures().get(2);
 	}
@@ -1870,6 +2008,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInitMethodType() {
 		return initMethodTypeEClass;
 	}
@@ -1879,6 +2018,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInitMethodType_CreateMethod() {
 		return (EReference)initMethodTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1888,6 +2028,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInitMethodType_BeanMethod() {
 		return (EReference)initMethodTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1897,6 +2038,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInitMethodType_Id() {
 		return (EAttribute)initMethodTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1906,6 +2048,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInterceptorBindingType() {
 		return interceptorBindingTypeEClass;
 	}
@@ -1915,6 +2058,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorBindingType_Descriptions() {
 		return (EReference)interceptorBindingTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -1924,6 +2068,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorBindingType_EjbName() {
 		return (EAttribute)interceptorBindingTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -1933,6 +2078,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorBindingType_InterceptorClasses() {
 		return (EAttribute)interceptorBindingTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -1942,6 +2088,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorBindingType_InterceptorOrder() {
 		return (EReference)interceptorBindingTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -1951,6 +2098,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorBindingType_ExcludeDefaultInterceptors() {
 		return (EAttribute)interceptorBindingTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -1960,6 +2108,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorBindingType_ExcludeClassInterceptors() {
 		return (EAttribute)interceptorBindingTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -1969,6 +2118,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorBindingType_Method() {
 		return (EReference)interceptorBindingTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -1978,6 +2128,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorBindingType_Id() {
 		return (EAttribute)interceptorBindingTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -1987,6 +2138,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInterceptorOrderType() {
 		return interceptorOrderTypeEClass;
 	}
@@ -1996,6 +2148,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorOrderType_InterceptorClasses() {
 		return (EAttribute)interceptorOrderTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2005,6 +2158,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorOrderType_Id() {
 		return (EAttribute)interceptorOrderTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2014,6 +2168,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInterceptorsType() {
 		return interceptorsTypeEClass;
 	}
@@ -2023,6 +2178,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorsType_Descriptions() {
 		return (EReference)interceptorsTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2032,6 +2188,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorsType_Interceptors() {
 		return (EReference)interceptorsTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2041,6 +2198,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorsType_Id() {
 		return (EAttribute)interceptorsTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -2050,6 +2208,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInterceptorType() {
 		return interceptorTypeEClass;
 	}
@@ -2059,6 +2218,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_Descriptions() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2068,6 +2228,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorType_InterceptorClass() {
 		return (EAttribute)interceptorTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2077,6 +2238,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_AroundInvokes() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -2086,6 +2248,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_AroundTimeouts() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -2095,6 +2258,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_AroundConstruct() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -2104,6 +2268,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_EnvEntries() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -2113,6 +2278,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_EjbRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -2122,6 +2288,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_EjbLocalRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -2131,6 +2298,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_ServiceRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(8);
 	}
@@ -2140,6 +2308,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_ResourceRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(9);
 	}
@@ -2149,6 +2318,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_ResourceEnvRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(10);
 	}
@@ -2158,6 +2328,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_MessageDestinationRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(11);
 	}
@@ -2167,6 +2338,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_PersistenceContextRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(12);
 	}
@@ -2176,6 +2348,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_PersistenceUnitRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(13);
 	}
@@ -2185,6 +2358,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_PostConstructs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(14);
 	}
@@ -2194,6 +2368,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_PreDestroys() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(15);
 	}
@@ -2203,6 +2378,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_DataSource() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(16);
 	}
@@ -2212,6 +2388,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_JmsConnectionFactory() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(17);
 	}
@@ -2221,6 +2398,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_JmsDestination() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(18);
 	}
@@ -2230,6 +2408,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_MailSession() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(19);
 	}
@@ -2239,6 +2418,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_ConnectionFactory() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(20);
 	}
@@ -2248,6 +2428,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_AdministeredObject() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(21);
 	}
@@ -2257,6 +2438,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_PostActivates() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(22);
 	}
@@ -2266,6 +2448,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInterceptorType_PrePassivates() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(23);
 	}
@@ -2275,6 +2458,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getInterceptorType_Id() {
 		return (EAttribute)interceptorTypeEClass.getEStructuralFeatures().get(24);
 	}
@@ -2284,6 +2468,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMessageDrivenBean() {
 		return messageDrivenBeanEClass;
 	}
@@ -2293,6 +2478,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_Descriptions() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(0);
 	}
@@ -2302,6 +2488,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_DisplayNames() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(1);
 	}
@@ -2311,6 +2498,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_Icons() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(2);
 	}
@@ -2320,6 +2508,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDrivenBean_EjbName() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(3);
 	}
@@ -2329,6 +2518,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDrivenBean_MappedName() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(4);
 	}
@@ -2338,6 +2528,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDrivenBean_EjbClass() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(5);
 	}
@@ -2347,6 +2538,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDrivenBean_MessagingType() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(6);
 	}
@@ -2356,6 +2548,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_TimeoutMethod() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(7);
 	}
@@ -2365,6 +2558,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_Timer() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(8);
 	}
@@ -2374,6 +2568,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDrivenBean_TransactionType() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(9);
 	}
@@ -2383,6 +2578,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDrivenBean_MessageDestinationType() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(10);
 	}
@@ -2392,6 +2588,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDrivenBean_MessageDestinationLink() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(11);
 	}
@@ -2401,6 +2598,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_ActivationConfig() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(12);
 	}
@@ -2410,6 +2608,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_AroundInvokes() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(13);
 	}
@@ -2419,6 +2618,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_AroundTimeouts() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(14);
 	}
@@ -2428,6 +2628,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_EnvEntries() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(15);
 	}
@@ -2437,6 +2638,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_EjbRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(16);
 	}
@@ -2446,6 +2648,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_EjbLocalRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(17);
 	}
@@ -2455,6 +2658,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_ServiceRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(18);
 	}
@@ -2464,6 +2668,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_ResourceRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(19);
 	}
@@ -2473,6 +2678,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_ResourceEnvRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(20);
 	}
@@ -2482,6 +2688,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_MessageDestinationRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(21);
 	}
@@ -2491,6 +2698,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_PersistenceContextRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(22);
 	}
@@ -2500,6 +2708,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_PersistenceUnitRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(23);
 	}
@@ -2509,6 +2718,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_PostConstructs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(24);
 	}
@@ -2518,6 +2728,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_PreDestroys() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(25);
 	}
@@ -2527,6 +2738,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_DataSource() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(26);
 	}
@@ -2536,6 +2748,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_JmsConnectionFactory() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(27);
 	}
@@ -2545,6 +2758,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_JmsDestination() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(28);
 	}
@@ -2554,6 +2768,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_MailSession() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(29);
 	}
@@ -2563,6 +2778,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_ConnectionFactory() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(30);
 	}
@@ -2572,6 +2788,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_AdministeredObject() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(31);
 	}
@@ -2581,6 +2798,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_SecurityRoleRef() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(32);
 	}
@@ -2590,6 +2808,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageDrivenBean_SecurityIdentity() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(33);
 	}
@@ -2599,6 +2818,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageDrivenBean_Id() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(34);
 	}
@@ -2608,6 +2828,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMethodParams() {
 		return methodParamsEClass;
 	}
@@ -2617,6 +2838,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethodParams_MethodParams() {
 		return (EAttribute)methodParamsEClass.getEStructuralFeatures().get(0);
 	}
@@ -2626,6 +2848,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethodParams_Id() {
 		return (EAttribute)methodParamsEClass.getEStructuralFeatures().get(1);
 	}
@@ -2635,6 +2858,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMethodPermission() {
 		return methodPermissionEClass;
 	}
@@ -2644,6 +2868,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethodPermission_Descriptions() {
 		return (EReference)methodPermissionEClass.getEStructuralFeatures().get(0);
 	}
@@ -2653,6 +2878,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethodPermission_RoleNames() {
 		return (EAttribute)methodPermissionEClass.getEStructuralFeatures().get(1);
 	}
@@ -2662,6 +2888,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethodPermission_Unchecked() {
 		return (EReference)methodPermissionEClass.getEStructuralFeatures().get(2);
 	}
@@ -2671,6 +2898,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethodPermission_Methods() {
 		return (EReference)methodPermissionEClass.getEStructuralFeatures().get(3);
 	}
@@ -2680,6 +2908,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethodPermission_Id() {
 		return (EAttribute)methodPermissionEClass.getEStructuralFeatures().get(4);
 	}
@@ -2689,6 +2918,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMethodType() {
 		return methodTypeEClass;
 	}
@@ -2698,6 +2928,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethodType_Descriptions() {
 		return (EReference)methodTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2707,6 +2938,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethodType_EjbName() {
 		return (EAttribute)methodTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2716,6 +2948,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethodType_MethodIntf() {
 		return (EAttribute)methodTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -2725,6 +2958,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethodType_MethodName() {
 		return (EAttribute)methodTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -2734,6 +2968,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMethodType_MethodParams() {
 		return (EReference)methodTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -2743,6 +2978,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMethodType_Id() {
 		return (EAttribute)methodTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -2752,6 +2988,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNamedMethodType() {
 		return namedMethodTypeEClass;
 	}
@@ -2761,6 +2998,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNamedMethodType_MethodName() {
 		return (EAttribute)namedMethodTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2770,6 +3008,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getNamedMethodType_MethodParams() {
 		return (EReference)namedMethodTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2779,6 +3018,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNamedMethodType_Id() {
 		return (EAttribute)namedMethodTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -2788,6 +3028,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getQuery() {
 		return queryEClass;
 	}
@@ -2797,6 +3038,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQuery_Description() {
 		return (EReference)queryEClass.getEStructuralFeatures().get(0);
 	}
@@ -2806,6 +3048,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQuery_QueryMethod() {
 		return (EReference)queryEClass.getEStructuralFeatures().get(1);
 	}
@@ -2815,6 +3058,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQuery_ResultTypeMapping() {
 		return (EAttribute)queryEClass.getEStructuralFeatures().get(2);
 	}
@@ -2824,6 +3068,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQuery_EjbQl() {
 		return (EAttribute)queryEClass.getEStructuralFeatures().get(3);
 	}
@@ -2833,6 +3078,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQuery_Id() {
 		return (EAttribute)queryEClass.getEStructuralFeatures().get(4);
 	}
@@ -2842,6 +3088,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getQueryMethod() {
 		return queryMethodEClass;
 	}
@@ -2851,6 +3098,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQueryMethod_MethodName() {
 		return (EAttribute)queryMethodEClass.getEStructuralFeatures().get(0);
 	}
@@ -2860,6 +3108,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getQueryMethod_MethodParams() {
 		return (EReference)queryMethodEClass.getEStructuralFeatures().get(1);
 	}
@@ -2869,6 +3118,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getQueryMethod_Id() {
 		return (EAttribute)queryMethodEClass.getEStructuralFeatures().get(2);
 	}
@@ -2878,6 +3128,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRelationshipRoleSourceType() {
 		return relationshipRoleSourceTypeEClass;
 	}
@@ -2887,6 +3138,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRelationshipRoleSourceType_Descriptions() {
 		return (EReference)relationshipRoleSourceTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2896,6 +3148,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRelationshipRoleSourceType_EjbName() {
 		return (EAttribute)relationshipRoleSourceTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2905,6 +3158,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRelationshipRoleSourceType_Id() {
 		return (EAttribute)relationshipRoleSourceTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -2914,6 +3168,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRelationships() {
 		return relationshipsEClass;
 	}
@@ -2923,6 +3178,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRelationships_Descriptions() {
 		return (EReference)relationshipsEClass.getEStructuralFeatures().get(0);
 	}
@@ -2932,6 +3188,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRelationships_EjbRelations() {
 		return (EReference)relationshipsEClass.getEStructuralFeatures().get(1);
 	}
@@ -2941,6 +3198,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRelationships_Id() {
 		return (EAttribute)relationshipsEClass.getEStructuralFeatures().get(2);
 	}
@@ -2950,6 +3208,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRemoveMethodType() {
 		return removeMethodTypeEClass;
 	}
@@ -2959,6 +3218,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRemoveMethodType_BeanMethod() {
 		return (EReference)removeMethodTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -2968,6 +3228,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRemoveMethodType_RetainIfException() {
 		return (EAttribute)removeMethodTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -2977,6 +3238,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRemoveMethodType_Id() {
 		return (EAttribute)removeMethodTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -2986,6 +3248,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSecurityIdentityType() {
 		return securityIdentityTypeEClass;
 	}
@@ -2995,6 +3258,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityIdentityType_Descriptions() {
 		return (EReference)securityIdentityTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -3004,6 +3268,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityIdentityType_UseCallerIdentity() {
 		return (EReference)securityIdentityTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -3013,6 +3278,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityIdentityType_RunAs() {
 		return (EReference)securityIdentityTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -3022,6 +3288,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSecurityIdentityType_Id() {
 		return (EAttribute)securityIdentityTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -3031,6 +3298,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSessionBean() {
 		return sessionBeanEClass;
 	}
@@ -3040,6 +3308,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_Descriptions() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(0);
 	}
@@ -3049,6 +3318,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_DisplayNames() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(1);
 	}
@@ -3058,6 +3328,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_Icons() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(2);
 	}
@@ -3067,6 +3338,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_EjbName() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(3);
 	}
@@ -3076,6 +3348,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_MappedName() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(4);
 	}
@@ -3085,6 +3358,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_Home() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(5);
 	}
@@ -3094,6 +3368,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_Remote() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(6);
 	}
@@ -3103,6 +3378,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_LocalHome() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(7);
 	}
@@ -3112,6 +3388,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_Local() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(8);
 	}
@@ -3121,6 +3398,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_BusinessLocals() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(9);
 	}
@@ -3130,6 +3408,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_BusinessRemotes() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(10);
 	}
@@ -3139,6 +3418,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_LocalBean() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(11);
 	}
@@ -3148,6 +3428,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_ServiceEndpoint() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(12);
 	}
@@ -3157,6 +3438,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_EjbClass() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(13);
 	}
@@ -3166,6 +3448,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_SessionType() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(14);
 	}
@@ -3175,6 +3458,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_StatefulTimeout() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(15);
 	}
@@ -3184,6 +3468,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_TimeoutMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(16);
 	}
@@ -3193,6 +3478,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_Timer() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(17);
 	}
@@ -3202,6 +3488,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_InitOnStartup() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(18);
 	}
@@ -3211,6 +3498,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_ConcurrencyManagementType() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(19);
 	}
@@ -3220,6 +3508,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_ConcurrentMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(20);
 	}
@@ -3229,6 +3518,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_DependsOn() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(21);
 	}
@@ -3238,6 +3528,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_InitMethods() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(22);
 	}
@@ -3247,6 +3538,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_RemoveMethods() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(23);
 	}
@@ -3256,6 +3548,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_AsyncMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(24);
 	}
@@ -3265,6 +3558,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_TransactionType() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(25);
 	}
@@ -3274,6 +3568,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_AfterBeginMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(26);
 	}
@@ -3283,6 +3578,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_BeforeCompletionMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(27);
 	}
@@ -3292,6 +3588,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_AfterCompletionMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(28);
 	}
@@ -3301,6 +3598,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_AroundInvokes() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(29);
 	}
@@ -3310,6 +3608,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_AroundTimeouts() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(30);
 	}
@@ -3319,6 +3618,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_EnvEntries() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(31);
 	}
@@ -3328,6 +3628,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_EjbRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(32);
 	}
@@ -3337,6 +3638,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_EjbLocalRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(33);
 	}
@@ -3346,6 +3648,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_ServiceRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(34);
 	}
@@ -3355,6 +3658,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_ResourceRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(35);
 	}
@@ -3364,6 +3668,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_ResourceEnvRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(36);
 	}
@@ -3373,6 +3678,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_MessageDestinationRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(37);
 	}
@@ -3382,6 +3688,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_PersistenceContextRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(38);
 	}
@@ -3391,6 +3698,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_PersistenceUnitRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(39);
 	}
@@ -3400,6 +3708,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_PostConstructs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(40);
 	}
@@ -3409,6 +3718,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_PreDestroys() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(41);
 	}
@@ -3418,6 +3728,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_DataSource() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(42);
 	}
@@ -3427,6 +3738,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_JmsConnectionFactory() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(43);
 	}
@@ -3436,6 +3748,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_JmsDestination() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(44);
 	}
@@ -3445,6 +3758,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_MailSession() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(45);
 	}
@@ -3454,6 +3768,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_ConnectionFactory() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(46);
 	}
@@ -3463,6 +3778,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_AdministeredObject() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(47);
 	}
@@ -3472,6 +3788,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_PostActivates() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(48);
 	}
@@ -3481,6 +3798,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_PrePassivates() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(49);
 	}
@@ -3490,6 +3808,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_SecurityRoleRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(50);
 	}
@@ -3499,6 +3818,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSessionBean_SecurityIdentities() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(51);
 	}
@@ -3508,6 +3828,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_PassivationCapable() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(52);
 	}
@@ -3517,6 +3838,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getSessionBean_Id() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(53);
 	}
@@ -3526,6 +3848,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getStatefulTimeoutType() {
 		return statefulTimeoutTypeEClass;
 	}
@@ -3535,6 +3858,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatefulTimeoutType_Timeout() {
 		return (EAttribute)statefulTimeoutTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -3544,6 +3868,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatefulTimeoutType_Unit() {
 		return (EAttribute)statefulTimeoutTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -3553,6 +3878,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getStatefulTimeoutType_Id() {
 		return (EAttribute)statefulTimeoutTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -3562,6 +3888,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTimerScheduleType() {
 		return timerScheduleTypeEClass;
 	}
@@ -3571,6 +3898,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerScheduleType_Second() {
 		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -3580,6 +3908,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerScheduleType_Minute() {
 		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -3589,6 +3918,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerScheduleType_Hour() {
 		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -3598,6 +3928,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerScheduleType_DayOfMonth() {
 		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -3607,6 +3938,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerScheduleType_Month() {
 		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -3616,6 +3948,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerScheduleType_DayOfWeek() {
 		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -3625,6 +3958,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerScheduleType_Year() {
 		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -3634,6 +3968,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerScheduleType_Id() {
 		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -3643,6 +3978,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTimerType() {
 		return timerTypeEClass;
 	}
@@ -3652,6 +3988,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTimerType_Description() {
 		return (EReference)timerTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -3661,6 +3998,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTimerType_Schedule() {
 		return (EReference)timerTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -3670,6 +4008,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerType_Start() {
 		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(2);
 	}
@@ -3679,6 +4018,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerType_End() {
 		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(3);
 	}
@@ -3688,6 +4028,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTimerType_TimeoutMethod() {
 		return (EReference)timerTypeEClass.getEStructuralFeatures().get(4);
 	}
@@ -3697,6 +4038,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerType_Persistent() {
 		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(5);
 	}
@@ -3706,6 +4048,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerType_Timezone() {
 		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(6);
 	}
@@ -3715,6 +4058,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerType_Info() {
 		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(7);
 	}
@@ -3724,6 +4068,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTimerType_Id() {
 		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(8);
 	}
@@ -3733,6 +4078,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getCmpVersionType() {
 		return cmpVersionTypeEEnum;
 	}
@@ -3742,6 +4088,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getCMRFieldType() {
 		return cmrFieldTypeEEnum;
 	}
@@ -3751,6 +4098,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getConcurrencyManagementTypeType() {
 		return concurrencyManagementTypeTypeEEnum;
 	}
@@ -3760,6 +4108,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getConcurrentLockTypeType() {
 		return concurrentLockTypeTypeEEnum;
 	}
@@ -3769,6 +4118,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getMethodInterfaceType() {
 		return methodInterfaceTypeEEnum;
 	}
@@ -3778,6 +4128,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getMultiplicityType() {
 		return multiplicityTypeEEnum;
 	}
@@ -3787,6 +4138,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getPersistenceType() {
 		return persistenceTypeEEnum;
 	}
@@ -3796,6 +4148,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getResultTypeMappingType() {
 		return resultTypeMappingTypeEEnum;
 	}
@@ -3805,6 +4158,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getSessionType() {
 		return sessionTypeEEnum;
 	}
@@ -3814,6 +4168,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTimeUnitTypeType() {
 		return timeUnitTypeTypeEEnum;
 	}
@@ -3823,6 +4178,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTransactionAttributeType() {
 		return transactionAttributeTypeEEnum;
 	}
@@ -3832,6 +4188,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EEnum getTransactionType() {
 		return transactionTypeEEnum;
 	}
@@ -3841,6 +4198,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getCmpVersionTypeObject() {
 		return cmpVersionTypeObjectEDataType;
 	}
@@ -3850,6 +4208,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getCMRFieldTypeObject() {
 		return cmrFieldTypeObjectEDataType;
 	}
@@ -3859,6 +4218,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getConcurrencyManagementTypeTypeObject() {
 		return concurrencyManagementTypeTypeObjectEDataType;
 	}
@@ -3868,6 +4228,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getConcurrentLockTypeTypeObject() {
 		return concurrentLockTypeTypeObjectEDataType;
 	}
@@ -3877,6 +4238,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getEjbClassType() {
 		return ejbClassTypeEDataType;
 	}
@@ -3886,6 +4248,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getEjbNameType() {
 		return ejbNameTypeEDataType;
 	}
@@ -3895,6 +4258,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getMethodInterfaceTypeObject() {
 		return methodInterfaceTypeObjectEDataType;
 	}
@@ -3904,6 +4268,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getMethodNameType() {
 		return methodNameTypeEDataType;
 	}
@@ -3913,6 +4278,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getMultiplicityTypeObject() {
 		return multiplicityTypeObjectEDataType;
 	}
@@ -3922,6 +4288,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getPersistenceTypeObject() {
 		return persistenceTypeObjectEDataType;
 	}
@@ -3931,6 +4298,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getResultTypeMappingTypeObject() {
 		return resultTypeMappingTypeObjectEDataType;
 	}
@@ -3940,6 +4308,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getSessionTypeObject() {
 		return sessionTypeObjectEDataType;
 	}
@@ -3949,6 +4318,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getTimeUnitTypeTypeObject() {
 		return timeUnitTypeTypeObjectEDataType;
 	}
@@ -3958,6 +4328,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getTransactionAttributeTypeObject() {
 		return transactionAttributeTypeObjectEDataType;
 	}
@@ -3967,6 +4338,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getTransactionTypeObject() {
 		return transactionTypeObjectEDataType;
 	}
@@ -3976,6 +4348,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EjbFactory getEjbFactory() {
 		return (EjbFactory)getEFactoryInstance();
 	}

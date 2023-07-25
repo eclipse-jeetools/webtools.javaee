@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -182,6 +182,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public boolean containsFile(java.lang.String aUri) {
 		String key = aUri.startsWith("/") ? ArchiveUtil.truncateFromFrontIgnoreCase(aUri, "/") : aUri;//$NON-NLS-2$//$NON-NLS-1$
 		if (isIndexed())
@@ -193,10 +194,12 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	/**
 	 * @see com.ibm.etools.commonarchive.Container
 	 */
+	@Override
 	public java.lang.String getAbsolutePath() throws java.io.FileNotFoundException {
 		return getLoadStrategy().getAbsolutePath();
 	}
 
+	@Override
 	public File getFile(String URI) throws java.io.FileNotFoundException {
 		if (!isIndexed()) {
 			getFiles();
@@ -248,6 +251,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	/**
 	 * List is built on demand, by requesting from the load strategy.
 	 */
+	@Override
 	public EList getFiles() {
 		EList filesList = this.getFilesGen();
 		if (!isIndexed()) {
@@ -265,6 +269,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 *      input stream; optimization: if the file list has not been built, goes directly to the
 	 *      loadStrategy.
 	 */
+	@Override
 	public java.io.InputStream getInputStream(java.lang.String aUri) throws java.io.IOException, java.io.FileNotFoundException {
 		if (isIndexed()) {
 			return getFile(aUri).getInputStream();
@@ -277,6 +282,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * 
 	 * @return com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy getLoadStrategy() {
 		return loadStrategy;
 	}
@@ -286,6 +292,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 		return true;
 	}
 
+	@Override
 	public boolean isIndexed() {
 		return fileIndex != null;
 	}
@@ -293,10 +300,12 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive Goes directly to the loadStrategy.
 	 */
+	@Override
 	public java.io.InputStream primGetInputStream(java.lang.String aUri) throws java.io.IOException, java.io.FileNotFoundException {
 		return getLoadStrategy().getInputStream(aUri);
 	}
 
+	@Override
 	public void rebuildFileIndex() {
 		getFileIndexAdapter().rebuildFileIndex();
 	}
@@ -307,6 +316,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * @param newLoadStrategy
 	 *            com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public void setLoadStrategy(org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy newLoadStrategy) {
 
 		if (newLoadStrategy != null) {
@@ -418,6 +428,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public void clearFiles() {
 		boolean oldDelivery = eDeliver();
 		files.clear();

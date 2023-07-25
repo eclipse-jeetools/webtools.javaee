@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,9 @@ public interface IEJBValidationContext extends IValidationContext {
 	
 	public LogEntry getLogEntry();
 	
+	@Override
 	public Object loadModel(String symbolicName);
+	@Override
 	public Object loadModel(String symbolicName, Object[] parms);
 	
 	public void removeAllMessages();

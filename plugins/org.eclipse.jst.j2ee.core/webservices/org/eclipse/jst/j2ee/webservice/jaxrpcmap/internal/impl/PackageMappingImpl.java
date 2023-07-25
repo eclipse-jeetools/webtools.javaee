@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -118,7 +118,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -127,7 +128,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -139,7 +141,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getPackageType() {
+  @Override
+public String getPackageType() {
 		return packageType;
 	}
 
@@ -148,7 +151,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setPackageType(String newPackageType) {
+  @Override
+public void setPackageType(String newPackageType) {
 		String oldPackageType = packageType;
 		packageType = newPackageType;
 		if (eNotificationRequired())
@@ -160,7 +164,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getNamespaceURI() {
+  @Override
+public String getNamespaceURI() {
 		return namespaceURI;
 	}
 
@@ -169,7 +174,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setNamespaceURI(String newNamespaceURI) {
+  @Override
+public void setNamespaceURI(String newNamespaceURI) {
 		String oldNamespaceURI = namespaceURI;
 		namespaceURI = newNamespaceURI;
 		if (eNotificationRequired())

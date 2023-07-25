@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -250,6 +250,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.PERSISTENCE_CONTEXT_REF__DESCRIPTIONS);
@@ -262,6 +263,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPersistenceContextRefName() {
 		return persistenceContextRefName;
 	}
@@ -271,6 +273,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPersistenceContextRefName(String newPersistenceContextRefName) {
 		String oldPersistenceContextRefName = persistenceContextRefName;
 		persistenceContextRefName = newPersistenceContextRefName;
@@ -283,6 +286,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPersistenceUnitName() {
 		return persistenceUnitName;
 	}
@@ -292,6 +296,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPersistenceUnitName(String newPersistenceUnitName) {
 		String oldPersistenceUnitName = persistenceUnitName;
 		persistenceUnitName = newPersistenceUnitName;
@@ -304,6 +309,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PersistenceContextType getPersistenceContextType() {
 		return persistenceContextType;
 	}
@@ -313,6 +319,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPersistenceContextType(PersistenceContextType newPersistenceContextType) {
 		PersistenceContextType oldPersistenceContextType = persistenceContextType;
 		persistenceContextType = newPersistenceContextType == null ? PERSISTENCE_CONTEXT_TYPE_EDEFAULT : newPersistenceContextType;
@@ -327,6 +334,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetPersistenceContextType() {
 		PersistenceContextType oldPersistenceContextType = persistenceContextType;
 		boolean oldPersistenceContextTypeESet = persistenceContextTypeESet;
@@ -341,6 +349,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetPersistenceContextType() {
 		return persistenceContextTypeESet;
 	}
@@ -350,6 +359,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public PersistenceContextSynchronizationType getPersistenceContextSynchronization() {
 		return persistenceContextSynchronization;
 	}
@@ -359,6 +369,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPersistenceContextSynchronization(PersistenceContextSynchronizationType newPersistenceContextSynchronization) {
 		PersistenceContextSynchronizationType oldPersistenceContextSynchronization = persistenceContextSynchronization;
 		persistenceContextSynchronization = newPersistenceContextSynchronization == null ? PERSISTENCE_CONTEXT_SYNCHRONIZATION_EDEFAULT : newPersistenceContextSynchronization;
@@ -373,6 +384,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetPersistenceContextSynchronization() {
 		PersistenceContextSynchronizationType oldPersistenceContextSynchronization = persistenceContextSynchronization;
 		boolean oldPersistenceContextSynchronizationESet = persistenceContextSynchronizationESet;
@@ -387,6 +399,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetPersistenceContextSynchronization() {
 		return persistenceContextSynchronizationESet;
 	}
@@ -396,6 +409,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PropertyType> getPersistenceProperties() {
 		if (persistenceProperties == null) {
 			persistenceProperties = new EObjectContainmentEList<PropertyType>(PropertyType.class, this, JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES);
@@ -408,6 +422,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMappedName() {
 		return mappedName;
 	}
@@ -417,6 +432,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMappedName(String newMappedName) {
 		String oldMappedName = mappedName;
 		mappedName = newMappedName;
@@ -429,6 +445,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
 			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS);
@@ -441,6 +458,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -450,6 +468,7 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -179,9 +179,11 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		addButton.setText(J2EEUIMessages.ADD_BUTTON_LABEL);
 		addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		addButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				handleInterfaceAddButtonSelected();
 			}
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				//Do nothing
 			}
@@ -191,9 +193,11 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		removeButton.setText(J2EEUIMessages.REMOVE_BUTTON);
 		removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
 		removeButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				handleInterfaceRemoveButtonSelected();
 			}
+			@Override
 			public void widgetDefaultSelected(SelectionEvent event) {
 				//Do nothing
 			}
@@ -201,6 +205,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		removeButton.setEnabled(false);
 
 		interfaceViewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				ISelection selection = event.getSelection();
 				removeButton.setEnabled(!selection.isEmpty());
@@ -290,6 +295,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	 */
 	protected IStructuredContentProvider getInterfaceContentProvider() {
 		return new IStructuredContentProvider() {
+			@Override
 			public Object[] getElements(Object inputElement) {
 				Object[] ret = new Object[0];
 				if (inputElement instanceof List) {
@@ -297,9 +303,11 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 				}
 				return ret;
 			}
+			@Override
 			public void dispose() {
 				//Do nothing
 			}
+			@Override
 			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				//Default is nothing
 			}
@@ -311,10 +319,12 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	 */
 	protected ILabelProvider getInterfaceLabelProvider() {
 		return new ILabelProvider() {
+			@Override
 			public Image getImage(Object element) {
 				return JavaPluginImages.get(JavaPluginImages.IMG_OBJS_INTERFACE); 
 			}
 
+			@Override
 			public String getText(Object element) {
 				String ret = J2EEUIMessages.EMPTY_STRING;
 				if (element instanceof String)
@@ -322,15 +332,19 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 				return ret;
 			}
 
+			@Override
 			public void addListener(ILabelProviderListener listener) {
 				//Do nothing
 			}
+			@Override
 			public void dispose() {
 				//Do nothing
 			}
+			@Override
 			public boolean isLabelProperty(Object element, String property) {
 				return true;
 			}
+			@Override
 			public void removeListener(ILabelProviderListener listener) {
 				//Do nothing
 			}
@@ -340,9 +354,11 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	protected KeyListener getInterfaceKeyListener() {
 		return new KeyListener() {
 
+			@Override
 			public void keyPressed(KeyEvent e) {
 			}
 
+			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.keyCode == SWT.DEL) {
 					handleInterfaceRemoveButtonSelected();

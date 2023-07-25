@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -129,6 +129,7 @@ public static List getAvailableTransactionAttributes() {
 	EjbPackage pack = (EjbPackage)EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI);
 	return pack.getTransactionAttributeType().getELiterals();
 }
+@Override
 public List getMethodElements(EnterpriseBean anEJB) {
 	List result = new ArrayList();
 	List elements = getMethodElements();
@@ -140,9 +141,11 @@ public List getMethodElements(EnterpriseBean anEJB) {
 	}
 	return result;
 }
+@Override
 public MethodElement getMostSpecificMethodElement(Method aMethod) {
    return MethodElementImpl.getMostSpecificMethodElement(getMethodElements(), aMethod);
 }
+@Override
 public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	return getTransactionAttribute() == anotherMethodTransaction.getTransactionAttribute();
 }
@@ -151,6 +154,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * The trans-attribute element specifies how the container must manage the transaction boundaries when delegating a method invocation to an enterprise bean's business method.
 
 	 */
+	@Override
 	public TransactionAttributeType getTransactionAttribute() {
 		return transactionAttribute;
 	}
@@ -160,6 +164,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionAttribute(TransactionAttributeType newTransactionAttribute) {
 		TransactionAttributeType oldTransactionAttribute = transactionAttribute;
 		transactionAttribute = newTransactionAttribute == null ? TRANSACTION_ATTRIBUTE_EDEFAULT : newTransactionAttribute;
@@ -174,6 +179,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionAttribute() {
 		TransactionAttributeType oldTransactionAttribute = transactionAttribute;
 		boolean oldTransactionAttributeESet = transactionAttributeESet;
@@ -188,6 +194,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionAttribute() {
 		return transactionAttributeESet;
 	}
@@ -196,6 +203,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * @generated This field/method will be replaced during code generation 
 	 * The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -203,6 +211,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -213,6 +222,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public AssemblyDescriptor getAssemblyDescriptor() {
 		if (eContainerFeatureID != EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR) return null;
 		return (AssemblyDescriptor)eContainer();
@@ -231,6 +241,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setAssemblyDescriptor(AssemblyDescriptor newAssemblyDescriptor) {
 		if (newAssemblyDescriptor != eInternalContainer() || (eContainerFeatureID != EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR && newAssemblyDescriptor != null)) {
 			if (EcoreUtil.isAncestor(this, newAssemblyDescriptor))
@@ -250,6 +261,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getMethodElements() {
 		if (methodElements == null) {
 			methodElements = new EObjectContainmentEList(MethodElement.class, this, EjbPackage.METHOD_TRANSACTION__METHOD_ELEMENTS);
@@ -262,6 +274,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.METHOD_TRANSACTION__DESCRIPTIONS);

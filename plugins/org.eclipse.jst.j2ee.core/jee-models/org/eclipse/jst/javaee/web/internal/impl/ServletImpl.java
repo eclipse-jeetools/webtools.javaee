@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -318,6 +318,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.SERVLET__DESCRIPTIONS);
@@ -330,6 +331,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, WebPackage.SERVLET__DISPLAY_NAMES);
@@ -342,6 +344,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, WebPackage.SERVLET__ICONS);
@@ -354,6 +357,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServletName() {
 		return servletName;
 	}
@@ -363,6 +367,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServletName(String newServletName) {
 		String oldServletName = servletName;
 		servletName = newServletName;
@@ -375,6 +380,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServletClass() {
 		return servletClass;
 	}
@@ -384,6 +390,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServletClass(String newServletClass) {
 		String oldServletClass = servletClass;
 		servletClass = newServletClass;
@@ -396,6 +403,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getJspFile() {
 		return jspFile;
 	}
@@ -405,6 +413,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setJspFile(String newJspFile) {
 		String oldJspFile = jspFile;
 		jspFile = newJspFile;
@@ -417,6 +426,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ParamValue> getInitParams() {
 		if (initParams == null) {
 			initParams = new EObjectContainmentEList<ParamValue>(ParamValue.class, this, WebPackage.SERVLET__INIT_PARAMS);
@@ -429,6 +439,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object getLoadOnStartup() {
 		return loadOnStartup;
 	}
@@ -438,6 +449,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLoadOnStartup(Object newLoadOnStartup) {
 		Object oldLoadOnStartup = loadOnStartup;
 		loadOnStartup = newLoadOnStartup;
@@ -450,6 +462,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -459,6 +472,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabled(boolean newEnabled) {
 		boolean oldEnabled = enabled;
 		enabled = newEnabled;
@@ -473,6 +487,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetEnabled() {
 		boolean oldEnabled = enabled;
 		boolean oldEnabledESet = enabledESet;
@@ -487,6 +502,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetEnabled() {
 		return enabledESet;
 	}
@@ -496,6 +512,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isAsyncSupported() {
 		return asyncSupported;
 	}
@@ -505,6 +522,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAsyncSupported(boolean newAsyncSupported) {
 		boolean oldAsyncSupported = asyncSupported;
 		asyncSupported = newAsyncSupported;
@@ -519,6 +537,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetAsyncSupported() {
 		boolean oldAsyncSupported = asyncSupported;
 		boolean oldAsyncSupportedESet = asyncSupportedESet;
@@ -533,6 +552,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetAsyncSupported() {
 		return asyncSupportedESet;
 	}
@@ -542,6 +562,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RunAs getRunAs() {
 		return runAs;
 	}
@@ -566,6 +587,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRunAs(RunAs newRunAs) {
 		if (newRunAs != runAs) {
 			NotificationChain msgs = null;
@@ -585,6 +607,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityRoleRef> getSecurityRoleRefs() {
 		if (securityRoleRefs == null) {
 			securityRoleRefs = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, WebPackage.SERVLET__SECURITY_ROLE_REFS);
@@ -597,6 +620,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MultipartConfigType getMultipartConfig() {
 		return multipartConfig;
 	}
@@ -621,6 +645,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMultipartConfig(MultipartConfigType newMultipartConfig) {
 		if (newMultipartConfig != multipartConfig) {
 			NotificationChain msgs = null;
@@ -640,6 +665,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -649,6 +675,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

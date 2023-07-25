@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -251,6 +251,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccessTimeoutType createAccessTimeoutType() {
 		AccessTimeoutTypeImpl accessTimeoutType = new AccessTimeoutTypeImpl();
 		return accessTimeoutType;
@@ -261,6 +262,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationConfig createActivationConfig() {
 		ActivationConfigImpl activationConfig = new ActivationConfigImpl();
 		return activationConfig;
@@ -271,6 +273,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ActivationConfigProperty createActivationConfigProperty() {
 		ActivationConfigPropertyImpl activationConfigProperty = new ActivationConfigPropertyImpl();
 		return activationConfigProperty;
@@ -281,6 +284,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ApplicationException createApplicationException() {
 		ApplicationExceptionImpl applicationException = new ApplicationExceptionImpl();
 		return applicationException;
@@ -291,6 +295,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AroundInvokeType createAroundInvokeType() {
 		AroundInvokeTypeImpl aroundInvokeType = new AroundInvokeTypeImpl();
 		return aroundInvokeType;
@@ -301,6 +306,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AroundTimeoutType createAroundTimeoutType() {
 		AroundTimeoutTypeImpl aroundTimeoutType = new AroundTimeoutTypeImpl();
 		return aroundTimeoutType;
@@ -311,6 +317,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AssemblyDescriptor createAssemblyDescriptor() {
 		AssemblyDescriptorImpl assemblyDescriptor = new AssemblyDescriptorImpl();
 		return assemblyDescriptor;
@@ -321,6 +328,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AsyncMethodType createAsyncMethodType() {
 		AsyncMethodTypeImpl asyncMethodType = new AsyncMethodTypeImpl();
 		return asyncMethodType;
@@ -331,6 +339,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CMPField createCMPField() {
 		CMPFieldImpl cmpField = new CMPFieldImpl();
 		return cmpField;
@@ -341,6 +350,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public CMRField createCMRField() {
 		CMRFieldImpl cmrField = new CMRFieldImpl();
 		return cmrField;
@@ -351,6 +361,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConcurrentMethodType createConcurrentMethodType() {
 		ConcurrentMethodTypeImpl concurrentMethodType = new ConcurrentMethodTypeImpl();
 		return concurrentMethodType;
@@ -361,6 +372,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ContainerTransactionType createContainerTransactionType() {
 		ContainerTransactionTypeImpl containerTransactionType = new ContainerTransactionTypeImpl();
 		return containerTransactionType;
@@ -371,6 +383,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public DependsOnType createDependsOnType() {
 		DependsOnTypeImpl dependsOnType = new DependsOnTypeImpl();
 		return dependsOnType;
@@ -381,6 +394,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EJBJar createEJBJar() {
 		EJBJarImpl ejbJar = new EJBJarImpl();
 		return ejbJar;
@@ -391,6 +405,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EJBJarDeploymentDescriptor createEJBJarDeploymentDescriptor() {
 		EJBJarDeploymentDescriptorImpl ejbJarDeploymentDescriptor = new EJBJarDeploymentDescriptorImpl();
 		return ejbJarDeploymentDescriptor;
@@ -401,6 +416,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EJBRelation createEJBRelation() {
 		EJBRelationImpl ejbRelation = new EJBRelationImpl();
 		return ejbRelation;
@@ -411,6 +427,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EJBRelationshipRole createEJBRelationshipRole() {
 		EJBRelationshipRoleImpl ejbRelationshipRole = new EJBRelationshipRoleImpl();
 		return ejbRelationshipRole;
@@ -421,6 +438,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EnterpriseBeans createEnterpriseBeans() {
 		EnterpriseBeansImpl enterpriseBeans = new EnterpriseBeansImpl();
 		return enterpriseBeans;
@@ -431,6 +449,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EntityBean createEntityBean() {
 		EntityBeanImpl entityBean = new EntityBeanImpl();
 		return entityBean;
@@ -441,6 +460,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ExcludeList createExcludeList() {
 		ExcludeListImpl excludeList = new ExcludeListImpl();
 		return excludeList;
@@ -451,6 +471,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InitMethodType createInitMethodType() {
 		InitMethodTypeImpl initMethodType = new InitMethodTypeImpl();
 		return initMethodType;
@@ -461,6 +482,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InterceptorBindingType createInterceptorBindingType() {
 		InterceptorBindingTypeImpl interceptorBindingType = new InterceptorBindingTypeImpl();
 		return interceptorBindingType;
@@ -471,6 +493,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InterceptorOrderType createInterceptorOrderType() {
 		InterceptorOrderTypeImpl interceptorOrderType = new InterceptorOrderTypeImpl();
 		return interceptorOrderType;
@@ -481,6 +504,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InterceptorsType createInterceptorsType() {
 		InterceptorsTypeImpl interceptorsType = new InterceptorsTypeImpl();
 		return interceptorsType;
@@ -491,6 +515,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InterceptorType createInterceptorType() {
 		InterceptorTypeImpl interceptorType = new InterceptorTypeImpl();
 		return interceptorType;
@@ -501,6 +526,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageDrivenBean createMessageDrivenBean() {
 		MessageDrivenBeanImpl messageDrivenBean = new MessageDrivenBeanImpl();
 		return messageDrivenBean;
@@ -511,6 +537,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MethodParams createMethodParams() {
 		MethodParamsImpl methodParams = new MethodParamsImpl();
 		return methodParams;
@@ -521,6 +548,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MethodPermission createMethodPermission() {
 		MethodPermissionImpl methodPermission = new MethodPermissionImpl();
 		return methodPermission;
@@ -531,6 +559,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MethodType createMethodType() {
 		MethodTypeImpl methodType = new MethodTypeImpl();
 		return methodType;
@@ -541,6 +570,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType createNamedMethodType() {
 		NamedMethodTypeImpl namedMethodType = new NamedMethodTypeImpl();
 		return namedMethodType;
@@ -551,6 +581,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Query createQuery() {
 		QueryImpl query = new QueryImpl();
 		return query;
@@ -561,6 +592,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public QueryMethod createQueryMethod() {
 		QueryMethodImpl queryMethod = new QueryMethodImpl();
 		return queryMethod;
@@ -571,6 +603,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RelationshipRoleSourceType createRelationshipRoleSourceType() {
 		RelationshipRoleSourceTypeImpl relationshipRoleSourceType = new RelationshipRoleSourceTypeImpl();
 		return relationshipRoleSourceType;
@@ -581,6 +614,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Relationships createRelationships() {
 		RelationshipsImpl relationships = new RelationshipsImpl();
 		return relationships;
@@ -591,6 +625,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RemoveMethodType createRemoveMethodType() {
 		RemoveMethodTypeImpl removeMethodType = new RemoveMethodTypeImpl();
 		return removeMethodType;
@@ -601,6 +636,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SecurityIdentityType createSecurityIdentityType() {
 		SecurityIdentityTypeImpl securityIdentityType = new SecurityIdentityTypeImpl();
 		return securityIdentityType;
@@ -611,6 +647,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SessionBean createSessionBean() {
 		SessionBeanImpl sessionBean = new SessionBeanImpl();
 		return sessionBean;
@@ -621,6 +658,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public StatefulTimeoutType createStatefulTimeoutType() {
 		StatefulTimeoutTypeImpl statefulTimeoutType = new StatefulTimeoutTypeImpl();
 		return statefulTimeoutType;
@@ -631,6 +669,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TimerScheduleType createTimerScheduleType() {
 		TimerScheduleTypeImpl timerScheduleType = new TimerScheduleTypeImpl();
 		return timerScheduleType;
@@ -641,6 +680,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TimerType createTimerType() {
 		TimerTypeImpl timerType = new TimerTypeImpl();
 		return timerType;
@@ -1161,6 +1201,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EjbPackage getEjbPackage() {
 		return (EjbPackage)getEPackage();
 	}

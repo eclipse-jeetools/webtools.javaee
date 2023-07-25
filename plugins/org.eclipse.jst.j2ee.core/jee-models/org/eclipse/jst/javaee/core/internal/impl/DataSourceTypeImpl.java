@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -470,6 +470,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Description getDescription() {
 		return description;
 	}
@@ -494,6 +495,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDescription(Description newDescription) {
 		if (newDescription != description) {
 			NotificationChain msgs = null;
@@ -513,6 +515,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -522,6 +525,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -534,6 +538,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getClassName() {
 		return className;
 	}
@@ -543,6 +548,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClassName(String newClassName) {
 		String oldClassName = className;
 		className = newClassName;
@@ -555,6 +561,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getServerName() {
 		return serverName;
 	}
@@ -564,6 +571,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setServerName(String newServerName) {
 		String oldServerName = serverName;
 		serverName = newServerName;
@@ -576,6 +584,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getPortNumber() {
 		return portNumber;
 	}
@@ -585,6 +594,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPortNumber(BigInteger newPortNumber) {
 		BigInteger oldPortNumber = portNumber;
 		portNumber = newPortNumber;
@@ -597,6 +607,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDatabaseName() {
 		return databaseName;
 	}
@@ -606,6 +617,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDatabaseName(String newDatabaseName) {
 		String oldDatabaseName = databaseName;
 		databaseName = newDatabaseName;
@@ -618,6 +630,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getUrl() {
 		return url;
 	}
@@ -627,6 +640,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUrl(String newUrl) {
 		String oldUrl = url;
 		url = newUrl;
@@ -639,6 +653,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getUser() {
 		return user;
 	}
@@ -648,6 +663,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUser(String newUser) {
 		String oldUser = user;
 		user = newUser;
@@ -660,6 +676,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPassword() {
 		return password;
 	}
@@ -669,6 +686,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPassword(String newPassword) {
 		String oldPassword = password;
 		password = newPassword;
@@ -681,6 +699,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PropertyType> getProperty() {
 		if (property == null) {
 			property = new EObjectContainmentEList<PropertyType>(PropertyType.class, this, JavaeePackage.DATA_SOURCE_TYPE__PROPERTY);
@@ -693,6 +712,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getLoginTimeout() {
 		return loginTimeout;
 	}
@@ -702,6 +722,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLoginTimeout(BigInteger newLoginTimeout) {
 		BigInteger oldLoginTimeout = loginTimeout;
 		loginTimeout = newLoginTimeout;
@@ -714,6 +735,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isTransactional() {
 		return transactional;
 	}
@@ -723,6 +745,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactional(boolean newTransactional) {
 		boolean oldTransactional = transactional;
 		transactional = newTransactional;
@@ -737,6 +760,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactional() {
 		boolean oldTransactional = transactional;
 		boolean oldTransactionalESet = transactionalESet;
@@ -751,6 +775,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactional() {
 		return transactionalESet;
 	}
@@ -760,6 +785,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public IsolationLevelType getIsolationLevel() {
 		return isolationLevel;
 	}
@@ -769,6 +795,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIsolationLevel(IsolationLevelType newIsolationLevel) {
 		IsolationLevelType oldIsolationLevel = isolationLevel;
 		isolationLevel = newIsolationLevel == null ? ISOLATION_LEVEL_EDEFAULT : newIsolationLevel;
@@ -783,6 +810,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetIsolationLevel() {
 		IsolationLevelType oldIsolationLevel = isolationLevel;
 		boolean oldIsolationLevelESet = isolationLevelESet;
@@ -797,6 +825,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetIsolationLevel() {
 		return isolationLevelESet;
 	}
@@ -806,6 +835,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getInitialPoolSize() {
 		return initialPoolSize;
 	}
@@ -815,6 +845,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitialPoolSize(BigInteger newInitialPoolSize) {
 		BigInteger oldInitialPoolSize = initialPoolSize;
 		initialPoolSize = newInitialPoolSize;
@@ -827,6 +858,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMaxPoolSize() {
 		return maxPoolSize;
 	}
@@ -836,6 +868,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaxPoolSize(BigInteger newMaxPoolSize) {
 		BigInteger oldMaxPoolSize = maxPoolSize;
 		maxPoolSize = newMaxPoolSize;
@@ -848,6 +881,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMinPoolSize() {
 		return minPoolSize;
 	}
@@ -857,6 +891,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMinPoolSize(BigInteger newMinPoolSize) {
 		BigInteger oldMinPoolSize = minPoolSize;
 		minPoolSize = newMinPoolSize;
@@ -869,6 +904,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMaxIdleTime() {
 		return maxIdleTime;
 	}
@@ -878,6 +914,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaxIdleTime(BigInteger newMaxIdleTime) {
 		BigInteger oldMaxIdleTime = maxIdleTime;
 		maxIdleTime = newMaxIdleTime;
@@ -890,6 +927,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMaxStatements() {
 		return maxStatements;
 	}
@@ -899,6 +937,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMaxStatements(BigInteger newMaxStatements) {
 		BigInteger oldMaxStatements = maxStatements;
 		maxStatements = newMaxStatements;
@@ -911,6 +950,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -920,6 +960,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

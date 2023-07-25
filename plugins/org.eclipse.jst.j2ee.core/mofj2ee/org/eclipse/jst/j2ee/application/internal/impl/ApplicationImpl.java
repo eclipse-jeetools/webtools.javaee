@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -86,13 +86,16 @@ public class ApplicationImpl extends CompatibilityDescriptionGroupImpl implement
 /**
  * @see org.eclipse.jst.j2ee.internal.application.Application
  */
+@Override
 public boolean containsSecurityRole(java.lang.String name) {
 	return getSecurityRoleNamed(name) != null;
 }
+@Override
 public Module getModule(String uri) {
 	return getFirstModule(uri);
 }
 
+@Override
 public Module getModule(String uri, String altDD) {
 	List allModules = getModules();
 	for (int i = 0; i < allModules.size(); i++) {
@@ -107,6 +110,7 @@ public Module getModule(String uri, String altDD) {
 	 * @param uri The uri of a module to find.
 	 * @return The first matching module or null if no module is found.
 	 */
+	@Override
 	public Module getFirstModule(String uri){
 		if (uri == null) return null;
 		java.util.Iterator allModules = getModules().iterator();
@@ -119,6 +123,7 @@ public Module getModule(String uri, String altDD) {
 /**
  * @see org.eclipse.jst.j2ee.internal.application.Application
  */
+@Override
 public Module getModuleHavingAltDD(java.lang.String uri) {
 	if (uri == null)
 		return null;
@@ -130,6 +135,7 @@ public Module getModuleHavingAltDD(java.lang.String uri) {
 	}
 	return null;
 }
+@Override
 public SecurityRole getSecurityRoleNamed(String roleName) {
 	java.util.List tempRoles = getSecurityRoles();
 	SecurityRole role;
@@ -146,6 +152,7 @@ public SecurityRole getSecurityRoleNamed(String roleName) {
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion1_2Descriptor() {
 	CommonUtil.checkDDObjectForVersion(this);
 	String systemId = ((XMLResource)eResource()).getSystemId();
@@ -156,6 +163,7 @@ public boolean isVersion1_2Descriptor() {
  * @return boolean
  * @deprecated Use getVersionID() to determine module level
  */
+@Override
 public boolean isVersion1_3Descriptor() {
 	CommonUtil.checkDDObjectForVersion(this);
 	String systemId = ((XMLResource)eResource()).getSystemId();
@@ -174,6 +182,7 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -181,6 +190,7 @@ public boolean isVersion1_3Descriptor() {
 	/**
 	This returns the module version id. Compare with J2EEVersionConstants to determine module level
 	 */
+	@Override
 	public int getVersionID() throws IllegalStateException {
 		J2EEVersionResource res = (J2EEVersionResource) eResource();
 		if (res == null) throw new IllegalStateException();
@@ -201,6 +211,7 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -213,6 +224,7 @@ public boolean isVersion1_3Descriptor() {
 	 * Contains the definitions of security roles which are
 	 * global to the application. 
 	 */
+	@Override
 	public EList getSecurityRoles() {
 		if (securityRoles == null) {
 			securityRoles = new EObjectContainmentEList(SecurityRole.class, this, ApplicationPackage.APPLICATION__SECURITY_ROLES);
@@ -223,6 +235,7 @@ public boolean isVersion1_3Descriptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getModules() {
 		if (modules == null) {
 			modules = new EObjectContainmentWithInverseEList(Module.class, this, ApplicationPackage.APPLICATION__MODULES, ApplicationPackage.MODULE__APPLICATION);
@@ -353,9 +366,11 @@ public boolean isVersion1_3Descriptor() {
 		result.append(')');
 		return result.toString();
 	}
+	@Override
 	public List getEARModules() {
 		return getModules();
 	}
+	@Override
 	public ICommonModule getFirstEARModule(String uri) {
 		return (ICommonModule)getFirstModule(uri);
 	}

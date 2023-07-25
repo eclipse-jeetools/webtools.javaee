@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,6 +58,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 *             is a runtime exception, because we can't override the signature of the generated
 	 *             methods
 	 */
+	@Override
 	public ApplicationClient getDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		ApplicationClient dd = this.getDeploymentDescriptorGen();
 		if (dd == null && canLazyInitialize()) {
@@ -82,6 +83,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	/**
 	 * Return the DeployementDescriptor.
 	 */
+	@Override
 	public EObject getStandardDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		return getDeploymentDescriptor();
 	}
@@ -111,6 +113,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 		return aClient;
 	}
 
+	@Override
 	public void setDeploymentDescriptor(ApplicationClient l) {
 		this.setDeploymentDescriptorGen(l);
 		replaceRoot(getMofResourceMakeIfNecessary(getDeploymentDescriptorUri()), l);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -142,6 +142,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getHandlerName() {
 		return handlerName;
 	}
@@ -151,6 +152,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHandlerName(String newHandlerName) {
 		String oldHandlerName = handlerName;
 		handlerName = newHandlerName;
@@ -163,6 +165,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getSoapHeaders() {
 		if (soapHeaders == null) {
 			soapHeaders = new EObjectContainmentEList(QName.class, this, Webservice_clientPackage.HANDLER__SOAP_HEADERS);
@@ -304,6 +307,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getSoapRoles() {
 		if (soapRoles == null) {
 			soapRoles = new EDataTypeUniqueEList(String.class, this, Webservice_clientPackage.HANDLER__SOAP_ROLES);
@@ -316,6 +320,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getPortNames() {
 		if (portNames == null) {
 			portNames = new EDataTypeUniqueEList(String.class, this, Webservice_clientPackage.HANDLER__PORT_NAMES);
@@ -328,6 +333,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaClass getHandlerClass() {
 		if (handlerClass != null && handlerClass.eIsProxy()) {
 			InternalEObject oldHandlerClass = (InternalEObject)handlerClass;
@@ -354,6 +360,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHandlerClass(JavaClass newHandlerClass) {
 		JavaClass oldHandlerClass = handlerClass;
 		handlerClass = newHandlerClass;
@@ -366,6 +373,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getInitParams() {
 		if (initParams == null) {
 			initParams = new EObjectContainmentEList(ParamValue.class, this, Webservice_clientPackage.HANDLER__INIT_PARAMS);

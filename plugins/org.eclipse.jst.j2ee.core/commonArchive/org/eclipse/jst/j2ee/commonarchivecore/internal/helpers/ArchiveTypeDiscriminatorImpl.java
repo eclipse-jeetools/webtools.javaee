@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public void addChild(ArchiveTypeDiscriminator child) {
 		if (hasChild(child))
 			return;
@@ -43,6 +44,7 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public void addChildAfter(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator child, org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator predecessor) throws java.util.NoSuchElementException {
 		if (hasChild(child))
 			return;
@@ -58,6 +60,7 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public void addChildBefore(ArchiveTypeDiscriminator child, ArchiveTypeDiscriminator successor) throws java.util.NoSuchElementException {
 		if (hasChild(child))
 			return;
@@ -72,6 +75,7 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public abstract boolean canImport(Archive anArchive);
 
 	/**
@@ -112,6 +116,7 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public abstract ImportStrategy createImportStrategy(Archive old, Archive newArchive);
 
 	public java.util.List getChildren() {
@@ -145,10 +150,12 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 		return CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.invalid_archive_EXC_, (new Object[]{archiveType, ddUri})); // = "Archive is not a valid {0} because the deployment descriptor can not be found (case sensitive): {1}"
 	}
 
+	@Override
 	public boolean hasChild(ArchiveTypeDiscriminator disc) {
 		return hasChildren() && getChildren().contains(disc);
 	}
 
+	@Override
 	public boolean hasChildren() {
 		return children != null && children.size() > 0;
 	}
@@ -156,6 +163,7 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public Archive openArchive(Archive anArchive) throws OpenFailureException {
 		if (!canImport(anArchive)) {
 			return null;
@@ -170,6 +178,7 @@ public abstract class ArchiveTypeDiscriminatorImpl implements ArchiveTypeDiscrim
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public void removeChild(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveTypeDiscriminator child) {
 		getChildren().remove(child);
 	}

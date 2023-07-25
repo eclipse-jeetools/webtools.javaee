@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,47 +31,58 @@ public class ArchiveResourceImpl implements IArchiveResource {
 
 	private IPath path = null;
 
+	@Override
 	public IArchive getArchive() {
 		return archive;
 	}
 
+	@Override
 	public int getType() {
 		return type;
 	}
 
+	@Override
 	public long getLastModified() {
 		return lastModified;
 	}
 
+	@Override
 	public IPath getPath() {
 		return path;
 	}
 
+	@Override
 	public long getSize() {
 		return size;
 	}
 
+	@Override
 	public void setArchive(IArchive archive) {
 		this.archive = archive;
 		((ArchiveImpl)archive).addArchiveResourceInternal(this);
 	}
 
+	@Override
 	public void setType(int type) {
 		this.type = type;
 	}
 
+	@Override
 	public void setLastModified(long lastModified) {
 		this.lastModified = lastModified;
 	}
 
+	@Override
 	public void setPath(IPath path) {
 		this.path = path;
 	}
 
+	@Override
 	public void setSize(long size) {
 		this.size = size;
 	}
 
+	@Override
 	public InputStream getInputStream() throws FileNotFoundException, IOException {
 		switch (getType()) {
 		case IArchiveResource.DIRECTORY_TYPE:

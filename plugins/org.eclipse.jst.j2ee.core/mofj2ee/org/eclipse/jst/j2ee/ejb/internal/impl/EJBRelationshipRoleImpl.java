@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -203,6 +203,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * by this role.
 	 */
 	
+	@Override
 	public EList getAttributes() {
 		if (fAttributes == null) {
 			fAttributes = new BasicEList(1);
@@ -216,6 +217,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * Return our parent relationship as a CommonRelationship
 	 */
 
+	@Override
 	public CommonRelationship getCommonRelationship() {
 		return getRelationship();
 	}
@@ -237,6 +239,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * If a cmr-field is defined, then a name in the form %source-ejb-name%_%cmr-field-name% is computed.
 	 * Otherwise a default ID is generated.
 	 */
+	@Override
 	public String getLogicalName() {
 		String result = null;
 		String qualifier = getCmrField().getName();
@@ -253,6 +256,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * Used to determine the name used in querying this role as well as the accessor method names which implement it.
 	 * Note: may return the XMI ID for non-navigable roles, ie - where there is no CMR-field.
 	 */
+	@Override
 	public String getName() {
 		if (fName == null) {
 			if (getCmrField() != null)
@@ -272,6 +276,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * Return the other role.
 	 */
+	@Override
 	public EJBRelationshipRole getOpposite() {
 		if (getRelationship() != null)
 			return getRelationship().getOppositeRole(this);
@@ -280,6 +285,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * Return the other role.
 	 */
+	@Override
 	public CommonRelationshipRole getOppositeAsCommonRole() {
 		return getOpposite();
 	}
@@ -298,6 +304,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * @return The Source ejb
 	 * Compute the ContainerManagedEntity which is the source of a role that participates in a relationship. 
 	 */
+	@Override
 	public ContainerManagedEntity getSourceEntity() {
 		if(null == getSource()) {
 			return null;
@@ -313,6 +320,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	* - all other things being equal, the first role is considered to be forward
 	* - clients can manipulate this by setting an ambiguous role to be fwd (by manipulating the role order under the covers).
 	*/
+	@Override
 	public boolean isForward() {
 		if (this.isMany())
 			return false;
@@ -329,6 +337,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	* @return The computed value isKey
 	*/
+	@Override
 	public boolean isKey() {
 		if (isKeySet)
 			return key;
@@ -353,6 +362,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * This allows you to set the Role as being key so it will
 	 * not traverse it attributes to determine if it is key.
 	 */
+	@Override
 	public void setKey(boolean aBoolean) {
 		key = aBoolean;
 		isKeySet = true;
@@ -363,6 +373,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 */
  
  
+	@Override
 	public boolean isMany()  { 
 		if (getOpposite() == null) 
 			 return wasMany;  
@@ -376,11 +387,13 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	* Specifies that accessors should be generated for this relationship role.
 	* Current implementation is to test whether or not a CMR field exists.
 	*/
+	@Override
 	public boolean isNavigable() {
 		return getCmrField() != null;
 	}
 
 
+	@Override
 	public void reconcileAttributes() {
 		if (fAttributes != null)
 			getRoleShapeStrategy().reconcileAttributes(fAttributes);
@@ -390,9 +403,11 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * Set this role to be the forward role.
 	 */
+	@Override
 	public void setFoward() {
 		getRelationship().setFoward(this);
 	}
+	@Override
 	public void setName(java.lang.String uniqueName) {
 		fName = uniqueName;
 	}
@@ -449,6 +464,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * Typically, the tools used by the ejb-jar file consumer will display the
 	 * description when processing the list of dependents.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -456,6 +472,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -469,6 +486,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * relationships can use the same name for a role.
 
 	 */
+	@Override
 	public String getRoleName() {
 		return roleName;
 	}
@@ -476,6 +494,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRoleName(String newRoleName) {
 		String oldRoleName = roleName;
 		roleName = newRoleName;
@@ -488,6 +507,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MultiplicityKind getMultiplicity() {
 		return multiplicity;
 	}
@@ -497,6 +517,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMultiplicity(MultiplicityKind newMultiplicity) {
 		MultiplicityKind oldMultiplicity = multiplicity;
 		multiplicity = newMultiplicity == null ? MULTIPLICITY_EDEFAULT : newMultiplicity;
@@ -511,6 +532,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetMultiplicity() {
 		MultiplicityKind oldMultiplicity = multiplicity;
 		boolean oldMultiplicityESet = multiplicityESet;
@@ -525,6 +547,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMultiplicity() {
 		return multiplicityESet;
 	}
@@ -540,6 +563,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * 
 
 	 */
+	@Override
 	public boolean isCascadeDelete() {
 		return cascadeDelete;
 	}
@@ -547,6 +571,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setCascadeDelete(boolean newCascadeDelete) {
 		boolean oldCascadeDelete = cascadeDelete;
 		cascadeDelete = newCascadeDelete;
@@ -561,7 +586,8 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void unsetCascadeDelete() {
+  @Override
+public void unsetCascadeDelete() {
 		boolean oldCascadeDelete = cascadeDelete;
 		boolean oldCascadeDeleteESet = cascadeDeleteESet;
 		cascadeDelete = CASCADE_DELETE_EDEFAULT;
@@ -575,13 +601,15 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public boolean isSetCascadeDelete() {
+  @Override
+public boolean isSetCascadeDelete() {
 		return cascadeDeleteESet;
 	}
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EJBRelation getRelationship() {
 		if (eContainerFeatureID != EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP) return null;
 		return (EJBRelation)eContainer();
@@ -600,6 +628,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRelationship(EJBRelation newContainer) {
 		if (newContainer == null && getRelationship() != null) {
 			updateCachedSettings();
@@ -613,6 +642,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ejb.CommonRelationshipRole#getTargetAttributeName(org.eclipse.jst.j2ee.internal.ejb.CMPAttribute)
 	 */
+	@Override
 	public String getTargetAttributeName(CMPAttribute roleAttribute) {
 		int roleNameSize = getName().length();
 		return roleAttribute.getName().substring(roleNameSize + 1);
@@ -633,6 +663,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * may not be sufficient, as this can now refer to dependent class names or ejb
 	 * refs
 	 */
+	@Override
 	public RoleSource getSource() {
 		return source;
 	}
@@ -655,6 +686,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSource(RoleSource newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
@@ -676,6 +708,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * 
 	 * @migration EJB1.1: Used to be handled via ibmejbext::EjbRole::attributes list
 	 */
+	@Override
 	public CMRField getCmrField() {
 		return cmrField;
 	}
@@ -698,6 +731,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setCmrField(CMRField newCmrField) {
 		if (newCmrField != cmrField) {
 			NotificationChain msgs = null;
@@ -717,6 +751,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS);
@@ -933,6 +968,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/*
 	 * @see CommonRelationshipRole#getTypeEntity()
 	 */
+	@Override
 	public ContainerManagedEntity getTypeEntity() {
 		if (getOpposite() != null)
 			return getOpposite().getSourceEntity();
@@ -942,6 +978,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * @see CommonRelationshipRole#isRequired()
 	 */
+	@Override
 	public boolean isRequired() {
 		if (required!=null)
 			return required.booleanValue();
@@ -951,6 +988,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * Set the isRequired flag for bottom up
 	 */
+	@Override
 	public void setRequired(Boolean isRequired) {
 		required = isRequired;
 	}
@@ -977,6 +1015,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.ejb.CommonRelationshipRole#setLower(int)
 	 */
+	@Override
 	public void setLower(int lowerBound) {
 		// Do nothing...  Only upperbound is relevant here
 	}
@@ -984,6 +1023,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.ejb.CommonRelationshipRole#setUpper(int)
 	 */
+	@Override
 	public void setUpper(int upperBound) {
 		switch (upperBound) {
 			case MultiplicityKind.ONE :

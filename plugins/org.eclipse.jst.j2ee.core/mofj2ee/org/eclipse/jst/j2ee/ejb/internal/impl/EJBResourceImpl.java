@@ -56,6 +56,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	 * @see EJBResource#isEJB1_1()
 	 * @deprecated - use getModuleVersionID() and J2EEVersionConstants
 	 */
+	@Override
 	public boolean isEJB1_1() {
 		return getModuleVersionID() == EJB_1_1_ID;
 	}
@@ -64,6 +65,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	 * @see EJBResource#isEJB2_0()
 	 * @deprecated - use getModuleVersionID() and J2EEVersionConstants
 	 */
+	@Override
 	public boolean isEJB2_0() {
 		return getModuleVersionID() == EJB_2_0_ID;
 	}
@@ -73,6 +75,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResource#getType()
 	 */
+	@Override
 	public int getType() {
 		return XMLResource.EJB_TYPE;
 	}
@@ -80,6 +83,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#getDoctype()
 	 */
+	@Override
 	public String getDoctype() {
 		switch (getJ2EEVersionID()) {
 			case (J2EE_1_2_ID) :
@@ -136,6 +140,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#getRootTranslator()
 	 */
+	@Override
 	public Translator getRootTranslator() {
 		return EJBJarTranslator.INSTANCE;
 	}
@@ -169,10 +174,12 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/**
 	 * Return the first element in the EList.
 	 */
+	@Override
 	public EJBJar getEJBJar() {
 		return (EJBJar) getRootObject();
 	}
 	
+	@Override
 	public void setBatchMode(boolean isBatch) {
 		renderer.setBatchMode(isBatch);
 
@@ -275,6 +282,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 			ejbJar.setVersion(newVersion);
 	}
 
+	@Override
 	public boolean isBatchMode() {
 		return renderer.isBatchMode();
 	}

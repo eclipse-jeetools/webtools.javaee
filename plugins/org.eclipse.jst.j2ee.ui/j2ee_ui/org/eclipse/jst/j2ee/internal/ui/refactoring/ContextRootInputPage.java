@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and others.
+ * Copyright (c) 2008, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,6 +33,7 @@ public class ContextRootInputPage extends UserInputWizardPage {
 		this.fProcessor = processor;
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		Composite c = new Composite(parent, SWT.NONE);
 
@@ -43,6 +44,7 @@ public class ContextRootInputPage extends UserInputWizardPage {
 		fNameField.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
 
 		fNameField.addModifyListener(new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				validatePage();
 			}

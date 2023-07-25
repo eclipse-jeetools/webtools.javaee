@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -95,6 +95,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * @param aSelection
 	 *            the selection from the view used to start the wizard (if any)
 	 */
+	@Override
 	public final void init(IWorkbench workbench, IStructuredSelection aSelection) {
 		this.selection = aSelection;
 		setNeedsProgressMonitor(true);
@@ -191,12 +192,14 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 				}
 			};
 			Display.getDefault().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					BasicNewProjectResourceWizard.updatePerspective(element);
 				}
 			});
 		} else {
 			Display.getDefault().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					BasicNewProjectResourceWizard.updatePerspective(configurationElement);
 				}
@@ -217,6 +220,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * @see org.eclipse.core.runtime.IExecutableExtension#setInitializationData(org.eclipse.core.runtime.IConfigurationElement,
 	 *      java.lang.String, java.lang.Object)
 	 */
+	@Override
 	public final void setInitializationData(IConfigurationElement config, String propertyName, Object data) throws CoreException {
 		this.configurationElement = config;
 	}

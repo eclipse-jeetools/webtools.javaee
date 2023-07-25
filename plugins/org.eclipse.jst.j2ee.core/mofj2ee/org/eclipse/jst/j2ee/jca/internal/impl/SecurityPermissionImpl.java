@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -91,6 +91,7 @@ public class SecurityPermissionImpl extends J2EEEObjectImpl implements SecurityP
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -98,6 +99,7 @@ public class SecurityPermissionImpl extends J2EEEObjectImpl implements SecurityP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -110,6 +112,7 @@ public class SecurityPermissionImpl extends J2EEEObjectImpl implements SecurityP
 	 * The element permission-spec specifies a security permission based on the Security policy file syntax. 
 
 	 */
+	@Override
 	public String getSpecification() {
 		return specification;
 	}
@@ -117,6 +120,7 @@ public class SecurityPermissionImpl extends J2EEEObjectImpl implements SecurityP
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSpecification(String newSpecification) {
 		String oldSpecification = specification;
 		specification = newSpecification;
@@ -129,6 +133,7 @@ public class SecurityPermissionImpl extends J2EEEObjectImpl implements SecurityP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, JcaPackage.SECURITY_PERMISSION__DESCRIPTIONS);

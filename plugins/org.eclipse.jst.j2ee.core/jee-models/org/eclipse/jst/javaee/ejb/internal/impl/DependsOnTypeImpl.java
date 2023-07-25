@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,6 +97,7 @@ public class DependsOnTypeImpl extends EObjectImpl implements DependsOnType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getEjbName() {
 		if (ejbName == null) {
 			ejbName = new EDataTypeEList<String>(String.class, this, EjbPackage.DEPENDS_ON_TYPE__EJB_NAME);
@@ -109,6 +110,7 @@ public class DependsOnTypeImpl extends EObjectImpl implements DependsOnType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -118,6 +120,7 @@ public class DependsOnTypeImpl extends EObjectImpl implements DependsOnType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

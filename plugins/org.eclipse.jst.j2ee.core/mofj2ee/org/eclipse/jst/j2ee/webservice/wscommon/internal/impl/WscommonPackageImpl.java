@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -166,7 +166,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getInitParam() {
+  @Override
+public EClass getInitParam() {
 		return initParamEClass;
 	}
 
@@ -175,7 +176,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getInitParam_ParamName() {
+  @Override
+public EAttribute getInitParam_ParamName() {
 		return (EAttribute)initParamEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -184,7 +186,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getInitParam_ParamValue() {
+  @Override
+public EAttribute getInitParam_ParamValue() {
 		return (EAttribute)initParamEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -193,7 +196,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getInitParam_Description() {
+  @Override
+public EAttribute getInitParam_Description() {
 		return (EAttribute)initParamEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -202,7 +206,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EReference getInitParam_DescriptionTypes() {
+  @Override
+public EReference getInitParam_DescriptionTypes() {
 		return (EReference)initParamEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -211,7 +216,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getSOAPHeader() {
+  @Override
+public EClass getSOAPHeader() {
 		return soapHeaderEClass;
 	}
 
@@ -220,7 +226,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getSOAPRole() {
+  @Override
+public EClass getSOAPRole() {
 		return soapRoleEClass;
 	}
 
@@ -229,7 +236,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getSOAPRole_SoapRole() {
+  @Override
+public EAttribute getSOAPRole_SoapRole() {
 		return (EAttribute)soapRoleEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -238,7 +246,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getPortName() {
+  @Override
+public EClass getPortName() {
 		return portNameEClass;
 	}
 
@@ -247,7 +256,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getPortName_PortName() {
+  @Override
+public EAttribute getPortName_PortName() {
 		return (EAttribute)portNameEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -256,7 +266,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getDescriptionType() {
+  @Override
+public EClass getDescriptionType() {
 		return descriptionTypeEClass;
 	}
 
@@ -265,7 +276,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EClass getDisplayNameType() {
+  @Override
+public EClass getDisplayNameType() {
 		return displayNameTypeEClass;
 	}
 
@@ -274,7 +286,8 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WscommonFactory getWscommonFactory() {
+  @Override
+public WscommonFactory getWscommonFactory() {
 		return (WscommonFactory)getEFactoryInstance();
 	}
 

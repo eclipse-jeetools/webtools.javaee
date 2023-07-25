@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -132,7 +132,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -141,7 +142,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -153,7 +155,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getParamPosition() {
+  @Override
+public String getParamPosition() {
 		return paramPosition;
 	}
 
@@ -162,7 +165,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setParamPosition(String newParamPosition) {
+  @Override
+public void setParamPosition(String newParamPosition) {
 		String oldParamPosition = paramPosition;
 		paramPosition = newParamPosition;
 		if (eNotificationRequired())
@@ -174,7 +178,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getParamType() {
+  @Override
+public String getParamType() {
 		return paramType;
 	}
 
@@ -183,7 +188,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setParamType(String newParamType) {
+  @Override
+public void setParamType(String newParamType) {
 		String oldParamType = paramType;
 		paramType = newParamType;
 		if (eNotificationRequired())
@@ -195,7 +201,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLMessageMapping getWsdlMessageMapping() {
+  @Override
+public WSDLMessageMapping getWsdlMessageMapping() {
 		return wsdlMessageMapping;
 	}
 
@@ -219,7 +226,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWsdlMessageMapping(WSDLMessageMapping newWsdlMessageMapping) {
+  @Override
+public void setWsdlMessageMapping(WSDLMessageMapping newWsdlMessageMapping) {
 		if (newWsdlMessageMapping != wsdlMessageMapping) {
 			NotificationChain msgs = null;
 			if (wsdlMessageMapping != null)

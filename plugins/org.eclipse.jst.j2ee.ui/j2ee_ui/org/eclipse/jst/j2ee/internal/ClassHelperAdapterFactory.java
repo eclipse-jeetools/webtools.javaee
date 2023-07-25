@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ public class ClassHelperAdapterFactory implements IAdapterFactory {
 		IFILE_CLASS, IRESOURCE_CLASS
 	};
 
+	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if(IRESOURCE_CLASS == adapterType || IFILE_CLASS == adapterType) {
 			if(adaptableObject instanceof J2EEJavaClassProviderHelper) {
@@ -41,6 +42,7 @@ public class ClassHelperAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
+	@Override
 	public Class[] getAdapterList() {
 		return ADAPTER_TYPES;
 	}

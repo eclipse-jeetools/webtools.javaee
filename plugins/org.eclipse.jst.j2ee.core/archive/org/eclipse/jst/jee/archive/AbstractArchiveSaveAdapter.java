@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,15 +25,18 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHand
  */
 public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter implements IArchiveSaveAdapter {
 
+	@Override
 	public void close() throws IOException {
 	}
 
+	@Override
 	public void finish() throws IOException {
 	}
 
 	protected IArchiveResource manifest = null; 
 	protected IArchiveResource metaInf = null; 
 	
+	@Override
 	public void save(IProgressMonitor monitor) throws ArchiveSaveFailureException {
 		final int GATHER_RESOURCES_TICKS = 1000;
 		final int SAVE_RESOURCES_TICKS = 1000;

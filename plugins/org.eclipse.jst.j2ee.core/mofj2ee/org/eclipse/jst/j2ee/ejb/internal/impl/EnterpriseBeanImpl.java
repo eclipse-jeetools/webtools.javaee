@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -155,6 +155,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		return methodElements;
 	}
 
+	@Override
 	public List createMethodElements(List someMethods, JavaClass anInterface) {
 		return createMethodElements(METHOD_ELEMENT_NAME, someMethods, anInterface);
 	}
@@ -199,6 +200,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * solely for comparing with actual MethodElements contained in the model.
 	 * @deprecated use getAvailableUnspecifiedMethodElements();
 	 */
+	@Override
 	public List getAvailableCommonMethodElements() {
 		return getAvailableUnspecifiedMethodElements();
 	}
@@ -209,6 +211,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * not be serialized and should not be added to the model.  Their intention is
 	 * solely for comparing with actual MethodElements contained in the model.
 	 */
+	@Override
 	public List getAvailableUnspecifiedMethodElements() {
 		List commonSigs = getAvailableUnspecifiedMethodElementSignatures();
 		return createMethodElements(commonSigs, MethodElementKind.UNSPECIFIED_LITERAL);
@@ -255,6 +258,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * and are common to both the Home and Remote interfaces.
 	 * @deprecated use getAvailableUnspecifiedMethodElementSignatures();
 	 */
+	@Override
 	public List getAvailableCommonMethodElementSignatures() {
 		return getAvailableUnspecifiedMethodElementSignatures();
 	}
@@ -263,6 +267,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * that represent all the possible MethodElements that can be created
 	 * and are common to both the Home and Remote interfaces.
 	 */
+	@Override
 	public List getAvailableUnspecifiedMethodElementSignatures() {
 		List sigCollections = new ArrayList();
 		if (getHomeInterface() != null)
@@ -282,6 +287,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * not be serialized and should not be added to the model.  Their intention is
 	 * solely for comparing with actual MethodElements contained in the model.
 	 */
+	@Override
 	public List getAvailableHomeMethodElements() {
 		return getAvailableMethodElements(getHomeInterface(), MethodElementKind.HOME_LITERAL);
 	}
@@ -292,6 +298,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * not be serialized and should not be added to the model.  Their intention is
 	 * solely for comparing with actual MethodElements contained in the model.
 	 */
+	@Override
 	public List getAvailableLocalHomeMethodElements() {
 		return getAvailableMethodElements(getLocalHomeInterface(), MethodElementKind.LOCAL_HOME_LITERAL);
 	}
@@ -302,6 +309,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * not be serialized and should not be added to the model.  Their intention is
 	 * solely for comparing with actual MethodElements contained in the model.
 	 */
+	@Override
 	public List getAvailableLocalMethodElements() {
 		return getAvailableMethodElements(getLocalInterface(), MethodElementKind.LOCAL_LITERAL);
 	}
@@ -323,6 +331,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * not be serialized and should not be added to the model.  Their intention is
 	 * solely for comparing with actual MethodElements contained in the model.
 	 */
+	@Override
 	public List getAvailableRemoteMethodElements() {
 		return getAvailableMethodElements(getRemoteInterface(), MethodElementKind.REMOTE_LITERAL);
 	}
@@ -330,6 +339,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/*
 	 * See EnterpriseBean#getExistingOrAvailableMethodElements(EObject, Comparator);
 	 */
+	@Override
 	public List getExistingOrAvailableMethodElements(EObject refObject, Comparator comparator) {
 		List result = new ArrayList();
 		result.addAll(getAvailableHomeMethodElements());
@@ -358,6 +368,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/*
 	 * See EnterpriseBean#getExistingOrAvailableMethodElements(EObject);
 	 */
+	@Override
 	public List getExistingOrAvailableMethodElements(EObject refObject) {
 		return getExistingOrAvailableMethodElements(refObject, getDefaultMethodElementComparator());	
 	}
@@ -391,6 +402,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		sourceMethodElements.removeAll(foundElements);
 		sourceMethodElements.addAll(additionalMethodElements);
 	}
+	@Override
 	public String getEjbClassName() {
 		getEjbClass();
 		return (ejbClass == null) ? null : ejbClass.getQualifiedName();
@@ -401,9 +413,11 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	protected EjbFactory getEjbFactory() {
 		return ((EjbPackage)EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI)).getEjbFactory();
 	}
+	@Override
 	public EjbRef getEquivalentEjbRef(EjbRef anEjbRef) {
 		return getEquivalentEjbRef(anEjbRef, getEjbRefs());
 	}
+	@Override
 	public EJBLocalRef getEquivalentEJBLocalRef(EJBLocalRef anEjbLocalRef) {
 		return (EJBLocalRef) getEquivalentEjbRef(anEjbLocalRef, getEjbLocalRefs());
 	}
@@ -419,6 +433,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		}
 		return null;
 	}
+	@Override
 	public String getHomeInterfaceName() {
 		getHomeInterface();
 		return homeInterface == null ? null : homeInterface.getQualifiedName();
@@ -426,15 +441,18 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * See <code>getMethods<code> for comment
 	 */
+	@Override
 	public Method[] getHomeMethodsForDeployment() {
 		return (getHomeInterface() != null ? getMethods(getHomeInterface()) : EMPTY_METHOD_ARRAY);
 	}
 	private JavaRefFactory getJavaRefFactory() {
 		return ((JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI)).getJavaRefFactory();
 	}
+	@Override
 	public EjbRef getLinkedEJBReference(EnterpriseBean anEJB) {
 		return getLinkedEJBReference(anEJB, getEjbRefs());
 	}
+	@Override
 	public EJBLocalRef getLinkedEJBLocalReference(EnterpriseBean anEJB) {
 		return (EJBLocalRef) getLinkedEJBReference(anEJB, getEjbLocalRefs());
 	}
@@ -450,6 +468,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		}
 		return null;
 	}
+	@Override
 	public String getLocalHomeInterfaceName() {
 		getLocalHomeInterface();
 		return localHomeInterface == null ? null : localHomeInterface.getQualifiedName();
@@ -457,9 +476,11 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * See <code>getMethods<code> for comment
 	 */
+	@Override
 	public Method[] getLocalHomeMethodsForDeployment() {
 		return (getLocalHomeInterface() != null ? getMethods(getLocalHomeInterface()) : EMPTY_METHOD_ARRAY);
 	}
+	@Override
 	public String getLocalInterfaceName() {
 		getLocalInterface();
 		return localInterface == null ? null : localInterface.getQualifiedName();
@@ -530,6 +551,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		resultVector.copyInto(result);
 		return sortMethods(result);
 	}
+	@Override
 	public String getRemoteInterfaceName() {
 		getRemoteInterface();
 		return remoteInterface == null ? null : remoteInterface.getQualifiedName();
@@ -537,6 +559,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * See <code>getMethods<code> for comment
 	 */
+	@Override
 	public Method[] getRemoteMethodsForDeployment() {
 		return getMethods(getRemoteInterface());
 	}
@@ -544,6 +567,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * Return true if @aJavaClass as equal to the
 	 * home, remote, bean class, or key class.
 	 */
+	@Override
 	public boolean hasJavaReference(JavaClass aJavaClass) {
 		if (aJavaClass != null) {
 			return aJavaClass.equals(getEjbClass())||
@@ -557,24 +581,29 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * Return true if this ejb has BeanManagedPersistance.
 	 */
+	@Override
 	public boolean isBeanManagedEntity() {
 		return isEntity() && !isContainerManagedEntity();
 	}
 	/**
 	 * isContainerManagedEntity method comment.
 	 */
+	@Override
 	public boolean isContainerManagedEntity() {
 		return false;
 	}
 	//Return false by default
+	@Override
 	public boolean isEntity() {
 		return false;
 	}
 	//Return false by default
+	@Override
 	public boolean isMessageDriven() {
 		return false;
 	}
 	//Return false by default
+	@Override
 	public boolean isSession() {
 		return false;
 	}
@@ -582,6 +611,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * @deprecated - Use getEjbJar().getVersionID()
 	 * isVersion1_X method comment.
 	 */
+	@Override
 	public boolean isVersion1_X() {
 		if (getEjbJar() != null)
 			return getEjbJar().getVersionID() <= J2EEVersionConstants.EJB_1_1_ID;
@@ -592,6 +622,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * @deprecated - Use getEjbJar().getVersionID()
 	 * isVersion2_X method comment.
 	 */
+	@Override
 	public boolean isVersion2_X() {
 		if (getEjbJar() != null) {
 			return getEjbJar().getVersionID() >= J2EEVersionConstants.EJB_1_1_ID;
@@ -603,6 +634,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean#getVersionID()
 	 */
+	@Override
 	public int getVersionID() throws IllegalStateException {
 		J2EEVersionResource res = (J2EEVersionResource) eResource();
 		if (res == null) throw new IllegalStateException();
@@ -613,6 +645,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/*
 	 * @see EnterpriseBean#hasLocalClient()
 	 */
+	@Override
 	public boolean hasLocalClient() {
 		return getLocalInterface() != null && getLocalHomeInterface() != null;
 	}
@@ -620,6 +653,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/*
 	 * @see EnterpriseBean#hasRemoteClient()
 	 */
+	@Override
 	public boolean hasRemoteClient() {
 		return getRemoteInterface() != null && getHomeInterface() != null;
 	}
@@ -684,6 +718,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean
 	 */
+	@Override
 	public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.String newRoleName) {
 		List roleRefs = getSecurityRoleRefs();
 		for (int i = 0; i < roleRefs.size(); i++) {
@@ -692,18 +727,23 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 				roleRef.setLink(newRoleName);
 		}
 	}
+	@Override
 	public void setEjbClassName(String ejbClassName) {
 		eSet(EjbPackage.eINSTANCE.getEnterpriseBean_EjbClass(), createClassRef(ejbClassName));
 	}
+	@Override
 	public void setHomeInterfaceName(String homeInterfaceName) {
 		eSet(EjbPackage.eINSTANCE.getEnterpriseBean_HomeInterface(), createClassRef(homeInterfaceName));
 	}
+	@Override
 	public void setLocalHomeInterfaceName(String localHomeInterfaceName) {
 		eSet(EjbPackage.eINSTANCE.getEnterpriseBean_LocalHomeInterface(), createClassRef(localHomeInterfaceName));
 	}
+	@Override
 	public void setLocalInterfaceName(String localInterfaceName) {
 		eSet(EjbPackage.eINSTANCE.getEnterpriseBean_LocalInterface(), createClassRef(localInterfaceName));
 	}
+	@Override
 	public void setRemoteInterfaceName(String remoteInterfaceName) {
 		eSet(EjbPackage.eINSTANCE.getEnterpriseBean_RemoteInterface(), createClassRef(remoteInterfaceName));
 	}
@@ -757,6 +797,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -766,6 +807,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -776,6 +818,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getSecurityRoleRefs() {
 		if (securityRoleRefs == null) {
 			securityRoleRefs = new EObjectContainmentEList(SecurityRoleRef.class, this, EjbPackage.ENTERPRISE_BEAN__SECURITY_ROLE_REFS);
@@ -788,7 +831,8 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
      */
  
  
-    public JavaClass getEjbClass()  { 
+    @Override
+	public JavaClass getEjbClass()  { 
        if (ejbClass != null && ejbClass.eIsProxy()) { 
           JavaClass oldEjbClass = ejbClass; 
           JavaClass resolved = (JavaClass)EcoreUtil.resolve(ejbClass, this); 
@@ -807,6 +851,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEjbClass(JavaClass newEjbClass) {
 		JavaClass oldEjbClass = ejbClass;
 		ejbClass = newEjbClass;
@@ -817,6 +862,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public JavaClass getHomeInterface() {
 		if (homeInterface != null && homeInterface.eIsProxy()) {
 			InternalEObject oldHomeInterface = (InternalEObject)homeInterface;
@@ -841,6 +887,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setHomeInterface(JavaClass newHomeInterface) {
 		JavaClass oldHomeInterface = homeInterface;
 		homeInterface = newHomeInterface;
@@ -851,6 +898,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public JavaClass getRemoteInterface() {
 		if (remoteInterface != null && remoteInterface.eIsProxy()) {
 			InternalEObject oldRemoteInterface = (InternalEObject)remoteInterface;
@@ -875,6 +923,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRemoteInterface(JavaClass newRemoteInterface) {
 		JavaClass oldRemoteInterface = remoteInterface;
 		remoteInterface = newRemoteInterface;
@@ -885,6 +934,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EJBJar getEjbJar() {
 		if (eContainerFeatureID != EjbPackage.ENTERPRISE_BEAN__EJB_JAR) return null;
 		return (EJBJar)eContainer();
@@ -903,6 +953,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEjbJar(EJBJar newEjbJar) {
 		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.ENTERPRISE_BEAN__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
@@ -924,6 +975,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * The security-identity element specifies whether the caller's security identity is to be used for the execution of the methods of the enterprise bean or whether a specific run-as identity is to be used. It
 	 * contains an optional description and a specification of the security identity to be used.
 	 */
+	@Override
 	public SecurityIdentity getSecurityIdentity() {
 		return securityIdentity;
 	}
@@ -946,6 +998,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setSecurityIdentity(SecurityIdentity newSecurityIdentity) {
 		if (newSecurityIdentity != securityIdentity) {
 			NotificationChain msgs = null;
@@ -963,6 +1016,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public JavaClass getLocalHomeInterface() {
 		if (localHomeInterface != null && localHomeInterface.eIsProxy()) {
 			InternalEObject oldLocalHomeInterface = (InternalEObject)localHomeInterface;
@@ -990,6 +1044,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLocalHomeInterface(JavaClass newLocalHomeInterface) {
 		JavaClass oldLocalHomeInterface = localHomeInterface;
 		localHomeInterface = newLocalHomeInterface;
@@ -1000,6 +1055,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public JavaClass getLocalInterface() {
 		if (localInterface != null && localInterface.eIsProxy()) {
 			InternalEObject oldLocalInterface = (InternalEObject)localInterface;
@@ -1024,6 +1080,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLocalInterface(JavaClass newLocalInterface) {
 		JavaClass oldLocalInterface = localInterface;
 		localInterface = newLocalInterface;
@@ -1280,6 +1337,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(java.lang.String)
 	 */
+	@Override
 	public EAnnotation getEAnnotation(String source) {
 		return null;
 	}
@@ -1287,6 +1345,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.ecore.EModelElement#getEAnnotations()
 	 */
+	@Override
 	public EList getEAnnotations() {
 		return null;
 	}

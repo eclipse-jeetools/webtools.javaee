@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -74,6 +74,7 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * 
 	 * @see org.eclipse.ui.IActionDelegate2#dispose()
 	 */
+	@Override
 	public void dispose() {
 		//Dispose
 	}
@@ -83,6 +84,7 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * 
 	 * @see org.eclipse.ui.IActionDelegate2#init(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void init(IAction action) {
 		//init
 	}
@@ -93,6 +95,7 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * @see org.eclipse.ui.IActionDelegate2#runWithEvent(org.eclipse.jface.action.IAction,
 	 *      org.eclipse.swt.widgets.Event)
 	 */
+	@Override
 	public void runWithEvent(IAction action, Event event) {
 		runWithEvent(event);
 
@@ -103,6 +106,7 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * 
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
+	@Override
 	public void run(IAction action) {
 		run();
 
@@ -114,6 +118,7 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
 	 *      org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		// TODO HACK!
 		updateSelection((IStructuredSelection) selection);

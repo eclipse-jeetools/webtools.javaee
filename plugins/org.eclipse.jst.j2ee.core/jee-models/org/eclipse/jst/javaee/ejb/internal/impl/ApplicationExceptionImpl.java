@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -160,6 +160,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getExceptionClass() {
 		return exceptionClass;
 	}
@@ -169,6 +170,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setExceptionClass(String newExceptionClass) {
 		String oldExceptionClass = exceptionClass;
 		exceptionClass = newExceptionClass;
@@ -181,6 +183,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isRollback() {
 		return rollback;
 	}
@@ -190,6 +193,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRollback(boolean newRollback) {
 		boolean oldRollback = rollback;
 		rollback = newRollback;
@@ -204,6 +208,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetRollback() {
 		boolean oldRollback = rollback;
 		boolean oldRollbackESet = rollbackESet;
@@ -218,6 +223,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRollback() {
 		return rollbackESet;
 	}
@@ -227,6 +233,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isInherited() {
 		return inherited;
 	}
@@ -236,6 +243,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInherited(boolean newInherited) {
 		boolean oldInherited = inherited;
 		inherited = newInherited;
@@ -250,6 +258,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetInherited() {
 		boolean oldInherited = inherited;
 		boolean oldInheritedESet = inheritedESet;
@@ -264,6 +273,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetInherited() {
 		return inheritedESet;
 	}
@@ -273,6 +283,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -282,6 +293,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

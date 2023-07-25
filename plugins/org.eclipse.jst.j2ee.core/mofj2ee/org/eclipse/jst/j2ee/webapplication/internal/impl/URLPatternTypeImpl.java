@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,6 +59,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getUrlPattern() {
 		return urlPattern;
 	}
@@ -66,6 +67,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setUrlPattern(String newUrlPattern) {
 		String oldUrlPattern = urlPattern;
 		urlPattern = newUrlPattern;
@@ -76,6 +78,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebResourceCollection getResCollection() {
 		if (eContainerFeatureID != WebapplicationPackage.URL_PATTERN_TYPE__RES_COLLECTION) return null;
 		return (WebResourceCollection)eContainer();
@@ -94,6 +97,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setResCollection(WebResourceCollection newResCollection) {
 		if (newResCollection != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.URL_PATTERN_TYPE__RES_COLLECTION && newResCollection != null)) {
 			if (EcoreUtil.isAncestor(this, newResCollection))

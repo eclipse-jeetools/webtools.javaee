@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -264,7 +264,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getJaxrpcMappingFile() {
+  @Override
+public String getJaxrpcMappingFile() {
 		return jaxrpcMappingFile;
 	}
 
@@ -273,7 +274,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setJaxrpcMappingFile(String newJaxrpcMappingFile) {
+  @Override
+public void setJaxrpcMappingFile(String newJaxrpcMappingFile) {
 		String oldJaxrpcMappingFile = jaxrpcMappingFile;
 		jaxrpcMappingFile = newJaxrpcMappingFile;
 		if (eNotificationRequired())
@@ -285,7 +287,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getWebServiceDescriptionName() {
+  @Override
+public String getWebServiceDescriptionName() {
 		return webServiceDescriptionName;
 	}
 
@@ -294,7 +297,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWebServiceDescriptionName(String newWebServiceDescriptionName) {
+  @Override
+public void setWebServiceDescriptionName(String newWebServiceDescriptionName) {
 		String oldWebServiceDescriptionName = webServiceDescriptionName;
 		webServiceDescriptionName = newWebServiceDescriptionName;
 		if (eNotificationRequired())
@@ -306,7 +310,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getWsdlFile() {
+  @Override
+public String getWsdlFile() {
 		return wsdlFile;
 	}
 
@@ -315,7 +320,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWsdlFile(String newWsdlFile) {
+  @Override
+public void setWsdlFile(String newWsdlFile) {
 		String oldWsdlFile = wsdlFile;
 		wsdlFile = newWsdlFile;
 		if (eNotificationRequired())
@@ -331,7 +337,8 @@ protected EClass eStaticClass() {
 		return smallIcon;
 	}
 
-  public String getSmallIcon() {
+  @Override
+public String getSmallIcon() {
   	if(eResource() == null) 
   		return getSmallIconGen();
   	
@@ -368,7 +375,8 @@ protected EClass eStaticClass() {
 		return largeIcon;
 	}
 
-  public String getLargeIcon() {
+  @Override
+public String getLargeIcon() {
   	if(eResource() == null) 
   		return getLargeIconGen();
   	
@@ -417,6 +425,7 @@ protected EClass eStaticClass() {
 		return description;
 	}
 
+	@Override
 	public String getDescription() {
 		if(eResource() == null) 
 			return getDescriptionGen();
@@ -445,7 +454,8 @@ protected EClass eStaticClass() {
 			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.WEB_SERVICE_DESCRIPTION__DESCRIPTION, oldDescription, description));
 	}
 
-  public void setDescription(String newDescription) {
+  @Override
+public void setDescription(String newDescription) {
   	if(eResource() == null) {
   		setDescriptionGen(newDescription);
   		internalSetDescriptionType(newDescription);
@@ -473,7 +483,8 @@ protected EClass eStaticClass() {
 		return displayName;
 	}
 
-  public String getDisplayName() {
+  @Override
+public String getDisplayName() {
   	if(eResource() == null) 
   		return getDisplayNameGen();
   	
@@ -501,7 +512,8 @@ protected EClass eStaticClass() {
 			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.WEB_SERVICE_DESCRIPTION__DISPLAY_NAME, oldDisplayName, displayName));
 	}
 
-  public void setDisplayName(String newDisplayName) {
+  @Override
+public void setDisplayName(String newDisplayName) {
   	if(eResource() == null) {
   		setDisplayNameGen(newDisplayName);
   		internalSetDisplayNameType(newDisplayName);
@@ -525,7 +537,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getPortComponents() {
+  @Override
+public EList getPortComponents() {
 		if (portComponents == null) {
 			portComponents = new EObjectContainmentEList(PortComponent.class, this, WsddPackage.WEB_SERVICE_DESCRIPTION__PORT_COMPONENTS);
 		}
@@ -537,7 +550,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public DescriptionType getDescriptionType() {
+  @Override
+public DescriptionType getDescriptionType() {
 		return descriptionType;
 	}
 
@@ -561,7 +575,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setDescriptionType(DescriptionType newDescriptionType) {
+  @Override
+public void setDescriptionType(DescriptionType newDescriptionType) {
 		if (newDescriptionType != descriptionType) {
 			NotificationChain msgs = null;
 			if (descriptionType != null)
@@ -580,7 +595,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public DisplayNameType getDisplayNameType() {
+  @Override
+public DisplayNameType getDisplayNameType() {
 		return displayNameType;
 	}
 
@@ -604,7 +620,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setDisplayNameType(DisplayNameType newDisplayNameType) {
+  @Override
+public void setDisplayNameType(DisplayNameType newDisplayNameType) {
 		if (newDisplayNameType != displayNameType) {
 			NotificationChain msgs = null;
 			if (displayNameType != null)
@@ -623,7 +640,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public IconType getIconType() {
+  @Override
+public IconType getIconType() {
 		return iconType;
 	}
 
@@ -647,7 +665,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setIconType(IconType newIconType) {
+  @Override
+public void setIconType(IconType newIconType) {
 		if (newIconType != iconType) {
 			NotificationChain msgs = null;
 			if (iconType != null)
@@ -935,6 +954,7 @@ public String toString() {
 		}
 	}
 
+	@Override
 	public void setLargeIcon(String newLargeIcon) {
 		if(eResource() == null) {
 			setLargeIconGen(newLargeIcon);
@@ -954,6 +974,7 @@ public String toString() {
 		}
 	}
 
+	@Override
 	public void setSmallIcon(String newSmallIcon) {
 		if(eResource() == null) {
 			setSmallIconGen(newSmallIcon);

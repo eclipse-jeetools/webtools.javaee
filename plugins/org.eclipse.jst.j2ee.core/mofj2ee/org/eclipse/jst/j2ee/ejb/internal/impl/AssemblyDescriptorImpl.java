@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -91,6 +91,7 @@ public class AssemblyDescriptorImpl extends J2EEEObjectImpl implements AssemblyD
  * is the same size
  */
 
+@Override
 public MethodPermission getMethodPermission(List securityRolesList) {
 	List permissions = getMethodPermissions();
 	MethodPermission temp = null;
@@ -101,6 +102,7 @@ public MethodPermission getMethodPermission(List securityRolesList) {
 	}
 	return null;
 }
+@Override
 public List getMethodPermissionMethodElements(EnterpriseBean anEJB) {
 	List allMethodElements = new ArrayList();
 	List permissions = getMethodPermissions();
@@ -113,6 +115,7 @@ public List getMethodPermissionMethodElements(EnterpriseBean anEJB) {
 }
 	
 
+@Override
 public List getMethodTransactionMethodElements(EnterpriseBean anEJB) {
 	List allMethodElements = new ArrayList();
 	List transactions = getMethodTransactions();
@@ -124,6 +127,7 @@ public List getMethodTransactionMethodElements(EnterpriseBean anEJB) {
 	return allMethodElements;
 }
 	
+@Override
 public SecurityRole getSecurityRoleNamed(String roleName) {
 	java.util.List tempRoles = getSecurityRoles();
 	SecurityRole role;
@@ -138,6 +142,7 @@ public SecurityRole getSecurityRoleNamed(String roleName) {
 /**
  * @see org.eclipse.jst.j2ee.internal.ejb.AssemblyDescriptor
  */
+@Override
 public void renameSecurityRole(java.lang.String existingRoleName, java.lang.String newRoleName) {
 	SecurityRole role = getSecurityRoleNamed(existingRoleName);
 	role.setRoleName(newRoleName);
@@ -145,6 +150,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getMethodPermissions() {
 		if (methodPermissions == null) {
 			methodPermissions = new EObjectContainmentWithInverseEList(MethodPermission.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS, EjbPackage.METHOD_PERMISSION__ASSEMBLY_DESCRIPTOR);
@@ -159,6 +165,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * list of method elements, and a transaction attribute.The transaction attribute
 	 * is to be applied to all the specified methods.
 	 */
+	@Override
 	public EList getMethodTransactions() {
 		if (methodTransactions == null) {
 			methodTransactions = new EObjectContainmentWithInverseEList(MethodTransaction.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_TRANSACTIONS, EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR);
@@ -169,6 +176,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EJBJar getEjbJar() {
 		if (eContainerFeatureID != EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR) return null;
 		return (EJBJar)eContainer();
@@ -187,6 +195,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEjbJar(EJBJar newEjbJar) {
 		if (newEjbJar != eInternalContainer() || (eContainerFeatureID != EjbPackage.ASSEMBLY_DESCRIPTOR__EJB_JAR && newEjbJar != null)) {
 			if (EcoreUtil.isAncestor(this, newEjbJar))
@@ -206,6 +215,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getSecurityRoles() {
 		if (securityRoles == null) {
 			securityRoles = new EObjectContainmentEList(SecurityRole.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES);
@@ -216,6 +226,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public ExcludeList getExcludeList() {
 		return excludeList;
 	}
@@ -238,6 +249,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setExcludeList(ExcludeList newExcludeList) {
 		if (newExcludeList != excludeList) {
 			NotificationChain msgs = null;
@@ -257,6 +269,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getMessageDestinations() {
 		if (messageDestinations == null) {
 			messageDestinations = new EObjectContainmentEList(MessageDestination.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS);
@@ -437,6 +450,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * Remove the MethodElements that are referencing @anEJB.
 	 */
+	@Override
 	public void removeData(EnterpriseBean anEJB) {
 		if (anEJB != null) {
 			removeMethodPermissionData(anEJB);

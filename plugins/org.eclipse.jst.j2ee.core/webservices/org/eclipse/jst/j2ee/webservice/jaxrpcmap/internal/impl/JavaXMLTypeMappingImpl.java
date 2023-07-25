@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -170,7 +170,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -179,7 +180,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -191,7 +193,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getClassType() {
+  @Override
+public String getClassType() {
 		return classType;
 	}
 
@@ -200,7 +203,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setClassType(String newClassType) {
+  @Override
+public void setClassType(String newClassType) {
 		String oldClassType = classType;
 		classType = newClassType;
 		if (eNotificationRequired())
@@ -212,7 +216,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getQnameScope() {
+  @Override
+public String getQnameScope() {
 		return qnameScope;
 	}
 
@@ -221,7 +226,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setQnameScope(String newQnameScope) {
+  @Override
+public void setQnameScope(String newQnameScope) {
 		String oldQnameScope = qnameScope;
 		qnameScope = newQnameScope;
 		if (eNotificationRequired())
@@ -233,7 +239,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getAnonymousTypeQname() {
+  @Override
+public String getAnonymousTypeQname() {
 		return anonymousTypeQname;
 	}
 
@@ -242,7 +249,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setAnonymousTypeQname(String newAnonymousTypeQname) {
+  @Override
+public void setAnonymousTypeQname(String newAnonymousTypeQname) {
 		String oldAnonymousTypeQname = anonymousTypeQname;
 		anonymousTypeQname = newAnonymousTypeQname;
 		if (eNotificationRequired())
@@ -254,7 +262,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public RootTypeQname getRootTypeQname() {
+  @Override
+public RootTypeQname getRootTypeQname() {
 		return rootTypeQname;
 	}
 
@@ -278,7 +287,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setRootTypeQname(RootTypeQname newRootTypeQname) {
+  @Override
+public void setRootTypeQname(RootTypeQname newRootTypeQname) {
 		if (newRootTypeQname != rootTypeQname) {
 			NotificationChain msgs = null;
 			if (rootTypeQname != null)
@@ -297,7 +307,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getVariableMappings() {
+  @Override
+public EList getVariableMappings() {
 		if (variableMappings == null) {
 			variableMappings = new EObjectContainmentEList(VariableMapping.class, this, JaxrpcmapPackage.JAVA_XML_TYPE_MAPPING__VARIABLE_MAPPINGS);
 		}

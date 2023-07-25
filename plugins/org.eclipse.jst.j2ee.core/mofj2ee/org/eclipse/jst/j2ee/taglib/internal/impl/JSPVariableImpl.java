@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -125,6 +125,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * 
 	 * One of name-given or name-from-attribute is required.
 	 */
+	@Override
 	public String getNameGiven() {
 		return nameGiven;
 	}
@@ -132,6 +133,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setNameGiven(String newNameGiven) {
 		String oldNameGiven = nameGiven;
 		nameGiven = newNameGiven;
@@ -144,6 +146,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * The name of an attribute whose (translation-time) value will give the name of
 	 * the variable.
 	 */
+	@Override
 	public String getNameFromAttribute() {
 		return nameFromAttribute;
 	}
@@ -151,6 +154,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setNameFromAttribute(String newNameFromAttribute) {
 		String oldNameFromAttribute = nameFromAttribute;
 		nameFromAttribute = newNameFromAttribute;
@@ -165,6 +169,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * This element is optional and is the default is true.
 
 	 */
+	@Override
 	public boolean isDeclare() {
 		return declare;
 	}
@@ -172,6 +177,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDeclare(boolean newDeclare) {
 		boolean oldDeclare = declare;
 		declare = newDeclare;
@@ -182,6 +188,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public JSPScriptingVariableScope getScope() {
 		return scope;
 	}
@@ -191,6 +198,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setScope(JSPScriptingVariableScope newScope) {
 		JSPScriptingVariableScope oldScope = scope;
 		scope = newScope == null ? SCOPE_EDEFAULT : newScope;
@@ -201,6 +209,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public JavaClass getVariableClass() {
 		if (variableClass != null && variableClass.eIsProxy()) {
 			InternalEObject oldVariableClass = (InternalEObject)variableClass;
@@ -225,6 +234,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setVariableClass(JavaClass newVariableClass) {
 		JavaClass oldVariableClass = variableClass;
 		variableClass = newVariableClass;
@@ -237,6 +247,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, TaglibPackage.JSP_VARIABLE__DESCRIPTIONS);

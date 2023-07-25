@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -72,6 +72,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public LooseApplication createLooseApplication() {
 		LooseApplicationImpl looseApplication = new LooseApplicationImpl();
 		return looseApplication;
@@ -80,6 +81,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public LooseLibrary createLooseLibrary() {
 		LooseLibraryImpl looseLibrary = new LooseLibraryImpl();
 		return looseLibrary;
@@ -88,6 +90,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public LooseWARFile createLooseWARFile() {
 		LooseWARFileImpl looseWARFile = new LooseWARFileImpl();
 		return looseWARFile;
@@ -96,6 +99,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public LooseModule createLooseModule() {
 		LooseModuleImpl looseModule = new LooseModuleImpl();
 		return looseModule;
@@ -104,6 +108,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public LooseConfiguration createLooseConfiguration() {
 		LooseConfigurationImpl looseConfiguration = new LooseConfigurationImpl();
 		return looseConfiguration;
@@ -112,6 +117,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public LooseconfigPackage getLooseconfigPackage() {
 		return (LooseconfigPackage)getEPackage();
 	}

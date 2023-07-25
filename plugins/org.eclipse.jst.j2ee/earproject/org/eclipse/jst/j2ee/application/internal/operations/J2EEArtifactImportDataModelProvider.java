@@ -316,9 +316,15 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	protected void updateJavaFacetVersion() {
 		IProjectFacetVersion javaFacetVersion = null;
 		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
-		if(runtime != null){
-		    if (runtime.supports(JavaFacet.VERSION_11)){
-                javaFacetVersion = JavaFacet.VERSION_11;
+		if (runtime != null){
+			if (runtime.supports(JavaFacet.VERSION_21)) {
+				javaFacetVersion = JavaFacet.VERSION_21;
+			}
+			else if (runtime.supports(JavaFacet.VERSION_17)) {
+				javaFacetVersion = JavaFacet.VERSION_17;
+			}
+			else if (runtime.supports(JavaFacet.VERSION_11)){
+                    javaFacetVersion = JavaFacet.VERSION_11;
             } else if(runtime.supports(JavaFacet.VERSION_1_8)){
 				javaFacetVersion = JavaFacet.VERSION_1_8;
 			} else if(runtime.supports(JavaFacet.VERSION_1_7)){
@@ -356,6 +362,9 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				break;
 	        case J2EEVersionConstants.JEE_10_0_ID:
 	            javaFacetVersion = JavaFacet.VERSION_11;
+				break;
+	        case J2EEVersionConstants.JEE_10_1_ID:
+	            javaFacetVersion = JavaFacet.VERSION_17;
 				break;
 			}
 		}

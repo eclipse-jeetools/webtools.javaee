@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,12 +76,14 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 //		}
 //	}
 
+	@Override
 	public EJBJar getEJBJar(IProject aProject) {
 		
 		IVirtualComponent comp = ComponentCore.createComponent(aProject);
 		return EJBArtifactEditUtilities.getEJBJar(comp);
 	}
 
+	@Override
 	public IProject getDefinedEJBClientJARProject(IProject anEJBProject) {
 		IVirtualComponent comp = ComponentCore.createComponent(anEJBProject);
 		EJBArtifactEdit edit = null;
@@ -98,6 +100,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 		return clientComp.getProject();
 	}
 
+	@Override
 	public IDataModelOperation createEJBClientJARProject(
 			final String clientProjectName,
 			final String srcFolderName,
@@ -125,6 +128,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 		return op;		
 	}
 
+	@Override
 	public IDataModelOperation createEJBClientJARProject(IProject ejbProject){
 		IDataModel dm = DataModelFactory.createDataModel( new EjbClientJarCreationDataModelProvider());
 		dm.setStringProperty(EjbClientJarCreationDataModelProvider.EJB_PROJECT_NAME, ejbProject.getName());
@@ -136,6 +140,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
+	@Override
 	public IDataModel createProjectDataModel() {
 		//IDataModel model = DataModelFactory.createDataModel(new EjbComponentCreationDataModelProvider());
 
@@ -157,6 +162,7 @@ public class EjbModuleExtensionImpl extends EarModuleExtensionImpl implements Ej
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
+	@Override
 	public IDataModel createImportDataModel() {
 		return DataModelFactory.createDataModel(new EJBComponentImportDataModelProvider());
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -44,6 +44,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	}
 
 	
+	@Override
 	public WebApp getWebApp() {
 		return (WebApp) getRootObject();
 	}
@@ -93,6 +94,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	 * @see WebAppResource#isWeb2_2()
 	 * @deprecated - use getModuleVersionID() and J2EEVersionConstants
 	 */
+	@Override
 	public boolean isWeb2_2() {
 		return getModuleVersionID() == WEB_2_2_ID;
 	}
@@ -100,6 +102,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	 * @see WebAppResource#isWeb2_3()
 	 * @deprecated - use getModuleVersionID() and J2EEVersionConstants
 	 */
+	@Override
 	public boolean isWeb2_3() {
 		return getModuleVersionID() == WEB_2_3_ID;
 	}
@@ -107,6 +110,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	 * @see WebAppResource#isWeb2_4()
 	 * @deprecated - use getModuleVersionID() and J2EEVersionConstants
 	 */
+	@Override
 	public boolean isWeb2_4() {
 		return getModuleVersionID() == WEB_2_4_ID;
 	}
@@ -115,6 +119,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#getDoctype()
 	 */
+	@Override
 	public String getDoctype() {
 		switch (getJ2EEVersionID()) {
 			case (J2EE_1_2_ID) :
@@ -128,6 +133,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResource#getType()
 	 */
+	@Override
 	public int getType() {
 		return WEB_APP_TYPE;
 	}
@@ -136,6 +142,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#getRootTranslator()
 	 */
+	@Override
 	public Translator getRootTranslator() {
 		return WebAppTranslator.INSTANCE;
 	}

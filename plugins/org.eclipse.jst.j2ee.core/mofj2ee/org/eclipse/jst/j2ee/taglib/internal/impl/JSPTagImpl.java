@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -170,6 +170,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * empty - The body must be emptyThe default (if not defined) is JSP#PCDATA ::= 
 	 * tagdependent | JSP | empty
 	 */
+	@Override
 	public BodyContentType getBodyContent() {
 		return bodyContent;
 	}
@@ -179,6 +180,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBodyContent(BodyContentType newBodyContent) {
 		BodyContentType oldBodyContent = bodyContent;
 		bodyContent = newBodyContent == null ? BODY_CONTENT_EDEFAULT : newBodyContent;
@@ -193,6 +195,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetBodyContent() {
 		BodyContentType oldBodyContent = bodyContent;
 		boolean oldBodyContentESet = bodyContentESet;
@@ -207,6 +210,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetBodyContent() {
 		return bodyContentESet;
 	}
@@ -216,6 +220,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * The example element provides an informal description of an example of the use
 	 * of a tag.
 	 */
+	@Override
 	public String getExample() {
 		return example;
 	}
@@ -223,6 +228,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setExample(String newExample) {
 		String oldExample = example;
 		example = newExample;
@@ -235,6 +241,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -244,6 +251,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -256,6 +264,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDynamicAttributes() {
 		return dynamicAttributes;
 	}
@@ -265,6 +274,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDynamicAttributes(boolean newDynamicAttributes) {
 		boolean oldDynamicAttributes = dynamicAttributes;
 		dynamicAttributes = newDynamicAttributes;
@@ -275,6 +285,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public EList getAttributes() {
 		if (attributes == null) {
 			attributes = new EObjectContainmentEList(JSPTagAttribute.class, this, TaglibPackage.JSP_TAG__ATTRIBUTES);
@@ -299,6 +310,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * scope -- The scope of the scripting variable defined. NESTED is default.
 
 	 */
+	@Override
 	public EList getVariables() {
 		if (variables == null) {
 			variables = new EObjectContainmentEList(JSPVariable.class, this, TaglibPackage.JSP_TAG__VARIABLES);
@@ -314,6 +326,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * @regexp fully qualified Java class name
 
 	 */
+	@Override
 	public JavaClass getTagClass() {
 		if (tagClass != null && tagClass.eIsProxy()) {
 			InternalEObject oldTagClass = (InternalEObject)tagClass;
@@ -338,6 +351,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setTagClass(JavaClass newTagClass) {
 		JavaClass oldTagClass = tagClass;
 		tagClass = newTagClass;
@@ -352,6 +366,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * at translation time. This element is optional.
 	 * @regexp fully qualified Java class name
 	 */
+	@Override
 	public JavaClass getTeiClass() {
 		if (teiClass != null && teiClass.eIsProxy()) {
 			InternalEObject oldTeiClass = (InternalEObject)teiClass;
@@ -376,6 +391,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setTeiClass(JavaClass newTeiClass) {
 		JavaClass oldTeiClass = teiClass;
 		teiClass = newTeiClass;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@ public abstract class AbstractOpenWizardWorkbenchAction extends AbstractOpenWiza
 	/**
 	 * @see AbstractOpenWizardAction#dispose
 	 */
+	@Override
 	public void dispose() {
 		// do nothing.
 		setWorkbench(null);
@@ -42,6 +43,7 @@ public abstract class AbstractOpenWizardWorkbenchAction extends AbstractOpenWiza
 	/**
 	 * @see AbstractOpenWizardAction#init
 	 */
+	@Override
 	public void init(IWorkbenchWindow window) {
 		setWorkbench(window.getWorkbench());
 	}
@@ -49,6 +51,7 @@ public abstract class AbstractOpenWizardWorkbenchAction extends AbstractOpenWiza
 	/**
 	 * @see IActionDelegate#run
 	 */
+	@Override
 	public void run(IAction action) {
 		run();
 	}
@@ -56,6 +59,7 @@ public abstract class AbstractOpenWizardWorkbenchAction extends AbstractOpenWiza
 	/**
 	 * @see IActionDelegate#selectionChanged
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		// do nothing. Action doesn't depend on selection.
 	}

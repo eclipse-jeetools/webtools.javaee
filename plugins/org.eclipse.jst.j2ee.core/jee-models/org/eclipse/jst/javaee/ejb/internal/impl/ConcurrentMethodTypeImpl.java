@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -136,6 +136,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NamedMethodType getMethod() {
 		return method;
 	}
@@ -160,6 +161,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMethod(NamedMethodType newMethod) {
 		if (newMethod != method) {
 			NotificationChain msgs = null;
@@ -179,6 +181,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ConcurrentLockTypeType getLock() {
 		return lock;
 	}
@@ -188,6 +191,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLock(ConcurrentLockTypeType newLock) {
 		ConcurrentLockTypeType oldLock = lock;
 		lock = newLock == null ? LOCK_EDEFAULT : newLock;
@@ -202,6 +206,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetLock() {
 		ConcurrentLockTypeType oldLock = lock;
 		boolean oldLockESet = lockESet;
@@ -216,6 +221,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetLock() {
 		return lockESet;
 	}
@@ -225,6 +231,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AccessTimeoutType getAccessTimeout() {
 		return accessTimeout;
 	}
@@ -249,6 +256,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAccessTimeout(AccessTimeoutType newAccessTimeout) {
 		if (newAccessTimeout != accessTimeout) {
 			NotificationChain msgs = null;
@@ -268,6 +276,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -277,6 +286,7 @@ public class ConcurrentMethodTypeImpl extends EObjectImpl implements ConcurrentM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

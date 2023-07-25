@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -126,6 +126,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * @generated This field/method will be replaced during code generation 
 	 * The description element is used by the ejb-jar file producer to provide text describing the parent element.  The description element should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the parent element.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -133,6 +134,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -144,6 +146,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * @generated This field/method will be replaced during code generation 
 	 * The env-entry-name element contains the name of an application client's environment entry. 
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -151,6 +154,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -165,6 +169,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * Example:
 	 * <env-entry-value>//datasources//MyDatabase<//env-entry-value>
 	 */
+	@Override
 	public String getValue() {
 		return value;
 	}
@@ -172,6 +177,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
@@ -184,6 +190,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * The env-entry-type element contains the fully-qualified Java type of the environment entry value that is expected by the application client's code. The following are the legal values of env-entry-type: java.lang.Bool-ean, java.lang.String, java.lang.Integer, java.lang.Double, java.lang.Byte, java.lang.Short, java.lang.Long, and java.lang.Float. 
 	 * Example: <env-entry-type>java.lang.Boolean<//env-entry-type>
 	 */
+	@Override
 	public EnvEntryType getType() {
 		return type;
 	}
@@ -193,6 +200,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(EnvEntryType newType) {
 		EnvEntryType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -207,6 +215,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		EnvEntryType oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -221,6 +230,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -230,6 +240,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.ENV_ENTRY__DESCRIPTIONS);

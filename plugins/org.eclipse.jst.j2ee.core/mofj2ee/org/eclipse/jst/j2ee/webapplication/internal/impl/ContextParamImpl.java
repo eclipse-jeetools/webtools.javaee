@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -89,6 +89,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	 * @generated This field/method will be replaced during code generation 
 	 * The param-name element contains the name of a parameter.
 	 */
+	@Override
 	public String getParamName() {
 		return paramName;
 	}
@@ -96,6 +97,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setParamName(String newParamName) {
 		String oldParamName = paramName;
 		paramName = newParamName;
@@ -107,6 +109,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	 * @generated This field/method will be replaced during code generation 
 	 * The param-value element contains the value of a parameter.
 	 */
+	@Override
 	public String getParamValue() {
 		return paramValue;
 	}
@@ -114,6 +117,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setParamValue(String newParamValue) {
 		String oldParamValue = paramValue;
 		paramValue = newParamValue;
@@ -124,6 +128,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -131,6 +136,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -141,6 +147,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public WebApp getWebApp() {
 		if (eContainerFeatureID != WebapplicationPackage.CONTEXT_PARAM__WEB_APP) return null;
 		return (WebApp)eContainer();
@@ -159,6 +166,7 @@ public class ContextParamImpl extends J2EEEObjectImpl implements ContextParam {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setWebApp(WebApp newWebApp) {
 		if (newWebApp != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.CONTEXT_PARAM__WEB_APP && newWebApp != null)) {
 			if (EcoreUtil.isAncestor(this, newWebApp))

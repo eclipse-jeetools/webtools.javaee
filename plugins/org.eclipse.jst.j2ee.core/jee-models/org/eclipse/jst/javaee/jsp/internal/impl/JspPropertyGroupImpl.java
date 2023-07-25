@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -404,6 +404,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS);
@@ -416,6 +417,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JspPackage.JSP_PROPERTY_GROUP__DISPLAY_NAMES);
@@ -428,6 +430,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JspPackage.JSP_PROPERTY_GROUP__ICONS);
@@ -440,6 +443,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<UrlPatternType> getUrlPatterns() {
 		if (urlPatterns == null) {
 			urlPatterns = new EObjectContainmentEList<UrlPatternType>(UrlPatternType.class, this, JspPackage.JSP_PROPERTY_GROUP__URL_PATTERNS);
@@ -452,6 +456,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isElIgnored() {
 		return elIgnored;
 	}
@@ -461,6 +466,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setElIgnored(boolean newElIgnored) {
 		boolean oldElIgnored = elIgnored;
 		elIgnored = newElIgnored;
@@ -475,6 +481,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetElIgnored() {
 		boolean oldElIgnored = elIgnored;
 		boolean oldElIgnoredESet = elIgnoredESet;
@@ -489,6 +496,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetElIgnored() {
 		return elIgnoredESet;
 	}
@@ -498,6 +506,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getPageEncoding() {
 		return pageEncoding;
 	}
@@ -507,6 +516,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setPageEncoding(String newPageEncoding) {
 		String oldPageEncoding = pageEncoding;
 		pageEncoding = newPageEncoding;
@@ -519,6 +529,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isScriptingInvalid() {
 		return scriptingInvalid;
 	}
@@ -528,6 +539,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setScriptingInvalid(boolean newScriptingInvalid) {
 		boolean oldScriptingInvalid = scriptingInvalid;
 		scriptingInvalid = newScriptingInvalid;
@@ -542,6 +554,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetScriptingInvalid() {
 		boolean oldScriptingInvalid = scriptingInvalid;
 		boolean oldScriptingInvalidESet = scriptingInvalidESet;
@@ -556,6 +569,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetScriptingInvalid() {
 		return scriptingInvalidESet;
 	}
@@ -565,6 +579,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIsXml() {
 		return isXml;
 	}
@@ -574,6 +589,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIsXml(boolean newIsXml) {
 		boolean oldIsXml = isXml;
 		isXml = newIsXml;
@@ -588,6 +604,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetIsXml() {
 		boolean oldIsXml = isXml;
 		boolean oldIsXmlESet = isXmlESet;
@@ -602,6 +619,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetIsXml() {
 		return isXmlESet;
 	}
@@ -611,6 +629,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getIncludePreludes() {
 		if (includePreludes == null) {
 			includePreludes = new EDataTypeEList<String>(String.class, this, JspPackage.JSP_PROPERTY_GROUP__INCLUDE_PRELUDES);
@@ -623,6 +642,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<String> getIncludeCodas() {
 		if (includeCodas == null) {
 			includeCodas = new EDataTypeEList<String>(String.class, this, JspPackage.JSP_PROPERTY_GROUP__INCLUDE_CODAS);
@@ -635,6 +655,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDeferredSyntaxAllowedAsLiteral() {
 		return deferredSyntaxAllowedAsLiteral;
 	}
@@ -644,6 +665,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDeferredSyntaxAllowedAsLiteral(boolean newDeferredSyntaxAllowedAsLiteral) {
 		boolean oldDeferredSyntaxAllowedAsLiteral = deferredSyntaxAllowedAsLiteral;
 		deferredSyntaxAllowedAsLiteral = newDeferredSyntaxAllowedAsLiteral;
@@ -658,6 +680,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetDeferredSyntaxAllowedAsLiteral() {
 		boolean oldDeferredSyntaxAllowedAsLiteral = deferredSyntaxAllowedAsLiteral;
 		boolean oldDeferredSyntaxAllowedAsLiteralESet = deferredSyntaxAllowedAsLiteralESet;
@@ -672,6 +695,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetDeferredSyntaxAllowedAsLiteral() {
 		return deferredSyntaxAllowedAsLiteralESet;
 	}
@@ -681,6 +705,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isTrimDirectiveWhitespaces() {
 		return trimDirectiveWhitespaces;
 	}
@@ -690,6 +715,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTrimDirectiveWhitespaces(boolean newTrimDirectiveWhitespaces) {
 		boolean oldTrimDirectiveWhitespaces = trimDirectiveWhitespaces;
 		trimDirectiveWhitespaces = newTrimDirectiveWhitespaces;
@@ -704,6 +730,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTrimDirectiveWhitespaces() {
 		boolean oldTrimDirectiveWhitespaces = trimDirectiveWhitespaces;
 		boolean oldTrimDirectiveWhitespacesESet = trimDirectiveWhitespacesESet;
@@ -718,6 +745,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTrimDirectiveWhitespaces() {
 		return trimDirectiveWhitespacesESet;
 	}
@@ -727,6 +755,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getDefaultContentType() {
 		return defaultContentType;
 	}
@@ -736,6 +765,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDefaultContentType(String newDefaultContentType) {
 		String oldDefaultContentType = defaultContentType;
 		defaultContentType = newDefaultContentType;
@@ -748,6 +778,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getBuffer() {
 		return buffer;
 	}
@@ -757,6 +788,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setBuffer(String newBuffer) {
 		String oldBuffer = buffer;
 		buffer = newBuffer;
@@ -769,6 +801,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isErrorOnUndeclaredNamespace() {
 		return errorOnUndeclaredNamespace;
 	}
@@ -778,6 +811,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setErrorOnUndeclaredNamespace(boolean newErrorOnUndeclaredNamespace) {
 		boolean oldErrorOnUndeclaredNamespace = errorOnUndeclaredNamespace;
 		errorOnUndeclaredNamespace = newErrorOnUndeclaredNamespace;
@@ -792,6 +826,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetErrorOnUndeclaredNamespace() {
 		boolean oldErrorOnUndeclaredNamespace = errorOnUndeclaredNamespace;
 		boolean oldErrorOnUndeclaredNamespaceESet = errorOnUndeclaredNamespaceESet;
@@ -806,6 +841,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetErrorOnUndeclaredNamespace() {
 		return errorOnUndeclaredNamespaceESet;
 	}
@@ -815,6 +851,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -824,6 +861,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

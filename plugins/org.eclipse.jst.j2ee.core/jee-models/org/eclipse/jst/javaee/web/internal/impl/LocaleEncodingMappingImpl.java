@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -121,6 +121,7 @@ public class LocaleEncodingMappingImpl extends EObjectImpl implements LocaleEnco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLocale() {
 		return locale;
 	}
@@ -130,6 +131,7 @@ public class LocaleEncodingMappingImpl extends EObjectImpl implements LocaleEnco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLocale(String newLocale) {
 		String oldLocale = locale;
 		locale = newLocale;
@@ -142,6 +144,7 @@ public class LocaleEncodingMappingImpl extends EObjectImpl implements LocaleEnco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getEncoding() {
 		return encoding;
 	}
@@ -151,6 +154,7 @@ public class LocaleEncodingMappingImpl extends EObjectImpl implements LocaleEnco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEncoding(String newEncoding) {
 		String oldEncoding = encoding;
 		encoding = newEncoding;
@@ -163,6 +167,7 @@ public class LocaleEncodingMappingImpl extends EObjectImpl implements LocaleEnco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -172,6 +177,7 @@ public class LocaleEncodingMappingImpl extends EObjectImpl implements LocaleEnco
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,6 +56,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		return null;
 	}
 
+	@Override
 	public String getModuleURI(IVirtualComponent moduleComp) {
 		IVirtualComponent comp = ComponentCore.createComponent(proj);
 		IVirtualReference [] refs = comp.getReferences();
@@ -74,6 +75,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 	 * @param webProject
 	 * @return contextRoot String
 	 */
+	@Override
 	public String getWebContextRoot(IProject webProject) {
 		if (webProject == null || !JavaEEProjectUtilities.isDynamicWebProject(webProject))
 			return null;
@@ -129,6 +131,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 	 * @param webProject
 	 * @param aContextRoot
 	 */
+	@Override
 	public void setWebContextRoot(IProject webProject, String aContextRoot) {
 		if (webProject == null || !JavaEEProjectUtilities.isDynamicWebProject(webProject))
 			return;

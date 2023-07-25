@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -102,18 +102,21 @@ public interface ContainerManagedEntity extends Entity{
 	 * Returns true when invoked on the instance of this class
 	 * @return boolean value  
 	 */
+	@Override
 	public boolean isContainerManagedEntity();
 	
 	/**
 	 * Returns true if the CMP is of version 1.X
 	 * @return boolean value
 	 */
+	@Override
 	public boolean isVersion1_X();
 	
 	/**
 	 * Returns true if the CMP is of version 2.X
 	 * @return boolean value
 	 */
+	@Override
 	public boolean isVersion2_X();
 	
 	/**

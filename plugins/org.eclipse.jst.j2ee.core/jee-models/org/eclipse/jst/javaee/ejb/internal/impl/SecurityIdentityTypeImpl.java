@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -126,6 +126,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.SECURITY_IDENTITY_TYPE__DESCRIPTIONS);
@@ -138,6 +139,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EmptyType getUseCallerIdentity() {
 		return useCallerIdentity;
 	}
@@ -162,6 +164,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setUseCallerIdentity(EmptyType newUseCallerIdentity) {
 		if (newUseCallerIdentity != useCallerIdentity) {
 			NotificationChain msgs = null;
@@ -181,6 +184,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RunAs getRunAs() {
 		return runAs;
 	}
@@ -205,6 +209,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRunAs(RunAs newRunAs) {
 		if (newRunAs != runAs) {
 			NotificationChain msgs = null;
@@ -224,6 +229,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -233,6 +239,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

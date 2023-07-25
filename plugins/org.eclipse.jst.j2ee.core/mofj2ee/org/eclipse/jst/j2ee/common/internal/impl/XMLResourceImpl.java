@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -110,17 +110,20 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	/**
 	 * Is this a resource loaded as an alternate deployment descriptor?
 	 */
+	@Override
 	public boolean isAlt() {
 		return isAlt;
 	}
 	
 	
+	@Override
 	public void setApplication(Application newApplication) {
 		application = newApplication;
 	}
 	/**
 	 * Is this a resource loaded as an alternate deployment descriptor?
 	 */
+	@Override
 	public void setIsAlt(boolean isAlternateDD) {
 		isAlt = isAlternateDD;
 	}
@@ -178,16 +181,19 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	/*
 	 * Sets the module version based on the J2EE version
 	 */
+	@Override
 	public abstract void setJ2EEVersionID(int id);
 	/*
 	 * Sets the module version directly
 	 * */
-	 public abstract void setModuleVersionID(int id);
+	 @Override
+	public abstract void setModuleVersionID(int id);
 	/**
 	 * @deprecated 
 	 * (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.XMLResource#isJ2EE1_3()
 	 */
+	@Override
 	public boolean isJ2EE1_3() {
 		return getVersionID() == J2EE_1_3_ID;
 	}
@@ -198,6 +204,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	 * Sets the system id of the XML document.
 	 * @see J2EEVersionConstants
 	 */
+	@Override
 	public void setPublicId(String id) {
 		setDoctypeValues(id, getSystemId());
 	}
@@ -208,6 +215,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	 * Sets the public id of the XML document.
 	 * @see J2EEVersionConstants
 	 */
+	@Override
 	public void setSystemId(String id) {
 		setDoctypeValues(getPublicId(), id);
 	}
@@ -267,6 +275,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 		return super.basicSetResourceSet(aResourceSet, notifications);
 	}
 		
+	@Override
 	public Application getApplication() {
 		return application;
 	}
@@ -285,12 +294,14 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	}	
 	/* All subclasses will derive this value based on their module version
 	 */
+	@Override
 	public abstract int getJ2EEVersionID();
 
 	
 
 	/* This will be computed during loads of the resource
 	 */
+	@Override
 	public int getModuleVersionID() {
 		return super.getVersionID();
 	}

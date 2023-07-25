@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -89,6 +89,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void extractToConnectorDirectory(java.lang.String aUri, int expansionFlags) throws SaveFailureException {
 		java.io.File aDir = new java.io.File(aUri);
 		if (getLoadStrategy().isUsing(aDir))
@@ -116,6 +117,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 *             is a runtime exception, because we can't override the signature of the generated
 	 *             methods
 	 */
+	@Override
 	public Connector getDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		Connector dd = deploymentDescriptor;
 		if (dd == null && canLazyInitialize())
@@ -151,6 +153,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	/**
 	 * Return the DeployementDescriptor.
 	 */
+	@Override
 	public EObject getStandardDeploymentDescriptor() throws DeploymentDescriptorLoadException {
 		return getDeploymentDescriptor();
 	}
@@ -182,6 +185,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	}
 
 
+	@Override
 	public void setDeploymentDescriptor(Connector l) {
 		deploymentDescriptor = l;
 		replaceRoot(getMofResourceMakeIfNecessary(getDeploymentDescriptorUri()), l);

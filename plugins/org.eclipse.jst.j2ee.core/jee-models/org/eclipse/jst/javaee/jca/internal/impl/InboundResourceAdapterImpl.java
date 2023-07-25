@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -93,6 +93,7 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public MessageAdapter getMessageadapter() {
 		return messageadapter;
 	}
@@ -117,6 +118,7 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMessageadapter(MessageAdapter newMessageadapter) {
 		if (newMessageadapter != messageadapter) {
 			NotificationChain msgs = null;
@@ -136,6 +138,7 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -145,6 +148,7 @@ public class InboundResourceAdapterImpl extends EObjectImpl implements InboundRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

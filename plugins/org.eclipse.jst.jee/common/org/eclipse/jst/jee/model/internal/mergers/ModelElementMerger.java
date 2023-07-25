@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -72,6 +72,7 @@ public abstract class ModelElementMerger implements IMerger {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.javaee.ejb.model.mergers.Merger#process()
 	 */
+	@Override
 	public abstract List process() throws ModelException;
 	
 	public int getKind() {

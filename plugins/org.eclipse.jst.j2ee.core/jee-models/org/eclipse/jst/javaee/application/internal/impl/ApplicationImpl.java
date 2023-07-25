@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -441,6 +441,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getApplicationName() {
 		return applicationName;
 	}
@@ -450,6 +451,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setApplicationName(String newApplicationName) {
 		String oldApplicationName = applicationName;
 		applicationName = newApplicationName;
@@ -462,6 +464,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, ApplicationPackage.APPLICATION__DESCRIPTIONS);
@@ -474,6 +477,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
 			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, ApplicationPackage.APPLICATION__DISPLAY_NAMES);
@@ -486,6 +490,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Icon> getIcons() {
 		if (icons == null) {
 			icons = new EObjectContainmentEList<Icon>(Icon.class, this, ApplicationPackage.APPLICATION__ICONS);
@@ -498,6 +503,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public GenericBooleanType getInitializeInOrder() {
 		return initializeInOrder;
 	}
@@ -507,6 +513,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setInitializeInOrder(GenericBooleanType newInitializeInOrder) {
 		GenericBooleanType oldInitializeInOrder = initializeInOrder;
 		initializeInOrder = newInitializeInOrder == null ? INITIALIZE_IN_ORDER_EDEFAULT : newInitializeInOrder;
@@ -521,6 +528,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetInitializeInOrder() {
 		GenericBooleanType oldInitializeInOrder = initializeInOrder;
 		boolean oldInitializeInOrderESet = initializeInOrderESet;
@@ -535,6 +543,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetInitializeInOrder() {
 		return initializeInOrderESet;
 	}
@@ -544,6 +553,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Module> getModules() {
 		if (modules == null) {
 			modules = new EObjectContainmentEList<Module>(Module.class, this, ApplicationPackage.APPLICATION__MODULES);
@@ -556,6 +566,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SecurityRole> getSecurityRoles() {
 		if (securityRoles == null) {
 			securityRoles = new EObjectContainmentEList<SecurityRole>(SecurityRole.class, this, ApplicationPackage.APPLICATION__SECURITY_ROLES);
@@ -568,6 +579,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getLibraryDirectory() {
 		return libraryDirectory;
 	}
@@ -577,6 +589,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLibraryDirectory(String newLibraryDirectory) {
 		String oldLibraryDirectory = libraryDirectory;
 		libraryDirectory = newLibraryDirectory;
@@ -589,6 +602,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EnvEntry> getEnvEntry() {
 		if (envEntry == null) {
 			envEntry = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, ApplicationPackage.APPLICATION__ENV_ENTRY);
@@ -601,6 +615,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbRef> getEjbRef() {
 		if (ejbRef == null) {
 			ejbRef = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, ApplicationPackage.APPLICATION__EJB_REF);
@@ -613,6 +628,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EjbLocalRef> getEjbLocalRef() {
 		if (ejbLocalRef == null) {
 			ejbLocalRef = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, ApplicationPackage.APPLICATION__EJB_LOCAL_REF);
@@ -625,6 +641,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
 			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, ApplicationPackage.APPLICATION__SERVICE_REFS);
@@ -637,6 +654,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceRef> getResourceRef() {
 		if (resourceRef == null) {
 			resourceRef = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, ApplicationPackage.APPLICATION__RESOURCE_REF);
@@ -649,6 +667,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ResourceEnvRef> getResourceEnvRef() {
 		if (resourceEnvRef == null) {
 			resourceEnvRef = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, ApplicationPackage.APPLICATION__RESOURCE_ENV_REF);
@@ -661,6 +680,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestinationRef> getMessageDestinationRef() {
 		if (messageDestinationRef == null) {
 			messageDestinationRef = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, ApplicationPackage.APPLICATION__MESSAGE_DESTINATION_REF);
@@ -673,6 +693,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceContextRef> getPersistenceContextRef() {
 		if (persistenceContextRef == null) {
 			persistenceContextRef = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, ApplicationPackage.APPLICATION__PERSISTENCE_CONTEXT_REF);
@@ -685,6 +706,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<PersistenceUnitRef> getPersistenceUnitRef() {
 		if (persistenceUnitRef == null) {
 			persistenceUnitRef = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, ApplicationPackage.APPLICATION__PERSISTENCE_UNIT_REF);
@@ -697,6 +719,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDestination> getMessageDestination() {
 		if (messageDestination == null) {
 			messageDestination = new EObjectContainmentEList<MessageDestination>(MessageDestination.class, this, ApplicationPackage.APPLICATION__MESSAGE_DESTINATION);
@@ -709,6 +732,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<DataSourceType> getDataSource() {
 		if (dataSource == null) {
 			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, ApplicationPackage.APPLICATION__DATA_SOURCE);
@@ -721,6 +745,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
 		if (jmsConnectionFactory == null) {
 			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, ApplicationPackage.APPLICATION__JMS_CONNECTION_FACTORY);
@@ -733,6 +758,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<JmsDestinationType> getJmsDestination() {
 		if (jmsDestination == null) {
 			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, ApplicationPackage.APPLICATION__JMS_DESTINATION);
@@ -745,6 +771,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MailSessionType> getMailSession() {
 		if (mailSession == null) {
 			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, ApplicationPackage.APPLICATION__MAIL_SESSION);
@@ -757,6 +784,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConnectionFactoryResourceType> getConnectionFactory() {
 		if (connectionFactory == null) {
 			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, ApplicationPackage.APPLICATION__CONNECTION_FACTORY);
@@ -769,6 +797,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AdministeredObjectType> getAdministeredObject() {
 		if (administeredObject == null) {
 			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, ApplicationPackage.APPLICATION__ADMINISTERED_OBJECT);
@@ -781,6 +810,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -790,6 +820,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
@@ -802,6 +833,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getVersion() {
 		return version;
 	}
@@ -811,6 +843,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setVersion(String newVersion) {
 		String oldVersion = version;
 		version = newVersion;
@@ -825,6 +858,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetVersion() {
 		String oldVersion = version;
 		boolean oldVersionESet = versionESet;
@@ -839,6 +873,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetVersion() {
 		return versionESet;
 	}
@@ -1256,6 +1291,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * @param uri The uri of a module to find.
 	 * @return The first matching module or null if no module is found.
 	 */
+	@Override
 	public Module getFirstModule(String uri){
 		if (uri == null) return null;
 		java.util.Iterator allModules = getModules().iterator();
@@ -1266,6 +1302,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 		return null;
 	}
 
+	@Override
 	public Module getModule(String uri, String altDD) {
 		List allModules = getModules();
 		for (int i = 0; i < allModules.size(); i++) {
@@ -1276,10 +1313,12 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 		return null;
 	}
 
+	@Override
 	public List getEARModules() {
 		return getModules();
 	}
 
+	@Override
 	public ICommonModule getFirstEARModule(String uri) {
 		return (ICommonModule) getFirstModule(uri);
 	}

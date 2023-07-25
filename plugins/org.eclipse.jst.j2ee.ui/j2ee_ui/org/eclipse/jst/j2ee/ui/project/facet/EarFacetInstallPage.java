@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005, 2009 BEA Systems, Inc. and others.
+ * Copyright (c) 2005, 2019 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -147,6 +147,7 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		final J2EEComponentLabelProvider labelProvider = new J2EEComponentLabelProvider(provider);
 		decorator.addListener(new ILabelProviderListener(){
 		
+			@Override
 			public void labelProviderChanged(LabelProviderChangedEvent event) {
 				if(!moduleProjectsViewer.getTable().isDisposed()){
 					moduleProjectsViewer.refresh(true);
@@ -157,6 +158,7 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		setCheckedItemsFromModel();
 		
 		moduleProjectsViewer.addCheckStateListener(new ICheckStateListener() {
+			@Override
 			public void checkStateChanged(CheckStateChangedEvent event) {
 				if (!ignoreCheckedState) {
 					getDataModel().setProperty(J2EE_PROJECTS_LIST, getCheckedJ2EEElementsAsList());

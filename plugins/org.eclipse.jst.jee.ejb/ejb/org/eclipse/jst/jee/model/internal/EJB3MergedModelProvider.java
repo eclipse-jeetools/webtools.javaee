@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2019 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -96,6 +96,7 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 		return (EJBJar) ddProvider.getModelObject();
 	}
 
+	@Override
 	public Object getModelObject(IPath modelPath) {
 		if (modelPath == null){
 			return getModelObject();

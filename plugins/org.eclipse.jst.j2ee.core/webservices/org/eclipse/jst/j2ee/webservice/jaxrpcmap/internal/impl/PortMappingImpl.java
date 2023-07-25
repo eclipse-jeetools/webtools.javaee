@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -118,7 +118,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getId() {
+  @Override
+public String getId() {
 		return id;
 	}
 
@@ -127,7 +128,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setId(String newId) {
+  @Override
+public void setId(String newId) {
 		String oldId = id;
 		id = newId;
 		if (eNotificationRequired())
@@ -139,7 +141,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getPortName() {
+  @Override
+public String getPortName() {
 		return portName;
 	}
 
@@ -148,7 +151,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setPortName(String newPortName) {
+  @Override
+public void setPortName(String newPortName) {
 		String oldPortName = portName;
 		portName = newPortName;
 		if (eNotificationRequired())
@@ -160,7 +164,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getJavaPortName() {
+  @Override
+public String getJavaPortName() {
 		return javaPortName;
 	}
 
@@ -169,7 +174,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setJavaPortName(String newJavaPortName) {
+  @Override
+public void setJavaPortName(String newJavaPortName) {
 		String oldJavaPortName = javaPortName;
 		javaPortName = newJavaPortName;
 		if (eNotificationRequired())

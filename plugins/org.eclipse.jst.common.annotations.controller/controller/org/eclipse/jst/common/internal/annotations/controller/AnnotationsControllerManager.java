@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -81,6 +81,7 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 		 * 
 		 * @see org.eclipse.wst.common.frameworks.internal.enablement.Identifiable#getID()
 		 */
+		@Override
 		public String getID() {
 			return ID;
 		}
@@ -94,6 +95,7 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 		 * 
 		 * @see org.eclipse.wst.common.frameworks.internal.enablement.Identifiable#getLoadOrder()
 		 */
+		@Override
 		public int getLoadOrder() {
 			return loadOrder;
 		}
@@ -166,6 +168,7 @@ public class AnnotationsControllerManager extends RegistryReader implements IEna
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.enablement.IEnablementIdentifierListener#identifierChanged(org.eclipse.wst.common.frameworks.internal.enablement.EnablementIdentifierEvent)
 	 */
+	@Override
 	public void identifierChanged(EnablementIdentifierEvent identifierEvent) {
 		IProject project = ((EnablementIdentifier) identifierEvent.getIdentifier()).getProject();
 		getAnnotationsControllers().remove(project);

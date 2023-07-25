@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and others.
+ * Copyright (c) 2008, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,6 +54,7 @@ public class BinaryEditorUtilities {
 			this.path = new Path(this.entryName);
 		}
 
+		@Override
 		public InputStream getContents() throws CoreException {
 
 			try {
@@ -78,6 +79,7 @@ public class BinaryEditorUtilities {
 		/**
 		 * @see IStorage#getFullPath
 		 */
+		@Override
 		public IPath getFullPath() {
 			return this.path;
 		}
@@ -85,6 +87,7 @@ public class BinaryEditorUtilities {
 		/**
 		 * @see IStorage#getName
 		 */
+		@Override
 		public String getName() {
 			return this.path.lastSegment();
 		}
@@ -92,6 +95,7 @@ public class BinaryEditorUtilities {
 		/**
 		 * @see IStorage#isReadOnly()
 		 */
+		@Override
 		public boolean isReadOnly() {
 			return true;
 		}
@@ -133,6 +137,7 @@ public class BinaryEditorUtilities {
 		/*
 		 * @see IEditorInput#getPersistable()
 		 */
+		@Override
 		public IPersistableElement getPersistable() {
 			return null;
 		}
@@ -140,6 +145,7 @@ public class BinaryEditorUtilities {
 		/*
 		 * @see IEditorInput#getName()
 		 */
+		@Override
 		public String getName() {
 			return fJarEntryFile.getName();
 		}
@@ -147,6 +153,7 @@ public class BinaryEditorUtilities {
 		/*
 		 * @see IEditorInput#getToolTipText()
 		 */
+		@Override
 		public String getToolTipText() {
 			return fJarEntryFile.getFullPath().toString();
 		}
@@ -154,6 +161,7 @@ public class BinaryEditorUtilities {
 		/*
 		 * @see IEditorInput#getImageDescriptor()
 		 */
+		@Override
 		public ImageDescriptor getImageDescriptor() {
 			IEditorRegistry registry = PlatformUI.getWorkbench()
 					.getEditorRegistry();
@@ -164,6 +172,7 @@ public class BinaryEditorUtilities {
 		/*
 		 * @see IEditorInput#exists()
 		 */
+		@Override
 		public boolean exists() {
 			// JAR entries can't be deleted
 			return true;
@@ -172,6 +181,7 @@ public class BinaryEditorUtilities {
 		/*
 		 * @see IAdaptable#getAdapter(Class)
 		 */
+		@Override
 		public Object getAdapter(Class adapter) {
 			return null;
 		}
@@ -179,6 +189,7 @@ public class BinaryEditorUtilities {
 		/*
 		 * see IStorageEditorInput#getStorage()
 		 */
+		@Override
 		public IStorage getStorage() {
 			return fJarEntryFile;
 		}

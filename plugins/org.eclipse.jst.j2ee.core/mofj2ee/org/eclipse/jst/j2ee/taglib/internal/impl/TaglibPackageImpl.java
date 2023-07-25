@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -168,6 +168,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getTagLib() {
 		return tagLibEClass;
 	}
@@ -175,6 +176,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getTagLib_TagLibVersion() {
 		return (EAttribute)tagLibEClass.getEStructuralFeatures().get(0);
 	}
@@ -182,6 +184,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getTagLib_JspVersion() {
 		return (EAttribute)tagLibEClass.getEStructuralFeatures().get(1);
 	}
@@ -189,6 +192,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getTagLib_ShortName() {
 		return (EAttribute)tagLibEClass.getEStructuralFeatures().get(2);
 	}
@@ -196,6 +200,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getTagLib_Uri() {
 		return (EAttribute)tagLibEClass.getEStructuralFeatures().get(3);
 	}
@@ -203,6 +208,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getTagLib_Tags() {
 		return (EReference)tagLibEClass.getEStructuralFeatures().get(4);
 	}
@@ -210,6 +216,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getTagLib_Validator() {
 		return (EReference)tagLibEClass.getEStructuralFeatures().get(5);
 	}
@@ -217,6 +224,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getTagLib_Listeners() {
 		return (EReference)tagLibEClass.getEStructuralFeatures().get(6);
 	}
@@ -226,6 +234,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTagLib_Functions() {
 		return (EReference)tagLibEClass.getEStructuralFeatures().get(7);
 	}
@@ -235,6 +244,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTagLib_TaglibExtensions() {
 		return (EReference)tagLibEClass.getEStructuralFeatures().get(8);
 	}
@@ -242,6 +252,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getValidator() {
 		return validatorEClass;
 	}
@@ -249,6 +260,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getValidator_ValidatorClass() {
 		return (EReference)validatorEClass.getEStructuralFeatures().get(0);
 	}
@@ -256,6 +268,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getValidator_InitParams() {
 		return (EReference)validatorEClass.getEStructuralFeatures().get(1);
 	}
@@ -265,6 +278,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getValidator_Descriptions() {
 		return (EReference)validatorEClass.getEStructuralFeatures().get(2);
 	}
@@ -272,6 +286,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getJSPTag() {
 		return jspTagEClass;
 	}
@@ -279,6 +294,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPTag_BodyContent() {
 		return (EAttribute)jspTagEClass.getEStructuralFeatures().get(0);
 	}
@@ -286,6 +302,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPTag_Example() {
 		return (EAttribute)jspTagEClass.getEStructuralFeatures().get(1);
 	}
@@ -295,6 +312,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPTag_Name() {
 		return (EAttribute)jspTagEClass.getEStructuralFeatures().get(2);
 	}
@@ -304,6 +322,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPTag_DynamicAttributes() {
 		return (EAttribute)jspTagEClass.getEStructuralFeatures().get(3);
 	}
@@ -311,6 +330,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getJSPTag_Attributes() {
 		return (EReference)jspTagEClass.getEStructuralFeatures().get(4);
 	}
@@ -318,6 +338,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getJSPTag_Variables() {
 		return (EReference)jspTagEClass.getEStructuralFeatures().get(5);
 	}
@@ -325,6 +346,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getJSPTag_TagClass() {
 		return (EReference)jspTagEClass.getEStructuralFeatures().get(6);
 	}
@@ -332,6 +354,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getJSPTag_TeiClass() {
 		return (EReference)jspTagEClass.getEStructuralFeatures().get(7);
 	}
@@ -339,6 +362,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getJSPTagAttribute() {
 		return jspTagAttributeEClass;
 	}
@@ -346,6 +370,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPTagAttribute_Name() {
 		return (EAttribute)jspTagAttributeEClass.getEStructuralFeatures().get(0);
 	}
@@ -353,6 +378,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPTagAttribute_Required() {
 		return (EAttribute)jspTagAttributeEClass.getEStructuralFeatures().get(1);
 	}
@@ -360,6 +386,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPTagAttribute_RtExprValue() {
 		return (EAttribute)jspTagAttributeEClass.getEStructuralFeatures().get(2);
 	}
@@ -369,6 +396,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getJSPTagAttribute_Fragment() {
 		return (EAttribute)jspTagAttributeEClass.getEStructuralFeatures().get(3);
 	}
@@ -376,6 +404,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getJSPTagAttribute_Type() {
 		return (EReference)jspTagAttributeEClass.getEStructuralFeatures().get(4);
 	}
@@ -385,6 +414,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJSPTagAttribute_Descriptions() {
 		return (EReference)jspTagAttributeEClass.getEStructuralFeatures().get(5);
 	}
@@ -392,6 +422,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getJSPVariable() {
 		return jspVariableEClass;
 	}
@@ -399,6 +430,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPVariable_NameGiven() {
 		return (EAttribute)jspVariableEClass.getEStructuralFeatures().get(0);
 	}
@@ -406,6 +438,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPVariable_NameFromAttribute() {
 		return (EAttribute)jspVariableEClass.getEStructuralFeatures().get(1);
 	}
@@ -413,6 +446,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPVariable_Declare() {
 		return (EAttribute)jspVariableEClass.getEStructuralFeatures().get(2);
 	}
@@ -420,6 +454,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getJSPVariable_Scope() {
 		return (EAttribute)jspVariableEClass.getEStructuralFeatures().get(3);
 	}
@@ -427,6 +462,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getJSPVariable_VariableClass() {
 		return (EReference)jspVariableEClass.getEStructuralFeatures().get(4);
 	}
@@ -436,6 +472,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getJSPVariable_Descriptions() {
 		return (EReference)jspVariableEClass.getEStructuralFeatures().get(5);
 	}
@@ -445,6 +482,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getFunction() {
 		return functionEClass;
 	}
@@ -454,6 +492,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFunction_Name() {
 		return (EAttribute)functionEClass.getEStructuralFeatures().get(0);
 	}
@@ -463,6 +502,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFunction_Signature() {
 		return (EAttribute)functionEClass.getEStructuralFeatures().get(1);
 	}
@@ -472,6 +512,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getFunction_Example() {
 		return (EAttribute)functionEClass.getEStructuralFeatures().get(2);
 	}
@@ -481,6 +522,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFunction_FunctionClass() {
 		return (EReference)functionEClass.getEStructuralFeatures().get(3);
 	}
@@ -490,6 +532,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getFunction_FunctionExtensions() {
 		return (EReference)functionEClass.getEStructuralFeatures().get(4);
 	}
@@ -499,6 +542,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTagFile() {
 		return tagFileEClass;
 	}
@@ -508,6 +552,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTagFile_Name() {
 		return (EAttribute)tagFileEClass.getEStructuralFeatures().get(0);
 	}
@@ -517,6 +562,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTagFile_Path() {
 		return (EAttribute)tagFileEClass.getEStructuralFeatures().get(1);
 	}
@@ -526,6 +572,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTagFile_Example() {
 		return (EAttribute)tagFileEClass.getEStructuralFeatures().get(2);
 	}
@@ -535,6 +582,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTagFile_TagExtensions() {
 		return (EReference)tagFileEClass.getEStructuralFeatures().get(3);
 	}
@@ -544,6 +592,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getTldExtension() {
 		return tldExtensionEClass;
 	}
@@ -553,6 +602,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getTldExtension_Namespace() {
 		return (EAttribute)tldExtensionEClass.getEStructuralFeatures().get(0);
 	}
@@ -562,6 +612,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getTldExtension_ExtensionElements() {
 		return (EReference)tldExtensionEClass.getEStructuralFeatures().get(1);
 	}
@@ -571,6 +622,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getExtensibleType() {
 		return extensibleTypeEClass;
 	}
@@ -580,6 +632,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getExtensibleType_Value() {
 		return (EAttribute)extensibleTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -587,6 +640,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getBodyContentType() {
 		return bodyContentTypeEEnum;
 	}
@@ -594,6 +648,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getJSPScriptingVariableScope() {
 		return jspScriptingVariableScopeEEnum;
 	}
@@ -601,6 +656,7 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public TaglibFactory getTaglibFactory() {
 		return (TaglibFactory)getEFactoryInstance();
 	}

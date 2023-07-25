@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ public class AppClient5ModelProviderFactory implements IModelProviderFactory {
 	
 	private HashMap<IProject, IModelProvider> xmlResources = new HashMap<IProject, IModelProvider>();
 
+	@Override
 	public IModelProvider create(IProject project) {
 		IModelProvider result = getResource(project);
 		if(result == null){
@@ -30,6 +31,7 @@ public class AppClient5ModelProviderFactory implements IModelProviderFactory {
 		return result;
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return new AppClient5ModelProvider(component.getProject());
 	}

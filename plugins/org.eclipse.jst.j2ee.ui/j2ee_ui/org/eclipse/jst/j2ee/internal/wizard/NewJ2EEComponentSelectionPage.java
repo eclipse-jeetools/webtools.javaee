@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -529,7 +529,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
         if (selectedNode == null)
             return null;
         IPluginContribution pluginContribution = new IPluginContribution() {
-            public String getLocalId() {
+            @Override
+			public String getLocalId() {
                 String id = null;
                 if (selectedNode == appClientNode) {
                     id = "org.eclipse.jst.j2ee.internal.internal.internal.appclientProjectWizard"; //$NON-NLS-1$
@@ -543,7 +544,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                 return id;
             }
 
-            public String getPluginId() {
+            @Override
+			public String getPluginId() {
                 return "org.eclipse.jst.j2ee.internal.internal.internal.ui"; //$NON-NLS-1$
             }
         };

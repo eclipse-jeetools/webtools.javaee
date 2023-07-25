@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -133,6 +133,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS);
@@ -145,6 +146,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransportGuaranteeType getTransportGuarantee() {
 		return transportGuarantee;
 	}
@@ -154,6 +156,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransportGuarantee(TransportGuaranteeType newTransportGuarantee) {
 		TransportGuaranteeType oldTransportGuarantee = transportGuarantee;
 		transportGuarantee = newTransportGuarantee == null ? TRANSPORT_GUARANTEE_EDEFAULT : newTransportGuarantee;
@@ -168,6 +171,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransportGuarantee() {
 		TransportGuaranteeType oldTransportGuarantee = transportGuarantee;
 		boolean oldTransportGuaranteeESet = transportGuaranteeESet;
@@ -182,6 +186,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransportGuarantee() {
 		return transportGuaranteeESet;
 	}
@@ -191,6 +196,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -200,6 +206,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,45 +36,55 @@ class MyModelProviderEvent implements IModelProviderEvent {
 		resources = new ArrayList();
 	}
 
+	@Override
 	public void setProject(IProject project) {
 		proj = project;
 
 	}
 
+	@Override
 	public void addResource(Object resource) {
 		resources.add(resource);
 	}
 
+	@Override
 	public void addResources(Collection<Object> someResources) {
 		resources.addAll(someResources);
 
 	}
 
+	@Override
 	public List<Object> getChangedResources() {
 		return resources;
 	}
 
+	@Override
 	public int getEventCode() {
 		return event;
 	}
 
+	@Override
 	public IModelProvider getModel() {
 		return model;
 	}
 
+	@Override
 	public void setChangedResources(List<Object> newChangedResources) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void setEventCode(int newEventCode) {
 		event = newEventCode;
 	}
 
+	@Override
 	public void setModel(IModelProvider newModel) {
 		model = newModel;
 
 	}
 
+	@Override
 	public IProject getProject() {
 		return proj;
 	}

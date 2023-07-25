@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -100,6 +100,7 @@ public class AroundTimeoutTypeImpl extends EObjectImpl implements AroundTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getClass_() {
 		return class_;
 	}
@@ -109,6 +110,7 @@ public class AroundTimeoutTypeImpl extends EObjectImpl implements AroundTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setClass(String newClass) {
 		String oldClass = class_;
 		class_ = newClass;
@@ -121,6 +123,7 @@ public class AroundTimeoutTypeImpl extends EObjectImpl implements AroundTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getMethodName() {
 		return methodName;
 	}
@@ -130,6 +133,7 @@ public class AroundTimeoutTypeImpl extends EObjectImpl implements AroundTimeoutT
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMethodName(String newMethodName) {
 		String oldMethodName = methodName;
 		methodName = newMethodName;

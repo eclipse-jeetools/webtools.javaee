@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -373,7 +373,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getPortComponentName() {
+  @Override
+public String getPortComponentName() {
 		return portComponentName;
 	}
 
@@ -382,7 +383,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setPortComponentName(String newPortComponentName) {
+  @Override
+public void setPortComponentName(String newPortComponentName) {
 		String oldPortComponentName = portComponentName;
 		portComponentName = newPortComponentName;
 		if (eNotificationRequired())
@@ -394,7 +396,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getServiceEndpointInterface() {
+  @Override
+public String getServiceEndpointInterface() {
 		return serviceEndpointInterface;
 	}
 
@@ -403,7 +406,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setServiceEndpointInterface(String newServiceEndpointInterface) {
+  @Override
+public void setServiceEndpointInterface(String newServiceEndpointInterface) {
 		String oldServiceEndpointInterface = serviceEndpointInterface;
 		serviceEndpointInterface = newServiceEndpointInterface;
 		if (eNotificationRequired())
@@ -415,7 +419,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getSmallIcon() {
+  @Override
+public String getSmallIcon() {
 		return smallIcon;
 	}
 
@@ -424,7 +429,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setSmallIcon(String newSmallIcon) {
+  @Override
+public void setSmallIcon(String newSmallIcon) {
 		String oldSmallIcon = smallIcon;
 		smallIcon = newSmallIcon;
 		if (eNotificationRequired())
@@ -436,7 +442,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getLargeIcon() {
+  @Override
+public String getLargeIcon() {
 		return largeIcon;
 	}
 
@@ -445,7 +452,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setLargeIcon(String newLargeIcon) {
+  @Override
+public void setLargeIcon(String newLargeIcon) {
 		String oldLargeIcon = largeIcon;
 		largeIcon = newLargeIcon;
 		if (eNotificationRequired())
@@ -457,7 +465,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getDescription() {
+  @Override
+public String getDescription() {
 		return description;
 	}
 
@@ -466,7 +475,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setDescription(String newDescription) {
+  @Override
+public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
 		if (eNotificationRequired())
@@ -478,7 +488,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getDisplayName() {
+  @Override
+public String getDisplayName() {
 		return displayName;
 	}
 
@@ -487,7 +498,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setDisplayName(String newDisplayName) {
+  @Override
+public void setDisplayName(String newDisplayName) {
 		String oldDisplayName = displayName;
 		displayName = newDisplayName;
 		if (eNotificationRequired())
@@ -499,7 +511,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLPort getWsdlPort() {
+  @Override
+public WSDLPort getWsdlPort() {
 		return wsdlPort;
 	}
 
@@ -523,7 +536,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setWsdlPort(WSDLPort newWsdlPort) {
+  @Override
+public void setWsdlPort(WSDLPort newWsdlPort) {
 		if (newWsdlPort != wsdlPort) {
 			NotificationChain msgs = null;
 			if (wsdlPort != null)
@@ -542,7 +556,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ServiceImplBean getServiceImplBean() {
+  @Override
+public ServiceImplBean getServiceImplBean() {
 		return serviceImplBean;
 	}
 
@@ -566,7 +581,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setServiceImplBean(ServiceImplBean newServiceImplBean) {
+  @Override
+public void setServiceImplBean(ServiceImplBean newServiceImplBean) {
 		if (newServiceImplBean != serviceImplBean) {
 			NotificationChain msgs = null;
 			if (serviceImplBean != null)
@@ -585,7 +601,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getHandlers() {
+  @Override
+public EList getHandlers() {
 		if (handlers == null) {
 			handlers = new EObjectContainmentEList(Handler.class, this, WsddPackage.PORT_COMPONENT__HANDLERS);
 		}
@@ -597,7 +614,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public DescriptionType getDescriptionType() {
+  @Override
+public DescriptionType getDescriptionType() {
 		return descriptionType;
 	}
 
@@ -621,7 +639,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setDescriptionType(DescriptionType newDescriptionType) {
+  @Override
+public void setDescriptionType(DescriptionType newDescriptionType) {
 		if (newDescriptionType != descriptionType) {
 			NotificationChain msgs = null;
 			if (descriptionType != null)
@@ -640,7 +659,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public DisplayNameType getDisplayNameType() {
+  @Override
+public DisplayNameType getDisplayNameType() {
 		return displayNameType;
 	}
 
@@ -664,7 +684,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setDisplayNameType(DisplayNameType newDisplayNameType) {
+  @Override
+public void setDisplayNameType(DisplayNameType newDisplayNameType) {
 		if (newDisplayNameType != displayNameType) {
 			NotificationChain msgs = null;
 			if (displayNameType != null)
@@ -683,7 +704,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public IconType getIconType() {
+  @Override
+public IconType getIconType() {
 		return iconType;
 	}
 
@@ -707,7 +729,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setIconType(IconType newIconType) {
+  @Override
+public void setIconType(IconType newIconType) {
 		if (newIconType != iconType) {
 			NotificationChain msgs = null;
 			if (iconType != null)
@@ -726,6 +749,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WSDLService getWsdlService() {
 		return wsdlService;
 	}
@@ -750,6 +774,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setWsdlService(WSDLService newWsdlService) {
 		if (newWsdlService != wsdlService) {
 			NotificationChain msgs = null;
@@ -769,6 +794,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnableMtom() {
 		return enableMtom;
 	}
@@ -778,6 +804,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnableMtom(boolean newEnableMtom) {
 		boolean oldEnableMtom = enableMtom;
 		enableMtom = newEnableMtom;
@@ -790,6 +817,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getProtocolBinding() {
 		return protocolBinding;
 	}
@@ -799,6 +827,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setProtocolBinding(String newProtocolBinding) {
 		String oldProtocolBinding = protocolBinding;
 		protocolBinding = newProtocolBinding;
@@ -811,6 +840,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HandlersChains getHandlerChains() {
 		return handlerChains;
 	}
@@ -835,6 +865,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setHandlerChains(HandlersChains newHandlerChains) {
 		if (newHandlerChains != handlerChains) {
 			NotificationChain msgs = null;
@@ -854,6 +885,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BigInteger getMtomThreshold() {
 		return mtomThreshold;
 	}
@@ -863,6 +895,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setMtomThreshold(BigInteger newMtomThreshold) {
 		BigInteger oldMtomThreshold = mtomThreshold;
 		mtomThreshold = newMtomThreshold;
@@ -875,6 +908,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RespectBindingType getRespectBinding() {
 		return respectBinding;
 	}
@@ -899,6 +933,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRespectBinding(RespectBindingType newRespectBinding) {
 		if (newRespectBinding != respectBinding) {
 			NotificationChain msgs = null;
@@ -918,6 +953,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AddressingType getAddressing() {
 		return addressing;
 	}
@@ -942,6 +978,7 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAddressing(AddressingType newAddressing) {
 		if (newAddressing != addressing) {
 			NotificationChain msgs = null;

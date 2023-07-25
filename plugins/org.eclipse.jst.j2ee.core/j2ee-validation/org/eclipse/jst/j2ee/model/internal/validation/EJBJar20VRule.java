@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -134,19 +134,23 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 		_relationshipRoleName = new DuplicatesTable();
 	}
 	
+	@Override
 	public Object[] getDependsOn() {
 		// EJBJar doesn't depend on anything else
 		return DEPENDS_ON;
 	}
 
+	@Override
 	public Object getId() {
 		return IValidationRuleList.EJB20_EJBJAR;
 	}
 
+	@Override
 	public Map getMessageIds() {
 		return MESSAGE_IDS;
 	}
 
+	@Override
 	public Object getTarget(Object parent, Object clazz) {
 		// Since this rule doesn't depend on another rule, this
 		// method (which is called on a dependent rule) will never
@@ -194,6 +198,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 	/*
 	 * @see IValidationRule#validate(IEJBValidationContext, Object, Object)
 		 */
+	@Override
 	public void validate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		Logger logger = vc.getMsgLogger();
 		if(logger != null && logger.isLoggingLevel(Level.FINEST)) {

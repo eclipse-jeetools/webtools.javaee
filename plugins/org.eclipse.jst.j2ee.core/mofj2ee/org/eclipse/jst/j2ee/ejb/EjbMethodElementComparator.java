@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -52,6 +52,7 @@ public class EjbMethodElementComparator implements Comparator {
 	 *@param 02 the second object to be compared
 	 *@return a negative integer, zero, or a positive integer
 	 */
+	@Override
 	public int compare(Object o1, Object o2) {
 		return compare((MethodElement) o1, (MethodElement) o2);
 	}

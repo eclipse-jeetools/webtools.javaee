@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,6 +76,7 @@ public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginCon
 	 * The form-login-page element defines the location in the web app where the page
 	 * that can be used for login can be found
 	 */
+	@Override
 	public String getFormLoginPage() {
 		return formLoginPage;
 	}
@@ -83,6 +84,7 @@ public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginCon
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setFormLoginPage(String newFormLoginPage) {
 		String oldFormLoginPage = formLoginPage;
 		formLoginPage = newFormLoginPage;
@@ -95,6 +97,7 @@ public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginCon
 	 * The form-error-page element defines the location in the web app where the error 
 	 * page that is displayed when login is not successful can be found
 	 */
+	@Override
 	public String getFormErrorPage() {
 		return formErrorPage;
 	}
@@ -102,6 +105,7 @@ public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginCon
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setFormErrorPage(String newFormErrorPage) {
 		String oldFormErrorPage = formErrorPage;
 		formErrorPage = newFormErrorPage;
@@ -112,6 +116,7 @@ public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginCon
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public LoginConfig getLoginConfig() {
 		if (eContainerFeatureID != WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG) return null;
 		return (LoginConfig)eContainer();
@@ -130,6 +135,7 @@ public class FormLoginConfigImpl extends J2EEEObjectImpl implements FormLoginCon
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLoginConfig(LoginConfig newLoginConfig) {
 		if (newLoginConfig != eInternalContainer() || (eContainerFeatureID != WebapplicationPackage.FORM_LOGIN_CONFIG__LOGIN_CONFIG && newLoginConfig != null)) {
 			if (EcoreUtil.isAncestor(this, newLoginConfig))

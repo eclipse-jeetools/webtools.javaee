@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -117,10 +117,12 @@ public class QueryImpl extends J2EEEObjectImpl implements Query {
 		return EjbPackage.Literals.QUERY;
 	}
 
+@Override
 public boolean isLocalResultMapping() {
 	// override bug in the model which made Remote the default
 	return getReturnTypeMapping().getValue() == ReturnTypeMapping.LOCAL;
 }
+@Override
 public boolean isRemoteResultMapping() {
 	return getReturnTypeMapping().getValue() == ReturnTypeMapping.REMOTE;
 }
@@ -130,6 +132,7 @@ public boolean isRemoteResultMapping() {
 	 * 
 	 * The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -137,6 +140,7 @@ public boolean isRemoteResultMapping() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -163,6 +167,7 @@ public boolean isRemoteResultMapping() {
 	 * <//ejb-ql>
 	 * <//query>
 	 */
+	@Override
 	public String getEjbQL() {
 		return ejbQL;
 	}
@@ -170,6 +175,7 @@ public boolean isRemoteResultMapping() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setEjbQL(String newEjbQL) {
 		String oldEjbQL = ejbQL;
 		ejbQL = newEjbQL;
@@ -181,6 +187,7 @@ public boolean isRemoteResultMapping() {
 	 * @generated This field/method will be replaced during code generation 
 	 * The return-type-mapping element is used in the query element to specify whether an abstract schema type that is returned by a query for a select method is to be mapped to an EJBLocalObject or EJBObject type.  The value of the return-type-mapping element, if specified must be one of the following.
 	 */
+	@Override
 	public ReturnTypeMapping getReturnTypeMapping() {
 		return returnTypeMapping;
 	}
@@ -190,6 +197,7 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReturnTypeMapping(ReturnTypeMapping newReturnTypeMapping) {
 		ReturnTypeMapping oldReturnTypeMapping = returnTypeMapping;
 		returnTypeMapping = newReturnTypeMapping == null ? RETURN_TYPE_MAPPING_EDEFAULT : newReturnTypeMapping;
@@ -204,6 +212,7 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetReturnTypeMapping() {
 		ReturnTypeMapping oldReturnTypeMapping = returnTypeMapping;
 		boolean oldReturnTypeMappingESet = returnTypeMappingESet;
@@ -218,6 +227,7 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetReturnTypeMapping() {
 		return returnTypeMappingESet;
 	}
@@ -248,6 +258,7 @@ public boolean isRemoteResultMapping() {
 	 *   <ejb-ql>SELECT ENTITY(o) FROM Order o WHERE o.amount &gt; 1000<//ejb-ql>
 	 * <//query>
 	 */
+	@Override
 	public QueryMethod getQueryMethod() {
 		return queryMethod;
 	}
@@ -270,6 +281,7 @@ public boolean isRemoteResultMapping() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setQueryMethod(QueryMethod newQueryMethod) {
 		if (newQueryMethod != queryMethod) {
 			NotificationChain msgs = null;
@@ -287,6 +299,7 @@ public boolean isRemoteResultMapping() {
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
+	@Override
 	public ContainerManagedEntity getEntity() {
 		if (eContainerFeatureID != EjbPackage.QUERY__ENTITY) return null;
 		return (ContainerManagedEntity)eContainer();
@@ -307,6 +320,7 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEntity(ContainerManagedEntity newEntity) {
 		if (newEntity != eInternalContainer() || (eContainerFeatureID != EjbPackage.QUERY__ENTITY && newEntity != null)) {
 			if (EcoreUtil.isAncestor(this, newEntity))
@@ -328,6 +342,7 @@ public boolean isRemoteResultMapping() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.QUERY__DESCRIPTIONS);

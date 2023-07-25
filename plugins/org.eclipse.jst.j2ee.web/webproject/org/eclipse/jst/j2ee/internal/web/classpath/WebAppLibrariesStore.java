@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2010, 2023 IBM Corporation and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.classpath;
 
 import java.io.BufferedInputStream;
@@ -178,10 +190,12 @@ public class WebAppLibrariesStore {
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			SafeRunner.run(new ISafeRunnable() {
+				@Override
 				public void run() throws Exception {
 					persist();
 				}
 
+				@Override
 				public void handleException(Throwable exception) {
 					WebPlugin.logError(exception);
 				}

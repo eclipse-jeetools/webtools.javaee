@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -206,6 +206,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getConnector() {
 		return connectorEClass;
 	}
@@ -213,6 +214,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getConnector_VendorName() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(0);
 	}
@@ -220,6 +222,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getConnector_SpecVersion() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(1);
 	}
@@ -227,6 +230,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getConnector_EisType() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(2);
 	}
@@ -234,6 +238,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getConnector_Version() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(3);
 	}
@@ -241,6 +246,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getConnector_License() {
 		return (EReference)connectorEClass.getEStructuralFeatures().get(4);
 	}
@@ -248,6 +254,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getConnector_ResourceAdapter() {
 		return (EReference)connectorEClass.getEStructuralFeatures().get(5);
 	}
@@ -255,6 +262,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getLicense() {
 		return licenseEClass;
 	}
@@ -262,6 +270,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getLicense_Description() {
 		return (EAttribute)licenseEClass.getEStructuralFeatures().get(0);
 	}
@@ -269,6 +278,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getLicense_Required() {
 		return (EAttribute)licenseEClass.getEStructuralFeatures().get(1);
 	}
@@ -278,6 +288,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getLicense_Descriptions() {
 		return (EReference)licenseEClass.getEStructuralFeatures().get(2);
 	}
@@ -287,6 +298,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInboundResourceAdapter() {
 		return inboundResourceAdapterEClass;
 	}
@@ -296,6 +308,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getInboundResourceAdapter_MessageAdapter() {
 		return (EReference)inboundResourceAdapterEClass.getEStructuralFeatures().get(0);
 	}
@@ -305,6 +318,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOutboundResourceAdapter() {
 		return outboundResourceAdapterEClass;
 	}
@@ -314,6 +328,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOutboundResourceAdapter_ReauthenticationSupport() {
 		return (EAttribute)outboundResourceAdapterEClass.getEStructuralFeatures().get(0);
 	}
@@ -323,6 +338,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getOutboundResourceAdapter_TransactionSupport() {
 		return (EAttribute)outboundResourceAdapterEClass.getEStructuralFeatures().get(1);
 	}
@@ -332,6 +348,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOutboundResourceAdapter_ConnectionDefinitions() {
 		return (EReference)outboundResourceAdapterEClass.getEStructuralFeatures().get(2);
 	}
@@ -341,6 +358,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getOutboundResourceAdapter_AuthenticationMechanisms() {
 		return (EReference)outboundResourceAdapterEClass.getEStructuralFeatures().get(3);
 	}
@@ -350,6 +368,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMessageAdapter() {
 		return messageAdapterEClass;
 	}
@@ -359,6 +378,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageAdapter_MessageListeners() {
 		return (EReference)messageAdapterEClass.getEStructuralFeatures().get(0);
 	}
@@ -368,6 +388,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getConnectionDefinition() {
 		return connectionDefinitionEClass;
 	}
@@ -377,6 +398,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionDefinition_ManagedConnectionFactoryClass() {
 		return (EAttribute)connectionDefinitionEClass.getEStructuralFeatures().get(0);
 	}
@@ -386,6 +408,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionDefinition_ConnectionFactoryInterface() {
 		return (EAttribute)connectionDefinitionEClass.getEStructuralFeatures().get(1);
 	}
@@ -395,6 +418,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionDefinition_ConnectionFactoryImplClass() {
 		return (EAttribute)connectionDefinitionEClass.getEStructuralFeatures().get(2);
 	}
@@ -404,6 +428,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionDefinition_ConnectionInterface() {
 		return (EAttribute)connectionDefinitionEClass.getEStructuralFeatures().get(3);
 	}
@@ -413,6 +438,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getConnectionDefinition_ConnectionImplClass() {
 		return (EAttribute)connectionDefinitionEClass.getEStructuralFeatures().get(4);
 	}
@@ -422,6 +448,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConnectionDefinition_ConfigProperties() {
 		return (EReference)connectionDefinitionEClass.getEStructuralFeatures().get(5);
 	}
@@ -431,6 +458,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAdminObject() {
 		return adminObjectEClass;
 	}
@@ -440,6 +468,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdminObject_AdminObjectInterface() {
 		return (EAttribute)adminObjectEClass.getEStructuralFeatures().get(0);
 	}
@@ -449,6 +478,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAdminObject_AdminObjectClass() {
 		return (EAttribute)adminObjectEClass.getEStructuralFeatures().get(1);
 	}
@@ -458,6 +488,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAdminObject_ConfigProperties() {
 		return (EReference)adminObjectEClass.getEStructuralFeatures().get(2);
 	}
@@ -467,6 +498,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getMessageListener() {
 		return messageListenerEClass;
 	}
@@ -476,6 +508,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getMessageListener_MessageListenerType() {
 		return (EAttribute)messageListenerEClass.getEStructuralFeatures().get(0);
 	}
@@ -485,6 +518,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getMessageListener_ActivationSpec() {
 		return (EReference)messageListenerEClass.getEStructuralFeatures().get(1);
 	}
@@ -494,6 +528,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getActivationSpec() {
 		return activationSpecEClass;
 	}
@@ -503,6 +538,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getActivationSpec_ActivationSpecClass() {
 		return (EAttribute)activationSpecEClass.getEStructuralFeatures().get(0);
 	}
@@ -512,6 +548,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getActivationSpec_RequiredConfigProperties() {
 		return (EReference)activationSpecEClass.getEStructuralFeatures().get(1);
 	}
@@ -521,6 +558,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getRequiredConfigPropertyType() {
 		return requiredConfigPropertyTypeEClass;
 	}
@@ -530,6 +568,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getRequiredConfigPropertyType_Name() {
 		return (EAttribute)requiredConfigPropertyTypeEClass.getEStructuralFeatures().get(0);
 	}
@@ -539,6 +578,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getRequiredConfigPropertyType_Descriptions() {
 		return (EReference)requiredConfigPropertyTypeEClass.getEStructuralFeatures().get(1);
 	}
@@ -546,6 +586,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getResourceAdapter() {
 		return resourceAdapterEClass;
 	}
@@ -553,6 +594,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceAdapter_ManagedConnectionFactoryClass() {
 		return (EAttribute)resourceAdapterEClass.getEStructuralFeatures().get(0);
 	}
@@ -560,6 +602,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceAdapter_ConnectionFactoryInterface() {
 		return (EAttribute)resourceAdapterEClass.getEStructuralFeatures().get(1);
 	}
@@ -567,6 +610,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceAdapter_ConnectionFactoryImplClass() {
 		return (EAttribute)resourceAdapterEClass.getEStructuralFeatures().get(2);
 	}
@@ -574,6 +618,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceAdapter_ConnectionInterface() {
 		return (EAttribute)resourceAdapterEClass.getEStructuralFeatures().get(3);
 	}
@@ -581,6 +626,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceAdapter_ConnectionImplClass() {
 		return (EAttribute)resourceAdapterEClass.getEStructuralFeatures().get(4);
 	}
@@ -588,6 +634,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceAdapter_TransactionSupport() {
 		return (EAttribute)resourceAdapterEClass.getEStructuralFeatures().get(5);
 	}
@@ -595,6 +642,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getResourceAdapter_ReauthenticationSupport() {
 		return (EAttribute)resourceAdapterEClass.getEStructuralFeatures().get(6);
 	}
@@ -604,6 +652,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getResourceAdapter_ResourceAdapterClass() {
 		return (EAttribute)resourceAdapterEClass.getEStructuralFeatures().get(7);
 	}
@@ -611,6 +660,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getResourceAdapter_SecurityPermissions() {
 		return (EReference)resourceAdapterEClass.getEStructuralFeatures().get(8);
 	}
@@ -618,6 +668,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getResourceAdapter_AuthenticationMechanisms() {
 		return (EReference)resourceAdapterEClass.getEStructuralFeatures().get(9);
 	}
@@ -625,6 +676,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EReference getResourceAdapter_ConfigProperties() {
 		return (EReference)resourceAdapterEClass.getEStructuralFeatures().get(10);
 	}
@@ -634,6 +686,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceAdapter_OutboundResourceAdapter() {
 		return (EReference)resourceAdapterEClass.getEStructuralFeatures().get(11);
 	}
@@ -643,6 +696,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceAdapter_InboundResourceAdapter() {
 		return (EReference)resourceAdapterEClass.getEStructuralFeatures().get(12);
 	}
@@ -652,6 +706,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getResourceAdapter_AdminObjects() {
 		return (EReference)resourceAdapterEClass.getEStructuralFeatures().get(13);
 	}
@@ -659,6 +714,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getSecurityPermission() {
 		return securityPermissionEClass;
 	}
@@ -666,6 +722,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSecurityPermission_Description() {
 		return (EAttribute)securityPermissionEClass.getEStructuralFeatures().get(0);
 	}
@@ -673,6 +730,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getSecurityPermission_Specification() {
 		return (EAttribute)securityPermissionEClass.getEStructuralFeatures().get(1);
 	}
@@ -682,6 +740,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSecurityPermission_Descriptions() {
 		return (EReference)securityPermissionEClass.getEStructuralFeatures().get(2);
 	}
@@ -689,6 +748,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getAuthenticationMechanism() {
 		return authenticationMechanismEClass;
 	}
@@ -696,6 +756,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getAuthenticationMechanism_Description() {
 		return (EAttribute)authenticationMechanismEClass.getEStructuralFeatures().get(0);
 	}
@@ -705,6 +766,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAuthenticationMechanism_AuthenticationMechanism() {
 		return (EAttribute)authenticationMechanismEClass.getEStructuralFeatures().get(1);
 	}
@@ -712,6 +774,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getAuthenticationMechanism_AuthenticationMechanismType() {
 		return (EAttribute)authenticationMechanismEClass.getEStructuralFeatures().get(2);
 	}
@@ -719,6 +782,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getAuthenticationMechanism_CredentialInterface() {
 		return (EAttribute)authenticationMechanismEClass.getEStructuralFeatures().get(3);
 	}
@@ -726,6 +790,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EClass getConfigProperty() {
 		return configPropertyEClass;
 	}
@@ -733,6 +798,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getConfigProperty_Description() {
 		return (EAttribute)configPropertyEClass.getEStructuralFeatures().get(0);
 	}
@@ -740,6 +806,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getConfigProperty_Name() {
 		return (EAttribute)configPropertyEClass.getEStructuralFeatures().get(1);
 	}
@@ -747,6 +814,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getConfigProperty_Type() {
 		return (EAttribute)configPropertyEClass.getEStructuralFeatures().get(2);
 	}
@@ -754,6 +822,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getConfigProperty_Value() {
 		return (EAttribute)configPropertyEClass.getEStructuralFeatures().get(3);
 	}
@@ -763,6 +832,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getConfigProperty_Descriptions() {
 		return (EReference)configPropertyEClass.getEStructuralFeatures().get(4);
 	}
@@ -770,6 +840,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getTransactionSupportKind() {
 		return transactionSupportKindEEnum;
 	}
@@ -777,6 +848,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EEnum getAuthenticationMechanismType() {
 		return authenticationMechanismTypeEEnum;
 	}
@@ -784,6 +856,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public JcaFactory getJcaFactory() {
 		return (JcaFactory)getEFactoryInstance();
 	}
@@ -1056,6 +1129,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public EAttribute getAuthenticationMechanism_CustomAuthMechType() {
 		return (EAttribute)authenticationMechanismEClass.getEStructuralFeatures().get(4);
 	}
@@ -1065,6 +1139,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAuthenticationMechanism_Descriptions() {
 		return (EReference)authenticationMechanismEClass.getEStructuralFeatures().get(5);
 	}

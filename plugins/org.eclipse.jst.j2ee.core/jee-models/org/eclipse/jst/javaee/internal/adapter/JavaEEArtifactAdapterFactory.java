@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 SAP AG and others.
+ * Copyright (c) 2009, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 
 public abstract class JavaEEArtifactAdapterFactory implements IAdapterFactory {
 
+	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (adapterType == IJavaElement.class) {
 			IJavaProject javaProject = getJavaProject(adaptableObject);
@@ -32,6 +33,7 @@ public abstract class JavaEEArtifactAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
+	@Override
 	public Class[] getAdapterList() {
 		return new Class[] { IJavaElement.class };
 	}

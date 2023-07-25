@@ -37,6 +37,7 @@ public interface J2EEVersionConstants {
 	public int JEE_8_0_ID = 80;
 	public int JEE_9_0_ID = 90;
 	public int JEE_10_0_ID = 100;
+	public int JEE_10_1_ID = 110;
 	public int EJB_1_0_ID = 10;	
 	public int EJB_1_1_ID = 11;	
 	public int EJB_2_0_ID = 20;	

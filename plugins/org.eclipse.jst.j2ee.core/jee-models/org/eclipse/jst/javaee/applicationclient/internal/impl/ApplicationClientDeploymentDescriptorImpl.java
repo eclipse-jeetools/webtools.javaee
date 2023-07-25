@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -105,6 +105,7 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getMixed() {
 		if (mixed == null) {
 			mixed = new BasicFeatureMap(this, ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__MIXED);
@@ -117,6 +118,7 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, String> getXMLNSPrefixMap() {
 		if (xMLNSPrefixMap == null) {
 			xMLNSPrefixMap = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XMLNS_PREFIX_MAP);
@@ -129,6 +131,7 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Map<String, String> getXSISchemaLocation() {
 		if (xSISchemaLocation == null) {
 			xSISchemaLocation = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XSI_SCHEMA_LOCATION);
@@ -141,6 +144,7 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ApplicationClient getApplicationClient() {
 		return (ApplicationClient)getMixed().get(ApplicationclientPackage.Literals.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__APPLICATION_CLIENT, true);
 	}
@@ -159,6 +163,7 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setApplicationClient(ApplicationClient newApplicationClient) {
 		((FeatureMap.Internal)getMixed()).set(ApplicationclientPackage.Literals.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__APPLICATION_CLIENT, newApplicationClient);
 	}

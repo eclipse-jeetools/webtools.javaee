@@ -112,6 +112,7 @@ public class WebfragmentPackageImpl extends EPackageImpl implements WebfragmentP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getWebAppDeploymentDescriptor() {
 		return webAppDeploymentDescriptorEClass;
 	}
@@ -121,6 +122,7 @@ public class WebfragmentPackageImpl extends EPackageImpl implements WebfragmentP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getWebAppDeploymentDescriptor_Mixed() {
 		return (EAttribute)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(0);
 	}
@@ -130,6 +132,7 @@ public class WebfragmentPackageImpl extends EPackageImpl implements WebfragmentP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_XMLNSPrefixMap() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(1);
 	}
@@ -139,6 +142,7 @@ public class WebfragmentPackageImpl extends EPackageImpl implements WebfragmentP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_XSISchemaLocation() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(2);
 	}
@@ -148,6 +152,7 @@ public class WebfragmentPackageImpl extends EPackageImpl implements WebfragmentP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getWebAppDeploymentDescriptor_WebFragment() {
 		return (EReference)webAppDeploymentDescriptorEClass.getEStructuralFeatures().get(3);
 	}
@@ -157,6 +162,7 @@ public class WebfragmentPackageImpl extends EPackageImpl implements WebfragmentP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WebfragmentFactory getWebfragmentFactory() {
 		return (WebfragmentFactory)getEFactoryInstance();
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -174,6 +174,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<ConnectionDefinition> getConnectionDefinition() {
 		if (connectionDefinition == null) {
 			connectionDefinition = new EObjectContainmentEList<ConnectionDefinition>(ConnectionDefinition.class, this, JcaPackage.OUTBOUND_RESOURCE_ADAPTER__CONNECTION_DEFINITION);
@@ -186,6 +187,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public TransactionSupport getTransactionSupport() {
 		return transactionSupport;
 	}
@@ -195,6 +197,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setTransactionSupport(TransactionSupport newTransactionSupport) {
 		TransactionSupport oldTransactionSupport = transactionSupport;
 		transactionSupport = newTransactionSupport == null ? TRANSACTION_SUPPORT_EDEFAULT : newTransactionSupport;
@@ -209,6 +212,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetTransactionSupport() {
 		TransactionSupport oldTransactionSupport = transactionSupport;
 		boolean oldTransactionSupportESet = transactionSupportESet;
@@ -223,6 +227,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTransactionSupport() {
 		return transactionSupportESet;
 	}
@@ -232,6 +237,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<AuthenticationMechanism> getAuthenticationMechanism() {
 		if (authenticationMechanism == null) {
 			authenticationMechanism = new EObjectContainmentEList<AuthenticationMechanism>(AuthenticationMechanism.class, this, JcaPackage.OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISM);
@@ -244,6 +250,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isReauthenticationSupport() {
 		return reauthenticationSupport;
 	}
@@ -253,6 +260,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setReauthenticationSupport(boolean newReauthenticationSupport) {
 		boolean oldReauthenticationSupport = reauthenticationSupport;
 		reauthenticationSupport = newReauthenticationSupport;
@@ -267,6 +275,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetReauthenticationSupport() {
 		boolean oldReauthenticationSupport = reauthenticationSupport;
 		boolean oldReauthenticationSupportESet = reauthenticationSupportESet;
@@ -281,6 +290,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetReauthenticationSupport() {
 		return reauthenticationSupportESet;
 	}
@@ -290,6 +300,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -299,6 +310,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

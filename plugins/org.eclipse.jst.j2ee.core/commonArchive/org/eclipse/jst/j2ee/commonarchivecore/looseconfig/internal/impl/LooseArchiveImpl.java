@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -89,6 +89,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public String getUri() {
 		return uri;
 	}
@@ -96,6 +97,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setUri(String newUri) {
 		String oldUri = uri;
 		uri = newUri;
@@ -103,10 +105,12 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 			eNotify(new ENotificationImpl(this, Notification.SET, LooseconfigPackage.LOOSE_ARCHIVE__URI, oldUri, uri));
 	}
 
+	@Override
 	public boolean isEAR() {
 		return false;
 	}
 
+	@Override
 	public boolean isWAR() {
 		return false;
 	}
@@ -114,6 +118,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public String getBinariesPath() {
 		return binariesPath;
 	}
@@ -121,6 +126,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setBinariesPath(String newBinariesPath) {
 		String oldBinariesPath = binariesPath;
 		binariesPath = newBinariesPath;
@@ -131,6 +137,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public String getResourcesPath() {
 		return resourcesPath;
 	}
@@ -138,6 +145,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setResourcesPath(String newResourcesPath) {
 		String oldResourcesPath = resourcesPath;
 		resourcesPath = newResourcesPath;
@@ -148,6 +156,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public LooseApplication getLooseApp() {
 		if (eContainerFeatureID != LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP) return null;
 		return (LooseApplication)eContainer();
@@ -166,6 +175,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLooseApp(LooseApplication newLooseApp) {
 		if (newLooseApp != eInternalContainer() || (eContainerFeatureID != LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP && newLooseApp != null)) {
 			if (EcoreUtil.isAncestor(this, newLooseApp))
@@ -182,6 +192,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 			eNotify(new ENotificationImpl(this, Notification.SET, LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP, newLooseApp, newLooseApp));
 	}
 
+	@Override
 	public boolean isModule() {
 		return false;
 	}

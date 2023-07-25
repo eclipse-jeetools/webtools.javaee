@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,6 +47,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#createProjectInfo()
 	 */
+	@Override
 	public J2EEJavaProjectInfo createProjectInfo() {
 		return null;
 	}
@@ -57,6 +58,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#addWLPProjects(org.eclipse.core.resources.IProject,
 	 *      java.util.Set)
 	 */
+	@Override
 	public void addWLPProjects(IProject aProject, Set projectsToBuild) {
 		// J2EEWebNatureRuntime nature = J2EEWebNatureRuntime.getRuntime(aProject);
 		// if (nature == null)
@@ -76,6 +78,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#setContextRootForModuleMapping(org.eclipse.jst.j2ee.internal.internal.application.WebModule,
 	 *      org.eclipse.core.resources.IProject)
 	 */
+	@Override
 	public void setContextRootForModuleMapping(WebModule webModule, IProject nestedProject) throws CoreException {
 		// TODO migrate to flex project
 	}
@@ -85,6 +88,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#hasRuntime(org.eclipse.core.resources.IProject)
 	 */
+	@Override
 	public boolean hasRuntime(IProject project) {
 		// return J2EEWebNatureRuntimeUtilities.hasJ2EERuntime(project);
 		// To do: work based on module
@@ -108,6 +112,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 *      org.eclipse.jst.j2ee.internal.internal.commonarchivecore.File)
 	 */
 
+	@Override
 	public String getContentFolder(IProject project, IFile webSettingsFile) {
 		return null;
 		// To do: Needs work here, no content folder exists now
@@ -119,6 +124,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#compareWebContextRoot(org.eclipse.jst.j2ee.internal.internal.application.Module,
 	 *      org.eclipse.core.resources.IProject)
 	 */
+	@Override
 	public boolean compareWebContextRoot(Module module, IProject project) throws CoreException {
 		String contextRoot = ((WebModule) module).getContextRoot();
 		if (contextRoot != null)
@@ -136,6 +142,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectDataModel()
 	 */
+	@Override
 	public IDataModel createProjectDataModel() {
 		return DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
 	}
@@ -145,6 +152,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createImportDataModel()
 	 */
+	@Override
 	public IDataModel createImportDataModel() {
 		return DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
 	}

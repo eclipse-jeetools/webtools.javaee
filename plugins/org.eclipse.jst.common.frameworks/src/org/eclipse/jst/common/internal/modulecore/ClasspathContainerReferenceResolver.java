@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Red Hat and others.
+ * Copyright (c) 2009, 2023 Red Hat and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class ClasspathContainerReferenceResolver implements IReferenceResolver {
 	public static final String PROTOCOL = PlatformURLModuleConnection.MODULE_PROTOCOL
 		+IPath.SEPARATOR + ClasspathContainerVirtualComponent.CLASSPATH_CON + IPath.SEPARATOR;
+	@Override
 	public boolean canResolve(IVirtualComponent context,
 			ReferencedComponent referencedComponent) {
 		URI uri = referencedComponent.getHandle();
@@ -33,6 +34,7 @@ public class ClasspathContainerReferenceResolver implements IReferenceResolver {
 		return false;
 	}
 
+	@Override
 	public IVirtualReference resolve(IVirtualComponent context,
 			ReferencedComponent referencedComponent) {
 		URI uri = referencedComponent.getHandle();
@@ -49,12 +51,14 @@ public class ClasspathContainerReferenceResolver implements IReferenceResolver {
 		return null;
 	}
 
+	@Override
 	public boolean canResolve(IVirtualReference reference) {
 		if( reference.getReferencedComponent() instanceof ClasspathContainerVirtualComponent )
 			return true;
 		return false;
 	}
 
+	@Override
 	public ReferencedComponent resolve(IVirtualReference reference) {
 		ClasspathContainerVirtualComponent vc = (ClasspathContainerVirtualComponent)reference.getReferencedComponent();
         ReferencedComponent rc = ComponentcorePackage.eINSTANCE.getComponentcoreFactory().createReferencedComponent();

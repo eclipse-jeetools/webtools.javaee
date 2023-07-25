@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -161,6 +161,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public java.lang.String getDirectoryURI() {
 		return ArchiveUtil.getFileNameParent(getURI());
 	}
@@ -168,10 +169,12 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public java.io.InputStream getInputStream() throws java.io.FileNotFoundException, java.io.IOException {
 		return getLoadingContainer().primGetInputStream(getOriginalURI());
 	}
 
+	@Override
 	public String getName() {
 		return ArchiveUtil.getFileNameTail(getURI());
 	}
@@ -179,6 +182,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isApplicationClientFile() {
 		return false;
 	}
@@ -186,6 +190,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isArchive() {
 		return false;
 	}
@@ -193,6 +198,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * isContainer method comment.
 	 */
+	@Override
 	public boolean isContainer() {
 		return false;
 	}
@@ -200,6 +206,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isEARFile() {
 		return false;
 	}
@@ -207,6 +214,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isEJBJarFile() {
 		return false;
 	}
@@ -214,6 +222,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isModuleFile() {
 		return false;
 	}
@@ -221,6 +230,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isRARFile() {
 		return false;
 	}
@@ -228,6 +238,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * isReadOnlyDirectory method comment.
 	 */
+	@Override
 	public boolean isReadOnlyDirectory() {
 		return false;
 	}
@@ -235,6 +246,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isWARFile() {
 		return false;
 	}
@@ -242,6 +254,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public String getURI() {
 		return uri;
 	}
@@ -249,6 +262,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setURI(String newURI) {
 		String oldURI = uri;
 		uri = newURI;
@@ -259,6 +273,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public long getLastModified() {
 		return lastModified;
 	}
@@ -267,6 +282,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setLastModified(long newLastModified) {
 		long oldLastModified = lastModified;
 		lastModified = newLastModified;
@@ -280,6 +296,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetLastModified() {
 		long oldLastModified = lastModified;
 		boolean oldLastModifiedESet = lastModifiedESet;
@@ -293,6 +310,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetLastModified() {
 		return lastModifiedESet;
 	}
@@ -300,6 +318,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public long getSize() {
 		return size;
 	}
@@ -308,6 +327,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(long newSize) {
 		long oldSize = size;
 		size = newSize;
@@ -321,6 +341,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetSize() {
 		long oldSize = size;
 		boolean oldSizeESet = sizeESet;
@@ -334,6 +355,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSize() {
 		return sizeESet;
 	}
@@ -342,6 +364,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isDirectoryEntry() {
 		return directoryEntry;
 	}
@@ -350,6 +373,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDirectoryEntry(boolean newDirectoryEntry) {
 		boolean oldDirectoryEntry = directoryEntry;
 		directoryEntry = newDirectoryEntry;
@@ -363,6 +387,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetDirectoryEntry() {
 		boolean oldDirectoryEntry = directoryEntry;
 		boolean oldDirectoryEntryESet = directoryEntryESet;
@@ -376,6 +401,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetDirectoryEntry() {
 		return directoryEntryESet;
 	}
@@ -383,6 +409,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public String getOriginalURI() {
 		return originalURI;
 	}
@@ -390,6 +417,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setOriginalURI(String newOriginalURI) {
 		String oldOriginalURI = originalURI;
 		originalURI = newOriginalURI;
@@ -400,6 +428,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public Container getLoadingContainer() {
 		if (loadingContainer != null && loadingContainer.eIsProxy()) {
 			InternalEObject oldLoadingContainer = (InternalEObject)loadingContainer;
@@ -423,6 +452,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLoadingContainer(Container newLoadingContainer) {
 		Container oldLoadingContainer = loadingContainer;
 		loadingContainer = newLoadingContainer;
@@ -433,6 +463,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation
 	 */
+	@Override
 	public Container getContainer() {
 		if (eContainerFeatureID != CommonarchivePackage.FILE__CONTAINER) return null;
 		return (Container)eContainer();
@@ -451,6 +482,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setContainer(Container newContainer) {
 		if (newContainer != eInternalContainer() || (eContainerFeatureID != CommonarchivePackage.FILE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
@@ -657,6 +689,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/*
 	 * @see File#isFARFile()
 	 */
+	@Override
 	public boolean isFARFile() {
 		return false;
 	}

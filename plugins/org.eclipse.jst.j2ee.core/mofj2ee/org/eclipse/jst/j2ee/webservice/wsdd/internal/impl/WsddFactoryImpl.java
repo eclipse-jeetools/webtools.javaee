@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -129,7 +129,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WebServices createWebServices() {
+  @Override
+public WebServices createWebServices() {
 		WebServicesImpl webServices = new WebServicesImpl();
 		return webServices;
 	}
@@ -139,7 +140,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WebServiceDescription createWebServiceDescription() {
+  @Override
+public WebServiceDescription createWebServiceDescription() {
 		WebServiceDescriptionImpl webServiceDescription = new WebServiceDescriptionImpl();
 		return webServiceDescription;
 	}
@@ -149,7 +151,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public PortComponent createPortComponent() {
+  @Override
+public PortComponent createPortComponent() {
 		PortComponentImpl portComponent = new PortComponentImpl();
 		return portComponent;
 	}
@@ -159,7 +162,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WSDLPort createWSDLPort() {
+  @Override
+public WSDLPort createWSDLPort() {
 		WSDLPortImpl wsdlPort = new WSDLPortImpl();
 		return wsdlPort;
 	}
@@ -169,7 +173,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ServiceImplBean createServiceImplBean() {
+  @Override
+public ServiceImplBean createServiceImplBean() {
 		ServiceImplBeanImpl serviceImplBean = new ServiceImplBeanImpl();
 		return serviceImplBean;
 	}
@@ -179,7 +184,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public ServletLink createServletLink() {
+  @Override
+public ServletLink createServletLink() {
 		ServletLinkImpl servletLink = new ServletLinkImpl();
 		return servletLink;
 	}
@@ -189,7 +195,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EJBLink createEJBLink() {
+  @Override
+public EJBLink createEJBLink() {
 		EJBLinkImpl ejbLink = new EJBLinkImpl();
 		return ejbLink;
 	}
@@ -199,7 +206,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public Handler createHandler() {
+  @Override
+public Handler createHandler() {
 		HandlerImpl handler = new HandlerImpl();
 		return handler;
 	}
@@ -209,6 +217,7 @@ public EObject create(EClass eClass) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public BeanLink createBeanLink() {
 		BeanLinkImpl beanLink = new BeanLinkImpl();
 		return beanLink;
@@ -219,6 +228,7 @@ public EObject create(EClass eClass) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public WSDLService createWSDLService() {
 		WSDLServiceImpl wsdlService = new WSDLServiceImpl();
 		return wsdlService;
@@ -229,6 +239,7 @@ public EObject create(EClass eClass) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HandlerChain createHandlerChain() {
 		HandlerChainImpl handlerChain = new HandlerChainImpl();
 		return handlerChain;
@@ -239,6 +250,7 @@ public EObject create(EClass eClass) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HandlersChains createHandlersChains() {
 		HandlersChainsImpl handlersChains = new HandlersChainsImpl();
 		return handlersChains;
@@ -249,6 +261,7 @@ public EObject create(EClass eClass) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RespectBindingType createRespectBindingType() {
 		RespectBindingTypeImpl respectBindingType = new RespectBindingTypeImpl();
 		return respectBindingType;
@@ -259,6 +272,7 @@ public EObject create(EClass eClass) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AddressingType createAddressingType() {
 		AddressingTypeImpl addressingType = new AddressingTypeImpl();
 		return addressingType;
@@ -289,7 +303,8 @@ public EObject create(EClass eClass) {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public WsddPackage getWsddPackage() {
+  @Override
+public WsddPackage getWsddPackage() {
 		return (WsddPackage)getEPackage();
 	}
 

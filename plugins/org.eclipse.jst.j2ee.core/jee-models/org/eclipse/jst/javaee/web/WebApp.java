@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -112,6 +112,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Group()
 	 * @generated
 	 */
+	@Override
 	FeatureMap getGroup();
 
 	/**
@@ -128,6 +129,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ModuleName()
 	 * @generated
 	 */
+	@Override
 	List<String> getModuleName();
 
 	/**
@@ -143,6 +145,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Descriptions()
 	 * @generated
 	 */
+	@Override
 	List<Description> getDescriptions();
 
 	/**
@@ -158,6 +161,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_DisplayNames()
 	 * @generated
 	 */
+	@Override
 	List<DisplayName> getDisplayNames();
 
 	/**
@@ -173,6 +177,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Icons()
 	 * @generated
 	 */
+	@Override
 	List<Icon> getIcons();
 
 	/**
@@ -188,6 +193,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Distributables()
 	 * @generated
 	 */
+	@Override
 	List<EmptyType> getDistributables();
 
 	/**
@@ -209,6 +215,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ContextParams()
 	 * @generated
 	 */
+	@Override
 	List<ParamValue> getContextParams();
 
 	/**
@@ -224,6 +231,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Filters()
 	 * @generated
 	 */
+	@Override
 	List<Filter> getFilters();
 
 	/**
@@ -239,6 +247,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_FilterMappings()
 	 * @generated
 	 */
+	@Override
 	List<FilterMapping> getFilterMappings();
 
 	/**
@@ -254,6 +263,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Listeners()
 	 * @generated
 	 */
+	@Override
 	List<Listener> getListeners();
 
 	/**
@@ -269,6 +279,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Servlets()
 	 * @generated
 	 */
+	@Override
 	List<Servlet> getServlets();
 
 	/**
@@ -284,6 +295,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ServletMappings()
 	 * @generated
 	 */
+	@Override
 	List<ServletMapping> getServletMappings();
 
 	/**
@@ -299,6 +311,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_SessionConfigs()
 	 * @generated
 	 */
+	@Override
 	List<SessionConfig> getSessionConfigs();
 
 	/**
@@ -314,6 +327,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_MimeMappings()
 	 * @generated
 	 */
+	@Override
 	List<MimeMapping> getMimeMappings();
 
 	/**
@@ -329,6 +343,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_WelcomeFileLists()
 	 * @generated
 	 */
+	@Override
 	List<WelcomeFileList> getWelcomeFileLists();
 
 	/**
@@ -344,6 +359,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ErrorPages()
 	 * @generated
 	 */
+	@Override
 	List<ErrorPage> getErrorPages();
 
 	/**
@@ -359,6 +375,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_JspConfigs()
 	 * @generated
 	 */
+	@Override
 	List<JspConfig> getJspConfigs();
 
 	/**
@@ -374,6 +391,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_SecurityConstraints()
 	 * @generated
 	 */
+	@Override
 	List<SecurityConstraint> getSecurityConstraints();
 
 	/**
@@ -389,6 +407,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_LoginConfigs()
 	 * @generated
 	 */
+	@Override
 	List<LoginConfig> getLoginConfigs();
 
 	/**
@@ -404,6 +423,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_SecurityRoles()
 	 * @generated
 	 */
+	@Override
 	List<SecurityRole> getSecurityRoles();
 
 	/**
@@ -419,6 +439,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_EnvEntries()
 	 * @generated
 	 */
+	@Override
 	List<EnvEntry> getEnvEntries();
 
 	/**
@@ -434,6 +455,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_EjbRefs()
 	 * @generated
 	 */
+	@Override
 	List<EjbRef> getEjbRefs();
 
 	/**
@@ -449,6 +471,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_EjbLocalRefs()
 	 * @generated
 	 */
+	@Override
 	List<EjbLocalRef> getEjbLocalRefs();
 
 	/**
@@ -464,6 +487,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ServiceRefs()
 	 * @generated
 	 */
+	@Override
 	List<ServiceRef> getServiceRefs();
 
 	/**
@@ -479,6 +503,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ResourceRefs()
 	 * @generated
 	 */
+	@Override
 	List<ResourceRef> getResourceRefs();
 
 	/**
@@ -494,6 +519,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ResourceEnvRefs()
 	 * @generated
 	 */
+	@Override
 	List<ResourceEnvRef> getResourceEnvRefs();
 
 	/**
@@ -509,6 +535,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_MessageDestinationRefs()
 	 * @generated
 	 */
+	@Override
 	List<MessageDestinationRef> getMessageDestinationRefs();
 
 	/**
@@ -524,6 +551,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_PersistenceContextRefs()
 	 * @generated
 	 */
+	@Override
 	List<PersistenceContextRef> getPersistenceContextRefs();
 
 	/**
@@ -539,6 +567,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_PersistenceUnitRefs()
 	 * @generated
 	 */
+	@Override
 	List<PersistenceUnitRef> getPersistenceUnitRefs();
 
 	/**
@@ -554,6 +583,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_PostConstructs()
 	 * @generated
 	 */
+	@Override
 	List<LifecycleCallback> getPostConstructs();
 
 	/**
@@ -569,6 +599,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_PreDestroys()
 	 * @generated
 	 */
+	@Override
 	List<LifecycleCallback> getPreDestroys();
 
 	/**
@@ -584,6 +615,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_DataSource()
 	 * @generated
 	 */
+	@Override
 	List<DataSourceType> getDataSource();
 
 	/**
@@ -679,6 +711,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_MessageDestinations()
 	 * @generated
 	 */
+	@Override
 	List<MessageDestination> getMessageDestinations();
 
 	/**
@@ -695,6 +728,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_LocalEncodingMappingsLists()
 	 * @generated
 	 */
+	@Override
 	List<LocaleEncodingMappingList> getLocalEncodingMappingsLists();
 
 	/**
@@ -734,6 +768,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_AbsoluteOrdering()
 	 * @generated
 	 */
+	@Override
 	List<AbsoluteOrderingType> getAbsoluteOrdering();
 
 	/**
@@ -749,6 +784,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Id()
 	 * @generated
 	 */
+	@Override
 	String getId();
 
 	/**
@@ -759,6 +795,7 @@ public interface WebApp extends IWebCommon {
 	 * @see #getId()
 	 * @generated
 	 */
+	@Override
 	void setId(String value);
 
 	/**
@@ -796,6 +833,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_MetadataComplete()
 	 * @generated
 	 */
+	@Override
 	boolean isMetadataComplete();
 
 	/**
@@ -808,6 +846,7 @@ public interface WebApp extends IWebCommon {
 	 * @see #isMetadataComplete()
 	 * @generated
 	 */
+	@Override
 	void setMetadataComplete(boolean value);
 
 	/**
@@ -819,6 +858,7 @@ public interface WebApp extends IWebCommon {
 	 * @see #setMetadataComplete(boolean)
 	 * @generated
 	 */
+	@Override
 	void unsetMetadataComplete();
 
 	/**
@@ -831,6 +871,7 @@ public interface WebApp extends IWebCommon {
 	 * @see #setMetadataComplete(boolean)
 	 * @generated
 	 */
+	@Override
 	boolean isSetMetadataComplete();
 
 	/**
@@ -850,6 +891,7 @@ public interface WebApp extends IWebCommon {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Version()
 	 * @generated
 	 */
+	@Override
 	WebAppVersionType getVersion();
 
 	/**
@@ -863,6 +905,7 @@ public interface WebApp extends IWebCommon {
 	 * @see #getVersion()
 	 * @generated
 	 */
+	@Override
 	void setVersion(WebAppVersionType value);
 
 	/**
@@ -874,6 +917,7 @@ public interface WebApp extends IWebCommon {
 	 * @see #setVersion(WebAppVersionType)
 	 * @generated
 	 */
+	@Override
 	void unsetVersion();
 
 	/**
@@ -886,6 +930,7 @@ public interface WebApp extends IWebCommon {
 	 * @see #setVersion(WebAppVersionType)
 	 * @generated
 	 */
+	@Override
 	boolean isSetVersion();
 
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -123,6 +123,7 @@ public class RequiredConfigPropertyImpl extends EObjectImpl implements RequiredC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<Description> getDescription() {
 		if (description == null) {
 			description = new EObjectContainmentEList<Description>(Description.class, this, JcaPackage.REQUIRED_CONFIG_PROPERTY__DESCRIPTION);
@@ -135,6 +136,7 @@ public class RequiredConfigPropertyImpl extends EObjectImpl implements RequiredC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getConfigPropertyName() {
 		return configPropertyName;
 	}
@@ -144,6 +146,7 @@ public class RequiredConfigPropertyImpl extends EObjectImpl implements RequiredC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setConfigPropertyName(String newConfigPropertyName) {
 		String oldConfigPropertyName = configPropertyName;
 		configPropertyName = newConfigPropertyName;
@@ -156,6 +159,7 @@ public class RequiredConfigPropertyImpl extends EObjectImpl implements RequiredC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -165,6 +169,7 @@ public class RequiredConfigPropertyImpl extends EObjectImpl implements RequiredC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

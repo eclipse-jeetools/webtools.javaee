@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -91,6 +91,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * 
 	 * The description should include any information that the ejb-jar file producer wants to provide to the consumer of the ejb-jar file (i.e. to the Deployer). Typically, the tools used by the ejb-jar file consumer will display the description when processing the list of dependents.
 	 */
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -98,6 +99,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
@@ -111,6 +113,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * 
 	 * The name must conform to the lexical rules for an NMTOKEN.
 	 */
+	@Override
 	public String getRoleName() {
 		return roleName;
 	}
@@ -118,6 +121,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRoleName(String newRoleName) {
 		String oldRoleName = roleName;
 		roleName = newRoleName;
@@ -130,6 +134,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.IDENTITY__DESCRIPTIONS);

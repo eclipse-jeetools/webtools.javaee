@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -157,6 +157,7 @@ public class EjbRefImpl extends J2EEEObjectImpl implements EjbRef {
  * The ejb-link value of the ref must equate to a named enterprise bean contained in the jar; otherwise 
  * return null
  */
+@Override
 public EnterpriseBean getLinkedEjb(EJBJar ejbJar) {
 	if (getLink() == null) {
 		return null;
@@ -167,6 +168,7 @@ public EnterpriseBean getLinkedEjb(EJBJar ejbJar) {
  * The ejb-link value of the ref must equate to a named enterprise bean contained in the jar; otherwise 
  * return null
  */  
+@Override
 public boolean isEquivalent(EjbRef anEjbRef) {
 	if (anEjbRef == null) return false;
 	boolean equiv = true;
@@ -179,6 +181,7 @@ public boolean isEquivalent(EjbRef anEjbRef) {
 		equiv = getLink() == anEjbRef.getLink() || (getLink() != null && getLink().equals(anEjbRef.getLink()));
 	return equiv;
 }
+@Override
 public boolean isLinked(EnterpriseBean anEJB) {
 	if (getLink() == null)
 		return false;
@@ -187,6 +190,7 @@ public boolean isLinked(EnterpriseBean anEJB) {
 /**
  * Return true if the ejbref is for a local ejb interface.
  */
+@Override
 public boolean isLocal(){
 	return false;
 }
@@ -195,6 +199,7 @@ public boolean isLocal(){
 	 * The ejb-ref-name element contains the name of an EJB reference. This is the JNDI name that the servlet code uses to get a reference to the enterprise bean.
 	 * Example: <ejb-ref-name>ejb//Payroll<//ejb-ref-name>
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -202,6 +207,7 @@ public boolean isLocal(){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setName(String newName) {
 		String oldName = name;
 		name = newName;
@@ -215,6 +221,7 @@ public boolean isLocal(){
 	 * <ejb-ref-type>Entity<//ejb-ref-type>
 	 * <ejb-ref-type>Session<//ejb-ref-type>
 	 */
+	@Override
 	public EjbRefType getType() {
 		return type;
 	}
@@ -224,6 +231,7 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setType(EjbRefType newType) {
 		EjbRefType oldType = type;
 		type = newType == null ? TYPE_EDEFAULT : newType;
@@ -238,6 +246,7 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void unsetType() {
 		EjbRefType oldType = type;
 		boolean oldTypeESet = typeESet;
@@ -252,6 +261,7 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetType() {
 		return typeESet;
 	}
@@ -261,6 +271,7 @@ public boolean isLocal(){
 	 * The home element contains the fully-qualified name of the enterprise bean's home interface.
 	 * Example: <home>com.aardvark.payroll.PayrollHome<//home>
 	 */
+	@Override
 	public String getHome() {
 		return home;
 	}
@@ -268,6 +279,7 @@ public boolean isLocal(){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setHome(String newHome) {
 		String oldHome = home;
 		home = newHome;
@@ -279,6 +291,7 @@ public boolean isLocal(){
 	 * @generated This field/method will be replaced during code generation 
 	 * The remote element contains the fully-qualified name of the enterprise bean's remote interface.
 	 */
+	@Override
 	public String getRemote() {
 		return remote;
 	}
@@ -286,6 +299,7 @@ public boolean isLocal(){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setRemote(String newRemote) {
 		String oldRemote = remote;
 		remote = newRemote;
@@ -298,6 +312,7 @@ public boolean isLocal(){
 	 * The ejb-link element is used in the ejb-ref element to specify that an EJB reference is linked to an enterprise bean in the encompassing J2EE Application package. The value of the ejb-link element must be the ejb-name of an enterprise bean in the same J2EE Application package. 
 	 * Example: <ejb-link>EmployeeRecord<//ejb-link>
 	 */
+	@Override
 	public String getLink() {
 		return link;
 	}
@@ -305,6 +320,7 @@ public boolean isLocal(){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void setLink(String newLink) {
 		String oldLink = link;
 		link = newLink;
@@ -329,6 +345,7 @@ public boolean isLocal(){
 			eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.EJB_REF__DESCRIPTION, oldDescription, description));
 	}
 
+	@Override
 	public void setDescription(String newDescription) {
 		if (!getDescriptions().isEmpty()) {
         	Description d = (Description) getDescriptions().get(0);
@@ -338,6 +355,7 @@ public boolean isLocal(){
 		setDescriptionGen(newDescription);
 	}
 	
+	@Override
 	public String getDescription() {
 		if (getDescriptions() != null && !getDescriptions().isEmpty()) {
 			Description d = (Description) getDescriptions().get(0);
@@ -352,6 +370,7 @@ public boolean isLocal(){
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getDescriptions() {
 		if (descriptions == null) {
 			descriptions = new EObjectContainmentEList(Description.class, this, CommonPackage.EJB_REF__DESCRIPTIONS);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2012 Red Hat and others.
+ * Copyright (c) 2009, 2023 Red Hat and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -51,6 +51,7 @@ public class AddMappedOutputFoldersParticipant extends AbstractFlattenParticipan
 		this.filteredSuffixes = filtered;
 	}
 	
+	@Override
 	public boolean shouldAddComponentFile(IVirtualComponent component, IFlatFile file) {
 		IFlattenParticipant[] delegates = getDelegateParticipants();
 		for( int i = 0; i < delegates.length; i++ ) {

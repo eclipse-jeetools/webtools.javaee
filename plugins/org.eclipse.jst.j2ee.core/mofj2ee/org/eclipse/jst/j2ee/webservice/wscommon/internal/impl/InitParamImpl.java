@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -138,7 +138,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getParamName() {
+  @Override
+public String getParamName() {
 		return paramName;
 	}
 
@@ -147,7 +148,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setParamName(String newParamName) {
+  @Override
+public void setParamName(String newParamName) {
 		String oldParamName = paramName;
 		paramName = newParamName;
 		if (eNotificationRequired())
@@ -159,7 +161,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getParamValue() {
+  @Override
+public String getParamValue() {
 		return paramValue;
 	}
 
@@ -168,7 +171,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setParamValue(String newParamValue) {
+  @Override
+public void setParamValue(String newParamValue) {
 		String oldParamValue = paramValue;
 		paramValue = newParamValue;
 		if (eNotificationRequired())
@@ -180,7 +184,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getDescription() {
+  @Override
+public String getDescription() {
 		return description;
 	}
 
@@ -189,7 +194,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setDescription(String newDescription) {
+  @Override
+public void setDescription(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
 		if (eNotificationRequired())
@@ -201,7 +207,8 @@ protected EClass eStaticClass() {
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList getDescriptionTypes() {
+  @Override
+public EList getDescriptionTypes() {
 		if (descriptionTypes == null) {
 			descriptionTypes = new EObjectContainmentEList(DescriptionType.class, this, WscommonPackage.INIT_PARAM__DESCRIPTION_TYPES);
 		}

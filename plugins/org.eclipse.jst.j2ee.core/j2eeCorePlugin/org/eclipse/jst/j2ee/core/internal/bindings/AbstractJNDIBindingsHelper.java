@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005,2006 IBM Corporation
+ * Copyright (c) 2005,2023 IBM Corporation
  * Licensed Material - Property of IBM. All rights reserved. 
  * US Government Users Restricted Rights - Use, duplication or disclosure  v1.0
  * restricted by GSA ADP Schedule Contract with IBM Corp. 
@@ -29,6 +29,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>false</code>.
 	 */
+	@Override
 	public boolean appliesFor(IProject project) {
 		return false;
 	}
@@ -36,6 +37,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>false</code>.
 	 */
+	@Override
 	public boolean appliesFor(Archive archive) {
 		return false;
 	}
@@ -43,6 +45,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>object.toString()</code>.
 	 */
+	@Override
 	public String getJNDIName(Object object) {
 		return object.toString();
 	}
@@ -50,6 +53,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>bean.getName()</code>.
 	 */
+	@Override
 	public String getJNDIName(EnterpriseBean bean) {
 		return bean.getName();
 	}
@@ -57,6 +61,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>resourceRef.getName()</code>.
 	 */
+	@Override
 	public String getJNDINameForRef(EnterpriseBean bean, ResourceRef resourceRef) {
 		return resourceRef.getName();
 	}
@@ -64,6 +69,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>resourceEnvRef.getName()</code>.
 	 */
+	@Override
 	public String getJNDINameForRef(EnterpriseBean bean, ResourceEnvRef resourceEnvRef) {
 		return resourceEnvRef.getName();
 	}
@@ -71,6 +77,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>securityRoleRef.getName()</code>.
 	 */
+	@Override
 	public String getJNDINameForRef(EnterpriseBean bean, SecurityRoleRef securityRoleRef) {
 		return securityRoleRef.getName();
 	}
@@ -78,6 +85,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>resourceRef.getName()</code>.
 	 */
+	@Override
 	public String getJNDINameForRef(WebApp webApp, ResourceRef resourceRef) {
 		return resourceRef.getName();
 	}
@@ -85,6 +93,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>resourceEnvRef.getName()</code>.
 	 */
+	@Override
 	public String getJNDINameForRef(WebApp webApp, ResourceEnvRef resourceEnvRef) {
 		return resourceEnvRef.getName();
 	}
@@ -92,6 +101,7 @@ public class AbstractJNDIBindingsHelper implements IJNDIBindingsHelper {
 	/**
 	 * Default implementation returns <code>((EJBJar) bean.eContainer()).getDisplayName()</code>.
 	 */
+	@Override
 	public String getJNDINameForDefaultDataSource(ContainerManagedEntity bean) {
 		return ((EJBJar) bean.eContainer()).getDisplayName();
 	}

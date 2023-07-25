@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -122,6 +122,7 @@ public class AddressingTypeImpl extends J2EEEObjectImpl implements AddressingTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -131,6 +132,7 @@ public class AddressingTypeImpl extends J2EEEObjectImpl implements AddressingTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setEnabled(boolean newEnabled) {
 		boolean oldEnabled = enabled;
 		enabled = newEnabled;
@@ -143,6 +145,7 @@ public class AddressingTypeImpl extends J2EEEObjectImpl implements AddressingTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isRequired() {
 		return required;
 	}
@@ -152,6 +155,7 @@ public class AddressingTypeImpl extends J2EEEObjectImpl implements AddressingTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRequired(boolean newRequired) {
 		boolean oldRequired = required;
 		required = newRequired;
@@ -164,6 +168,7 @@ public class AddressingTypeImpl extends J2EEEObjectImpl implements AddressingTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public AddressingResponsesType getResponses() {
 		return responses;
 	}
@@ -173,6 +178,7 @@ public class AddressingTypeImpl extends J2EEEObjectImpl implements AddressingTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setResponses(AddressingResponsesType newResponses) {
 		AddressingResponsesType oldResponses = responses;
 		responses = newResponses == null ? RESPONSES_EDEFAULT : newResponses;

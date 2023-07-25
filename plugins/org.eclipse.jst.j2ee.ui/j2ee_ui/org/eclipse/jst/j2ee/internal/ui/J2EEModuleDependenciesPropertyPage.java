@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2009, 2011 Red Hat and Others
+ * Copyright (c) 2009, 2019 Red Hat and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -174,6 +174,7 @@ public class J2EEModuleDependenciesPropertyPage extends
 	
 	public ProjectConverterOperationProvider getConverterProvider() {
 		return new ProjectConverterOperationProvider() {
+			@Override
 			public IDataModelOperation getConversionOperation(IProject project) {
 				return J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(project);
 			}

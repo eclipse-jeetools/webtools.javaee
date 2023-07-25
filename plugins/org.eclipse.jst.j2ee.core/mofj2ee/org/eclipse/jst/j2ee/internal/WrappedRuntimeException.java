@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -38,6 +38,7 @@ public WrappedRuntimeException(String s, Exception e) {
 /**
  * Return the messages from this and all nested exceptions, in order from outermost to innermost
  */
+@Override
 public java.lang.String[] getAllMessages() {
 	return ExceptionHelper.getAllMessages(this);
 }
@@ -45,12 +46,14 @@ public java.lang.String[] getAllMessages() {
  * Return the messages from this and all nested exceptions, in order from outermost to innermost,
  * concatenated as one
  */
+@Override
 public java.lang.String getConcatenatedMessages() {
 	return ExceptionHelper.getConcatenatedMessages(this);
 }
 /**
  * @return java.lang.Exception
  */
+@Override
 public java.lang.Exception getNestedException() {
 	return nestedException;
 }

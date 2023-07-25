@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -124,6 +124,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList getTypes() {
 		if (types == null) {
 			types = new EDataTypeUniqueEList(String.class, this, CommonarchivePackage.ARCHIVE__TYPES);
@@ -208,6 +209,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public Archive addCopy(Archive anArchive) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException {
 		checkAddValid(anArchive);
 		Archive copy = getCommonArchiveFactory().copy(anArchive);
@@ -220,6 +222,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @throws com.ibm.etools.archive.exception.DuplicateObjectException
 	 *             if the archive already contains a file with the specified uri
 	 */
+	@Override
 	public File addCopy(File aFile) throws DuplicateObjectException {
 		if (aFile.isReadOnlyDirectory()) {
 			addCopy((ReadOnlyDirectory) aFile);
@@ -239,6 +242,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * 
 	 * @return java.util.List the copied files that were added to the archive
 	 */
+	@Override
 	public java.util.List addCopy(ReadOnlyDirectory dir) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException {
 		return addCopyFiles(dir.getFilesRecursive());
 	}
@@ -246,6 +250,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public List addCopyFiles(java.util.List list) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException {
 		//Optimization - make sure the fileIndex is already built to speed up
 		// containsFile
@@ -263,6 +268,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void addOrReplaceMofResource(org.eclipse.emf.ecore.resource.Resource aResource) {
 		getLoadStrategy().addOrReplaceMofResource(aResource);
 	}
@@ -271,6 +277,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @deprecated Use {@link #getDependentOpenArchives()}
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public boolean canClose() {
 		return !getCommonArchiveFactory().getOpenArchivesDependingOn(this).isEmpty();
 	}
@@ -331,6 +338,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void close() {
 		getLoadStrategy().close();
 		releaseClassLoader();
@@ -439,6 +447,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void extract(int expansionFlags) throws SaveFailureException, ReopenException {
 		extractNoReopen(expansionFlags);
 		reopen();
@@ -447,6 +456,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void extractNoReopen(int expansionFlags) throws SaveFailureException {
 		String aUri = getURI();
 		java.io.File aDir = new java.io.File(aUri);
@@ -469,6 +479,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void extractTo(java.lang.String aUri, int expansionFlags) throws SaveFailureException {
 		java.io.File aDir = new java.io.File(aUri);
 		if (getLoadStrategy().isUsing(aDir))
@@ -484,6 +495,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 
 	}
 
+	@Override
 	public java.util.List filterFilesByPrefix(String prefix) {
 		return filterFiles(prefix, null);
 	}
@@ -513,6 +525,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		return false;
 	}
 
+	@Override
 	public java.util.List filterFilesWithoutPrefix(String[] prefixes) {
 		List subset = new ArrayList();
 		List theFiles = getFiles();
@@ -538,6 +551,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * 
 	 * @return java.lang.ClassLoader
 	 */
+	@Override
 	public java.lang.ClassLoader getArchiveClassLoader() {
 		if (archiveClassLoader == null)
 			initializeClassLoader();
@@ -547,6 +561,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.EARFile
 	 */
+	@Override
 	public java.util.List getArchiveFiles() {
 		List archives = new ArrayList();
 		List fileList = getFiles();
@@ -576,6 +591,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		return new java.net.URLClassLoader(urlArray, parentCl);
 	}
 
+	@Override
 	public ResourceSet getResourceSet() {
 		return getLoadStrategy().getResourceSet();
 	}
@@ -591,6 +607,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public java.util.Set getDependentOpenArchives() {
 		return getCommonArchiveFactory().getOpenArchivesDependingOn(this);
 	}
@@ -633,6 +650,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * 
 	 * @return java.lang.String
 	 */
+	@Override
 	public String getExtraClasspath() {
 		return extraClasspath;
 	}
@@ -641,6 +659,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * Used internally by the framework, specifically as an optimization when saving/exploding
 	 * archives with nested archives
 	 */
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIterator getFilesForSave() throws IOException {
 		return getLoadStrategy().getFileIterator();
 	}
@@ -678,6 +697,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see LoadStrategy#getResourceInputStream(String)
 	 */
+	@Override
 	public InputStream getResourceInputStream(String aUri) throws IOException {
 		return getLoadStrategy().getResourceInputStream(aUri);
 	}
@@ -690,6 +710,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @see com.ibm.etools.commonarchive.Archive returns an immutable collection of the loaded
 	 *      resources in the resource set
 	 */
+	@Override
 	public Collection getLoadedMofResources() {
 		return getLoadStrategy().getLoadedMofResources();
 	}
@@ -697,6 +718,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * Insert the method's description here. Creation date: (11/29/00 6:35:08 PM)
 	 */
+	@Override
 	public ArchiveManifest getManifest() {
 		if (manifest == null) {
 			InputStream in = null;
@@ -734,6 +756,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public org.eclipse.emf.ecore.resource.Resource getMofResource(java.lang.String aUri) throws FileNotFoundException, ResourceLoadException {
 		return getLoadStrategy().getMofResource(aUri);
 	}
@@ -754,6 +777,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		return resource;
 	}
 
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions getOptions() {
 		if (options == null) {
 			options = new ArchiveOptions();
@@ -815,6 +839,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * Optional filter for saving a subset of files; filter will be applied for all save and extract
 	 * invokations
 	 */
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter getSaveFilter() {
 		return saveFilter;
 	}
@@ -824,6 +849,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * 
 	 * @return com.ibm.etools.archive.SaveStrategy
 	 */
+	@Override
 	public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy getSaveStrategy() {
 		return saveStrategy;
 	}
@@ -833,6 +859,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * 
 	 * @return java.lang.String
 	 */
+	@Override
 	public java.lang.String getXmlEncoding() {
 		return xmlEncoding;
 	}
@@ -842,10 +869,12 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * 
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void initializeAfterOpen() {
 		//Default
 	}
 
+	@Override
 	public void initializeClassLoader() {
 		//Some load strategies may provide a mof context for which
 		//an alternate class loader is not necessary
@@ -877,6 +906,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public boolean isDuplicate(java.lang.String aUri) {
 		return containsFile(aUri) || isMofResourceLoaded(aUri) || J2EEConstants.MANIFEST_URI.equals(aUri);
 	}
@@ -884,6 +914,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public boolean isManifestSet() {
 		return manifest != null;
 	}
@@ -891,6 +922,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public boolean isMofResourceLoaded(java.lang.String aUri) {
 		return getLoadStrategy().isMofResourceLoaded(aUri);
 	}
@@ -901,6 +933,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * 
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public boolean isNestedArchive(java.lang.String aUri) {
 		//110390.3 Error loading alt-bindings
 		/*
@@ -923,6 +956,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public boolean isOpen() {
 		return getLoadStrategy() != null && getLoadStrategy().isOpen();
 	}
@@ -939,6 +973,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		return mf;
 	}
 
+	@Override
 	public Resource makeMofResource(String aUri) throws DuplicateObjectException {
 		return makeMofResource(aUri, null);
 	}
@@ -946,6 +981,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive#makeMofResource(String, EList)
 	 */
+	@Override
 	public Resource makeMofResource(String aUri, EList extent) throws DuplicateObjectException {
 		if (isDuplicate(aUri))
 			throw new DuplicateObjectException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.duplicate_entry_EXC_, (new Object[]{aUri, getURI()}))); // = "A file or resource with uri {0} already exists in the archive named {1}"
@@ -955,6 +991,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see Archive
 	 */
+	@Override
 	public Archive openNestedArchive(String aUri) throws OpenFailureException {
 		return getCommonArchiveFactory().openNestedArchive(aUri, this);
 	}
@@ -962,6 +999,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see Archive
 	 */
+	@Override
 	public Archive openNestedArchive(LooseArchive loose) throws OpenFailureException {
 		return getCommonArchiveFactory().openNestedArchive(loose, this);
 	}
@@ -969,6 +1007,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * Set the value of the extra class path with no refresh of the class loader
 	 */
+	@Override
 	public void primSetExtraClasspath(java.lang.String newExtraClasspath) {
 		extraClasspath = newExtraClasspath;
 	}
@@ -987,6 +1026,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void remove(File aFile) {
 		getFiles().remove(aFile);
 	}
@@ -994,6 +1034,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void reopen() throws ReopenException {
 		reopen(null);
 	}
@@ -1001,6 +1042,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void reopen(Archive parent) throws ReopenException {
 		LoadStrategy aLoadStrategy = null;
 		try {
@@ -1073,6 +1115,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void save() throws SaveFailureException, ReopenException {
 		saveAs(getURI());
 	}
@@ -1080,6 +1123,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void save(org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy aStrategy) throws SaveFailureException {
 		setSaveStrategy(aStrategy);
 		SaveFilter existingFilter = aStrategy.getFilter();
@@ -1114,6 +1158,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void saveAs(String aUri) throws SaveFailureException, ReopenException {
 		saveAsNoReopen(aUri);
 		reopen();
@@ -1172,6 +1217,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void saveAsNoReopen(String aUri) throws SaveFailureException {
 		java.io.File aFile = new java.io.File(aUri);
 		checkWriteable(aFile);
@@ -1210,6 +1256,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void saveNoReopen() throws SaveFailureException {
 		saveAsNoReopen(getURI());
 	}
@@ -1220,6 +1267,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @param newArchiveClassLoader
 	 *            java.lang.ClassLoader
 	 */
+	@Override
 	public void setArchiveClassLoader(java.lang.ClassLoader newArchiveClassLoader) {
 		archiveClassLoader = newArchiveClassLoader;
 	}
@@ -1230,6 +1278,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @param newExtraClasspath
 	 *            java.lang.String
 	 */
+	@Override
 	public void setExtraClasspath(java.lang.String newExtraClasspath) {
 		primSetExtraClasspath(newExtraClasspath);
 		//Optimization - only re init if a cl exists; otherwise it will init on
@@ -1241,6 +1290,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * Insert the method's description here. Creation date: (11/29/00 6:35:08 PM)
 	 */
+	@Override
 	public void setManifest(ArchiveManifest newManifest) {
 		manifest = newManifest;
 	}
@@ -1248,6 +1298,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public void setManifest(java.util.jar.Manifest aManifest) {
 		setManifest((ArchiveManifest) new org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl(aManifest));
 	}
@@ -1256,6 +1307,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * Sets the Class-path manifest entry, rebuilds the class loader, and refreshes any reflected
 	 * java classes
 	 */
+	@Override
 	public void setManifestClassPathAndRefresh(String classpath) {
 		ArchiveManifest mf = getManifest();
 		if (manifest == null) {
@@ -1268,6 +1320,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 			initializeClassLoader();
 	}
 
+	@Override
 	public void setOptions(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions newOptions) {
 		options = newOptions;
 	}
@@ -1276,6 +1329,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * Optional filter for saving a subset of files; filter will be applied for all save and extract
 	 * invokations
 	 */
+	@Override
 	public void setSaveFilter(org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter newSaveFilter) {
 		saveFilter = newSaveFilter;
 	}
@@ -1286,6 +1340,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @param newSaveStrategy
 	 *            com.ibm.etools.archive.SaveStrategy
 	 */
+	@Override
 	public void setSaveStrategy(org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy newSaveStrategy) {
 		saveStrategy = newSaveStrategy;
 		if (newSaveStrategy != null) {
@@ -1299,6 +1354,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * @param newXmlEncoding
 	 *            java.lang.String
 	 */
+	@Override
 	public void setXmlEncoding(java.lang.String newXmlEncoding) {
 		xmlEncoding = newXmlEncoding;
 	}
@@ -1306,6 +1362,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * Determine whether java reflection should be set up for this archive
 	 */
+	@Override
 	public boolean shouldUseJavaReflection() {
 		return getOptions().useJavaReflection() && getLoadStrategy().isClassLoaderNeeded();
 	}
@@ -1314,10 +1371,12 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		throw new ResourceLoadException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.load_resource_EXC_, (new Object[]{resourceUri, getURI()})), ex); // = "Could not load resource "{0}" in archive "{1}""
 	}
 
+	@Override
 	public String getResourcesPath() throws FileNotFoundException {
 		return getLoadStrategy().getResourcesPath();
 	}
 
+	@Override
 	public String getBinariesPath() throws FileNotFoundException {
 		return getLoadStrategy().getBinariesPath();
 	}
@@ -1337,6 +1396,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * By default return just the contents of this archive
 	 */
+	@Override
 	public RuntimeClasspathEntry[] getLocalRuntimeClassPath() {
 
 		String absolutePath = internalGetBinariesPath();
@@ -1390,6 +1450,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	}
 	
 	
+	@Override
 	public RuntimeClasspathEntry[] getFullRuntimeClassPath() {
 		return concat(getLocalRuntimeClassPath(), getDependencyClassPath());
 	}
@@ -1401,6 +1462,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		return (RuntimeClasspathEntry[]) temp.toArray(new RuntimeClasspathEntry[temp.size()]);
 	}
 
+	@Override
 	public RuntimeClasspathEntry[] getDependencyClassPath() {
 		List entries = new ArrayList();
 		Set visited = new HashSet();
@@ -1453,6 +1515,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive#hasClasspathVisibilityTo(Archive)
 	 */
+	@Override
 	public boolean hasClasspathVisibilityTo(Archive other) {
 		if (other == null)
 			return false;
@@ -1463,6 +1526,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 		return hasClasspathVisibilityTo(other, visited, ear);
 	}
 
+	@Override
 	public boolean hasClasspathVisibilityTo(Archive other, Set visited, EARFile ear) {
 		if (this == other)
 			return true;
@@ -1483,6 +1547,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.commonarchivecore.Archive#isType(java.lang.String)
 	 */
+	@Override
 	public boolean isType(String type) {
 
 		return (types != null && getTypes().contains(type));

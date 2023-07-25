@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -105,6 +105,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureMap getGroup() {
 		if (group == null) {
 			group = new BasicFeatureMap(this, EjbPackage.ENTERPRISE_BEANS__GROUP);
@@ -117,6 +118,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<SessionBean> getSessionBeans() {
 		return getGroup().list(EjbPackage.Literals.ENTERPRISE_BEANS__SESSION_BEANS);
 	}
@@ -126,6 +128,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<EntityBean> getEntityBeans() {
 		return getGroup().list(EjbPackage.Literals.ENTERPRISE_BEANS__ENTITY_BEANS);
 	}
@@ -135,6 +138,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<MessageDrivenBean> getMessageDrivenBeans() {
 		return getGroup().list(EjbPackage.Literals.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS);
 	}
@@ -144,6 +148,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -153,6 +158,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;

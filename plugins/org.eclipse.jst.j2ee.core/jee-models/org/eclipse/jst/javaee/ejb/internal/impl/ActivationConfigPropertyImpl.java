@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -121,6 +121,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getActivationConfigPropertyName() {
 		return activationConfigPropertyName;
 	}
@@ -130,6 +131,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActivationConfigPropertyName(String newActivationConfigPropertyName) {
 		String oldActivationConfigPropertyName = activationConfigPropertyName;
 		activationConfigPropertyName = newActivationConfigPropertyName;
@@ -142,6 +144,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getActivationConfigPropertyValue() {
 		return activationConfigPropertyValue;
 	}
@@ -151,6 +154,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setActivationConfigPropertyValue(String newActivationConfigPropertyValue) {
 		String oldActivationConfigPropertyValue = activationConfigPropertyValue;
 		activationConfigPropertyValue = newActivationConfigPropertyValue;
@@ -163,6 +167,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getId() {
 		return id;
 	}
@@ -172,6 +177,7 @@ public class ActivationConfigPropertyImpl extends EObjectImpl implements Activat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setId(String newId) {
 		String oldId = id;
 		id = newId;
