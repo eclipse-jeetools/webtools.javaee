@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.validation.test;singleton:=true
-Bundle-Version: 1.1.300.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Localization: plugin
 Bundle-Activator: org.eclipse.jst.validation.test.BVTValidationPlugin
 Require-Bundle: org.eclipse.core.runtime,
@@ -29,4 +29,4 @@ Export-Package: org.eclipse.jst.validation.api.test,
  org.eclipse.jst.validation.test.junit,
  org.eclipse.jst.validation.test.setup
 Bundle-ClassPath: validationtest.jar
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

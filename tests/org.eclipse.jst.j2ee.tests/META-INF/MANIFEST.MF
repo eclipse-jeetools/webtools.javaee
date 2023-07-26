@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: org.eclipse.jst.j2ee.tests
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipse.jst.j2ee.tests; singleton:=true
-Bundle-Version: 1.1.800.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-ClassPath: j2ee-tests.jar
 Bundle-Activator: org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin
 Bundle-Localization: plugin
@@ -17,22 +18,33 @@ Export-Package: org.eclipse.jst.common.annotations.tests,
  org.eclipse.jst.j2ee.flexible.project.fvtests,
  org.eclipse.jst.j2ee.flexible.project.tests,
  org.eclipse.jst.j2ee.project.facet.tests,
+ org.eclipse.jst.j2ee.tests,
  org.eclipse.jst.j2ee.tests.bvt,
  org.eclipse.jst.j2ee.tests.modulecore,
+ org.eclipse.jst.jee.model.ejb.tests,
+ org.eclipse.jst.jee.model.mergers.tests,
  org.eclipse.jst.jee.model.tests,
+ org.eclipse.jst.jee.model.web.tests,
  org.eclipse.wtp.headless.tests.savestrategy,
  org.eclipse.wtp.j2ee.headless.tests.appclient.operations,
  org.eclipse.wtp.j2ee.headless.tests.ear.operations,
  org.eclipse.wtp.j2ee.headless.tests.ejb.operations,
  org.eclipse.wtp.j2ee.headless.tests.ejb.verifiers,
+ org.eclipse.wtp.j2ee.headless.tests.exportmodel,
+ org.eclipse.wtp.j2ee.headless.tests.j2ee.headers,
  org.eclipse.wtp.j2ee.headless.tests.j2ee.operations,
  org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers,
  org.eclipse.wtp.j2ee.headless.tests.jca.operations,
  org.eclipse.wtp.j2ee.headless.tests.jca.verifiers,
  org.eclipse.wtp.j2ee.headless.tests.plugin,
+ org.eclipse.wtp.j2ee.headless.tests.utility.operations,
+ org.eclipse.wtp.j2ee.headless.tests.utility.verifiers,
  org.eclipse.wtp.j2ee.headless.tests.web.container,
  org.eclipse.wtp.j2ee.headless.tests.web.operations,
- org.eclipse.wtp.j2ee.headless.tests.web.verifiers
+ org.eclipse.wtp.j2ee.headless.tests.web.verifiers,
+ org.eclipse.wtp.j2ee.headless.tests.webfragment.operations,
+ org.eclipse.wtp.j2ee.headless.tets.appclient.verifiers,
+ org.eclipse.wtp.j2ee.headless.tets.ear.verifiers
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.core.commands,
@@ -71,5 +83,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.sse.core
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %Bundle-Vendor.0
