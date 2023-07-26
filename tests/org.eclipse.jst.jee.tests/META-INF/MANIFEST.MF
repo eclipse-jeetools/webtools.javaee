@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: org.eclipse.jst.jee.tests
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipse.jst.jee.tests;singleton:=true
-Bundle-Version: 1.0.100.qualifier
+Bundle-Version: 1.0.101.qualifier
 Bundle-ClassPath: jee-tests.jar
 Bundle-Activator: org.eclipse.wtp.jee.headless.tests.plugin.HeadlessTestsPlugin
 Bundle-Localization: plugin
