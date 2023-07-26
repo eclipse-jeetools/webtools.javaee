@@ -137,6 +137,7 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 		return ddFile;
 	}
 	
+	@Override
 	public Object getAdapter(Class adapter) {
 		if (IProject.class == adapter){
 			return getProject();

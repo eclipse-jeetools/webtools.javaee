@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2006 BEA Systems, Inc.
+ * Copyright (c) 2006, 2019 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,7 +60,8 @@ public class WebAppLibrariesContainerPage
         setDescription( Resources.pageDescription );
     }
     
-    public IClasspathEntry getSelection() 
+    @Override
+	public IClasspathEntry getSelection() 
     {
         IPath path = new Path( WebAppLibrariesContainer.CONTAINER_ID );
         
@@ -78,7 +79,8 @@ public class WebAppLibrariesContainerPage
         return JavaCore.newContainerEntry( path );
     }
 
-    public void setSelection( final IClasspathEntry cpentry ) 
+    @Override
+	public void setSelection( final IClasspathEntry cpentry ) 
     {
         final IPath path = cpentry == null ? null : cpentry.getPath();
         
@@ -95,7 +97,8 @@ public class WebAppLibrariesContainerPage
         }
     }
     
-    public void createControl( final Composite parent ) 
+    @Override
+	public void createControl( final Composite parent ) 
     {
         final Composite composite = new Composite( parent, SWT.NONE );
         composite.setLayout( new GridLayout( 2, false ) );
@@ -140,12 +143,14 @@ public class WebAppLibrariesContainerPage
         setControl( composite );
     }
     
-    public boolean finish() 
+    @Override
+	public boolean finish() 
     {
         return true;
     }
     
-    public void initialize( final IJavaProject project, 
+    @Override
+	public void initialize( final IJavaProject project, 
                             final IClasspathEntry[] currentEntries ) 
     {
         this.ownerProject = ( project == null ? null : project.getProject() );

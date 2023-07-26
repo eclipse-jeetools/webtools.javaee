@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 IBM Corporation and others.
+ * Copyright (c) 2011, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -324,16 +324,19 @@ public class MultiSelectFilteredListenerFileSelectionDialog extends
 
 		Table list = new Table(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		list.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleLowerSelectionChanged();
 			}
 		});
 		list.addListener(SWT.MouseDoubleClick, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleLowerDoubleClick();
 			}
 		});
 		list.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				fQualifierRenderer.dispose();
 			}
@@ -362,6 +365,7 @@ public class MultiSelectFilteredListenerFileSelectionDialog extends
 		spec.verticalAlignment = GridData.BEGINNING;
 		text.setLayoutData(spec);
 		Listener l = new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				rematch(fText.getText());
 			}
@@ -380,16 +384,19 @@ public class MultiSelectFilteredListenerFileSelectionDialog extends
 
 		Table list = new Table(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		list.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleUpperSelectionChanged();
 			}
 		});
 		list.addListener(SWT.MouseDoubleClick, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleUpperDoubleClick();
 			}
 		});
 		list.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				fElementRenderer.dispose();
 			}

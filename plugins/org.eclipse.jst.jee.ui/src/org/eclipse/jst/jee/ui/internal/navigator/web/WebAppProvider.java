@@ -140,6 +140,7 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 		}
 	}
 
+	@Override
 	public Object getAdapter(Class adapter) {
 		if (IProject.class == adapter){
 			return getProject();

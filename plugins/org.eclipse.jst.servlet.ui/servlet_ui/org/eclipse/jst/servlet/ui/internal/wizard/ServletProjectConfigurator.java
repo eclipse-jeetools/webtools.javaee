@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2016 Red Hat Inc.
+ * Copyright (c) 2016, 2019 Red Hat Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,6 +46,7 @@ import org.w3c.dom.Element;
 
 public class ServletProjectConfigurator implements ProjectConfigurator {
 
+	@Override
 	public boolean canConfigure(IProject project, Set<IPath> ignoredDirectories, IProgressMonitor monitor) {
 		try {
 			RecursiveFileFinder finder = new RecursiveFileFinder(J2EEConstants.WEBAPP_DD_SHORT_NAME, ignoredDirectories);
@@ -62,6 +63,7 @@ public class ServletProjectConfigurator implements ProjectConfigurator {
 		return null;
 	}
 
+	@Override
 	public void configure(IProject project, Set<IPath> ignoredDirectories, IProgressMonitor monitor) {
 		try {
 			if (!ProjectFacetsManager.isProjectFacetDefined(project.getName())) {
@@ -102,6 +104,7 @@ public class ServletProjectConfigurator implements ProjectConfigurator {
 		}
 	}
 
+	@Override
 	public boolean shouldBeAnEclipseProject(IContainer container, IProgressMonitor monitor) {
 		return false; // TODO: can we make sure a dir is a JEE project?
 	}
@@ -110,10 +113,12 @@ public class ServletProjectConfigurator implements ProjectConfigurator {
 		return null;
 	}
 
+	@Override
 	public Set<File> findConfigurableLocations(File root, IProgressMonitor monitor) {
 		return Collections.emptySet();
 	}
 
+	@Override
 	public Set<IFolder> getFoldersToIgnore(IProject project, IProgressMonitor monitor) {
 		return null;
 	}

@@ -166,6 +166,7 @@ public class AddServletWizardPage extends DataModelWizardPage {
 		displayNameText = new Text(composite, SWT.SINGLE | SWT.BORDER);
 		displayNameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		displayNameText.addModifyListener(new ModifyListener() {
+			@Override
 			public void modifyText(ModifyEvent e) {
 				String text = displayNameText.getText();
 				// Set default URL Pattern

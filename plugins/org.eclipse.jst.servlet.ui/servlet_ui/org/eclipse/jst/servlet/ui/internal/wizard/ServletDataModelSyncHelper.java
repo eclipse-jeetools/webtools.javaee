@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2009 SAP AG and others.
+ * Copyright (c) 2007, 2019 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,6 +49,7 @@ public class ServletDataModelSyncHelper extends DataModelSynchHelper {
 	public void synchUIWithModel(final String propertyName, final int flag) {
 		if (null != propertyToWidgetHash && propertyToWidgetHash.containsKey(propertyName)) {
 			Display.getDefault().syncExec(new Runnable() {
+				@Override
 				public void run() {
 					try {
 						Object obj = propertyToWidgetHash.get(propertyName);
@@ -118,6 +119,7 @@ public class ServletDataModelSyncHelper extends DataModelSynchHelper {
 	}
 	
 	private class MultipleCheckboxSelectionListener implements SelectionListener {
+		@Override
 		public void widgetSelected(SelectionEvent e) {
 			Button button = (Button) e.getSource();
 			if (currentWidget == button)
@@ -150,6 +152,7 @@ public class ServletDataModelSyncHelper extends DataModelSynchHelper {
 
 		
 
+		@Override
 		public void widgetDefaultSelected(SelectionEvent e) {
 		}
 	}

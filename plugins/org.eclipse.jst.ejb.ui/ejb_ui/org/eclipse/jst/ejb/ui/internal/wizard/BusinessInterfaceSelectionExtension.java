@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -40,6 +40,7 @@ public class BusinessInterfaceSelectionExtension extends TypeSelectionExtension 
 	public ITypeInfoFilterExtension getFilterExtension() {
 		return new ITypeInfoFilterExtension() {
 
+			@Override
 			public boolean select(ITypeInfoRequestor typeInfoRequestor) {
 				String packageName = typeInfoRequestor.getPackageName();
 				if (packageName.equals(JAVAX_EJB))

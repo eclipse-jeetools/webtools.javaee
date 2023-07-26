@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -149,10 +149,12 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		gridData.verticalSpan = 1;
 		local2xCheck.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				localIntfTable.getTable().setEnabled(local2xCheck.getSelection());
 			}
@@ -175,10 +177,12 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		remoteIntfTable.getTable().setEnabled(model.getBooleanProperty(REMOTE_HOME));
 		remote2xCheck.addSelectionListener(new SelectionListener() {
 
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 
 			}
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				remoteIntfTable.getTable().setEnabled(remote2xCheck.getSelection());
 			}

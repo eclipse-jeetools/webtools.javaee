@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 SAP AG and others.
+ * Copyright (c) 2010, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -39,14 +39,17 @@ public class CreateBeanQuickFix implements IMarkerResolution {
 		this.project = proj;
 	}
 	
+	@Override
 	public String getLabel() {
 		return (beanType == BEAN_TYPE.SESSION) ? 
 					Messages.CREATE_NEW_SESSION_BEAN : 
 					Messages.CREATE_NEW_MDB; 
 	}
 
+	@Override
 	public void run(IMarker marker) {
 		Runnable r = new Runnable() {
+			@Override
 			public void run() {
 				openNewBeanWizard();
 			}

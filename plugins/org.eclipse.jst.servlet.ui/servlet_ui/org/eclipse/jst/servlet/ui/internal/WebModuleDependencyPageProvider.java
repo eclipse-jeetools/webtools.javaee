@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2010 Red Hat and Others
+ * Copyright (c) 2010, 2019 Red Hat and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,6 +33,7 @@ public class WebModuleDependencyPageProvider implements IDependencyPageProvider 
 
 	private IModuleDependenciesControl[] controls;
 	
+	@Override
 	public boolean canHandle(IFacetedProject project) {
 		boolean isWeb = project.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
 		isWeb |= project.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.WST_WEB_MODULE));
@@ -46,6 +47,7 @@ public class WebModuleDependencyPageProvider implements IDependencyPageProvider 
 		return JavaModuleComponentUtility.findParentProjects(project).length == 0;
 	}
 	
+	@Override
 	public IModuleDependenciesControl[] createPages(IFacetedProject project,
 			ModuleAssemblyRootPage parent) {
 		
@@ -59,6 +61,7 @@ public class WebModuleDependencyPageProvider implements IDependencyPageProvider 
 		};
 	}
 
+	@Override
 	public Composite createRootControl(IFacetedProject project,IModuleDependenciesControl[] pages,
 			Composite parent) {
 		
@@ -96,6 +99,7 @@ public class WebModuleDependencyPageProvider implements IDependencyPageProvider 
 		return composite;
 	}
 	
+	@Override
 	public String getPageTitle(IProject project) {
 		return Messages.WebDeploymentAssembly;
 	}

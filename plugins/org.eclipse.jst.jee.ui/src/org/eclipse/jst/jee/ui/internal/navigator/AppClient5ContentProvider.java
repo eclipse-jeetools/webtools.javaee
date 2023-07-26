@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ import org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode;
 public class AppClient5ContentProvider extends JEE5ContentProvider {
 
 	
+	@Override
 	public Object[] getChildren(Object aParentElement) {
 		IProject project = null;
 		List children = new ArrayList();
@@ -50,6 +51,7 @@ public class AppClient5ContentProvider extends JEE5ContentProvider {
 
 
 
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof GroupAppClientProvider) {
 			return !((GroupAppClientProvider) element).getChildren().isEmpty();
@@ -57,6 +59,7 @@ public class AppClient5ContentProvider extends JEE5ContentProvider {
 		return false;
 	}
 
+	@Override
 	public Object getParent(Object object) {
 		if (object instanceof ModulesNode){
 			return ((ModulesNode) object).getEarProject(); 
@@ -64,6 +67,7 @@ public class AppClient5ContentProvider extends JEE5ContentProvider {
 		return null;
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}

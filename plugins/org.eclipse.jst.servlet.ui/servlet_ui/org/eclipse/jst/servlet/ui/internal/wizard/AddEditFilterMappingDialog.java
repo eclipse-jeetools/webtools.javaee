@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2019 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -341,7 +341,8 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         spec.verticalAlignment = GridData.BEGINNING;
         fURLText.setLayoutData(spec);
         Listener l = new Listener() {
-            public void handleEvent(Event evt) {
+            @Override
+			public void handleEvent(Event evt) {
                 updateOkState();
             }
         };
@@ -460,11 +461,13 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 //			}
 //		});
 		list.addListener(SWT.MouseDoubleClick, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleUpperDoubleClick();
 			}
 		});
 		list.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				fElementRenderer.dispose();
 			}
@@ -588,6 +591,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	 *
 	 * @param e an event containing information about the default selection
 	 */
+	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
 		// Do nothing
 	}
@@ -601,6 +605,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	 *
 	 * @param e an event containing information about the selection
 	 */
+	@Override
 	public void widgetSelected(SelectionEvent e) {
 		if (e.widget == fURLPatternButton) {
 			fSelection = URL_PATTERN;

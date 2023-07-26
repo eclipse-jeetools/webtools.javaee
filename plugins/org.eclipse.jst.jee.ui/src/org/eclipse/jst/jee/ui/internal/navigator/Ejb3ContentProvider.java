@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,6 +41,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 public class Ejb3ContentProvider extends JEE5ContentProvider {
 
 
+	@Override
 	public Object[] getChildren(Object aParentElement) {
 		List<Object> children = new ArrayList<Object>();
 		IProject project = null;
@@ -184,6 +185,7 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 		return false;
 	}
 
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof AbstractGroupProvider) {
 			return ((AbstractGroupProvider) element).hasChildren();
@@ -199,10 +201,12 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 			return false;
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}

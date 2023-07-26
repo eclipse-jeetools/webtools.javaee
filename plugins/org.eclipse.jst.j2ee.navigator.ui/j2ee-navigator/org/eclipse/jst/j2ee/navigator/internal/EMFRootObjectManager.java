@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2012 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -131,6 +131,7 @@ public class EMFRootObjectManager implements EditModelListener, IResourceChangeL
 	 * 
 	 * @see org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener#editModelChanged(org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent)
 	 */
+	@Override
 	public void editModelChanged(EditModelEvent anEvent) {
 		IProject affectedProject = anEvent.getEditModel().getProject();
 		switch (anEvent.getEventCode()) {
@@ -174,6 +175,7 @@ public class EMFRootObjectManager implements EditModelListener, IResourceChangeL
 	 * 
 	 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
 	 */
+	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		final IResourceDelta delta = event.getDelta();
 
@@ -195,6 +197,7 @@ public class EMFRootObjectManager implements EditModelListener, IResourceChangeL
 	 * 
 	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
 	 */
+	@Override
 	public boolean visit(IResourceDelta delta) throws CoreException {
 		IResource resource = delta.getResource();
 		if (resource != null) {

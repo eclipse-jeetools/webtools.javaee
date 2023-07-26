@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
  */
 public class Web25ContentProvider extends JEE5ContentProvider {
 
+	@Override
 	public Object[] getChildren(Object aParentElement) {
 
 		List<Object> children = new ArrayList<Object>();
@@ -46,6 +47,7 @@ public class Web25ContentProvider extends JEE5ContentProvider {
 	}
 
 
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof WebAppProvider) {
 			return ((WebAppProvider)element).isValid();
@@ -55,10 +57,12 @@ public class Web25ContentProvider extends JEE5ContentProvider {
 			return false;
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}

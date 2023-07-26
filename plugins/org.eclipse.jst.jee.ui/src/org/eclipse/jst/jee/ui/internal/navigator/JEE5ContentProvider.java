@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -65,6 +65,7 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 
+	@Override
 	public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
 		viewer = aViewer;
 	}
@@ -130,6 +131,7 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 	public void projectChanged(final IProject project) {
 		try {
 			Runnable refreshThread = new Runnable() {
+				@Override
 				public void run() {
 					if (viewer != null) {
 						try{
@@ -230,11 +232,13 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 		return null;
 	}
 	
+	@Override
 	public void modelsChanged(IModelProviderEvent event) {
 		projectChanged(event.getProject());
 
 	}
 
+	@Override
 	public void onRefresh(final Object element) {
 		if (viewer instanceof AbstractTreeViewer) {
 			if (Display.getCurrent() != null) {
@@ -254,11 +258,13 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 		}
 	}
 
+	@Override
 	public void dispose() {
 		groupProvidersMap.clear();
 		groupContentProviders.clear();
 	}
 
+	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		if (event.getType() == IResourceChangeEvent.PRE_DELETE && event.getResource() != null && event.getResource().getType() == IResource.PROJECT){
 			groupContentProviders.remove(event.getResource());	

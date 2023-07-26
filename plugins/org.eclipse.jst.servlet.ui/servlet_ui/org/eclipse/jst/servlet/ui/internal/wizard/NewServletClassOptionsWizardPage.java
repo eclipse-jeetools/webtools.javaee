@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,12 +76,14 @@ public class NewServletClassOptionsWizardPage extends
 		super.createStubsComposite(parent);
 		
 		inheritButton.addSelectionListener(new SelectionListener() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				boolean enable = inheritButton.getSelection();
 				enableGenericServletButtons(enable);
 				enableHttpServletButtons(enable);
 			}
 			
+			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
 				//Do nothing
 			}
@@ -168,6 +170,7 @@ public class NewServletClassOptionsWizardPage extends
 	    Dialog.applyDialogFont(parent);
 	}
 
+	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 		removeButton.setEnabled(canRemoveSelectedInterfaces(selection));
@@ -177,9 +180,11 @@ public class NewServletClassOptionsWizardPage extends
 	protected KeyListener getInterfaceKeyListener() {
 		return new KeyListener() {
 
+			@Override
 			public void keyPressed(KeyEvent e) {
 			}
 
+			@Override
 			public void keyReleased(KeyEvent e) {
 				if (e.keyCode == SWT.DEL) {
 					IStructuredSelection selection = (IStructuredSelection) interfaceViewer.getSelection();

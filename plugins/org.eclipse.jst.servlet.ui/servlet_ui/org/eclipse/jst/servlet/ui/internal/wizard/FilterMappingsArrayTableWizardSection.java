@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 SAP AG and others.
+ * Copyright (c) 2008, 2019 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,15 +60,18 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
 		public boolean isDeleted(Object element) {
 			return false;
 		}
+		@Override
 		public Object[] getElements(Object element) {
 			if (element instanceof List) {
 				return ((List<FilterMappingItem>) element).toArray();
 			}
 			return new Object[0];
 		}
+		@Override
 		public void inputChanged(Viewer aViewer, Object oldInput, Object newInput) {
 			//Default nothing
 		}
+		@Override
 		public void dispose() {
 			//Default nothing
 		}
@@ -79,7 +82,8 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         private final Image SERVLET_ICON = 
             ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("servlet")).createImage(); //$NON-NLS-1$
 
-        public Image getColumnImage(Object element, int columnIndex) {
+        @Override
+		public Image getColumnImage(Object element, int columnIndex) {
 		    if (columnIndex == 0) {
 		        FilterMappingItem item = (FilterMappingItem) element;
 		        if (item.isServletNameType()) {
@@ -92,6 +96,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
 		    return null;
 		}
 		
+		@Override
 		public String getColumnText(Object element, int columnIndex) {
 		    if (columnIndex == 1) {
 		        return ((FilterMappingItem) element).getName();
@@ -151,10 +156,12 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         addButton.setText(ADD_BUTTON_LABEL_D);
         addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         addButton.addSelectionListener(new SelectionListener() {
-            public void widgetSelected(SelectionEvent event) {
+            @Override
+			public void widgetSelected(SelectionEvent event) {
                 handleAddButtonSelected();
             }
-            public void widgetDefaultSelected(SelectionEvent event) {
+            @Override
+			public void widgetDefaultSelected(SelectionEvent event) {
                 //Do nothing
             }
         });
@@ -163,10 +170,12 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         editButton.setText(EDIT_BUTTON_LABEL_T);
         editButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         editButton.addSelectionListener(new SelectionListener() {
-            public void widgetSelected(SelectionEvent event) {
+            @Override
+			public void widgetSelected(SelectionEvent event) {
                 handleEditButtonSelected();
             }
-            public void widgetDefaultSelected(SelectionEvent event) {
+            @Override
+			public void widgetDefaultSelected(SelectionEvent event) {
                 //Do nothing
             }
         });
@@ -176,17 +185,20 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         removeButton.setText(REMOVE_BUTTON_LABEL_V);
         removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         removeButton.addSelectionListener(new SelectionListener() {
-            public void widgetSelected(SelectionEvent event) {
+            @Override
+			public void widgetSelected(SelectionEvent event) {
                 handleRemoveButtonSelected();
             }
-            public void widgetDefaultSelected(SelectionEvent event) {
+            @Override
+			public void widgetDefaultSelected(SelectionEvent event) {
                 //Do nothing
             }
         });
         removeButton.setEnabled(false);
 
         viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-            public void selectionChanged(SelectionChangedEvent event) {
+            @Override
+			public void selectionChanged(SelectionChangedEvent event) {
                 ISelection selection = event.getSelection();
 				if (editButton != null) {
 					boolean enabled = ((IStructuredSelection) selection).size() == 1;
@@ -198,6 +210,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         
 		if (editButton != null) {
 			viewer.addDoubleClickListener(new IDoubleClickListener() {
+				@Override
 				public void doubleClick(DoubleClickEvent event) {
 					handleEditButtonSelected();
 				}
@@ -341,6 +354,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         return valueList;
 	}
 
+	@Override
 	public void propertyChanged(DataModelEvent event) {
 		if (this.propertyName.equals(event.getPropertyName())) {
 			viewer.setInput(event.getProperty());

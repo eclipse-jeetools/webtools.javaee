@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2017 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -96,6 +96,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 
 	}
 
+	@Override
 	public Object[] getChildren(Object aParentElement) {
 		IProject project = null;
 		List children = new ArrayList();
@@ -130,6 +131,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 		return children.toArray();
 	}
 
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof AbstractEarNode) {
 			return ((AbstractEarNode) element).getModules().size() > 0;
@@ -138,6 +140,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 		} else return false;
 	}
 
+	@Override
 	public Object getParent(Object object) {
 		if (object instanceof AbstractEarNode){
 			return ((AbstractEarNode) object).getEarProject(); 
@@ -145,6 +148,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 		return null;
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}
@@ -162,6 +166,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 
 		private Set<IProject> projects = new HashSet<IProject>();
 
+		@Override
 		public boolean visit(IResourceDelta delta) throws CoreException {
 			IResourceDelta[] affectedChildren = delta.getAffectedChildren(IResourceDelta.ADDED | IResourceDelta.REMOVED | IResourceDelta.REPLACED | IResourceDelta.CHANGED);
 			if (affectedChildren != null){

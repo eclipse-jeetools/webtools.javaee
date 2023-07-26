@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2010, 2023 IBM Corporation and others.
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator;
 
 import java.util.ArrayList;
@@ -9,6 +21,7 @@ import org.eclipse.jst.jee.ui.internal.navigator.ra.RaGroupContentProvider;
 
 public class ConnectorContentProvider extends JEE5ContentProvider {
 
+	@Override
 	public Object[] getChildren(Object aParentElement) {
 		List<Object> children = new ArrayList<Object>();
 		IProject project = null;
@@ -27,14 +40,17 @@ public class ConnectorContentProvider extends JEE5ContentProvider {
 		return children.toArray();
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		return null;
 	}
 
+	@Override
 	public boolean hasChildren(Object element) {
 		return true;
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}

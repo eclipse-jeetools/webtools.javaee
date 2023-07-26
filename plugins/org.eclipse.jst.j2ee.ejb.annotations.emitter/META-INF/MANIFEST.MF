@@ -1,10 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: org.eclipse.jst.j2ee.ejb.annotations.emitter
 Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ejb.annotations.emitter; singleton:=true
-Bundle-Version: 1.1.300.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.EjbEmitterPlugin
+Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.j2ee.ejb.annotations.internal.classgen;x-internal:=true,
@@ -23,4 +25,4 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.wst.common.core;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.wst.common.frameworks;bundle-version="[1.1.0,2.0.0)"
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

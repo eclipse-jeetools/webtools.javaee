@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@ public class CompressedJavaLibraries implements ICompressedNode {
 		this.compressedProject = compressedProject;
 	}
 	
+	@Override
 	public Image getImage() { 
 		if(image == null) {
 			image = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_LIBRARY);
@@ -41,10 +42,12 @@ public class CompressedJavaLibraries implements ICompressedNode {
 		return image;
 	}
 	
+	@Override
 	public String getLabel() {		
 		return WEBUIMessages.Compressed_Libraries;
 	}
 	
+	@Override
 	public Object[] getChildren(ITreeContentProvider delegateContentProvider) {
 		
 		List classpathContainers = new ArrayList();
@@ -70,6 +73,7 @@ public class CompressedJavaLibraries implements ICompressedNode {
 		return compressedProject;
 	}
 
+	@Override
 	public IJavaElement getJavaElement() { 
 		return null;
 	}

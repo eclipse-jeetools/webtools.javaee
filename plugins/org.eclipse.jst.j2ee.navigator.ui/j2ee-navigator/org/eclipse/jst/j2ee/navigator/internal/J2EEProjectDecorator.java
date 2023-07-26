@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2006 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,7 +54,8 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
         super();
     }
     
-    public void decorate(Object element, IDecoration decoration) {
+    @Override
+	public void decorate(Object element, IDecoration decoration) {
     	IProject project = null;
     	if(element instanceof IProject) {
     		project = (IProject) element;

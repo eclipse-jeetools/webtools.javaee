@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ public class WebJavaLabelProvider implements ILabelProvider {
 	
 	private ILabelDecorator decorator = new ProblemsLabelDecorator();
 
+	@Override
 	public Image getImage(Object element) {
 		Image image = null;
 		if(element instanceof ICompressedNode)
@@ -33,6 +34,7 @@ public class WebJavaLabelProvider implements ILabelProvider {
 		return image;
 	}
 
+	@Override
 	public String getText(Object element) {
 		String text = null;
 		if(element instanceof ICompressedNode)
@@ -45,18 +47,22 @@ public class WebJavaLabelProvider implements ILabelProvider {
 		return text;
 	}
 
+	@Override
 	public void addListener(ILabelProviderListener listener) { 
 
 	}
 
+	@Override
 	public void dispose() { 
 		decorator.dispose();
 	}
 
+	@Override
 	public boolean isLabelProperty(Object element, String property) { 
 		return false;
 	}
 
+	@Override
 	public void removeListener(ILabelProviderListener listener) { 
 
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 SAP AG and others.
+ * Copyright (c) 2010, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import org.eclipse.ui.IMarkerResolutionGenerator2;
 
 public class NoBeansQuickFixer implements IMarkerResolutionGenerator2  {
 
+	@Override
 	public IMarkerResolution[] getResolutions(IMarker marker) {
         return new IMarkerResolution[] {
         		new CreateBeanQuickFix(CreateBeanQuickFix.BEAN_TYPE.SESSION, (IProject)marker.getResource()),
@@ -24,6 +25,7 @@ public class NoBeansQuickFixer implements IMarkerResolutionGenerator2  {
         };
     }
 
+	@Override
 	public boolean hasResolutions(IMarker marker) {
 		return true;
 	}

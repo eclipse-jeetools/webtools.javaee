@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -364,16 +364,19 @@ public class MultiSelectFilteredFileSelectionDialog extends
 
 		Table list = new Table(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		list.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleLowerSelectionChanged();
 			}
 		});
 		list.addListener(SWT.MouseDoubleClick, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleLowerDoubleClick();
 			}
 		});
 		list.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				fQualifierRenderer.dispose();
 			}
@@ -402,6 +405,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 		spec.verticalAlignment = GridData.BEGINNING;
 		text.setLayoutData(spec);
 		Listener l = new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				rematch(fText.getText());
 			}
@@ -420,16 +424,19 @@ public class MultiSelectFilteredFileSelectionDialog extends
 
 		Table list = new Table(parent, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		list.addListener(SWT.Selection, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleUpperSelectionChanged();
 			}
 		});
 		list.addListener(SWT.MouseDoubleClick, new Listener() {
+			@Override
 			public void handleEvent(Event evt) {
 				handleUpperDoubleClick();
 			}
 		});
 		list.addDisposeListener(new DisposeListener() {
+			@Override
 			public void widgetDisposed(DisposeEvent e) {
 				fElementRenderer.dispose();
 			}
@@ -633,6 +640,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	 *
 	 * @param e an event containing information about the default selection
 	 */
+	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
 		// Do nothing
 	}
@@ -646,6 +654,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	 *
 	 * @param e an event containing information about the selection
 	 */
+	@Override
 	public void widgetSelected(SelectionEvent e) {
 		if (e.widget == fJSPButton) {
 			fSelection = JSP;

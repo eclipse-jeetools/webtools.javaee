@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -22,10 +22,12 @@ public class BusinessInterfaceContentProvider implements IStructuredContentProvi
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
 
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof BusinessInterface) {
 			return new BusinessInterface[] {(BusinessInterface) inputElement};
@@ -35,6 +37,7 @@ public class BusinessInterfaceContentProvider implements IStructuredContentProvi
 		return new Object[0];
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 }

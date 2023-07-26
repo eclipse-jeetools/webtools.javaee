@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,6 +63,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 	private ITreeContentProvider delegateContentProvider;
 	private final Map compressedNodes = new HashMap();
 
+	@Override
 	public void getPipelinedChildren(Object aParent, Set theCurrentChildren) {
 		try {
 			if (aParent instanceof IProject && ((IProject)aParent).hasNature(JavaCore.NATURE_ID) && JavaEEProjectUtilities.isDynamicWebProject((IProject)aParent)) {
@@ -97,10 +98,12 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		return result;
 	}
 
+	@Override
 	public void getPipelinedElements(Object anInput, Set theCurrentElements) { 
 
 	}
 
+	@Override
 	public Object getPipelinedParent(Object anObject, Object aSuggestedParent) {
 
 		try {
@@ -127,6 +130,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		return null;
 	}
 
+	@Override
 	public PipelinedShapeModification interceptAdd(PipelinedShapeModification anAddModification) {
 		Object parent = anAddModification.getParent();
 		
@@ -144,6 +148,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 	}
 	
 
+	@Override
 	public PipelinedShapeModification interceptRemove(PipelinedShapeModification aRemoveModification) {
 
 		Object parent = aRemoveModification.getParent();
@@ -195,6 +200,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		return null;
 	}
 
+	@Override
 	public boolean interceptRefresh(PipelinedViewerUpdate aRefreshSynchronization) {
 		
 		Set refreshTargets = aRefreshSynchronization.getRefreshTargets();
@@ -218,6 +224,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 	}
 
 
+	@Override
 	public boolean interceptUpdate(PipelinedViewerUpdate anUpdateSynchronization) {
 		Set refreshTargets = anUpdateSynchronization.getRefreshTargets();
 		for (Iterator iter = refreshTargets.iterator(); iter.hasNext();) {
@@ -238,9 +245,11 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		return false; 
 	}
 
+	@Override
 	public void init(ICommonContentExtensionSite aSite) { 
 	}
 
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (delegateContentProvider != null) {
 			if (parentElement instanceof CompressedJavaProject) {
@@ -252,6 +261,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		return NO_CHILDREN;
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		if (element instanceof CompressedJavaProject)
 			return ((CompressedJavaProject) element).getProject();
@@ -260,18 +270,22 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		return null;
 	}
 
+	@Override
 	public boolean hasChildren(Object element) {
 		return (element instanceof CompressedJavaProject || element instanceof CompressedJavaLibraries);
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return NO_CHILDREN;
 	}
 
+	@Override
 	public void dispose() { 
 		compressedNodes.clear(); 
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		if (viewer instanceof CommonViewer) {
 			commonViewer = (CommonViewer) viewer;
@@ -284,10 +298,12 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 
 	}
 
+	@Override
 	public void restoreState(IMemento aMemento) {
 
 	}
 
+	@Override
 	public void saveState(IMemento aMemento) {
 
 	}

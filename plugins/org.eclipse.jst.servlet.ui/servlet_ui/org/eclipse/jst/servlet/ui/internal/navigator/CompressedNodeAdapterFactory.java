@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ public class CompressedNodeAdapterFactory implements IAdapterFactory {
 	
 	private static final Class[] ADAPTER_LIST = new Class[] { IJAVA_PROJECT_CLASS };
 
+	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if(adaptableObject instanceof CompressedJavaProject) {
 			if(adapterType == IJAVA_PROJECT_CLASS) {
@@ -33,6 +34,7 @@ public class CompressedNodeAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
+	@Override
 	public Class[] getAdapterList() { 
 		return ADAPTER_LIST;
 	}

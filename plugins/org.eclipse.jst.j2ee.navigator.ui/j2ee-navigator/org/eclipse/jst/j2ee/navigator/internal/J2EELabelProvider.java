@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2022 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,6 +63,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.extensions.ICommonLabelProvider#getDescription(java.lang.Object)
 	 */
+	@Override
 	public String getDescription(Object anElement) {
 		if (anElement != null && anElement instanceof EObject) {
 			EObject eObj = (EObject) anElement;
@@ -84,6 +85,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	/**
 	 * @param listener
 	 */
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 		if (delegateLabelProvider != null)
 			delegateLabelProvider.addListener(listener);
@@ -92,6 +94,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	/**
 	 *  
 	 */
+	@Override
 	public void dispose() {
 		if (delegateLabelProvider != null)
 			delegateLabelProvider.dispose();
@@ -152,6 +155,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * @param element
 	 * @return
 	 */
+	@Override
 	public Image getImage(Object element) {
 		if(element instanceof J2EEJavaClassProviderHelper)
 			return ((J2EEJavaClassProviderHelper) element).getImage();
@@ -170,6 +174,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * @param element
 	 * @return
 	 */
+	@Override
 	public String getText(Object element) {
 		if(element instanceof J2EEJavaClassProviderHelper)
 			return ((J2EEJavaClassProviderHelper) element).getText();
@@ -203,6 +208,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * @param id
 	 * @return
 	 */
+	@Override
 	public boolean isLabelProperty(Object object, String id) {
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.isLabelProperty(object, id);
@@ -220,6 +226,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	/**
 	 * @param listener
 	 */
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 		if (delegateLabelProvider != null)
 			delegateLabelProvider.removeListener(listener);
@@ -245,14 +252,17 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 		return super.toString();
 	}
 
+	@Override
 	public void init(ICommonContentExtensionSite aSite) {
 		initialize(IJ2EENavigatorConstants.VIEWER_ID);
 		
 	}
 
+	@Override
 	public void restoreState(IMemento aMemento) {
 	}
 
+	@Override
 	public void saveState(IMemento aMemento) {
 	}
 }

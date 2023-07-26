@@ -116,6 +116,7 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 		return project;
 	}
 	
+	@Override
 	public Object getAdapter(Class adapter) {
 		if (IProject.class == adapter){
 			return getProject();

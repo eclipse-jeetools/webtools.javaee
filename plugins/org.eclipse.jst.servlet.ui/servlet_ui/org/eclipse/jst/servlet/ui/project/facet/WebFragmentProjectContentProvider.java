@@ -1,6 +1,6 @@
 /*******************************************************************************
 
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,14 +26,17 @@ import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 
 public class WebFragmentProjectContentProvider implements IStructuredContentProvider {
 
+	@Override
 	public void dispose() {
 		// Do nothing
 	}
 
+	@Override
 	public void inputChanged(Viewer arg0, Object arg1, Object arg2) {
 		// Do nothing
 	}
 
+	@Override
 	public Object[] getElements(Object arg0) {
 		if (arg0 instanceof IWorkspaceRoot) {
 			IProject[] projects = ((IWorkspaceRoot) arg0).getProjects();

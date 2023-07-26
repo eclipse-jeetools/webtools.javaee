@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -75,6 +75,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	 * 
 	 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
 	 */
+	@Override
 	public Object[] getElements(Object anInputElement) {
 		return getChildren(anInputElement);
 	}
@@ -84,6 +85,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	 * 
 	 * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Object[] getChildren(Object aParentElement) {
 		IProject project = null;
 		List children = new ArrayList();
@@ -130,6 +132,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 		return children.toArray();
 	}
 
+	@Override
 	public Object getParent(Object object) {
 		if (MethodsProviderDelegate.providesContentFor(object))
 			return delegateMethodsProvider.getParent(object);
@@ -149,6 +152,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	/**
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
 		rootObjectProvider.removeRefreshHandlerListener(this);
 		delegateContentProvider.dispose();
@@ -160,6 +164,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	/*
 	 * @see ITreeContentProvider#hasChildren(Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		if (MethodsProviderDelegate.providesContentFor(element))
 			return delegateMethodsProvider.hasChildren(element);
@@ -176,6 +181,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	 * @see org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
 	 *      java.lang.Object, java.lang.Object)
 	 */
+	@Override
 	public void inputChanged(Viewer aViewer, Object anOldInput, Object aNewInput) {
 		String newViewerId = null;
 		viewer = (AbstractTreeViewer) aViewer;
@@ -215,6 +221,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	 * 
 	 * @see org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectManager.IRefreshHandlerListener#onRefresh(java.lang.Object)
 	 */
+	@Override
 	public void onRefresh(final Object element) {
 		if (Display.getCurrent() != null) {
 			(viewer).refresh(element, true);
@@ -228,9 +235,11 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 				}
 			};
 			ISchedulingRule rule = new ISchedulingRule() {
+				@Override
 				public boolean contains(ISchedulingRule rule) {
 					return rule == this;	
 				}
+				@Override
 				public boolean isConflicting(ISchedulingRule rule) {
 					return rule == this;
 				}

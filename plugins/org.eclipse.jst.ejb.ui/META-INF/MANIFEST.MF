@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: org.eclipse.jst.ejb.ui
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.ejb.ui; singleton:=true
-Bundle-Version: 1.1.1000.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -48,6 +49,6 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.jee.ui;bundle-version="[1.0.100,2.0.0)",
  org.eclipse.jst.common.project.facet.core;bundle-version="[1.4.0,2.0.0)"
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: org.eclipse.emf.codegen.jet
 Bundle-ActivationPolicy: lazy

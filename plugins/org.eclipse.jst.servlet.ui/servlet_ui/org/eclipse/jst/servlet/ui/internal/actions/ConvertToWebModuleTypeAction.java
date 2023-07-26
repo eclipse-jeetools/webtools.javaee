@@ -1,7 +1,7 @@
 package org.eclipse.jst.servlet.ui.internal.actions;
 
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,6 +54,7 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 	/**
 	 * selectionChanged method comment.
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		boolean bEnable = false;
 		if (selection instanceof IStructuredSelection) {
@@ -80,14 +81,17 @@ public class ConvertToWebModuleTypeAction extends Action implements IWorkbenchWi
 		return isValidProject(project);
 	}
 
+	@Override
 	public void dispose() {
 		// Default
 	}
 
+	@Override
 	public void init(IWorkbenchWindow window) {
 		// Default
 	}
 
+	@Override
 	public void run(IAction action) {
 		try {
 			IWorkbenchWindow window = PlatformUI.getWorkbench().getWorkbenchWindows()[0];

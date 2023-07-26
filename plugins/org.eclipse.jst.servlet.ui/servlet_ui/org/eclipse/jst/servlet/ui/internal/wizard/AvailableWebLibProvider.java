@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,10 +26,12 @@ public class AvailableWebLibProvider implements IStructuredContentProvider, ITab
 	public AvailableWebLibProvider() {
 	}
 
+	@Override
 	public Object[] getElements(Object inputElement) {
 		if (inputElement instanceof ArchiveWrapper) {
 			Object[] array = ((ArchiveWrapper) inputElement).getWebLibs().toArray();
 			Arrays.sort(array, new Comparator() {
+				@Override
 				public int compare(Object o1, Object o2) {
 					return getColumnText(o1, 0).compareTo(getColumnText(o2, 0));
 				}
@@ -40,28 +42,35 @@ public class AvailableWebLibProvider implements IStructuredContentProvider, ITab
 		return new Object[0];
 	}
 
+	@Override
 	public Image getColumnImage(Object element, int columnIndex) {
 		return AvailableJarsProvider.getUtilImage();
 	}
 
+	@Override
 	public String getColumnText(Object element, int columnIndex) {
 		ArchiveWrapper wrapper = (ArchiveWrapper)element;
 		return wrapper.getName();
 	}
 
+	@Override
 	public void dispose() {
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 
+	@Override
 	public void addListener(ILabelProviderListener listener) {
 	}
 
+	@Override
 	public boolean isLabelProperty(Object element, String property) {
 		return false;
 	}
 
+	@Override
 	public void removeListener(ILabelProviderListener listener) {
 	}
 }

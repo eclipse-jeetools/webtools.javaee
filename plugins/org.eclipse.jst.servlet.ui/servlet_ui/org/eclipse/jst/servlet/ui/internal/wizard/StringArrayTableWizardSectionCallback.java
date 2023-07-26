@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 SAP AG and others.
+ * Copyright (c) 2007, 2019 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ public class StringArrayTableWizardSectionCallback implements
 	/**
 	 * The first text field should not be empty. 
 	 */
+	@Override
 	public boolean validate(Text[] texts) {
 		if (texts.length > 0) {
 			return texts[0].getText().trim().length() > 0;
@@ -33,6 +34,7 @@ public class StringArrayTableWizardSectionCallback implements
 	/**
 	 * Trims the text values. 
 	 */
+	@Override
 	public String[] retrieveResultStrings(Text[] texts) {
 		int n = texts.length;
 		String[] result = new String[n];

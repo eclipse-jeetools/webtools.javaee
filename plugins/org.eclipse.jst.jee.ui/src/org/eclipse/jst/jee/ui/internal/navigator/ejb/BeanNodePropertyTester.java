@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ public class BeanNodePropertyTester extends PropertyTester {
 	public static final String IS_SESSION_BEAN = "isSessionBean"; //$NON-NLS-1$
 	public static final String IS_MESSAGE_DRIVEN = "isMessageDrivenBean"; //$NON-NLS-1$
 
+	@Override
 	public boolean test(Object receiver, String property, Object[] args,
 			Object expectedValue) {
 

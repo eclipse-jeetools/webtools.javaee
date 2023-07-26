@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -76,6 +76,7 @@ public class Session2xInterfacesTable extends Composite {
 	
 	protected class IntfTableContentProvider implements IStructuredContentProvider {
 
+		@Override
 		public Object[] getElements(Object inputElement) {
 			if (inputElement instanceof List) {
 				return ((List) inputElement).toArray();
@@ -83,10 +84,12 @@ public class Session2xInterfacesTable extends Composite {
 			return new Object[0];
 		}
 
+		@Override
 		public void dispose() {
 			
 		}
 
+		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			
 		}
@@ -95,10 +98,12 @@ public class Session2xInterfacesTable extends Composite {
 	
 	protected class IntfTableLabelProvider extends LabelProvider implements ITableLabelProvider {
 
+		@Override
 		public Image getColumnImage(Object element, int columnIndex) {
 			return null;
 		}
 
+		@Override
 		public String getColumnText(Object element, int columnIndex) {
 			if (element instanceof Session2xInterfacesTableRow) {
 				Session2xInterfacesTableRow row = (Session2xInterfacesTableRow) element;
@@ -142,10 +147,12 @@ public class Session2xInterfacesTable extends Composite {
             button.pack();
             
             button.addSelectionListener(new SelectionListener(){
+				@Override
 				public void widgetDefaultSelected(SelectionEvent e) {
 					
 				}
 
+				@Override
 				public void widgetSelected(SelectionEvent e) {
 					if (dialog.open() != IDialogConstants.OK_ID)
 						return;
@@ -163,7 +170,8 @@ public class Session2xInterfacesTable extends Composite {
             
             // accessibility: trigger button push when the RETURN hit is hit and the button is on focus
             button.addTraverseListener(new TraverseListener() {
-            	public void keyTraversed(TraverseEvent e) {
+            	@Override
+				public void keyTraversed(TraverseEvent e) {
     				if (e.detail == SWT.TRAVERSE_RETURN) {
                         e.doit = false;
                         button.notifyListeners(SWT.Selection, new Event());
@@ -225,6 +233,7 @@ public class Session2xInterfacesTable extends Composite {
 		
 		// accessibility: switch to cell editing when the RETURN key is hit
 		table.addTraverseListener(new TraverseListener() {
+			@Override
 			public void keyTraversed(TraverseEvent e) {
 				if (e.detail == SWT.TRAVERSE_RETURN) {
                     e.doit = false;
@@ -296,6 +305,7 @@ public class Session2xInterfacesTable extends Composite {
 		// Set the cell modifier for the viewer
 		viewer.setCellModifier(new ICellModifier() {
 
+			@Override
 			public boolean canModify(Object element, String property) {
 				if (property.equals(CLASS_NAME_COLUMN)) {
 					return true;
@@ -303,6 +313,7 @@ public class Session2xInterfacesTable extends Composite {
 				return false;
 			}
 
+			@Override
 			public Object getValue(Object element, String property) {
 				Session2xInterfacesTableRow row = (Session2xInterfacesTableRow) element;
 				if (property.equals(CLASS_NAME_COLUMN)) {					
@@ -311,6 +322,7 @@ public class Session2xInterfacesTable extends Composite {
 				return null;
 			}
 
+			@Override
 			public void modify(Object element, String property, Object value) {
 				TableItem item = (TableItem) element;
 				Session2xInterfacesTableRow row = (Session2xInterfacesTableRow) item.getData();
@@ -340,6 +352,7 @@ public class Session2xInterfacesTable extends Composite {
 		
 		// Implement a "fake" tooltip
 		final Listener labelListener = new Listener() {
+			@Override
 			public void handleEvent(Event event) {
 				Label label = (Label) event.widget;
 				Shell shell = label.getShell();
@@ -364,6 +377,7 @@ public class Session2xInterfacesTable extends Composite {
 		Listener tableListener = new Listener() {
 			Shell tip = null;
 			Label label = null;
+			@Override
 			public void handleEvent(Event event) {
 				switch (event.type) {
 					case SWT.Dispose:
