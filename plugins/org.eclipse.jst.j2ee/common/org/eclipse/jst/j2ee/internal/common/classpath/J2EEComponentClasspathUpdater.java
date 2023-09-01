@@ -247,12 +247,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		
 		public FindNodeJob(IResourceDelta[] d) {
 			super(FIND_NODE_JOB_NAME);
-			if (d.length > 1) {
-				setRule(ResourcesPlugin.getWorkspace().getRoot());
-			}
-			else {
-				setRule(d[0].getResource());
-			}
+			setRule(ResourcesPlugin.getWorkspace().getRoot());
 			setSystem(true);
 			setDelta(d);
 		}
