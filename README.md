@@ -19,12 +19,11 @@ more.
 
 The project maintains the following source code repository (this is not a cloning URL):
 
-* http://git.eclipse.org/c/jeetools/webtools.jeetools
+* https://github.com/eclipse-jeetools/webtools.javaee
 
-This project uses Bugzilla to track ongoing development and issues.
+This project uses GitHub Issues to track ongoing development and issues.
 
-* Search for issues: https://bugs.eclipse.org/bugs/buglist.cgi?product=WTP+Java+EE+Tools
-* Create a new report: https://bugs.eclipse.org/bugs/enter_bug.cgi?product=WTP+Java+EE+Tools
+* Search for older issues from Bugzilla, while they last: https://bugs.eclipse.org/bugs/buglist.cgi?product=WTP+Java+EE+Tools
 
 Be sure to search for existing bugs before you create another one. Remember that
 contributions are always welcome!
