@@ -911,13 +911,22 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 
 	private static final char[] RUNTIME_VISIBLE = "RuntimeVisibleAnnotations".toCharArray(); //$NON-NLS-1$
 
-	private static final char[] STATELESS = "Ljavax/ejb/Stateless;".toCharArray();//$NON-NLS-1$
+	private static final char[] STATELESS = "Ljakarta/ejb/Stateless;".toCharArray();//$NON-NLS-1$
 
-	private static final char[] STATEFUL = "Ljavax/ejb/Stateful;".toCharArray();//$NON-NLS-1$
+	private static final char[] STATEFUL = "Ljakarta/ejb/Stateful;".toCharArray();//$NON-NLS-1$
 
-	private static final char[] MESSAGEDRIVEN = "Ljavax/ejb/MessageDriven;".toCharArray();//$NON-NLS-1$
+	private static final char[] MESSAGEDRIVEN = "Ljakarta/ejb/MessageDriven;".toCharArray();//$NON-NLS-1$
 
-	private static final char[] SINGLETON = "Ljavax/ejb/Singleton;".toCharArray();//$NON-NLS-1$
+	private static final char[] SINGLETON = "Ljakarta/ejb/Singleton;".toCharArray();//$NON-NLS-1$
+
+	private static final char[] STATELESS_JAVA_EE = "Ljavax/ejb/Stateless;".toCharArray();//$NON-NLS-1$
+
+	private static final char[] STATEFUL_JAVA_EE = "Ljavax/ejb/Stateful;".toCharArray();//$NON-NLS-1$
+
+	private static final char[] MESSAGEDRIVEN_JAVA_EE = "Ljavax/ejb/MessageDriven;".toCharArray();//$NON-NLS-1$
+
+	private static final char[] SINGLETON_JAVA_EE = "Ljavax/ejb/Singleton;".toCharArray();//$NON-NLS-1$
+	
 
 	
 	public boolean isEJBArchive(IArchive archive) {
@@ -948,7 +957,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 										IAnnotation[] annotations = annotationsAttribute.getAnnotations();
 										for (IAnnotation annotation : annotations) {
 											char[] typedName = annotation.getTypeName();
-											if (Arrays.equals(typedName, STATELESS) || Arrays.equals(typedName, STATEFUL) || Arrays.equals(typedName, MESSAGEDRIVEN) || Arrays.equals(typedName, SINGLETON)) {
+											if (hasJavaEEEJBAnnotation(typedName) || hasJakartaEJBAnnotation(typedName)) {
 												return true;
 											}
 										}
@@ -1002,7 +1011,16 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		return manifest;
 	}
 	
+	private boolean hasJavaEEEJBAnnotation(char[] typedName) {
+		return Arrays.equals(typedName, STATELESS_JAVA_EE) || Arrays.equals(typedName, STATEFUL_JAVA_EE)
+				|| Arrays.equals(typedName, MESSAGEDRIVEN_JAVA_EE) || Arrays.equals(typedName, SINGLETON_JAVA_EE);
+	}
 
+	private boolean hasJakartaEJBAnnotation(char[] typedName) {
+		return Arrays.equals(typedName, STATELESS) || Arrays.equals(typedName, STATEFUL)
+				|| Arrays.equals(typedName, MESSAGEDRIVEN) || Arrays.equals(typedName, SINGLETON);
+	}
+	
 	private boolean isInLibDir(IVirtualComponent earComp, IVirtualComponent component, String libDir){
 		if (libDir != null && libDir.length() > 0) {
 			IVirtualReference earRef = earComp.getReference(component.getName());
