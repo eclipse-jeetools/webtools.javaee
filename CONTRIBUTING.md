@@ -1,10 +1,10 @@
-# Contributing to Eclipse WTP Source Editing
+# Contributing to Eclipse WTP Java EE Tools
 
 Thank you for your interest in this project.  Don't forget to sign your Eclipse Contributor Agreement before proposing any changes.
 
 In addition to the changes you're proposing, you should be familiar with Git and using SSH keys with Git.
 
-If you're seeing this repository somewhere other than [this GitHub repository](https://github.com/eclipse-jsf/webtools-jsf), it's not the authoritative version used for our releases every quarter. Opening pull requests or submitting changes there will be of no use.
+If you're seeing this repository somewhere other than [this GitHub repository](https://github.com/eclipse-jeetools/webtools.javaee), it's not the authoritative version used for our releases every quarter. Opening pull requests or submitting changes there will be of no use.
 
 Hints for pull requests:
 - You can run the Maven build with the standard `clean` and `install` goals. Optionally you may specify a Tycho version using `-Dtycho-extras.version=${tychoVersion} -Dtycho.version=${tychoVersion}` (4.0.4 and higher)` and profile `bree-libs` with `-Pbree-libs`.
