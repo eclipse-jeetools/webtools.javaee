@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2023 IBM Corporation and others.
+ * Copyright (c) 2005, 2024 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -957,7 +957,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 										IAnnotation[] annotations = annotationsAttribute.getAnnotations();
 										for (IAnnotation annotation : annotations) {
 											char[] typedName = annotation.getTypeName();
-											if (hasJavaEEEJBAnnotation(typedName) || hasJakartaEJBAnnotation(typedName)) {
+											if (hasJakartaEJBAnnotation(typedName) || hasJavaEEEJBAnnotation(typedName)) {
 												return true;
 											}
 										}
