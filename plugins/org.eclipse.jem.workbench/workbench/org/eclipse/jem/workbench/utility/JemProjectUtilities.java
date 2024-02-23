@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2024 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -200,7 +200,9 @@ public class JemProjectUtilities extends ProjectUtilities {
 		if (p != null)
 		{
 			try {
-				return (IJavaProject) p.getNature(JavaCore.NATURE_ID);
+				if (p.hasNature(JavaCore.NATURE_ID)) {
+					return JavaCore.create(p);
+				}
 			} catch (CoreException ignore) {
 				return null;
 			}
