@@ -54,9 +54,13 @@ public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 	    }
 	    else {
 		    facets.add( primaryFacetVersion );
-		    if (primaryFacetVersion == WebFacetUtils.WEB_40) 
+		    if( primaryFacetVersion == WebFacetUtils.WEB_60 )
 		    {
-		    	facets.add( JavaFacet.VERSION_1_8);
+		        facets.add( JavaFacet.VERSION_11 );
+		    }
+		    else if( primaryFacetVersion == WebFacetUtils.WEB_50 || primaryFacetVersion == WebFacetUtils.WEB_40 )
+		    {
+		        facets.add( JavaFacet.VERSION_1_8 );
 		    }
 		    else if( primaryFacetVersion == WebFacetUtils.WEB_31 )
 		    {
@@ -77,6 +81,11 @@ public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 		    else if( primaryFacetVersion == WebFacetUtils.WEB_23 || primaryFacetVersion == WebFacetUtils.WEB_22 )
 		    {
 		        facets.add( JavaFacet.VERSION_1_3 );
+		    }
+		    else
+		    {
+		        // Add a default version of Java in case a Web Facet is introduced but not in this list
+		        facets.add( JavaFacet.VERSION_11 );
 		    }
 	    }
 		return Collections.unmodifiableSet( facets );
