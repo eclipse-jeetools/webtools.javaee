@@ -16,13 +16,6 @@
             class="org.eclipse.jst.j2ee.common.CommonPackage">
       </package>
    </extension>
-   <extension
-         point="org.eclipse.emf.ecore.generated_package">
-      <package
-            uri="application.xmi"
-            class="org.eclipse.jst.j2ee.application.ApplicationPackage">
-      </package>
-   </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @notgenerated j2ee -->
