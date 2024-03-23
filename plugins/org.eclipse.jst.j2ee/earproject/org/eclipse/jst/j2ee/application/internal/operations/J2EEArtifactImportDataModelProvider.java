@@ -453,6 +453,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		final int EE8  = 3;
 		final int EE9  = 4;
 		final int EE10 = 5;
+		final int HIGHEST_EE_VERSION = EE10;
 		int [] highestJQPVersion = new int[] {
 			EE5,
 			EE6,
@@ -547,8 +548,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 
 		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
-		if(archiveType == JavaEEQuickPeek.CONNECTOR_TYPE || runtime == null || runtime.supports(highestProjectFacetVersion[EE8]) ){
-			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE8]);
+		if(archiveType == JavaEEQuickPeek.CONNECTOR_TYPE || runtime == null || runtime.supports(highestProjectFacetVersion[HIGHEST_EE_VERSION]) ){
+			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[HIGHEST_EE_VERSION]);
 		} else if(runtime.supports(highestProjectFacetVersion[EE10]) ){
             return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE10]);
         } else if(runtime.supports(highestProjectFacetVersion[EE9]) ){
