@@ -69,8 +69,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	private Throwable archiveOpenFailure = null;
 
 	@Override
-	public Set getPropertyNames() {
-		Set propertyNames = super.getPropertyNames();
+	public Set<String> getPropertyNames() {
+		Set<String> propertyNames = super.getPropertyNames();
 		propertyNames.add(FILE_NAME);
 		propertyNames.add(CLOSE_ARCHIVE_ON_DISPOSE);
 		propertyNames.add(USE_DEFAULT_PROJECT_NAME);
@@ -403,11 +403,11 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 					if(facetVersion.getProjectFacet().equals(JavaFacet.FACET)){
 						Set set = Collections.singleton(facetVersion.getProjectFacet());
 						try {
-							Set correctSet = runtime.getDefaultFacets(set);
+							Set<IProjectFacetVersion> correctSet = runtime.getDefaultFacets(set);
 							IProjectFacetVersion correctVersion = null;
-							Iterator correctVersions = correctSet.iterator();
+							Iterator<IProjectFacetVersion> correctVersions = correctSet.iterator();
 							while(correctVersions.hasNext() && correctVersion == null){
-								IProjectFacetVersion version = (IProjectFacetVersion)correctVersions.next();
+								IProjectFacetVersion version = correctVersions.next();
 								if(version.getProjectFacet().equals(JavaFacet.FACET)){
 									correctVersion = version;
 								}
