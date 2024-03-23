@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2023 IBM Corporation and others.
+ * Copyright (c) 2003, 2024 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,8 +62,8 @@ import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataModelProvider implements IJ2EEComponentImportDataModelProperties, IDataModelListener {
 
 	private static final String USE_DEFAULT_PROJECT_NAME = "J2EEArtifactImportDataModelProvider.USE_DEFAULT_PROJECT_NAME"; //$NON-NLS-1$
-	
-	public static final String FACET_RUNTIME = "IJ2EEArtifactImportDataModelProperties.FACET_RUNTIME"; //$NON-NLS-1$	
+
+	public static final String FACET_RUNTIME = "IJ2EEArtifactImportDataModelProperties.FACET_RUNTIME"; //$NON-NLS-1$
 
 	private IDataModel componentCreationDM;
 	private Throwable archiveOpenFailure = null;
@@ -99,7 +99,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}else if( propertyName.equals(COMPONENT)){
 			String projectName = getStringProperty(PROJECT_NAME);
 			IProject project = ProjectUtilities.getProject(projectName);
-			return ComponentCore.createComponent(project);			
+			return ComponentCore.createComponent(project);
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -205,7 +205,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		archiveOptions.setOption(JavaEEArchiveUtilities.DISCRIMINATE_EJB_ANNOTATIONS, Boolean.TRUE);
 		return archiveOptions;
 	}
-	
+
 	protected ArchiveWrapper openArchiveWrapper(String uri) throws ArchiveOpenFailureException{
 		IArchive archive = null;
 		IPath path = new Path(uri);
@@ -213,11 +213,11 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		archive = JavaEEArchiveUtilities.INSTANCE.openArchive(archiveOptions);
 		archive.setPath(path);
 		JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
-		
+
 		if(jqp.getJavaEEVersion() == J2EEConstants.UNKNOWN && jqp.getType() == J2EEConstants.UNKNOWN){
 			handleUnknownType(jqp);
 		}
-		
+
 		return new ArchiveWrapper(archive);
 	}
 	/**
@@ -287,7 +287,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	protected final ArchiveWrapper getArchiveWrapper(){
 		return (ArchiveWrapper)getProperty(ARCHIVE_WRAPPER);
 	}
-	
+
 	@Override
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		return super.getValidPropertyDescriptors(propertyName);
@@ -305,13 +305,13 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			}
 		}
 	}
-	
+
 	protected void refreshInterpretedSpecVersion(){
-		
+
 	}
-	
+
 	/**
-	 * Updates the Java Facet Version so it is compliant with the Java EE Module version 
+	 * Updates the Java Facet Version so it is compliant with the Java EE Module version
 	 */
 	protected void updateJavaFacetVersion() {
 		IProjectFacetVersion javaFacetVersion = null;
@@ -376,14 +376,14 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			updateWorkingCopyFacetVersion(moduleDM, javaFacetDataModel);
 		}
 	}
-	
+
 	protected void updateWorkingCopyFacetVersion(IDataModel moduleDM, IDataModel facetDM) {
 		IProjectFacetVersion facetVersion = (IProjectFacetVersion)facetDM.getProperty(IFacetDataModelProperties.FACET_VERSION);
 		//[Bug 314162] IFacetedProjectWorkingCopy facet version is not automatically updated so it has to be done manually
 		IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
 		fpwc.changeProjectFacetVersion(facetVersion);
 	}
-	
+
 	/**
 	 * Calling this method will fixup the JST facet version if it is incompatible with the selected runtime
 	 * It should be called when the Server Runtime or the Archive properties are set.
@@ -394,7 +394,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			IDataModel projectModel = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
 			FacetDataModelMap map = (FacetDataModelMap) projectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			Collection projectFacets = (Collection)getProperty(FacetProjectCreationDataModelProvider.REQUIRED_FACETS_COLLECTION);
-					
+
 			IRuntime runtime = (IRuntime) getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 			if(runtime != null){
 				for(Iterator iterator = projectFacets.iterator(); iterator.hasNext();){
@@ -412,7 +412,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 									correctVersion = version;
 								}
 							}
-							
+
 							if(correctVersion != null){
 								if(!facetVersion.equals(correctVersion)){
 									facetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, correctVersion);
@@ -423,7 +423,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 							J2EEPlugin.logError(e);
 						}
 					}
-				
+
 					if(!runtime.supports(facetVersion)){
 						return WTPCommonPlugin.createErrorStatus( J2EECreationResourceHandler.VERSION_NOT_SUPPORTED );
 					}
@@ -432,9 +432,9 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 		return OK_STATUS;
 	}
-	
+
 	/**
-	 * If the archive does not have a deployment descriptor, then the 
+	 * If the archive does not have a deployment descriptor, then the
 	 * version will be interpreted as the highest version supported
 	 * by the server.
 	 * @return
@@ -545,7 +545,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		if(archive.containsArchiveResource(ddPath)){
 			return jqp;
 		}
-		
+
 		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 		if(archiveType == JavaEEQuickPeek.CONNECTOR_TYPE || runtime == null || runtime.supports(highestProjectFacetVersion[EE8]) ){
 			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE8]);
