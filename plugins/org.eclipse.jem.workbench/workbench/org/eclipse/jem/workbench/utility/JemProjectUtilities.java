@@ -352,12 +352,8 @@ public class JemProjectUtilities extends ProjectUtilities {
 	 * @since 1.0.0
 	 */
 	public static void removeFromJavaClassPath(IProject p, IClasspathEntry entry) throws JavaModelException {
-		IJavaProject javaProject = null;
-		try {
-			javaProject = (IJavaProject) p.getNature(JavaCore.NATURE_ID);
-		} catch (CoreException ignore) {
-		}
-		if (javaProject != null) {
+		IJavaProject javaProject = JavaCore.create(p);
+		if (javaProject != null && javaProject.exists()) {
 			IClasspathEntry[] classpath = javaProject.getRawClasspath();
 			javaProject.setRawClasspath(primRemoveFromJavaClassPath(classpath, entry), new NullProgressMonitor());
 		}
@@ -375,12 +371,8 @@ public class JemProjectUtilities extends ProjectUtilities {
 	 * @since 1.0.0
 	 */
 	public static void removeFromJavaClassPath(IProject p, List entries) throws JavaModelException {
-		IJavaProject javaProject = null;
-		try {
-			javaProject = (IJavaProject) p.getNature(JavaCore.NATURE_ID);
-		} catch (CoreException ignore) {
-		}
-		if (javaProject != null) {
+		IJavaProject javaProject = JavaCore.create(p);
+		if (javaProject != null && javaProject.exists()) {
 			IClasspathEntry[] classpath = javaProject.getRawClasspath();
 			javaProject.setRawClasspath(primRemoveFromJavaClassPath(classpath, entries), new NullProgressMonitor());
 		}
@@ -543,12 +535,8 @@ public class JemProjectUtilities extends ProjectUtilities {
 	 * @since 1.0.0
 	 */
 	public static void appendJavaClassPath(IProject p, List appendClasspathEntries) throws JavaModelException {
-		IJavaProject javaProject = null;
-		try {
-			javaProject = (IJavaProject) p.getNature(JavaCore.NATURE_ID);
-		} catch (CoreException ignore) {
-		}
-		if (javaProject != null) {
+		IJavaProject javaProject = JavaCore.create(p);
+		if (javaProject != null && javaProject.exists()) {
 			IClasspathEntry[] classpath = javaProject.getRawClasspath();
 			List newPathList = new ArrayList(classpath.length);
 			for (int i = 0; i < classpath.length; i++) {
