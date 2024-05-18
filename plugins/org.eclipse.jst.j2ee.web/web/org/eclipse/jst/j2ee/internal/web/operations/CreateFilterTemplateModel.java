@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2022 SAP AG and others.
+ * Copyright (c) 2007, 2024 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -61,8 +61,9 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		Collection<String> imports = super.getImports();
 		
 		String javaEEVersion = getJavaEEVersion();
+		boolean useJakartaEE = Double.parseDouble(javaEEVersion) >= 5;
 		if (shouldGenInit()) {
-			if (SERVLET_5_0.equals(javaEEVersion)) {
+			if (useJakartaEE) {
 				imports.add(IServletConstants.QUALIFIED_JAKARTA_FILTER_CONFIG);
 				imports.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET_EXCEPTION);
 			}
@@ -73,7 +74,7 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		}
 		
 		if (shouldGenDoFilter()) {
-			if (SERVLET_5_0.equals(javaEEVersion)) {
+			if (useJakartaEE) {
 				imports.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST);
 				imports.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET_RESPONSE);
 				imports.add(IServletConstants.QUALIFIED_JAKARTA_FILTER_CHAIN);
@@ -88,7 +89,7 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 				imports.add(QUALIFIED_SERVLET_EXCEPTION);
 			}
 		}
-		if (SERVLET_5_0.equals(javaEEVersion)) {
+		if (useJakartaEE) {
 			imports.add(IServletConstants.QUALIFIED_JAKARTA_WEB_FILTER);
 			if (getInitParams() != null && !getInitParams().isEmpty()) {
 				imports.add(IServletConstants.QUALIFIED_JAKARTA_ANNOTATION_INIT_PARAM);

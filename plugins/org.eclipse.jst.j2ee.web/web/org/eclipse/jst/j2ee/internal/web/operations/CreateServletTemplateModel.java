@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2021 IBM Corporation and others.
+ * Copyright (c) 2003, 2024 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DESTROY;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_DELETE;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_GET;
@@ -30,7 +31,6 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataM
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.INIT_PARAM;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.SERVICE;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.URL_MAPPINGS;
-import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.web.IServletConstants.DESTROY_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.DO_DELETE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.DO_GET_SIGNATURE;
@@ -51,6 +51,8 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_DO_TRACE_SIGNAT
 import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_GET_SERVLET_CONFIG_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_GET_SERVLET_INFO_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_HTTP_SERVICE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_SERVICE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_SERVLET_INIT_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DESTROY;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_DELETE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_GET;
@@ -68,13 +70,6 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_IN
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET_RESPONSE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_IO_EXCEPTION;
-import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONFIG;
-import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_EXCEPTION;
-import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST;
-import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPONSE;
-import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_SERVLET;
-import static org.eclipse.jst.j2ee.web.IServletConstants.SERVICE_SIGNATURE;
-import static org.eclipse.jst.j2ee.web.IServletConstants.SERVLET_INIT_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_ANNOTATION_INIT_PARAM;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET_RESPONSE;
@@ -83,8 +78,13 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVL
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_RESPONSE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_WEB_SERVLET;
-import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_SERVICE_SIGNATURE;
-import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_SERVLET_INIT_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONFIG;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_EXCEPTION;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPONSE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_SERVLET;
+import static org.eclipse.jst.j2ee.web.IServletConstants.SERVICE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.SERVLET_INIT_SIGNATURE;
 
 import java.util.Collection;
 import java.util.Hashtable;
@@ -114,7 +114,7 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 		String eeVersion = getJavaEEVersion();
 		boolean useJakartaPackages = true;
 		try {
-			useJakartaPackages = (eeVersion == null || Double.valueOf(eeVersion).doubleValue() >= 5.0);
+			useJakartaPackages = (eeVersion == null || Double.parseDouble(eeVersion) >= 5);
 		}
 		catch (NumberFormatException e) {
 			useJakartaPackages = true;
