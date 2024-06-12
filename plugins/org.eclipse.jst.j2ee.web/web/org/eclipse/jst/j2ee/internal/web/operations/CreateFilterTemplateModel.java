@@ -60,8 +60,17 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 	public Collection<String> getImports() {
 		Collection<String> imports = super.getImports();
 		
-		String javaEEVersion = getJavaEEVersion();
-		boolean useJakartaEE = Double.parseDouble(javaEEVersion) >= 5;
+		float servletVersion = 3;
+		boolean useJakartaEE = true;
+		try {
+			String eeVersion = getJavaEEVersion();
+			useJakartaEE = (eeVersion == null || Double.parseDouble(eeVersion) >= 5);
+			servletVersion = eeVersion != null ? Float.parseFloat(eeVersion) : 6;
+		}
+		catch (NumberFormatException e) {
+			useJakartaEE = true;
+		}
+
 		if (shouldGenInit()) {
 			if (useJakartaEE) {
 				imports.add(IServletConstants.QUALIFIED_JAKARTA_FILTER_CONFIG);
@@ -99,7 +108,7 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 			}
 		}
 		else {
-			if (SERVLET_3.equals(javaEEVersion) || SERVLET_3_1.equals(javaEEVersion) || SERVLET_4_0.equals(javaEEVersion)) {
+			if (servletVersion > 2) {
 				imports.add(QUALIFIED_WEB_FILTER);
 				if (getInitParams() != null && !getInitParams().isEmpty()) {
 					imports.add(QUALIFIED_ANNOTATION_INIT_PARAM);

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Automatic-Module-Name: org.eclipse.jst.servlet.ui
 Bundle-SymbolicName: org.eclipse.jst.servlet.ui; singleton:=true
-Bundle-Version: 1.2.100.qualifier
+Bundle-Version: 1.2.200.qualifier
 Bundle-Activator: org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin
 Bundle-Vendor: %pluginVendor
 Bundle-Localization: plugin

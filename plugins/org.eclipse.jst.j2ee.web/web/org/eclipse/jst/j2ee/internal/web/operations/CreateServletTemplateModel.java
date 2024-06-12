@@ -111,10 +111,13 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	@Override
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
-		String eeVersion = getJavaEEVersion();
+
+		float servletVersion = 3;
 		boolean useJakartaPackages = true;
 		try {
+			String eeVersion = getJavaEEVersion();
 			useJakartaPackages = (eeVersion == null || Double.parseDouble(eeVersion) >= 5);
+			servletVersion = eeVersion != null ? Float.parseFloat(eeVersion) : 6;
 		}
 		catch (NumberFormatException e) {
 			useJakartaPackages = true;
@@ -181,13 +184,12 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 		}
 
 		if (useJakartaPackages) {
-			// TODO: only needed if registering via annotation
 			collection.add(QUALIFIED_JAKARTA_WEB_SERVLET);
 			if (getInitParams() != null && !getInitParams().isEmpty()) {
 				collection.add(QUALIFIED_JAKARTA_ANNOTATION_INIT_PARAM);
 			}
 		}
-		else if (SERVLET_3.equals(getJavaEEVersion()) || SERVLET_3_1.equals(getJavaEEVersion()) || SERVLET_4_0.equals(getJavaEEVersion())) {
+		else if (servletVersion >= 3) {
 			// TODO: only needed if registering via annotation
 			collection.add(QUALIFIED_WEB_SERVLET);
 			if (getInitParams() != null && getInitParams().size() > 0) {

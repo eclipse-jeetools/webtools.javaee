@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2019 SAP AG and others.
+ * Copyright (c) 2007, 2024 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +9,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
-import java.util.*;
-import org.eclipse.jst.j2ee.internal.common.operations.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.eclipse.jst.j2ee.internal.common.operations.Constructor;
+import org.eclipse.jst.j2ee.internal.common.operations.CreateJavaEEArtifactTemplateModel;
+import org.eclipse.jst.j2ee.internal.common.operations.Method;
 
 public class FilterTemplate
 {
@@ -236,7 +242,15 @@ public class FilterTemplate
 
     stringBuffer.append(TEXT_26);
      
-	if ("3.0".equals(model.getJavaEEVersion()) || "3.1".equals(model.getJavaEEVersion()) || "4.0".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        boolean supportsStandardAnnotations = false;
+        try {
+                supportsStandardAnnotations = Float.parseFloat(model.getJavaEEVersion()) > 2;
+        }
+        catch (NumberFormatException e) {
+                supportsStandardAnnotations = true;
+        }
+
+        if (supportsStandardAnnotations) {
 
     stringBuffer.append(TEXT_27);
     

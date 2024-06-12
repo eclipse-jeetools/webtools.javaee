@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2019 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2024 by SAP AG, Walldorf. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,15 +53,19 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
  * 
  */
 public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp> {
-	
+
 	private static final String WEB_SERVLET = "WebServlet"; //$NON-NLS-1$
 	private static final String WEB_SERVLET_FQ = "javax.servlet.annotation.WebServlet"; //$NON-NLS-1$
-	
+	private static final String JAKARTA_WEB_SERVLET_FQ = "jakarta.servlet.annotation.WebServlet"; //$NON-NLS-1$
+
 	private static final String WEB_LISTENER = "WebListener"; //$NON-NLS-1$
 	private static final String WEB_LISTENER_FQ = "javax.servlet.annotation.WebListener"; //$NON-NLS-1$
+	private static final String JAKARTA_WEB_LISTENER_FQ = "jakarta.servlet.annotation.WebListener"; //$NON-NLS-1$
 
 	private static final String WEB_FILTER = "WebFilter"; //$NON-NLS-1$
 	private static final String WEB_FILTER_FQ = "javax.servlet.annotation.WebFilter"; //$NON-NLS-1$
+	private static final String JAKARTA_WEB_FILTER_FQ = "jakarta.servlet.annotation.WebFilter"; //$NON-NLS-1$
+
 
 	private ManyToOneRelation<JavaEEObject, ICompilationUnit> modelToUnit;
 
@@ -155,13 +159,13 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 		Result result = null;
 		for (IAnnotation annotation : type.getAnnotations()) {
 			String annotationName = annotation.getElementName();
-			if (WEB_SERVLET.equals(annotationName) || WEB_SERVLET_FQ.equals(annotationName)) {
+			if (WEB_SERVLET.equals(annotationName) || JAKARTA_WEB_SERVLET_FQ.equals(annotationName) || WEB_SERVLET_FQ.equals(annotationName)) {
 				result = annotationFactory.createServlet(type, null);
 				break;
-			} else if (WEB_FILTER.equals(annotationName) || WEB_FILTER_FQ.equals(annotationName)) {
+			} else if (WEB_FILTER.equals(annotationName) || JAKARTA_WEB_FILTER_FQ.equals(annotationName) || WEB_FILTER_FQ.equals(annotationName)) {
 				result = annotationFactory.createFilter(type, null);
 				break;
-			} else if (WEB_LISTENER.equals(annotationName) || WEB_LISTENER_FQ.equals(annotationName)) {
+			} else if (WEB_LISTENER.equals(annotationName) || JAKARTA_WEB_LISTENER_FQ.equals(annotationName) || WEB_LISTENER_FQ.equals(annotationName)) {
 				result = annotationFactory.createListener(type);
 				break;
 			} 

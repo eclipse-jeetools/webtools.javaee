@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2023 SAP AG and others.
+ * Copyright (c) 2007, 2024 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -455,9 +455,9 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 			if (!result) { // fallback to heuristics
 				IJavaProject javaProject = JavaCore.create(project);
 				if (javaProject.exists()) {
-					if (javaProject.findType(IServletConstants.QUALIFIED_JAKARTA_GENERIC_SERVLET) != null || javaProject.findType(IServletConstants.QUALIFIED_GENERIC_SERVLET) != null) {
+//					if (javaProject.findType(IServletConstants.QUALIFIED_JAKARTA_GENERIC_SERVLET) != null || javaProject.findType(IServletConstants.QUALIFIED_GENERIC_SERVLET) != null) {
 						result = true;
-					}
+//					}
 				}
 			}
 		} catch (CoreException ce) {

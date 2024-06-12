@@ -38,7 +38,16 @@ public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
 	public Collection<String> getImports() {
 		Collection<String> imports = super.getImports();
 		
-		boolean isJakartaEE = Double.parseDouble(getJavaEEVersion()) >= 5;
+		float servletVersion = 3;
+		boolean isJakartaEE = true;
+		try {
+			String eeVersion = getJavaEEVersion();
+			isJakartaEE = (eeVersion == null || Double.parseDouble(eeVersion) >= 5);
+			servletVersion = eeVersion != null ? Float.parseFloat(eeVersion) : 6;
+		}
+		catch (NumberFormatException e) {
+			isJakartaEE = true;
+		}
 		if (implementServletContextListener()) {
 			if (isJakartaEE) {
 				imports.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET_CONTEXT_LISTENER);
@@ -130,7 +139,7 @@ public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
 		if (isJakartaEE) {
 			imports.add(IServletConstants.QUALIFIED_JAKARTA_WEB_LISTENER);
 		}
-		else if (SERVLET_3.equals(getJavaEEVersion()) || SERVLET_3_1.equals(getJavaEEVersion()) || SERVLET_4_0.equals(getJavaEEVersion())){
+		else if (servletVersion > 2){
 			imports.add(QUALIFIED_WEB_LISTENER);
 		}
 		
