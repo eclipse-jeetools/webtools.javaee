@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2022 SAP AG and others.
+ * Copyright (c) 2007, 2024 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,6 +49,8 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * The NewWebClassDataModelProvider is a subclass of
@@ -175,7 +177,7 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 		else if (propertyName.equals(CONSTRUCTOR))
 			return hasSuperClass();
 		else if (propertyName.equals(REGISTER_IN_WEB_XML)){
-			return !isJavaEE6Project();
+			return !isAnnotationSupportingWebProject();
 		} else if (JAVA_EE_VERSION.equals(propertyName)){
 			return getJavaEEVersion();
 		}
@@ -184,18 +186,17 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	}
 
 	@SuppressWarnings("restriction")
-	public boolean isJavaEE6Project() {
+	public boolean isAnnotationSupportingWebProject() {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
 		if (project != null && project.isAccessible()){
 			try {
-				// check to see if it is Java EE 6 or later
-				return (FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_30.getVersionString())
-						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_31.getVersionString())
-						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_40.getVersionString())
-						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_30.getVersionString())
-						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_31.getVersionString())
-						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_40.getVersionString()));
-			} catch (CoreException e) {
+				IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+				// check to see if it is Servlet 3 or later
+				return (facetedProject.hasProjectFacet(WebFacetUtils.WEB_FACET) && 
+							Float.parseFloat(facetedProject.getInstalledVersion(WebFacetUtils.WEB_FACET).getVersionString()) >= 3)
+						|| (facetedProject.hasProjectFacet(WebFacetUtils.WEBFRAGMENT_FACET)
+							&& Float.parseFloat(facetedProject.getInstalledVersion(WebFacetUtils.WEBFRAGMENT_FACET).getVersionString()) >= 3);
+			} catch (CoreException | NumberFormatException e) {
 				WebPlugin.log(e);
 			}
 		}
