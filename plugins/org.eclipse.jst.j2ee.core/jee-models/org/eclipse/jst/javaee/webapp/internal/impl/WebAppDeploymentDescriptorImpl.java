@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2023 IBM Corporation and others.
+ * Copyright (c) 2009, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -166,7 +166,7 @@ public class WebAppDeploymentDescriptorImpl extends EObjectImpl implements WebAp
 	 */
 	@Override
 	public void setWebApp(WebApp newWebApp) {
-		((FeatureMap.Internal)getMixed()).set(WebappPackage.Literals.WEB_APP_DEPLOYMENT_DESCRIPTOR__WEB_APP, newWebApp);
+		getMixed().set(WebappPackage.Literals.WEB_APP_DEPLOYMENT_DESCRIPTOR__WEB_APP, newWebApp);
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2019 IBM Corporation and others.
+ * Copyright (c) 2003, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -105,7 +105,7 @@ public class UIWarValidator extends WarValidator {
 			throws org.eclipse.wst.validation.internal.core.ValidationException {
 		
 		setWarHelper((UIWarHelper) inHelper);
-		IProject proj = ((IWorkbenchContext) warHelper).getProject();
+		IProject proj = warHelper.getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
         if( wbModule != null && JavaEEProjectUtilities.isDynamicWebProject(proj)) {           	
         	IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);

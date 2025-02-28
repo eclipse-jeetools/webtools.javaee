@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2023 IBM Corporation and others.
+ * Copyright (c) 2001, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -306,7 +306,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 				ValidationRuleUtility.isValidTypeHierarchy(bean, primaryKey);
 			}
 			catch (InvalidInputException exc) {
-				if (((Entity) bean).eIsSet(EjbPackage.eINSTANCE.getEntity_PrimaryKey())) {
+				if (bean.eIsSet(EjbPackage.eINSTANCE.getEntity_PrimaryKey())) {
 					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2810_NAMED, IEJBValidationContext.ERROR, bean, new String[] { ((Entity) bean).getPrimaryKeyName()}, this);
 					vc.addMessage(message);
 				}

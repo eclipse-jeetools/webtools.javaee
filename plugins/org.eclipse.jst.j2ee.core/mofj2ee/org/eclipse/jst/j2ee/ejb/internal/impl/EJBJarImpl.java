@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2023 IBM Corporation and others.
+ * Copyright (c) 2001, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ import org.eclipse.jst.j2ee.common.EjbRef;
 import org.eclipse.jst.j2ee.common.internal.impl.CompatibilityDescriptionGroupImpl;
 import org.eclipse.jst.j2ee.common.internal.util.CommonUtil;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
-import org.eclipse.jst.j2ee.ejb.CommonRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
@@ -750,7 +749,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 				EJBRelationshipRole role;
 				for (int j = 0; j < roles.size(); j++) {
 					role = (EJBRelationshipRole) roles.get(j);
-					if (cmp.equals(((CommonRelationshipRole) role).getTypeEntity())) {
+					if (cmp.equals(role.getTypeEntity())) {
 						if (result == null)
 							result = new ArrayList();
 						result.add(role);

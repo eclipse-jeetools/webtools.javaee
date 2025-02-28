@@ -558,7 +558,7 @@
 									value="jst.ear" />
 								<test forcePluginActivation="true"
 									property="org.eclipse.wst.common.project.facet.core.projectFacet"
-									value="jst.web" />
+									value="jst.webfragment" />
 							</or>
 						</adapt>
 					</and>

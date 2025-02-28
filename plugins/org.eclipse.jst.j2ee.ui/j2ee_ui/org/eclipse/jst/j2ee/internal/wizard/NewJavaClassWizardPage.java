@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2023 IBM Corporation and others.
+ * Copyright (c) 2003, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,7 +28,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -647,7 +646,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			if (element.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
 				return (IPackageFragment) element;
 			} else if (element.getElementType() == IJavaElement.COMPILATION_UNIT) { 
-				IJavaElement parent = ((ICompilationUnit) element).getParent();
+				IJavaElement parent = element.getParent();
 				if (parent.getElementType() == IJavaElement.PACKAGE_FRAGMENT) {
 					return (IPackageFragment) parent;
 				}

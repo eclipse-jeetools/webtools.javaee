@@ -798,7 +798,7 @@
           facet="jst.web"
           id="jst.web.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[2.4-6.0]">
+          version="[2.4-6.1]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -808,7 +808,7 @@
           facet="jst.web"
           id="jst.web.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[2.5-6.0]">
+          version="[2.5-6.1]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -818,7 +818,7 @@
           facet="jst.web"
           id="jst.web.versionchange.ee6"
           type="VERSION_CHANGE"
-          version="[3.0-6.0]">
+          version="[3.0-6.1]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -828,7 +828,7 @@
           facet="jst.web"
           id="jst.web.versionchange.ee7"
           type="VERSION_CHANGE"
-          version="[3.1-6.0]">
+          version="[3.1-6.1]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -838,7 +838,7 @@
           facet="jst.web"
           id="jst.web.versionchange.ee8"
           type="VERSION_CHANGE"
-          version="[4.0-6.0]">
+          version="[4.0-6.1]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -858,7 +858,7 @@
           facet="jst.webfragment"
           id="jst.webfragment.versionchange.ee7"
           type="VERSION_CHANGE"
-          version="[3.1-6.0]">
+          version="[3.1-6.1]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>

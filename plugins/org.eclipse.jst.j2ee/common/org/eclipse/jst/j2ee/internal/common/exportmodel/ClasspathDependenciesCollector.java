@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -116,7 +116,7 @@ public class ClasspathDependenciesCollector extends FlatVirtualComponent {
 		for (int i = 0; i < resources.length; i++) {
 			IFlatResource resource = resources[i];
 			if (resource instanceof IFlatFile) {
-				if (((IFlatFile) resource).getAdapter(File.class) != null)
+				if (resource.getAdapter(File.class) != null)
 					flatFiles.add((IFlatFile)resource);
 			} else if (resource instanceof IFlatFolder) {
 				fetchFlatFiles(((IFlatFolder)resource).members(), flatFiles);

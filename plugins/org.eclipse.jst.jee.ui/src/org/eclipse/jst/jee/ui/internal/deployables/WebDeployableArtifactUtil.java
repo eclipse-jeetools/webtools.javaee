@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2024 IBM Corporation and others.
+ * Copyright (c) 2003, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
@@ -318,14 +319,18 @@ public class WebDeployableArtifactUtil {
 			// get java element
 			IJavaElement javaElement = javaProject.findElement(path);
 
-			IType[] types = getTypes(javaElement);
-			if (types != null) {
-				int size2 = types.length;
-				for (int i = 0; i < size2; i++) {
-					if (hasSuperclass(types[i], superType))
-						return types[i].getFullyQualifiedName();
+			if (javaElement != null) {
+				IType[] types = getTypes(javaElement);
+				if (types != null) {
+					int size2 = types.length;
+					for (int i = 0; i < size2; i++) {
+						if (hasSuperclass(types[i], superType))
+							return types[i].getFullyQualifiedName();
+					}
 				}
 			}
+			return null;
+		} catch (JavaModelException e) {
 			return null;
 		} catch (Exception e) {
 			JEEUIPlugin.logError(e);

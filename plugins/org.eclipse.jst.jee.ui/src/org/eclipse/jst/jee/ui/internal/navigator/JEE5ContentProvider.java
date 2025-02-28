@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2025 by SAP AG, Walldorf, and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -145,7 +145,7 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 								Object[] expandedElements = ((TreeViewer) viewer).getExpandedElements();
 								
 								((StructuredViewer) viewer).refresh(project);
-								((TreeViewer) viewer).setSelection(sel);
+								viewer.setSelection(sel);
 								
 								expandElements(expandedElements);
 							}

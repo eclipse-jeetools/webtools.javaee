@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2023 IBM Corporation and others.
+ * Copyright (c) 2001, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,8 +21,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.CommonFactory;
-import org.eclipse.jst.j2ee.common.Description;
-import org.eclipse.jst.j2ee.common.DisplayName;
 import org.eclipse.jst.j2ee.common.IconType;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -437,7 +435,7 @@ public String getLargeIcon() {
 		case J2EEVersionConstants.J2EE_1_4_ID :
 		default :
 			if (getDescriptionType() != null)
-				return ((Description)getDescriptionType()).getValue();
+				return getDescriptionType().getValue();
 		}
 		return null;
 	}
@@ -495,7 +493,7 @@ public String getDisplayName() {
   	case J2EEVersionConstants.J2EE_1_4_ID :
   	default :
   		if (getDisplayNameType() != null)
-  			return ((DisplayName)getDisplayNameType()).getValue();
+  			return getDisplayNameType().getValue();
   	}
   	return null;
   }

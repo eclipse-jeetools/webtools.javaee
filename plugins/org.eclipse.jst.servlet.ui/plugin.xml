@@ -243,7 +243,7 @@
              <adapt type="org.eclipse.core.resources.IProject">
              <test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.web:5.0]" />
+							value="jst.web" />
 			 </adapt>
            </with>
          </enablement>
@@ -257,7 +257,7 @@
              <adapt type="org.eclipse.core.resources.IFile">
              <test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.web:5.0]" />
+							value="jst.web" />
 			 </adapt>
            </with>
          </enablement>
@@ -272,7 +272,7 @@
              <adapt type="org.eclipse.jdt.core.ICompilationUnit">
              <test forcePluginActivation="true"
 							property="org.eclipse.jst.j2ee.common.projectFacet"
-							value="jst.web:5.0]" />
+							value="jst.web" />
 			</adapt>				             
            </with>
          </enablement>

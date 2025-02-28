@@ -806,32 +806,36 @@
                  <test
                        forcePluginActivation="true"
                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                       value="jst.web:2.5"/>
-                 <test
-                       forcePluginActivation="true"
-                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                       value="jst.web:3.0">
-                 </test>
-                 <test
-                       forcePluginActivation="true"
-                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                       value="jst.web:3.1">
-                 </test>
-                 <test
-                       forcePluginActivation="true"
-                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                       value="jst.web:4.0">
-                 </test>
-                 <test
-                       forcePluginActivation="true"
-                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                       value="jst.web:5.0">
-                 </test>
-                 <test
-                       forcePluginActivation="true"
-                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                       value="jst.web:6.0">
-                 </test>
+                       value="jst.web:[2.5"/>
+<!--                 <test-->
+<!--                       forcePluginActivation="true"-->
+<!--                       property="org.eclipse.wst.common.project.facet.core.projectFacet"-->
+<!--                       value="jst.web:3.0">-->
+<!--                 </test>-->
+<!--                 <test-->
+<!--                       forcePluginActivation="true"-->
+<!--                       property="org.eclipse.wst.common.project.facet.core.projectFacet"-->
+<!--                       value="jst.web:3.1">-->
+<!--                 </test>-->
+<!--                 <test-->
+<!--                       forcePluginActivation="true"-->
+<!--                       property="org.eclipse.wst.common.project.facet.core.projectFacet"-->
+<!--                       value="jst.web:4.0">-->
+<!--                 </test>-->
+<!--                 <test-->
+<!--                       forcePluginActivation="true"-->
+<!--                       property="org.eclipse.wst.common.project.facet.core.projectFacet"-->
+<!--                       value="jst.web:5.0">-->
+<!--                 </test>-->
+<!--                 <test-->
+<!--                       forcePluginActivation="true"-->
+<!--                       property="org.eclipse.wst.common.project.facet.core.projectFacet"-->
+<!--                       value="jst.web:6.0">-->
+<!--                 </test>-->
+<!--                 <test-->
+<!--                       forcePluginActivation="true"-->
+<!--                       property="org.eclipse.wst.common.project.facet.core.projectFacet"-->
+<!--                       value="jst.web:6.1"/>-->
               </or>
            </adapt>
    <instanceof

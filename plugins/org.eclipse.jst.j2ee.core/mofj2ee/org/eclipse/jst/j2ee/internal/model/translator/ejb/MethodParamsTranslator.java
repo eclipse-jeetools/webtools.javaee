@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2019 IBM Corporation and others.
+ * Copyright (c) 2001, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -88,7 +88,7 @@ public class MethodParamsTranslator extends Translator implements EjbDeploymentD
      */
     @Override
 	public void clearList(EObject mofObject) {
-		((MethodElement)mofObject).eUnset(feature);
+		mofObject.eUnset(feature);
     }
     
     /* (non-Javadoc)
