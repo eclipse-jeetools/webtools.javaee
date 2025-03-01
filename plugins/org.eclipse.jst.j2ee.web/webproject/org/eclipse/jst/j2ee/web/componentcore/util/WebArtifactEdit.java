@@ -440,6 +440,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			file.setWelcomeFile("index.jsp"); //$NON-NLS-1$
 			files.add(file);
 			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
+			file.setWelcomeFile("index.xhtml"); //$NON-NLS-1$
+			files.add(file);
+			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
 			file.setWelcomeFile("default.html"); //$NON-NLS-1$
 			files.add(file);
 			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
@@ -447,6 +450,9 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			files.add(file);
 			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
 			file.setWelcomeFile("default.jsp"); //$NON-NLS-1$
+			files.add(file);
+			file = WebapplicationFactory.eINSTANCE.createWelcomeFile();
+			file.setWelcomeFile("default.xhtml"); //$NON-NLS-1$
 			files.add(file);
 			
 			webApp.setFileList(wList);

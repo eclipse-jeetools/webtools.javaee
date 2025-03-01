@@ -370,9 +370,11 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		                   "index.html", //$NON-NLS-1$
 		                   "index.jsp", //$NON-NLS-1$
 		                   "index.htm", //$NON-NLS-1$
+		                   "index.xhtml", //$NON-NLS-1$
 		                   "default.html", //$NON-NLS-1$
 		                   "default.jsp", //$NON-NLS-1$
-		                   "default.htm" //$NON-NLS-1$
+		                   "default.htm", //$NON-NLS-1$
+		                   "default.xhtml" //$NON-NLS-1$
 		           );
 		           
 		           // Add the welcome-file-list tag
