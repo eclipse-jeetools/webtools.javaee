@@ -47,7 +47,7 @@ public enum NullCharType implements Enumerator
 	 * @generated
 	 * @ordered
 	 */
-	public static final int _ = 0;
+	public static final int nullCharTypeValue = 0;
 
 	/**
 	 * An array of all the '<em><b>Null Char Type</b></em>' enumerators.
@@ -108,7 +108,7 @@ public enum NullCharType implements Enumerator
 	 */
 	public static NullCharType get(int value) {
 		switch (value) {
-			case _: return __LITERAL;
+			case nullCharTypeValue: return __LITERAL;
 		}
 		return null;
 	}
