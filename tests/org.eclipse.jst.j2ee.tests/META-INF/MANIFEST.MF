@@ -83,5 +83,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.sse.core
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-21
 Bundle-Vendor: %Bundle-Vendor.0

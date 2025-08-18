@@ -36,4 +36,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.datatools.connectivity;resolution:=optional,
  org.eclipse.datatools.connectivity.ui.dse;resolution:=optional
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-21
