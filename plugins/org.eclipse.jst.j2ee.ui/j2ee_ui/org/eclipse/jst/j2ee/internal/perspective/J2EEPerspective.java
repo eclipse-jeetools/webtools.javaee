@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2023 IBM Corporation and others.
+ * Copyright (c) 2005, 2025 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 	private static final String ID_CONSOLE_VIEW= "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
 	private static final String ID_MARKERS_VIEW= "org.eclipse.ui.views.AllMarkersView"; //$NON-NLS-1$
 	private static final String ID_TASKLIST_VIEW= "org.eclipse.mylyn.tasks.ui.views.tasks"; //$NON-NLS-1$
-	private static final String ID_TERMINAL_VIEW = "org.eclipse.tm.terminal.view.ui.TerminalsView"; //$NON-NLS-1$
+	private static final String ID_TERMINAL_VIEW = "org.eclipse.terminal.view.ui.TerminalsView"; //$NON-NLS-1$
 	private static final String ID_GIT_REPO_VIEW = "org.eclipse.egit.ui.RepositoriesView";  //$NON-NLS-1$
 	private static final String ID_GIT_STG_VIEW = "org.eclipse.egit.ui.internal.staging.StagingView";  //$NON-NLS-1$
 
