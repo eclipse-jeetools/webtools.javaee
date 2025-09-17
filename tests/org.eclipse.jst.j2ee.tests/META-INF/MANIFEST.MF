@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: org.eclipse.jst.j2ee.tests
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipse.jst.j2ee.tests; singleton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 1.2.100.qualifier
 Bundle-ClassPath: j2ee-tests.jar
 Bundle-Activator: org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin
 Bundle-Localization: plugin
