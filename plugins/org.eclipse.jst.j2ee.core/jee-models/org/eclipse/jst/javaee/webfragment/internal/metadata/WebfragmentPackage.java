@@ -367,6 +367,7 @@ public interface WebfragmentPackage extends EPackage {
 	String eNS_URI3 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0;
 	String eNS_URI4 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_5_0;
 	String eNS_URI5 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0;
+	String eNS_URI6 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_1;
 	/**
 	 * The package namespace name.
 	 * <!-- begin-user-doc -->

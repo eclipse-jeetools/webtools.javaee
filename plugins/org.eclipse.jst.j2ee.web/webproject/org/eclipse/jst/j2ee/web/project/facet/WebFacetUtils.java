@@ -28,6 +28,7 @@ public class WebFacetUtils {
 	public static final IProjectFacetVersion WEB_40 = WEB_FACET.getVersion("4.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEB_50 = WEB_FACET.getVersion("5.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEB_60 = WEB_FACET.getVersion("6.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion WEB_61 = WEB_FACET.getVersion("6.1"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEBFRAGMENT_30 = WEBFRAGMENT_FACET.getVersion("3.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEBFRAGMENT_31 = WEBFRAGMENT_FACET.getVersion("3.1"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEBFRAGMENT_40 = WEBFRAGMENT_FACET.getVersion("4.0"); //$NON-NLS-1$

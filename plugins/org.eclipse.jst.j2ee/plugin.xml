@@ -483,6 +483,17 @@
       </constraint>
       <group-member id="modules"/>     
     </project-facet-version>    
+    
+    <project-facet-version facet="jst.ear" version="11.0">
+      <constraint>
+        <and>
+          <conflicts group="modules"/>
+          <conflicts facet="jst.java"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>    
+    
             
     <action facet="jst.ear" type="INSTALL" id="jst.ear.install">
       <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
@@ -624,6 +635,17 @@
       </constraint>
       <group-member id="modules"/>     
     </project-facet-version>
+
+    <project-facet-version facet="jst.appclient" version="11.0">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[17"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>
+
                 
     <action type="install" facet="jst.appclient" id="jst.appclient.install">
       <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
@@ -658,7 +680,7 @@
           facet="jst.ear"
           id="jst.ear.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[1.4-10.0]">
+          version="[1.4-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -668,7 +690,7 @@
           facet="jst.ear"
           id="jst.ear.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[5.0-10.0]">
+          version="[5.0-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -678,7 +700,7 @@
           facet="jst.ear"
           id="jst.ear.versionchange.ee6"
           type="VERSION_CHANGE"
-          version="[6.0-10.0]">
+          version="[6.0-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -688,7 +710,7 @@
           facet="jst.ear"
           id="jst.ear.versionchange.ee7"
           type="VERSION_CHANGE"
-          version="[7.0-10.0]">
+          version="[7.0-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -698,7 +720,7 @@
           facet="jst.ear"
           id="jst.ear.versionchange.ee8"
           type="VERSION_CHANGE"
-          version="[8.0-10.0]">
+          version="[8.0-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -708,7 +730,7 @@
           facet="jst.appclient"
           id="jst.appclient.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[1.4-10.0]">
+          version="[1.4-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -718,7 +740,7 @@
           facet="jst.appclient"
           id="jst.appclient.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[5.0-10.0]">
+          version="[5.0-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -728,7 +750,7 @@
           facet="jst.appclient"
           id="jst.appclient.versionchange.ee6"
           type="VERSION_CHANGE"
-          version="[6.0-10.0]">
+          version="[6.0-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -738,7 +760,7 @@
           facet="jst.appclient"
           id="jst.appclient.versionchange.ee7"
           type="VERSION_CHANGE"
-          version="[7.0-10.0]">
+          version="[7.0-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -748,7 +770,7 @@
           facet="jst.appclient"
           id="jst.appclient.versionchange.ee8"
           type="VERSION_CHANGE"
-          version="[8.0-10.0]">
+          version="[8.0-11.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>

@@ -37,7 +37,7 @@ public interface J2EEVersionConstants {
 	public int JEE_8_0_ID = 80;
 	public int JEE_9_0_ID = 90;
 	public int JEE_10_0_ID = 100;
-	public int JEE_10_1_ID = 110;
+	public int JEE_11_0_ID = 110;
 	public int EJB_1_0_ID = 10;	
 	public int EJB_1_1_ID = 11;	
 	public int EJB_2_0_ID = 20;	
@@ -55,11 +55,13 @@ public interface J2EEVersionConstants {
 	public int WEB_4_0_ID = 40;
 	public int WEB_5_0_ID = 50;
 	public int WEB_6_0_ID = 60;
+	public int WEB_6_1_ID = 61;
 	public int WEBFRAGMENT_3_0_ID = 30;
 	public int WEBFRAGMENT_3_1_ID = 31;
 	public int WEBFRAGMENT_4_0_ID = 40;
 	public int WEBFRAGMENT_5_0_ID = 50;
 	public int WEBFRAGMENT_6_0_ID = 60;
+	public int WEBFRAGMENT_6_1_ID = 61;
 	public int TAGLIB_1_1_ID = 11;
 	public int TAGLIB_1_2_ID = 12;
 	public int TAGLIB_2_0_ID = 20;
@@ -76,6 +78,7 @@ public interface J2EEVersionConstants {
 	public int SERVLET_4_0 = 40;
 	public int SERVLET_5_0 = 50;
 	public int SERVLET_6_0 = 60;
+	public int SERVLET_6_1 = 61;
 	public int JCA_1_0_ID = 10;
 	public int JCA_1_5_ID = 15;
 	public int JCA_1_6_ID = 16;
@@ -111,11 +114,13 @@ public interface J2EEVersionConstants {
 	public int VERSION_3_1 = 31; 
 	public int VERSION_3_2 = 32;
 	public int VERSION_5_0 = 50; 
-	public int VERSION_6_0 = 60; 
+	public int VERSION_6_0 = 60;
+	public int VERSION_6_1 = 61; 
 	public int VERSION_7_0 = 70;
 	public int VERSION_8_0 = 80;
 	public int VERSION_9_0 = 90;
 	public int VERSION_10_0 = 100;
+	public int VERSION_11_0 = 110;
 	
 	public String VERSION_1_0_TEXT		= "1.0"; //$NON-NLS-1$
 	public String VERSION_1_1_TEXT    	= "1.1"; //$NON-NLS-1$
@@ -142,11 +147,14 @@ public interface J2EEVersionConstants {
 	public String VERSION_8_0_TEXT		= "8.0"; //$NON-NLS-1$
 	public String VERSION_9_0_TEXT      = "9.0"; //$NON-NLS-1$
 	public String VERSION_10_0_TEXT     = "10.0"; //$NON-NLS-1$
+	public String VERSION_11_0_TEXT     = "11.0"; //$NON-NLS-1$
 	public String VERSION_5_TEXT        = "5";   //$NON-NLS-1$
 	public String VERSION_6_TEXT        = "6";   //$NON-NLS-1$
+	public String VERSION_6_1_TEXT      = "6.1";   //$NON-NLS-1$
 	public String VERSION_7_TEXT        = "7";   //$NON-NLS-1$
 	public String VERSION_8_TEXT        = "8";	//$NON-NLS-1$
 	public String VERSION_9_TEXT        = "9";	//$NON-NLS-1$
 	public String VERSION_10_TEXT        = "10"; //$NON-NLS-1$
+	public String VERSION_11_TEXT        = "11"; //$NON-NLS-1$
 					
 }

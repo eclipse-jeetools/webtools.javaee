@@ -67,6 +67,7 @@ public final class J2EEContentDescriber implements IContentDescriber {
 			case JavaEEQuickPeek.WEB_4_0_ID:
 			case JavaEEQuickPeek.WEB_5_0_ID:
 			case JavaEEQuickPeek.WEB_6_0_ID:
+			case JavaEEQuickPeek.WEB_6_1_ID:
 				return VALID;
 			}
 			return INVALID;

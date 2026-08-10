@@ -109,15 +109,24 @@ public enum WebAppVersionType implements Enumerator
 	 */
 	_50(4, "_50", "5.0"), //$NON-NLS-1$ //$NON-NLS-2$
 	/**
-	 * The '<em><b>50</b></em>' literal object.
+	 * The '<em><b>60</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #_50_VALUE
+	 * @see #_60_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	_60(5, "_60", "6.0"); //$NON-NLS-1$ //$NON-NLS-2$
-
+	_60(5, "_60", "6.0"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>61</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_61_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	_61(6, "_61", "6.1"); //$NON-NLS-1$ //$NON-NLS-2$
+	
 	/**
 	 * The '<em><b>22</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -222,12 +231,11 @@ public enum WebAppVersionType implements Enumerator
 	 * @ordered
 	 */
 	public static final int _50_VALUE = 5;
-
 	/**
-	 * The '<em><b>50</b></em>' literal value.
+	 * The '<em><b>60</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>50</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>60</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -235,6 +243,18 @@ public enum WebAppVersionType implements Enumerator
 	 * @ordered
 	 */
 	public static final int _60_VALUE = 6;
+	/**
+	 * The '<em><b>61</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>61</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #_61
+	 * @ordered
+	 */
+	public static final int _61_VALUE = 7;
 
 	/**
 	 * An array of all the '<em><b>App Version Type</b></em>' enumerators.
@@ -252,7 +272,8 @@ public enum WebAppVersionType implements Enumerator
 			_31,
 			_40,
 			_50,
-			_60
+			_60,
+			_61
 		};
 
 	/**
@@ -311,6 +332,8 @@ public enum WebAppVersionType implements Enumerator
 			case _31_VALUE: return _31;
 			case _40_VALUE: return _40;
 			case _50_VALUE: return _50;
+			case _60_VALUE: return _60;
+			case _61_VALUE: return _61;
 		}
 		return null;
 	}

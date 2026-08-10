@@ -29,6 +29,7 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_80 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "8.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_90 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "9.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_100 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "10.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_110 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "11.0"); //$NON-NLS-1$
 	
 	public static final String APPLICATION_CLIENT = IModuleConstants.JST_APPCLIENT_MODULE;
 	public IProjectFacet APPLICATION_CLIENT_FACET = J2EEFacetConstantsProvider.getProjectFacet(APPLICATION_CLIENT);
@@ -41,6 +42,7 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion APPLICATION_CLIENT_80 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "8.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion APPLICATION_CLIENT_90 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "9.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion APPLICATION_CLIENT_100 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "10.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion APPLICATION_CLIENT_110 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "11.0"); //$NON-NLS-1$
 	
 	public static final String EJB = IModuleConstants.JST_EJB_MODULE;
 	public IProjectFacet EJB_FACET = J2EEFacetConstantsProvider.getProjectFacet(EJB);
@@ -63,6 +65,7 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion DYNAMIC_WEB_40 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "4.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_50 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "5.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_60 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "6.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion DYNAMIC_WEB_61 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "6.1"); //$NON-NLS-1$
 	
 	public static final String DYNAMIC_WEB_XDOCLET = "jst.web.xdoclet"; //$NON-NLS-1$
 	

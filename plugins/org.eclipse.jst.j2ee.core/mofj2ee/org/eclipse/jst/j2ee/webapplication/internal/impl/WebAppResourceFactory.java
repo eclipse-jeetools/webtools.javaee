@@ -46,6 +46,7 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_4_0, "web-app_4_0.xsd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_5_0, "web-app_5_0.xsd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_6_0, "web-app_6_0.xsd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_6_1, "web-app_6_1.xsd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.JSP_SCHEMA_LOC_2_0, "jsp_2_0.xsd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.JSP_SCHEMA_LOC_2_1, "jsp_2_1.xsd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.JSP_SCHEMA_LOC_3_0, "jsp_3_0.xsd"); //$NON-NLS-1$
