@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2023 IBM Corporation and others.
+ * Copyright (c) 2001, 2026 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -260,13 +260,13 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 		validateLoginConfig(webDD.getLoginConfig());
 		validateEnvironmentEntries(webDD.getEnvironmentProperties());
 		validateOther();
-		validate14();
+		validateNewIn14();
 	}
 
 	/**
 	 * 
 	 */
-	private void validate14() {
+	private void validateNewIn14() {
 		int versionId = webDD.getVersionID();
 		if (versionId == J2EEVersionConstants.WEB_2_4_ID) {
 			validateUrlPattern();
