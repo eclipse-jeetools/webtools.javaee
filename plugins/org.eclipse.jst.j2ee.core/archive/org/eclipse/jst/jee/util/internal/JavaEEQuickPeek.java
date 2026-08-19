@@ -36,12 +36,14 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 	private static final String SIMPLE_WEBAPP_SCHEMA_4_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_4_0);
 	private static final String SIMPLE_WEBAPP_SCHEMA_5_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_5_0);
 	private static final String SIMPLE_WEBAPP_SCHEMA_6_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_6_0);
+	private static final String SIMPLE_WEBAPP_SCHEMA_6_1 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_6_1);
 	private static final String SIMPLE_APPLICATION_SCHEMA_5 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_5);
 	private static final String SIMPLE_APPLICATION_SCHEMA_6 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_6);
 	private static final String SIMPLE_APPLICATION_SCHEMA_7 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_7);
 	private static final String SIMPLE_APPLICATION_SCHEMA_8 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_8);
 	private static final String SIMPLE_APPLICATION_SCHEMA_9 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_9);
 	private static final String SIMPLE_APPLICATION_SCHEMA_10 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_10);
+	private static final String SIMPLE_APPLICATION_SCHEMA_11 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_11);
 	private static final String SIMPLE_EJBJAR_SCHEMA_2_1 = lastSegment(J2EEConstants.EJBJAR_SCHEMA_2_1);
 	private static final String SIMPLE_EJBJAR_SCHEMA_3_0 = lastSegment(J2EEConstants.EJBJAR_SCHEMA_3_0);
 	private static final String SIMPLE_EJBJAR_SCHEMA_3_1 = lastSegment(J2EEConstants.EJBJAR_SCHEMA_3_1);
@@ -52,7 +54,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 	private static final String SIMPLE_WEBFRAGMENT_SCHEMA_4_0 = lastSegment(J2EEConstants.WEBFRAGMENT_SCHEMA_4_0);
 	private static final String SIMPLE_WEBFRAGMENT_SCHEMA_5_0 = lastSegment(J2EEConstants.WEBFRAGMENT_SCHEMA_5_0);
 	private static final String SIMPLE_WEBFRAGMENT_SCHEMA_6_0 = lastSegment(J2EEConstants.WEBFRAGMENT_SCHEMA_6_0);
-
+	private static final String SIMPLE_WEBFRAGMENT_SCHEMA_6_1 = lastSegment(J2EEConstants.WEBFRAGMENT_SCHEMA_6_1);
+ 
 
 	private XMLRootHandler handler = null;
 
@@ -210,7 +213,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
                         version = J2EEVersionConstants.JEE_9_0_ID;
                     }else if (schemaName.indexOf(lastSegment(J2EEConstants.APP_CLIENT_SCHEMA_10)) != -1) {
                         version = J2EEVersionConstants.JEE_10_0_ID;
+                    }else if (schemaName.indexOf(lastSegment(J2EEConstants.APP_CLIENT_SCHEMA_11)) != -1) {
+                        version = J2EEVersionConstants.JEE_11_0_ID;
                     }
+					
 				}
 				break;
 			case APPLICATION_TYPE:
@@ -237,6 +243,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.JEE_9_0_ID;
 					} else if (schemaName.indexOf(SIMPLE_APPLICATION_SCHEMA_10) != -1) {
                         version = J2EEVersionConstants.JEE_10_0_ID;
+                    } else if (schemaName.indexOf(SIMPLE_APPLICATION_SCHEMA_11) != -1) {
+                        version = J2EEVersionConstants.JEE_11_0_ID;
                     }
 				}
 				break;
@@ -286,7 +294,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEB_2_2_ID;
 					}
 				} else if (schemaName != null) {
-					if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_6_0) != -1) {
+					if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_6_1) != -1) {
+						version = J2EEVersionConstants.WEB_6_1_ID;
+					}
+					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_6_0) != -1) {
 						version = J2EEVersionConstants.WEB_6_0_ID;
 					}
 					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_5_0) != -1) {
@@ -326,13 +337,16 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 					} else if (J2EEVersionConstants.VERSION_4_0_TEXT.equals(versionAttribute)) {
 						version = J2EEVersionConstants.WEB_4_0_ID;
 					}
-				}else if (J2EEConstants.JAKARTAEE10_NS_URL.equals(namespace)) {
+				} else if (J2EEConstants.JAKARTAEE10_NS_URL.equals(namespace) || J2EEConstants.JAKARTAEE11_NS_URL.equals(namespace)) {
                     String versionAttribute = handler.getRootAttributes().getValue("version"); //$NON-NLS-1$
                     if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(versionAttribute)) {
                         version = J2EEVersionConstants.WEB_5_0_ID;
                     } else if (J2EEVersionConstants.VERSION_6_0_TEXT.equals(versionAttribute)) {
                         version = J2EEVersionConstants.WEB_6_0_ID;
+                    } else if (J2EEVersionConstants.VERSION_6_1_TEXT.equals(versionAttribute)) {
+                        version = J2EEVersionConstants.WEB_6_1_ID;
                     }
+
                 }
 				if (version == UNSET && handler.getRootAttributes() != null && handler.getRootAttributes().getValue("version") != null) { //$NON-NLS-1$
 					try {
@@ -365,7 +379,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				break;
 			case WEBFRAGMENT_TYPE:
 				if (schemaName != null) {
-				    if (schemaName.indexOf(SIMPLE_WEBFRAGMENT_SCHEMA_6_0) != -1) {
+				    if (schemaName.indexOf(SIMPLE_WEBFRAGMENT_SCHEMA_6_1) != -1) {
+                        version = J2EEVersionConstants.WEBFRAGMENT_6_1_ID;
+                    }
+                    else if (schemaName.indexOf(SIMPLE_WEBFRAGMENT_SCHEMA_6_0) != -1) {
                         version = J2EEVersionConstants.WEBFRAGMENT_6_0_ID;
                     }
                     else if (schemaName.indexOf(SIMPLE_WEBFRAGMENT_SCHEMA_5_0) != -1) {
@@ -487,6 +504,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				case J2EEVersionConstants.WEB_6_0_ID:
 					javaEEVersion = J2EEVersionConstants.JEE_10_0_ID;
 					break;
+				case J2EEVersionConstants.WEB_6_1_ID:
+					javaEEVersion = J2EEVersionConstants.JEE_11_0_ID;
+					break;
+					
 				}
 				break;
 		case WEBSERVICES_TYPE:
@@ -529,6 +550,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
             case J2EEVersionConstants.WEBFRAGMENT_6_0_ID:
                 javaEEVersion = J2EEVersionConstants.JEE_10_0_ID;
                 break;
+            case J2EEVersionConstants.WEBFRAGMENT_6_1_ID:
+                javaEEVersion = J2EEVersionConstants.JEE_11_0_ID;
+                break;
+                
 			}
 			break;
 		}

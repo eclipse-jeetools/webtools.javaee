@@ -228,6 +228,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	@Override
 	public void setJ2EEVersionID(int id) {
 	switch (id) {
+    	case (JEE_11_0_ID) :
 	    case (JEE_10_0_ID) :
             primSetDoctypeValues(null, null);
             primSetVersionID(EJB_4_0_ID);

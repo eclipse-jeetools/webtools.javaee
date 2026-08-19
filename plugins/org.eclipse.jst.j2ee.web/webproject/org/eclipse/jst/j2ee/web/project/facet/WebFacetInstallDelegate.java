@@ -110,7 +110,13 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				webroot.createLink(configFolderPath, 0, null); 
 				J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(webroot, configFolderPath, null); 
 			}
-			if( fv == WebFacetUtils.WEB_60 )
+			if( fv == WebFacetUtils.WEB_61 )
+			{
+				 if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+		                createWeb61DeploymentDescriptor(project, fv, webinfFolder, monitor);
+		            }
+			}
+			else if( fv == WebFacetUtils.WEB_60 )
 			{
 				 if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
 		                createWeb60DeploymentDescriptor(project, fv, webinfFolder, monitor);
@@ -256,6 +262,23 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			try {
 				// Create a minimal web.xml file, so the model can be initialized
 				final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"5.0\" xmlns=\"https://jakarta.ee/xml/ns/jakartaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd\">\n</web-app>"; //$NON-NLS-1$
+				webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+
+				populateDefaultContent(project, fv);
+			}
+			catch (UnsupportedEncodingException e) {
+				WebPlugin.logError(e);
+			}
+		}
+	}
+	
+	private void createWeb61DeploymentDescriptor(final IProject project, final IProjectFacetVersion fv, IFolder webinfFolder, IProgressMonitor monitor) throws CoreException {
+		// Create the deployment descriptor (web.xml) if one doesn't exist
+		IFile webxmlFile = webinfFolder.getFile("web.xml"); //$NON-NLS-1$
+		if (!webxmlFile.exists()) {
+			try {
+				// Create a minimal web.xml file, so the model can be initialized
+				final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"6.1\" xmlns=\"https://jakarta.ee/xml/ns/jakartaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd\">\n</web-app>"; //$NON-NLS-1$
 				webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
 
 				populateDefaultContent(project, fv);

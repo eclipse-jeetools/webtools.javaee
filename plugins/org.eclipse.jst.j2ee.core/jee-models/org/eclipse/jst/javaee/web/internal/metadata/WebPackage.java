@@ -324,6 +324,7 @@ public interface WebPackage extends EPackage {
 	String eNS_URI4 = J2EEConstants.WEB_APP_SCHEMA_LOC_4_0;
 	String eNS_URI5 = J2EEConstants.WEB_APP_SCHEMA_LOC_5_0;
 	String eNS_URI6 = J2EEConstants.WEB_APP_SCHEMA_LOC_6_0;
+	String eNS_URI7 = J2EEConstants.WEB_APP_SCHEMA_LOC_6_1;
 
 	/**
 	 * The package namespace name.

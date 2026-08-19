@@ -295,6 +295,7 @@ public interface ApplicationclientPackage extends EPackage {
 	String eNS_URI4 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_8;
 	String eNS_URI5 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_9;
 	String eNS_URI6 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_10;
+	String eNS_URI7 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_11;
 	/**
 	 * The package namespace name.
 	 * <!-- begin-user-doc -->

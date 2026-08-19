@@ -95,7 +95,11 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 				if (a != null)
 				{
 					version = a.getVersion();
-					if(J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
+					if(J2EEVersionConstants.VERSION_11_TEXT.equals(version)) {
+                        uri = J2EEConstants.APPLICATION_SCHEMA_LOC_11;
+                        javaeeUri = J2EEConstants.JAKARTAEE11_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
                         uri = J2EEConstants.APPLICATION_SCHEMA_LOC_10;
                         javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
                     }
@@ -149,6 +153,11 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
                         uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_10;
                         javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
                     }
+					else if (J2EEVersionConstants.VERSION_11_TEXT.equals(version)) {
+                        uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_11;
+                        javaeeUri = J2EEConstants.JAKARTAEE11_NS_URL;
+                    }
+					
 					else {
 						uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_8;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
@@ -213,7 +222,11 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 				{
 					WebAppVersionType wavt = wa.getVersion();
 					version = wavt.getLiteral();
-					if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
+					if(J2EEVersionConstants.VERSION_6_1_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEB_APP_SCHEMA_LOC_6_1;
+                        javaeeUri = J2EEConstants.JAKARTAEE11_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
                         uri = J2EEConstants.WEB_APP_SCHEMA_LOC_6_0;
                         javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
                     }
@@ -252,7 +265,11 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 				{
 					WebAppVersionType wavt = wf.getVersion();
 					version = wavt.getLiteral();
-					if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
+					if(J2EEVersionConstants.VERSION_6_1_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_1;
+                        javaeeUri = J2EEConstants.JAKARTAEE11_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
                         uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0;
                         javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
                     }

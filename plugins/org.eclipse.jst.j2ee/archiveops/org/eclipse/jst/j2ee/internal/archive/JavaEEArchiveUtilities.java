@@ -201,6 +201,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
                         version = J2EEVersionConstants.JEE_9_0_ID;
                     }else if (versionStr.equals(J2EEVersionConstants.VERSION_10_0_TEXT)) {
                         version = J2EEVersionConstants.JEE_10_0_ID;
+                    } else if (versionStr.equals(J2EEVersionConstants.VERSION_11_0_TEXT)) {
+                        version = J2EEVersionConstants.JEE_11_0_ID;
                     }
 					break;
 				case J2EEVersionConstants.CONNECTOR_TYPE:
@@ -252,7 +254,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
                         version = J2EEVersionConstants.WEB_5_0_ID;
                     } else if (versionStr.equals(J2EEVersionConstants.VERSION_6_0_TEXT)) {
                         version = J2EEVersionConstants.WEB_6_0_ID;
+                    }	else if (versionStr.equals(J2EEVersionConstants.VERSION_6_1_TEXT)) {
+                        version = J2EEVersionConstants.WEB_6_1_ID;
                     }
+
+					
 					break;
 				}
 				if (version != J2EEVersionConstants.UNKNOWN) {
@@ -425,7 +431,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 									qp.getVersion() == JavaEEQuickPeek.JEE_7_0_ID ||
 									qp.getVersion() == JavaEEQuickPeek.JEE_8_0_ID || 
 									qp.getVersion() == JavaEEQuickPeek.JEE_9_0_ID || 
-									qp.getVersion() == JavaEEQuickPeek.JEE_10_0_ID  ) {
+									qp.getVersion() == JavaEEQuickPeek.JEE_10_0_ID ||
+									qp.getVersion() == JavaEEQuickPeek.JEE_11_0_ID ) {
 								isNestedWithinEar5OrAbove = true;
 								org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
 								// If lib directory is not specified in deployment descriptor, use the default 
