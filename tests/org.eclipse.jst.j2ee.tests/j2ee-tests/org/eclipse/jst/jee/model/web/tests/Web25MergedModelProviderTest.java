@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2026 by SAP AG, Walldorf.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,6 +10,9 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.web.tests;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -19,6 +22,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -28,9 +32,11 @@ import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProv
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.jee.model.internal.Web25MergedModelProvider;
 import org.eclipse.jst.jee.model.tests.AbstractTest;
 import org.eclipse.jst.jee.model.tests.SynchronousModelChangedListener;
 import org.eclipse.jst.jee.model.tests.TestUtils;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -55,7 +61,10 @@ public class Web25MergedModelProviderTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		setUpProject();
-		fixture = ModelProviderManager.getModelProvider(facetedProject.getProject());
+		if ("testInvalidDescriptorIsNotReloadedUntilChanged".equals(getName())) //$NON-NLS-1$
+			fixture = new Web25MergedModelProvider(facetedProject.getProject());
+		else
+			fixture = ModelProviderManager.getModelProvider(facetedProject.getProject());
 	}
 
 	protected void tearDown() throws Exception {
@@ -102,6 +111,35 @@ public class Web25MergedModelProviderTest extends TestCase {
 
 		WebApp app = (WebApp) fixture.getModelObject();
 		assertNotNull(TestUtils.findServletByName(app, "index"));
+	}
+
+	public void testInvalidDescriptorIsNotReloadedUntilChanged() throws Exception {
+		IFile webXml = ComponentCore.createComponent(facetedProject.getProject()).getRootFolder() //
+				.getFile("WEB-INF/web.xml").getUnderlyingFile(); //$NON-NLS-1$
+		String validContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" //$NON-NLS-1$
+				+ "<web-app xmlns=\"http://java.sun.com/xml/ns/javaee\" version=\"2.5\"/>"; //$NON-NLS-1$
+		String invalidContent = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" //$NON-NLS-1$
+				+ "<web-app xmlns=\"https://jakarta.ee/xml/ns/jakartaee\" version=\"6.1\"/>"; //$NON-NLS-1$
+		setFileContents(webXml, invalidContent);
+
+		try {
+			fixture.getModelObject();
+			fail("The first load of an invalid descriptor should fail"); //$NON-NLS-1$
+		} catch (WrappedException expected) {
+			// Expected. The failure is reported once for this file version.
+		}
+		assertNull("An unchanged invalid descriptor should not be loaded again", fixture.getModelObject()); //$NON-NLS-1$
+
+		setFileContents(webXml, validContent);
+		assertNotNull("A changed descriptor should be loaded again", fixture.getModelObject()); //$NON-NLS-1$
+	}
+
+	private static void setFileContents(IFile file, String contents) throws Exception {
+		ByteArrayInputStream input = new ByteArrayInputStream(contents.getBytes(StandardCharsets.UTF_8));
+		if (file.exists())
+			file.setContents(input, true, false, new NullProgressMonitor());
+		else
+			file.create(input, true, new NullProgressMonitor());
 	}
 
 	// public void testPreserveListeners() throws Exception {

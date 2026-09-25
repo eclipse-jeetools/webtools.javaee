@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2023 IBM Corporation and others.
+ * Copyright (c) 2005, 2026 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,11 +14,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
@@ -71,6 +74,7 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	//private static boolean resourceChangeListenerEnabled = false;
 
 	private List modelResources = new ArrayList();
+	private final Map<URI, Long> failedModelResourceLoads = new HashMap<>();
 	protected class ResourceAdapter extends AdapterImpl {
 		@Override
 		public void notifyChanged(Notification notification) {
@@ -162,7 +166,7 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 		return resourceURI;
 	}
 
-	protected XMLResourceImpl getModelResource(final IPath modelPath) {
+	protected synchronized XMLResourceImpl getModelResource(final IPath modelPath) {
 		if(proj == null || !proj.isAccessible()){
 			throw new IllegalStateException("The project <" + proj + "> is not accessible."); //$NON-NLS-1$//$NON-NLS-2$
 		}
@@ -180,11 +184,25 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 		
 		IVirtualFile dd = container.getFile(innerModelPath);
 		URI projURI = URI.createURI(dd.getProjectRelativePath().toString());
+		URI resourceURI = getModuleURI(uri);
 		
 		XMLResourceImpl res = null;
 		try {
 			if (dd.exists()) {
-				res = (XMLResourceImpl) resSet.getResource(getModuleURI(uri),true);
+				IFile underlyingFile = dd.getUnderlyingFile();
+				long modificationStamp = underlyingFile == null ? IResource.NULL_STAMP : underlyingFile.getModificationStamp();
+				Long failedModificationStamp = failedModelResourceLoads.get(resourceURI);
+				if (underlyingFile != null && failedModificationStamp != null
+						&& failedModificationStamp.longValue() == modificationStamp)
+					return null;
+				try {
+					res = (XMLResourceImpl) resSet.getResource(resourceURI,true);
+					failedModelResourceLoads.remove(resourceURI);
+				} catch (WrappedException ex) {
+					if (underlyingFile != null && !(ex.getCause() instanceof FileNotFoundException))
+						failedModelResourceLoads.put(resourceURI, Long.valueOf(modificationStamp));
+					throw ex;
+				}
 				addManagedResource(res);
 			} else {//First find in resource set, then create if not found new Empty Resource.
 				XMLResourceImpl newRes =  createModelResource(innerModelPath, resSet, projURI);
