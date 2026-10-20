@@ -116,7 +116,9 @@ public enum WebAppVersionType implements Enumerator
 	 * @generated
 	 * @ordered
 	 */
-	_60(5, "_60", "6.0"); //$NON-NLS-1$ //$NON-NLS-2$
+	_60(5, "_60", "6.0"),
+	/** Servlet 6.1. */
+	_61(7, "_61", "6.1"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>22</b></em>' literal value.
@@ -236,6 +238,9 @@ public enum WebAppVersionType implements Enumerator
 	 */
 	public static final int _60_VALUE = 6;
 
+	/** Servlet 6.1 literal value. */
+	public static final int _61_VALUE = 7;
+
 	/**
 	 * An array of all the '<em><b>App Version Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
@@ -252,7 +257,8 @@ public enum WebAppVersionType implements Enumerator
 			_31,
 			_40,
 			_50,
-			_60
+			_60,
+			_61
 		};
 
 	/**
@@ -311,6 +317,8 @@ public enum WebAppVersionType implements Enumerator
 			case _31_VALUE: return _31;
 			case _40_VALUE: return _40;
 			case _50_VALUE: return _50;
+			case _60_VALUE: return _60;
+			case _61_VALUE: return _61;
 		}
 		return null;
 	}

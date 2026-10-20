@@ -14,6 +14,7 @@ public class HeaderParserTests extends BaseTestCase {
 	public static Test suite() {
         TestSuite suite = new TestSuite();
         suite.addTestSuite(HeaderParserTests.class);
+        suite.addTestSuite(Servlet61HeaderTest.class);
         suite.addTest(Ear50ImportHeaderTest.suite());
         suite.addTest(JEEFromArchiveHeaderTest.suite());
         suite.addTest(NormalizeSchemaLocationTest.suite());

@@ -58,6 +58,15 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  * @generated
  */
 public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigType {
+    protected org.eclipse.emf.common.util.EList<org.eclipse.jst.javaee.web.AttributeValueType> attributes;
+
+    @Override
+    public java.util.List<org.eclipse.jst.javaee.web.AttributeValueType> getAttributes() {
+        if (attributes == null) attributes = new org.eclipse.emf.ecore.util.EObjectContainmentEList<>(
+                org.eclipse.jst.javaee.web.AttributeValueType.class, this, WebPackage.COOKIE_CONFIG_TYPE__ATTRIBUTES);
+        return attributes;
+    }
+
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -549,6 +558,8 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+            case WebPackage.COOKIE_CONFIG_TYPE__ATTRIBUTES:
+                return ((org.eclipse.emf.ecore.util.InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
 			case WebPackage.COOKIE_CONFIG_TYPE__NAME:
 				return basicSetName(null, msgs);
 			case WebPackage.COOKIE_CONFIG_TYPE__DOMAIN:
@@ -569,6 +580,8 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+            case WebPackage.COOKIE_CONFIG_TYPE__ATTRIBUTES:
+                return getAttributes();
 			case WebPackage.COOKIE_CONFIG_TYPE__NAME:
 				return getName();
 			case WebPackage.COOKIE_CONFIG_TYPE__DOMAIN:
@@ -597,6 +610,10 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+            case WebPackage.COOKIE_CONFIG_TYPE__ATTRIBUTES:
+                getAttributes().clear();
+                getAttributes().addAll((java.util.Collection<? extends org.eclipse.jst.javaee.web.AttributeValueType>)newValue);
+                return;
 			case WebPackage.COOKIE_CONFIG_TYPE__NAME:
 				setName((CookieNameType)newValue);
 				return;
@@ -633,6 +650,8 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+            case WebPackage.COOKIE_CONFIG_TYPE__ATTRIBUTES:
+                getAttributes().clear(); return;
 			case WebPackage.COOKIE_CONFIG_TYPE__NAME:
 				setName((CookieNameType)null);
 				return;
@@ -669,6 +688,8 @@ public class CookieConfigTypeImpl extends EObjectImpl implements CookieConfigTyp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+            case WebPackage.COOKIE_CONFIG_TYPE__ATTRIBUTES:
+                return attributes != null && !attributes.isEmpty();
 			case WebPackage.COOKIE_CONFIG_TYPE__NAME:
 				return name != null;
 			case WebPackage.COOKIE_CONFIG_TYPE__DOMAIN:

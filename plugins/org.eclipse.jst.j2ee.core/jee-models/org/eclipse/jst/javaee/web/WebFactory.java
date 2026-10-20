@@ -23,6 +23,7 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  * @generated
  */
 public interface WebFactory extends EFactory {
+    AttributeValueType createAttributeValueType();
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->

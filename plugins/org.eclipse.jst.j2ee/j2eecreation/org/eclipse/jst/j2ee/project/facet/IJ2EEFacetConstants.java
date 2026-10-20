@@ -63,6 +63,7 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion DYNAMIC_WEB_40 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "4.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_50 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "5.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_60 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "6.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion DYNAMIC_WEB_61 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "6.1"); //$NON-NLS-1$
 	
 	public static final String DYNAMIC_WEB_XDOCLET = "jst.web.xdoclet"; //$NON-NLS-1$
 	
@@ -88,6 +89,7 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion WEBFRAGMENT_40 = J2EEFacetConstantsProvider.getProjectFacetVersion(WEBFRAGMENT_FACET, "4.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEBFRAGMENT_50 = J2EEFacetConstantsProvider.getProjectFacetVersion(WEBFRAGMENT_FACET, "5.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEBFRAGMENT_60 = J2EEFacetConstantsProvider.getProjectFacetVersion(WEBFRAGMENT_FACET, "6.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion WEBFRAGMENT_61 = J2EEFacetConstantsProvider.getProjectFacetVersion(WEBFRAGMENT_FACET, "6.1"); //$NON-NLS-1$
 	
 
 	/**

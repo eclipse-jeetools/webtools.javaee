@@ -58,6 +58,8 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * @generated
  */
 public interface CookieConfigType extends JavaEEObject {
+    /** Servlet 6.1 session-cookie attribute/value declarations, in descriptor order. */
+    java.util.List<AttributeValueType> getAttributes();
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
