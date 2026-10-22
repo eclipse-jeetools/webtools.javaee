@@ -548,6 +548,12 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 
 		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+        // Descriptor-free web archives use the highest supported web facet.
+        // Leave the existing defaults for other module types unchanged.
+        if (archiveType == JavaEEQuickPeek.WEB_TYPE
+                && (runtime == null || runtime.supports(IJ2EEFacetConstants.DYNAMIC_WEB_61))) {
+            return new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, J2EEVersionConstants.WEB_6_1_ID);
+        }
 		if(archiveType == JavaEEQuickPeek.CONNECTOR_TYPE || runtime == null || runtime.supports(highestProjectFacetVersion[HIGHEST_EE_VERSION]) ){
 			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[HIGHEST_EE_VERSION]);
 		} else if(runtime.supports(highestProjectFacetVersion[EE10]) ){

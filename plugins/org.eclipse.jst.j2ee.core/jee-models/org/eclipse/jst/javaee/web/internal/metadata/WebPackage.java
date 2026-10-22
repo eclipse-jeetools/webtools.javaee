@@ -550,7 +550,8 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COOKIE_CONFIG_TYPE_FEATURE_COUNT = 8;
+	int COOKIE_CONFIG_TYPE__ATTRIBUTES = 8;
+	int COOKIE_CONFIG_TYPE_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieDomainTypeImpl <em>Cookie Domain Type</em>}' class.
@@ -2793,6 +2794,19 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	int WEB_APP_VERSION_TYPE_OBJECT = 49;
+    int ATTRIBUTE_VALUE_TYPE = 50;
+    int ATTRIBUTE_VALUE_TYPE__DESCRIPTIONS = 0;
+    int ATTRIBUTE_VALUE_TYPE__ATTRIBUTE_NAME = 1;
+    int ATTRIBUTE_VALUE_TYPE__ATTRIBUTE_VALUE = 2;
+    int ATTRIBUTE_VALUE_TYPE__ID = 3;
+    int ATTRIBUTE_VALUE_TYPE_FEATURE_COUNT = 4;
+
+    EClass getAttributeValueType();
+    EReference getAttributeValueType_Descriptions();
+    EAttribute getAttributeValueType_AttributeName();
+    EAttribute getAttributeValueType_AttributeValue();
+    EAttribute getAttributeValueType_Id();
+    EReference getCookieConfigType_Attributes();
 
 
 	/**
@@ -5385,6 +5399,12 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	interface Literals  {
+        EClass ATTRIBUTE_VALUE_TYPE = eINSTANCE.getAttributeValueType();
+        EReference ATTRIBUTE_VALUE_TYPE__DESCRIPTIONS = eINSTANCE.getAttributeValueType_Descriptions();
+        EAttribute ATTRIBUTE_VALUE_TYPE__ATTRIBUTE_NAME = eINSTANCE.getAttributeValueType_AttributeName();
+        EAttribute ATTRIBUTE_VALUE_TYPE__ATTRIBUTE_VALUE = eINSTANCE.getAttributeValueType_AttributeValue();
+        EAttribute ATTRIBUTE_VALUE_TYPE__ID = eINSTANCE.getAttributeValueType_Id();
+        EReference COOKIE_CONFIG_TYPE__ATTRIBUTES = eINSTANCE.getCookieConfigType_Attributes();
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.AbsoluteOrderingTypeImpl <em>Absolute Ordering Type</em>}' class.
 		 * <!-- begin-user-doc -->

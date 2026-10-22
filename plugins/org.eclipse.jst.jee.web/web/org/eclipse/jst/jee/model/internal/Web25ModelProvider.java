@@ -88,6 +88,12 @@ public class Web25ModelProvider extends JEE5ModelProvider {
 			// note that later EMF generations remove the _LITERAL from the enum
 			war.setVersion(WebAppVersionType._50);
 		}
+        else if (J2EEVersionConstants.VERSION_6_1_TEXT.equals(version)) {
+            dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE10_NS_URL); //$NON-NLS-1$
+            dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE10_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_6_1);
+            war.setVersion(WebAppVersionType._61);
+        }
+
 		else { //if (J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE10_NS_URL);  //$NON-NLS-1$
 			dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE10_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_6_0);

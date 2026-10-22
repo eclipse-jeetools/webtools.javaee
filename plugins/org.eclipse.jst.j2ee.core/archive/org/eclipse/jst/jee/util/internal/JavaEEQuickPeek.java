@@ -36,6 +36,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 	private static final String SIMPLE_WEBAPP_SCHEMA_4_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_4_0);
 	private static final String SIMPLE_WEBAPP_SCHEMA_5_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_5_0);
 	private static final String SIMPLE_WEBAPP_SCHEMA_6_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_6_0);
+	private static final String SIMPLE_WEBAPP_SCHEMA_6_1 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_6_1);
 	private static final String SIMPLE_APPLICATION_SCHEMA_5 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_5);
 	private static final String SIMPLE_APPLICATION_SCHEMA_6 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_6);
 	private static final String SIMPLE_APPLICATION_SCHEMA_7 = lastSegment(J2EEConstants.APPLICATION_SCHEMA_7);
@@ -52,6 +53,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 	private static final String SIMPLE_WEBFRAGMENT_SCHEMA_4_0 = lastSegment(J2EEConstants.WEBFRAGMENT_SCHEMA_4_0);
 	private static final String SIMPLE_WEBFRAGMENT_SCHEMA_5_0 = lastSegment(J2EEConstants.WEBFRAGMENT_SCHEMA_5_0);
 	private static final String SIMPLE_WEBFRAGMENT_SCHEMA_6_0 = lastSegment(J2EEConstants.WEBFRAGMENT_SCHEMA_6_0);
+	private static final String SIMPLE_WEBFRAGMENT_SCHEMA_6_1 = lastSegment(J2EEConstants.WEBFRAGMENT_SCHEMA_6_1);
 
 
 	private XMLRootHandler handler = null;
@@ -183,6 +185,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			if (publicID == null || systemID == null) {
 				if (handler.getRootAttributes() != null) {
 					schemaName = normalizeSchemaLocation(handler.getRootAttributes().getValue("xsi:schemaLocation")); //$NON-NLS-1$
+                    namespace = handler.getRootNamespace();
 				}
 			}
 			switch (getType()) {
@@ -286,7 +289,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEB_2_2_ID;
 					}
 				} else if (schemaName != null) {
-					if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_6_0) != -1) {
+					if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_6_1) != -1) {
+                        version = J2EEVersionConstants.WEB_6_1_ID;
+                    }
+                    else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_6_0) != -1) {
 						version = J2EEVersionConstants.WEB_6_0_ID;
 					}
 					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_5_0) != -1) {
@@ -330,6 +336,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
                     String versionAttribute = handler.getRootAttributes().getValue("version"); //$NON-NLS-1$
                     if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(versionAttribute)) {
                         version = J2EEVersionConstants.WEB_5_0_ID;
+                    } else if (J2EEVersionConstants.VERSION_6_1_TEXT.equals(versionAttribute)) {
+                        version = J2EEVersionConstants.WEB_6_1_ID;
                     } else if (J2EEVersionConstants.VERSION_6_0_TEXT.equals(versionAttribute)) {
                         version = J2EEVersionConstants.WEB_6_0_ID;
                     }
@@ -365,7 +373,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				break;
 			case WEBFRAGMENT_TYPE:
 				if (schemaName != null) {
-				    if (schemaName.indexOf(SIMPLE_WEBFRAGMENT_SCHEMA_6_0) != -1) {
+				    if (schemaName.indexOf(SIMPLE_WEBFRAGMENT_SCHEMA_6_1) != -1) {
+                        version = J2EEVersionConstants.WEBFRAGMENT_6_1_ID;
+                    }
+                    else if (schemaName.indexOf(SIMPLE_WEBFRAGMENT_SCHEMA_6_0) != -1) {
                         version = J2EEVersionConstants.WEBFRAGMENT_6_0_ID;
                     }
                     else if (schemaName.indexOf(SIMPLE_WEBFRAGMENT_SCHEMA_5_0) != -1) {
@@ -381,6 +392,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEBFRAGMENT_3_0_ID;
 					}
 				}
+                if (version == UNSET && J2EEConstants.JAKARTAEE10_NS_URL.equals(namespace)
+                        && J2EEVersionConstants.VERSION_6_1_TEXT.equals(handler.getRootAttributes().getValue("version"))) { //$NON-NLS-1$
+                    version = J2EEVersionConstants.WEBFRAGMENT_6_1_ID;
+                }
 				break;
 			default:
 				break;
@@ -484,7 +499,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				case J2EEVersionConstants.WEB_5_0_ID:
 					javaEEVersion = J2EEVersionConstants.JEE_9_0_ID;
 					break;
-				case J2EEVersionConstants.WEB_6_0_ID:
+				case J2EEVersionConstants.WEB_6_1_ID:
+                    javaEEVersion = J2EEVersionConstants.JEE_11_0_ID;
+                    break;
+                case J2EEVersionConstants.WEB_6_0_ID:
 					javaEEVersion = J2EEVersionConstants.JEE_10_0_ID;
 					break;
 				}
@@ -526,7 +544,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			case J2EEVersionConstants.WEBFRAGMENT_5_0_ID:
                 javaEEVersion = J2EEVersionConstants.JEE_9_0_ID;
                 break;
-            case J2EEVersionConstants.WEBFRAGMENT_6_0_ID:
+            case J2EEVersionConstants.WEBFRAGMENT_6_1_ID:
+                    javaEEVersion = J2EEVersionConstants.JEE_11_0_ID;
+                    break;
+                case J2EEVersionConstants.WEBFRAGMENT_6_0_ID:
                 javaEEVersion = J2EEVersionConstants.JEE_10_0_ID;
                 break;
 			}

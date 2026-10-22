@@ -54,7 +54,10 @@ public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 	    }
 	    else {
 		    facets.add( primaryFacetVersion );
-		    if( primaryFacetVersion == WebFacetUtils.WEB_60 )
+            if ("6.1".equals(primaryFacetVersion.getVersionString())) { //$NON-NLS-1$
+                facets.add(JavaFacet.VERSION_17);
+            }
+            else if( primaryFacetVersion == WebFacetUtils.WEB_60 )
 		    {
 		        facets.add( JavaFacet.VERSION_11 );
 		    }

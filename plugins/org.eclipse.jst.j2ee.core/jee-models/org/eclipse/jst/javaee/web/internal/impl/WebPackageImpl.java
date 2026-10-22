@@ -98,6 +98,13 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	private EClass cookieConfigTypeEClass = null;
+    private EClass attributeValueTypeEClass = null;
+    @Override public EClass getAttributeValueType() { return attributeValueTypeEClass; }
+    @Override public EReference getAttributeValueType_Descriptions() { return (EReference)attributeValueTypeEClass.getEStructuralFeatures().get(0); }
+    @Override public EAttribute getAttributeValueType_AttributeName() { return (EAttribute)attributeValueTypeEClass.getEStructuralFeatures().get(1); }
+    @Override public EAttribute getAttributeValueType_AttributeValue() { return (EAttribute)attributeValueTypeEClass.getEStructuralFeatures().get(2); }
+    @Override public EAttribute getAttributeValueType_Id() { return (EAttribute)attributeValueTypeEClass.getEStructuralFeatures().get(3); }
+    @Override public EReference getCookieConfigType_Attributes() { return (EReference)cookieConfigTypeEClass.getEStructuralFeatures().get(8); }
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2934,6 +2941,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		createEAttribute(cookieConfigTypeEClass, COOKIE_CONFIG_TYPE__SECURE);
 		createEAttribute(cookieConfigTypeEClass, COOKIE_CONFIG_TYPE__MAX_AGE);
 		createEAttribute(cookieConfigTypeEClass, COOKIE_CONFIG_TYPE__ID);
+        createEReference(cookieConfigTypeEClass, COOKIE_CONFIG_TYPE__ATTRIBUTES);
 
 		cookieDomainTypeEClass = createEClass(COOKIE_DOMAIN_TYPE);
 		createEAttribute(cookieDomainTypeEClass, COOKIE_DOMAIN_TYPE__VALUE);
@@ -3182,6 +3190,11 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		transportGuaranteeTypeObjectEDataType = createEDataType(TRANSPORT_GUARANTEE_TYPE_OBJECT);
 		warPathTypeEDataType = createEDataType(WAR_PATH_TYPE);
 		webAppVersionTypeObjectEDataType = createEDataType(WEB_APP_VERSION_TYPE_OBJECT);
+        attributeValueTypeEClass = createEClass(ATTRIBUTE_VALUE_TYPE);
+        createEReference(attributeValueTypeEClass, ATTRIBUTE_VALUE_TYPE__DESCRIPTIONS);
+        createEAttribute(attributeValueTypeEClass, ATTRIBUTE_VALUE_TYPE__ATTRIBUTE_NAME);
+        createEAttribute(attributeValueTypeEClass, ATTRIBUTE_VALUE_TYPE__ATTRIBUTE_VALUE);
+        createEAttribute(attributeValueTypeEClass, ATTRIBUTE_VALUE_TYPE__ID);
 	}
 
 	/**
@@ -3240,7 +3253,13 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		initEClass(cookieCommentTypeEClass, CookieCommentType.class, "CookieCommentType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getCookieCommentType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookieCommentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(cookieConfigTypeEClass, CookieConfigType.class, "CookieConfigType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEClass(attributeValueTypeEClass, org.eclipse.jst.javaee.web.AttributeValueType.class, "AttributeValueType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getAttributeValueType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, org.eclipse.jst.javaee.web.AttributeValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAttributeValueType_AttributeName(), theXMLTypePackage.getToken(), "attributeName", null, 1, 1, org.eclipse.jst.javaee.web.AttributeValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAttributeValueType_AttributeValue(), theXMLTypePackage.getString(), "attributeValue", null, 1, 1, org.eclipse.jst.javaee.web.AttributeValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAttributeValueType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, org.eclipse.jst.javaee.web.AttributeValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCookieConfigType_Attributes(), getAttributeValueType(), null, "attributes", null, 0, -1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEClass(cookieConfigTypeEClass, CookieConfigType.class, "CookieConfigType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getCookieConfigType_Name(), this.getCookieNameType(), null, "name", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getCookieConfigType_Domain(), this.getCookieDomainType(), null, "domain", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getCookieConfigType_Path(), this.getCookiePathType(), null, "path", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3499,6 +3518,9 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._30_LITERAL);
 		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._31);
 		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._40);
+		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._50);
+		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._60);
+		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._61);
 		
 		// Initialize data types
 		initEDataType(authMethodTypeEDataType, String.class, "AuthMethodType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -3537,7 +3559,14 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	protected void createExtendedMetaDataAnnotations() {
-		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$				
+		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$
+        addAnnotation(attributeValueTypeEClass, source, new String[] {"name", "attribute-valueType", "kind", "elementOnly"});
+        addAnnotation(getAttributeValueType_Descriptions(), source, new String[] {"kind", "element", "name", "description", "namespace", "##targetNamespace"});
+        addAnnotation(getAttributeValueType_AttributeName(), source, new String[] {"kind", "element", "name", "attribute-name", "namespace", "##targetNamespace"});
+        addAnnotation(getAttributeValueType_AttributeValue(), source, new String[] {"kind", "element", "name", "attribute-value", "namespace", "##targetNamespace"});
+        addAnnotation(getAttributeValueType_Id(), source, new String[] {"kind", "attribute", "name", "id"});
+        addAnnotation(getCookieConfigType_Attributes(), source, new String[] {"kind", "element", "name", "attribute", "namespace", "##targetNamespace"});
+
 		addAnnotation
 		  (absoluteOrderingTypeEClass, 
 		   source, 

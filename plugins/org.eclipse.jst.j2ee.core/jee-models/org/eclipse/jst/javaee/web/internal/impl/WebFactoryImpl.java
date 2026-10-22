@@ -31,6 +31,7 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  * @generated
  */
 public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
+    @Override public AttributeValueType createAttributeValueType() { return new AttributeValueTypeImpl(); }
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
@@ -68,6 +69,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+            case WebPackage.ATTRIBUTE_VALUE_TYPE: return (EObject)createAttributeValueType();
 			case WebPackage.ABSOLUTE_ORDERING_TYPE: return (EObject)createAbsoluteOrderingType();
 			case WebPackage.AUTH_CONSTRAINT: return (EObject)createAuthConstraint();
 			case WebPackage.COOKIE_COMMENT_TYPE: return (EObject)createCookieCommentType();

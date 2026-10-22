@@ -62,6 +62,10 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 	 */
 	private String elementFound = null;
 
+    private String rootNamespace = null;
+
+    public String getRootNamespace() { return rootNamespace; }
+
 	/**
 	 * These are the attributes of the top-level element found in the XML file.
 	 * This member variable is <code>null</code> unless the file has been
@@ -232,6 +236,12 @@ public final class XMLRootHandler extends DefaultHandler implements LexicalHandl
 		if(elementFound.indexOf(':') != -1){
 			elementFound = elementFound.substring(elementFound.indexOf(':')+1);
 		}
+        rootNamespace = uri;
+        if (rootNamespace == null || rootNamespace.length() == 0) {
+            int colon = qualifiedName.indexOf(':');
+            String declaration = colon < 0 ? "xmlns" : "xmlns:" + qualifiedName.substring(0, colon); //$NON-NLS-1$ //$NON-NLS-2$
+            rootNamespace = attributes.getValue(declaration);
+        }
 		attributesFound = attributes;
 		throw new StopParsingException();
 	}
